@@ -153,7 +153,7 @@ const ConfirmModel = (props) => {
       try {
         setLoading(true);
         const result = await axios.post(
-          `/mentor/create/appointment/create-order`,
+          `https://deploy-practiwiz.azurewebsites.net/api/mentor/create/appointment/create-order`,
           {
             mentorId: props.sendMentor.mentor_dtls_id,
             date: new Date(props.date).toLocaleDateString(),
@@ -170,7 +170,9 @@ const ConfirmModel = (props) => {
         const { amount, id: order_id, currency } = result.data;
         const {
           data: { key: razorpayKey },
-        } = await axios.get("/get-razorpay-key");
+        } = await axios.get(
+          "https://deploy-practiwiz.azurewebsites.net/api/get-razorpay-key"
+        );
         const options = {
           key: razorpayKey,
           amount: amount.toString(),
@@ -181,7 +183,7 @@ const ConfirmModel = (props) => {
           order_id: order_id,
           handler: async function (response) {
             const res = await axios.post(
-              "/mentor/create/appointment/pay-order",
+              "https://deploy-practiwiz.azurewebsites.net/api/mentor/create/appointment/pay-order",
               {
                 amount: amount,
                 razorpayPaymentId: response.razorpay_payment_id,

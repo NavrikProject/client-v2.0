@@ -169,7 +169,7 @@ const CancelWarningModal = (props) => {
   const cancelAppointment = async (data) => {
     setLoading(true);
     const res = await axios.put(
-      `/mentor/bookings/update/cancel/appointment/${props.sendMentor.bookingId}`,
+      `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/update/cancel/appointment/${props.sendMentor.bookingId}`,
       { reasonExp: data.reasonExp, reason: data.reason },
       {
         headers: { authorization: "Bearer " + user?.accessToken },

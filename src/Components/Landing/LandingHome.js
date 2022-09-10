@@ -15,7 +15,18 @@ import {
   RpaCoeTitle,
 } from "./LandingHomeElements";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
 const LandingHome = () => {
+  useEffect(() => {
+    const getRequest = async () => {
+      const res = await axios.get(
+        "https://deploy-practiwiz.azurewebsites.net/"
+      );
+      console.log(res.data);
+    };
+    getRequest();
+  }, []);
   return (
     <>
       <LandingSection>

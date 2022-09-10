@@ -76,9 +76,12 @@ const TraineeProfile = () => {
 
   useEffect(() => {
     const onImageGetHandler = async () => {
-      const res = await axios.get(`/trainee/details/get/${user?.id}`, {
-        headers: { authorization: "Bearer " + token },
-      });
+      const res = await axios.get(
+        `https://deploy-practiwiz.azurewebsites.net/api/trainee/details/get/${user?.id}`,
+        {
+          headers: { authorization: "Bearer " + token },
+        }
+      );
       setTraineeDetails(res.data);
     };
     onImageGetHandler();

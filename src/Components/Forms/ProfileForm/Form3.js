@@ -38,7 +38,7 @@ const Form3 = (props) => {
     try {
       setLoading(true);
       const res = await axios.put(
-        `/auth/change-password/${user?.id}`,
+        `https://deploy-practiwiz.azurewebsites.net/api/auth/change-password/${user?.id}`,
         {
           password: data.password,
           email: user.email,

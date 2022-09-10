@@ -64,7 +64,7 @@ const MentorIndividual = ({ socket }) => {
     try {
       const getIndMentorDetails = async () => {
         const res = await axios.get(
-          `/mentor/get/individual/mentors?name=${path}`
+          `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/individual/mentors?name=${path}`
         );
         setIndMentor(res.data);
       };
@@ -78,7 +78,7 @@ const MentorIndividual = ({ socket }) => {
     try {
       const getIndMentorFeedback = async () => {
         const res = await axios.get(
-          `/feedback/get/mentor-feedback/mentors?name=${path}`
+          `https://deploy-practiwiz.azurewebsites.net/api/feedback/get/mentor-feedback/mentors?name=${path}`
         );
         setMentorFeedback(res.data.data);
       };
@@ -90,7 +90,9 @@ const MentorIndividual = ({ socket }) => {
   useEffect(() => {
     try {
       const getAllMentorDetailsAvailability = async () => {
-        const res = await axios.get(`/mentor/get/booking`);
+        const res = await axios.get(
+          `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/booking`
+        );
         setMentorBookingDate(res.data);
       };
       getAllMentorDetailsAvailability();

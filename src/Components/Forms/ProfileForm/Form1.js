@@ -40,7 +40,7 @@ const Form1 = (props) => {
     try {
       setLoading(true);
       const res = await axios.put(
-        `/${user?.type}/profile/update/${user?.id}`,
+        `https://deploy-practiwiz.azurewebsites.net/api/${user?.type}/profile/update/${user?.id}`,
         {
           mobile: phoneNumber,
           dob: data.date,

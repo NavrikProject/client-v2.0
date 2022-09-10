@@ -186,7 +186,10 @@ const MentorRegisterStepForm = () => {
     console.log(data);
     try {
       setLoading(true);
-      const res = await axios.post(`/mentor/register/apply-now`, data);
+      const res = await axios.post(
+        `https://deploy-practiwiz.azurewebsites.net/api/mentor/register/apply-now`,
+        data
+      );
       if (res.data.success) {
         setSuccess(res.data.success);
         toast.success(res.data.success, { position: "top-center" });

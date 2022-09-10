@@ -18,10 +18,13 @@ const TraineeBookingTable = () => {
   useEffect(() => {
     const getAllTheMentors = async () => {
       setLoading(true);
-      const res = await axios.post(`/mentor/profile/get/bookings`, {
-        headers: { authorization: "Bearer " + token },
-        userEmail: user?.email,
-      });
+      const res = await axios.post(
+        `https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/get/bookings`,
+        {
+          headers: { authorization: "Bearer " + token },
+          userEmail: user?.email,
+        }
+      );
       if (res.data) {
         setLoading(false);
         setAllMentors(res.data);

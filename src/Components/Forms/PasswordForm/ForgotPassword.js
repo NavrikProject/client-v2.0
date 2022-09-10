@@ -26,7 +26,10 @@ const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const forgotpasswordHandler = async (data) => {
     setLoading(true);
-    const res = await axios.post("/auth/forgot-password", data);
+    const res = await axios.post(
+      "https://deploy-practiwiz.azurewebsites.net/api/auth/forgot-password",
+      data
+    );
     if (res.data.success) {
       setSuccess(res.data.success);
       setLoading(false);

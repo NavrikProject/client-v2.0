@@ -160,11 +160,15 @@ const EditCourse = () => {
     data.append("spayeeLink", spayeeLink);
     data.append("description", description);
     try {
-      const res = await axios.post(`/courses/new/add/${user?.id}`, data, {
-        headers: {
-          authorization: "Bearer " + token,
-        },
-      });
+      const res = await axios.post(
+        `https://deploy-practiwiz.azurewebsites.net/api/courses/new/add/${user?.id}`,
+        data,
+        {
+          headers: {
+            authorization: "Bearer " + token,
+          },
+        }
+      );
       if (res.data.success) {
         setSuccess(res.data.success);
       }

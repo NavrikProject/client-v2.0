@@ -28,8 +28,8 @@ const MentorCourseCard = ({ searchItemWord, categoryItem }) => {
       const getAllMentorDetails = async () => {
         const res = await axios.get(
           !searchItemWord
-            ? "/mentor/get/all"
-            : `/mentor/get/mentors?name=${searchItemWord}`
+            ? "https://deploy-practiwiz.azurewebsites.net/api/mentor/get/all"
+            : `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/mentors?name=${searchItemWord}`
         );
         setMentorDetails(res.data.mentors);
       };

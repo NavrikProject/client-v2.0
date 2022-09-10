@@ -48,7 +48,10 @@ const ContributerLogin = () => {
   const contributerLoginHandler = async (data) => {
     try {
       setLoading(true);
-      const res = await axios.post(`/contributers/login`, data);
+      const res = await axios.post(
+        `https://deploy-practiwiz.azurewebsites.net/api/contributers/login`,
+        data
+      );
       if (res.data.success) {
         dispatch(loginSuccess(res.data.success));
         navigate(`/`);

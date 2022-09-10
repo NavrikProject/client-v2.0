@@ -45,7 +45,7 @@ const MentorForm = () => {
   const [success, setSuccess] = useState("");
   const [showIcon, setShowIcon] = useState(false);
   const [showCalender, setShowCalender] = useState(false);
-  
+
   let pwdMinCharLen = password.length >= 8;
   let pwdHasLowChar = /(.*?[a-z].*)/.test(password);
   let pwdHasCapChar = /(?=.*?[A-Z].*)/.test(password);
@@ -88,9 +88,13 @@ const MentorForm = () => {
     data.append("availability", availability);
 
     try {
-      const res = await axios.post(`/mentor/register`, data, {
-        headers: { authorization: "Bearer " + token },
-      });
+      const res = await axios.post(
+        `https://deploy-practiwiz.azurewebsites.net/api/mentor/register`,
+        data,
+        {
+          headers: { authorization: "Bearer " + token },
+        }
+      );
       if (res.data.success) {
         setSuccess(res.data.success);
         toast.success(res.data.success, { position: "top-center" });
