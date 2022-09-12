@@ -91,7 +91,11 @@ const RegisterForm = () => {
     let data = new FormData();
     data.append("image", image);
     try {
-      const res = await axios.post("/feedback/upload", data);
+      const res = await axios.post(
+        "https://deploy-practiwiz.azurewebsites.net/api/feedback/upload",
+        data
+      );
+      console.log(res.data);
     } catch (error) {}
   };
   setTimeout(() => {
