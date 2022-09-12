@@ -48,6 +48,7 @@ const RegisterForm = () => {
   const [showIcon, setShowIcon] = useState(false);
   const [showIcons, setShowIcons] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState("");
   const password = watch("password");
 
   const registerSubmitHandler = async (data) => {
@@ -84,6 +85,14 @@ const RegisterForm = () => {
     } catch (error) {
       return;
     }
+  };
+  const UploadFile = async (event) => {
+    event.preventDefault();
+    let data = new FormData();
+    data.append("image", image);
+    try {
+      const res = await axios.post("/feedback/upload", data);
+    } catch (error) {}
   };
   setTimeout(() => {
     setError("");
@@ -293,7 +302,15 @@ const RegisterForm = () => {
             </RegisterFormLeft>
             <RegisterFormRight>
               <RegistrationImageDiv>
-                <RegistrationImage src={regImg} />
+                {/* <RegistrationImage src={regImg} /> */}
+                <input
+                  type="file"
+                  name="image"
+                  onChange={(event) => setImage(event.target.files[0])}
+                />
+                <button type="submit" onClick={UploadFile}>
+                  Upload
+                </button>
               </RegistrationImageDiv>
             </RegisterFormRight>
           </RegisterFormWrapper>
