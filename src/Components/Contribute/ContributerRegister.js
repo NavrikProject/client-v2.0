@@ -47,10 +47,7 @@ const ContributerRegister = () => {
   const contributerRegistrationHandler = async (data) => {
     try {
       setLoading(true);
-      const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/contributers/register`,
-        data
-      );
+      const res = await axios.post(`/contributers/register`, data);
       if (res.data.success) {
         setSuccess(res.data.success);
         toast.success(res.data.success, { position: "top-center" });

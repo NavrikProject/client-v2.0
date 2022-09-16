@@ -11,12 +11,9 @@ const AllMentors = () => {
   useEffect(() => {
     const getAllTheMentors = async () => {
       setLoading(true);
-      const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/mentor/get`,
-        {
-          headers: { authorization: "Bearer " + token },
-        }
-      );
+      const res = await axios.get(`/mentor/get`, {
+        headers: { authorization: "Bearer " + token },
+      });
       if (res.data.mentors) {
         setLoading(false);
         setAllMentors(res.data.mentors);
@@ -30,7 +27,7 @@ const AllMentors = () => {
   const mentorApproveHandler = async (mentor) => {
     setLoading(true);
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/mentor/approve/${mentor.mentor_dtls_id}`,
+      `/mentor/approve/${mentor.mentor_dtls_id}`,
       { id: mentor.mentor_dtls_id },
       {
         headers: { authorization: "Bearer " + token },
@@ -46,7 +43,7 @@ const AllMentors = () => {
   const mentorDisApproveHandler = async (mentor) => {
     setLoading(true);
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/mentor/disapprove/${mentor.mentor_dtls_id}`,
+      `/mentor/disapprove/${mentor.mentor_dtls_id}`,
       { id: mentor.mentor_dtls_id },
       {
         headers: { authorization: "Bearer " + token },

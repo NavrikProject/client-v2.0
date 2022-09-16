@@ -83,12 +83,9 @@ const SuggestContent = () => {
   useEffect(() => {
     const getSuggestContentCourses = async () => {
       setLoading(true);
-      const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/contributers/suggest-content`,
-        {
-          email: user?.email,
-        }
-      );
+      const res = await axios.post(`/contributers/suggest-content`, {
+        email: user?.email,
+      });
       if (res.data.suggest) {
         setSuggestContentCourseList(res.data.suggest);
         setLoading(false);

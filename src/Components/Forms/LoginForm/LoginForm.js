@@ -69,7 +69,7 @@ const LoginForm = () => {
       dispatch(loginStart());
       setLoading(true);
       const res = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/auth/login",
+        "/auth/login",
         {
           data: data,
           type: type,

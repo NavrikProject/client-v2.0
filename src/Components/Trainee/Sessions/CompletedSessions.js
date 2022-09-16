@@ -65,13 +65,10 @@ const CompletedSessions = () => {
   useEffect(() => {
     const getAllCompletedSessions = async () => {
       setLoading(true);
-      const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/get/bookings/completed`,
-        {
-          headers: { authorization: "Bearer " + token },
-          userEmail: user?.email,
-        }
-      );
+      const res = await axios.post(`/mentor/profile/get/bookings/completed`, {
+        headers: { authorization: "Bearer " + token },
+        userEmail: user?.email,
+      });
       if (res.data.details) {
         setLoading(false);
         setCompletedSessions(res.data.details);

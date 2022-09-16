@@ -45,13 +45,10 @@ const CompletedAllSessionDetails = (props) => {
   const [feedback, setFeedback] = useState([]);
   const getFeedbackHandler = async (bookingId) => {
     try {
-      const res = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/feedback/get/mentor-feedback",
-        {
-          userEmail: user?.email,
-          bookingId: bookingId,
-        }
-      );
+      const res = await axios.post("/feedback/get/mentor-feedback", {
+        userEmail: user?.email,
+        bookingId: bookingId,
+      });
       if (res.data.data) {
         setFeedback(res.data.data);
       } else {

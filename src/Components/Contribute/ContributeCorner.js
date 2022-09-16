@@ -160,16 +160,13 @@ const ContributeCorner = () => {
   const contactUsHandler = async (data) => {
     setLoading(true);
     try {
-      const result = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/feedback/contact-us",
-        {
-          fullname: data.fullname,
-          email: data.email,
-          query: data.query,
-          text: data.text,
-          value: phoneNumber,
-        }
-      );
+      const result = await axios.post("/feedback/contact-us", {
+        fullname: data.fullname,
+        email: data.email,
+        query: data.query,
+        text: data.text,
+        value: phoneNumber,
+      });
       if (result.data.success) {
         return (
           toast.success(result.data.success, {

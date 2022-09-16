@@ -53,12 +53,10 @@ const RegisterForm = () => {
 
   const registerSubmitHandler = async (data) => {
     // // http:localhost:5000/api/auth/register
+    console.log(data);
     try {
       setLoading(true);
-      const res = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/auth/email-register",
-        data
-      );
+      const res = await axios.post("/auth/email-register", data);
       if (res.data.required) {
         setError(res.data.required);
         toast.error(res.data.required, { position: "top-center" });
@@ -86,21 +84,18 @@ const RegisterForm = () => {
       return;
     }
   };
+  setTimeout(() => {
+    setError("");
+  }, 7000);
+
   const UploadFile = async (event) => {
     event.preventDefault();
     let data = new FormData();
     data.append("image", image);
     try {
-      const res = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/feedback/upload",
-        data
-      );
-      console.log(res.data);
+      const res = await axios.post("/feedback/upload", data);
     } catch (error) {}
   };
-  setTimeout(() => {
-    setError("");
-  }, 7000);
   return (
     <React.Fragment>
       <RegisterFormSect>
@@ -224,7 +219,7 @@ const RegisterForm = () => {
                           type="radio"
                           id="trainee"
                           value="trainee"
-                          {...register("radio", {
+                          {...register("type", {
                             required: "User type  is Required",
                           })}
                         />
@@ -235,7 +230,7 @@ const RegisterForm = () => {
                           type="radio"
                           id="trainer"
                           value="trainer"
-                          {...register("radio", {
+                          {...register("type", {
                             required: "User type  is Required",
                           })}
                         />
@@ -246,7 +241,7 @@ const RegisterForm = () => {
                           type="radio"
                           id="job-seeker"
                           value="job-seeker"
-                          {...register("radio", {
+                          {...register("type", {
                             required: "User type  is Required",
                           })}
                         />
@@ -259,7 +254,7 @@ const RegisterForm = () => {
                           type="radio"
                           id="recruiter"
                           value="recruiter"
-                          {...register("radio", {
+                          {...register("type", {
                             required: "User type  is Required",
                           })}
                         />
@@ -268,8 +263,8 @@ const RegisterForm = () => {
                         </InputRadLabel>
                       </RadioWrapper>
                     </RadioWrapper>
-                    {errors.radio && (
-                      <ErrorMessage>{errors.radio.message}</ErrorMessage>
+                    {errors.type && (
+                      <ErrorMessage>{errors.type.message}</ErrorMessage>
                     )}
                   </Field>
                   <FormLabelDiv>

@@ -30,6 +30,8 @@ import ContributerRegisterPage from "./Pages/ContributerRegisterPage";
 import ApplyContributionPage from "./Pages/ApplyContributionpage";
 import MyContributionPage from "./Pages/MyContributionPage";
 import CookieNotice from "./Components/utils/CookieNotice";
+import MentorAddRegdFormPage from "./Pages/MentorAddRegdFormPage";
+import MentorSuccessRegdPage from "./Pages/MentorSuccessRegdPage";
 
 const MentorProfilePage = React.lazy(() => import("./Pages/MentorProfilePage"));
 const ActivateAccountPage = React.lazy(() =>
@@ -45,6 +47,7 @@ const MentorPage = React.lazy(() => import("./Pages/MentorFormPage"));
 const RpaBaPage = React.lazy(() => import("./Pages/RpaBaCoursePage"));
 const App = () => {
   const user = useSelector((state) => state.user?.currentUser);
+
   return (
     <>
       <ToastContainer />
@@ -91,8 +94,25 @@ const App = () => {
             <Route path="/training/rpa-coe" exact element={<RpaCoePage />} />
             <Route path="/mentors-club" exact element={<MentorsPage />} />
             <Route path="/forgot-password" element={<ForgotPwdPage />} />
+            <Route
+              path="/mentor/registration-success"
+              element={<MentorSuccessRegdPage />}
+            />
+
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/mentor/join" element={<MentorPage />} />
+            {/* {!user ? (
+              <Route path="*" element={<NotFound />} />
+            ) : (
+              <Route
+                path="/mentor/add-details"
+                element={<MentorAddRegdFormPage />}
+              />
+            )} */}
+            <Route
+              path="/mentor/add-details"
+              element={<MentorAddRegdFormPage />}
+            />
             <Route path="/training/individual/ba" element={<RpaBaPage />} />
             <Route
               path={`/mentors-club/individual/:id`}
@@ -109,7 +129,7 @@ const App = () => {
             )}
             {user?.type === "trainee" && (
               <Route
-                path={`/trainee/profile/bookings`}
+                path={`/trainee/profile/my-sessions`}
                 element={<TraineeBookingPage />}
               />
             )}
@@ -121,7 +141,7 @@ const App = () => {
             )}
             {user?.type === "mentor" && (
               <Route
-                path={`/mentor/profile/bookings`}
+                path={`/mentor/profile/my-sessions`}
                 element={<MentorBookingPage />}
               />
             )}

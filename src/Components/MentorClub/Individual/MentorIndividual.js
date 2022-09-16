@@ -64,7 +64,7 @@ const MentorIndividual = ({ socket }) => {
     try {
       const getIndMentorDetails = async () => {
         const res = await axios.get(
-          `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/individual/mentors?name=${path}`
+          `/mentor/get/individual/mentors?name=${path}`
         );
         setIndMentor(res.data);
       };
@@ -78,7 +78,7 @@ const MentorIndividual = ({ socket }) => {
     try {
       const getIndMentorFeedback = async () => {
         const res = await axios.get(
-          `https://deploy-practiwiz.azurewebsites.net/api/feedback/get/mentor-feedback/mentors?name=${path}`
+          `/feedback/get/mentor-feedback/mentors?name=${path}`
         );
         setMentorFeedback(res.data.data);
       };
@@ -90,9 +90,7 @@ const MentorIndividual = ({ socket }) => {
   useEffect(() => {
     try {
       const getAllMentorDetailsAvailability = async () => {
-        const res = await axios.get(
-          `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/booking`
-        );
+        const res = await axios.get(`/mentor/get/booking`);
         setMentorBookingDate(res.data);
       };
       getAllMentorDetailsAvailability();
@@ -177,8 +175,8 @@ const MentorIndividual = ({ socket }) => {
                 </MentorName>
                 <MentorDesignation>
                   {" " + mentor.mentor_current_role + " "}
-                </MentorDesignation>
-                at
+                </MentorDesignation>{" "}
+                at{" "}
                 <MentorDesignation>
                   {" " + mentor.mentor_firm}
                 </MentorDesignation>
@@ -192,7 +190,7 @@ const MentorIndividual = ({ socket }) => {
               </MentorDetailsName>
               <MentorDetailsImgDiv>
                 <MentorProfileImg
-                  src={mentor.mentor_image}
+                  src={`https://images.unsplash.com/photo-1641522682419-7e52d83a8ce5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60`}
                   alt="Mentor profile picture"
                 />
               </MentorDetailsImgDiv>

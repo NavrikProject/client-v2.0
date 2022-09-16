@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import UpcomingAllSessionDetails from "./UpcomingAllSessionDetails";
-import LoadingSpinner from "../utils/LoadingSpinner";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 import { Link } from "react-router-dom";
 const Div = styled.div``;
 const UpcomingTitle = styled.h1`
@@ -65,13 +65,10 @@ const UpcomingSession = () => {
   useEffect(() => {
     const getAllUpcomingSessions = async () => {
       setLoading(true);
-      const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/get/bookings/upcoming`,
-        {
-          headers: { authorization: "Bearer " + token },
-          userEmail: user?.email,
-        }
-      );
+      const res = await axios.post(`/mentor/profile/get/bookings/upcoming`, {
+        headers: { authorization: "Bearer " + token },
+        userEmail: user?.email,
+      });
       if (res.data.details) {
         setLoading(false);
         setUpComingSessions(res.data.details);

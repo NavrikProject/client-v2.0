@@ -11,12 +11,9 @@ const Allusers = () => {
   useEffect(() => {
     const getAllTheUsers = async () => {
       setLoading(true);
-      const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/users/get`,
-        {
-          headers: { authorization: "Bearer " + token },
-        }
-      );
+      const res = await axios.get(`/users/get`, {
+        headers: { authorization: "Bearer " + token },
+      });
       if (res.data.users) {
         setLoading(false);
         setAllUsers(res.data.users);
@@ -30,7 +27,7 @@ const Allusers = () => {
   const userAdminApproveHandler = async (user) => {
     setLoading(true);
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/users/update/approve/${user.user_dtls_id}`,
+      `/users/update/approve/${user.user_dtls_id}`,
       { id: user.user_dtls_id },
       {
         headers: { authorization: "Bearer " + token },
@@ -46,7 +43,7 @@ const Allusers = () => {
   const userAdminDisApproveHandler = async (user) => {
     setLoading(true);
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/users/update/disapprove/${user.user_dtls_id}`,
+      `/users/update/disapprove/${user.user_dtls_id}`,
       { id: user.user_dtls_id },
       {
         headers: { authorization: "Bearer " + token },

@@ -82,12 +82,9 @@ const AddContent = () => {
   useEffect(() => {
     const getAddCoursesCourses = async () => {
       setLoading(true);
-      const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/contributers/add-content`,
-        {
-          email: user?.email,
-        }
-      );
+      const res = await axios.post(`/contributers/add-content`, {
+        email: user?.email,
+      });
       if (res.data.add) {
         setAddContentCourseList(res.data.add);
         setLoading(false);

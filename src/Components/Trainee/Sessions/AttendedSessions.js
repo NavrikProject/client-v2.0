@@ -65,13 +65,10 @@ const AttendedSessions = () => {
   useEffect(() => {
     const getAllAttendedSessions = async () => {
       setLoading(true);
-      const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/get/bookings/attended`,
-        {
-          headers: { authorization: "Bearer " + token },
-          userEmail: user?.email,
-        }
-      );
+      const res = await axios.post(`/mentor/profile/get/bookings/attended`, {
+        headers: { authorization: "Bearer " + token },
+        userEmail: user?.email,
+      });
       if (res.data.details) {
         setLoading(false);
         setAttendedSessions(res.data.details);

@@ -31,7 +31,7 @@ const Form2 = (props) => {
     try {
       setLoading(true);
       const result = await axios.put(
-        `https://deploy-practiwiz.azurewebsites.net/api/${user?.type}/profile/account/${user?.id}`,
+        `/${user?.type}/profile/account/${user?.id}`,
         { firstName: data.firstName, lastName: data.lastName },
         {
           headers: { authorization: "Bearer " + token },

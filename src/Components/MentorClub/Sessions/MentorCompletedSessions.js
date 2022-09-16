@@ -65,7 +65,7 @@ const CompletedSessions = () => {
     const getAllCompletedSessions = async () => {
       setLoading(true);
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/get/all-bookings/completed`,
+        `/mentor/bookings/get/all-bookings/completed`,
         {
           headers: { authorization: "Bearer " + token },
           userEmail: user?.email,

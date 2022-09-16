@@ -43,9 +43,7 @@ const ApplyContribution = () => {
   const courseCategory = watch("courseCategory");
   useEffect(() => {
     const getCourseByTitles = async () => {
-      const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/courses/master?category=${courseCategory}`
-      );
+      const res = await axios.get(`/courses/master?category=${courseCategory}`);
       if (res.data.master) {
         setMasterCourses(res.data.master);
       } else {

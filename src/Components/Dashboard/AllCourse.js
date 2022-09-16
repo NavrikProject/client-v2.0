@@ -10,12 +10,9 @@ const AllCourse = () => {
   useEffect(() => {
     const getAllTheCourse = async () => {
       setLoading(true);
-      const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/courses/new/dashboard/courses`,
-        {
-          headers: { authorization: "Bearer " + token },
-        }
-      );
+      const res = await axios.get(`/courses/new/dashboard/courses`, {
+        headers: { authorization: "Bearer " + token },
+      });
       if (res.data) {
         setAllCourse(res.data);
         setLoading(false);
@@ -25,12 +22,9 @@ const AllCourse = () => {
   }, [token]);
 
   const courseDeleteHandler = async (course) => {
-    const res = await axios.delete(
-      `https://deploy-practiwiz.azurewebsites.net/api/courses/new/delete/${course.course_id}`,
-      {
-        headers: { authorization: "Bearer " + token },
-      }
-    );
+    const res = await axios.delete(`/courses/new/delete/${course.course_id}`, {
+      headers: { authorization: "Bearer " + token },
+    });
     if (res.data.success) {
       alert("Course deleted successfully");
     }
@@ -39,7 +33,7 @@ const AllCourse = () => {
     }
   };
   const courseEditHandler = async (course) => {
-    // const res = await axios.put(`https://deploy-practiwiz.azurewebsites.net/api/courses/new/edit/${course.course_id}`, {
+    // const res = await axios.put(`/courses/new/edit/${course.course_id}`, {
     //   headers: { authorization: "Bearer " + token },
     // });
     // console.log(res);

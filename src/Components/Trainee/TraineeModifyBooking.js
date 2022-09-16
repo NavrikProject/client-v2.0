@@ -59,7 +59,7 @@ const TraineeModifyBooking = ({ mentor, modifyMentorAppointMent }) => {
     try {
       const getAllMentorDetailsAvailability = async () => {
         const res = await axios.post(
-          `https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/get/bookings/onlymentor`,
+          `/mentor/profile/get/bookings/onlymentor`,
           {
             mentorEmail: mentor.mentorEmail,
           }
@@ -76,7 +76,7 @@ const TraineeModifyBooking = ({ mentor, modifyMentorAppointMent }) => {
     try {
       const getAllMentorDetailsAvailability = async () => {
         const res = await axios.post(
-          `https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/get/bookings/availability`,
+          `/mentor/profile/get/bookings/availability`,
           {
             mentorEmail: mentor.mentorEmail,
           }
@@ -140,7 +140,7 @@ const TraineeModifyBooking = ({ mentor, modifyMentorAppointMent }) => {
     }
     setLoading(true);
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/update/bookings/${mentor.bookingId}`,
+      `/mentor/profile/update/bookings/${mentor.bookingId}`,
       {
         date: date.toLocaleDateString(),
         bookingId: mentor.bookingId,
@@ -185,7 +185,7 @@ const TraineeModifyBooking = ({ mentor, modifyMentorAppointMent }) => {
       try {
         setLoading(true);
         const result = await axios.post(
-          "https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/update/bookings/modify-order",
+          "/mentor/profile/update/bookings/modify-order",
           {
             bookingId: mentor.bookingId,
             date: date.toLocaleDateString(),
@@ -202,9 +202,7 @@ const TraineeModifyBooking = ({ mentor, modifyMentorAppointMent }) => {
         const { amount, id: order_id, currency } = result.data;
         const {
           data: { key: razorpayKey },
-        } = await axios.get(
-          "https://deploy-practiwiz.azurewebsites.net/api/get-razorpay-key"
-        );
+        } = await axios.get("/get-razorpay-key");
 
         const options = {
           key: razorpayKey,
@@ -216,7 +214,7 @@ const TraineeModifyBooking = ({ mentor, modifyMentorAppointMent }) => {
           order_id: order_id,
           handler: async function (response) {
             const res = await axios.put(
-              "https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/update/bookings/modify-booking/pay",
+              "/mentor/profile/update/bookings/modify-booking/pay",
               {
                 amount: amount,
                 razorpayPaymentId: response.razorpay_payment_id,

@@ -43,13 +43,9 @@ const ResetPassword = () => {
   const password = watch("password");
   const forgotpasswordHandler = async (data) => {
     setLoading(true);
-    const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/auth/reset-password/${token}`,
-      data,
-      {
-        headers: { authorization: "Bearer " + token },
-      }
-    );
+    const res = await axios.put(`/auth/reset-password/${token}`, data, {
+      headers: { authorization: "Bearer " + token },
+    });
     if (res.data.success) {
       setSuccess(res.data.success);
       toast.success("Successfully update the password ,Please log in", {

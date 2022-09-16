@@ -65,7 +65,7 @@ const AttendedSessions = () => {
     const getAllAttendedSessions = async () => {
       setLoading(true);
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/get/all-bookings/attended`,
+        `/mentor/bookings/get/all-bookings/attended`,
         {
           headers: { authorization: "Bearer " + token },
           userEmail: user?.email,
