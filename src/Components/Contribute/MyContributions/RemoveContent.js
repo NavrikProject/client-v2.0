@@ -83,9 +83,12 @@ const RemoveContent = () => {
   useEffect(() => {
     const getRemoveContentCourses = async () => {
       setLoading(true);
-      const res = await axios.post(`/contributers/remove-content`, {
-        email: user?.email,
-      });
+      const res = await axios.post(
+        `https://deploy-practiwiz.azurewebsites.net/api/contributers/remove-content`,
+        {
+          email: user?.email,
+        }
+      );
       if (res.data.remove) {
         setRemoveContentCourseList(res.data.remove);
         setLoading(false);

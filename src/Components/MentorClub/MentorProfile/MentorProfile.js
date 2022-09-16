@@ -66,9 +66,12 @@ const TraineeProfile = () => {
 
   useEffect(() => {
     const getFullMentorDetails = async () => {
-      const res = await axios.get(`/mentor/get/full-details/${user?.email}`, {
-        headers: { authorization: "Bearer " + token },
-      });
+      const res = await axios.get(
+        `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/full-details/${user?.email}`,
+        {
+          headers: { authorization: "Bearer " + token },
+        }
+      );
       setMentorDetails(res.data.success);
     };
     getFullMentorDetails();

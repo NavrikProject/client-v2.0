@@ -126,7 +126,7 @@ const CancelAppointment = ({ mentor, showCancelMentorModel }) => {
     try {
       setLoading(true);
       const result = await axios.post(
-        "/mentor/profile/update/bookings/issue-refund",
+        "https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/update/bookings/issue-refund",
         {
           bookingId: mentor.bookingId,
           selected: data.selected,

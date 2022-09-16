@@ -178,9 +178,13 @@ const FeedbackForm = (props) => {
 
     try {
       setLoading(true);
-      const result = await axios.post("/feedback", newData, {
-        headers: { authorization: "Bearer " + token },
-      });
+      const result = await axios.post(
+        "https://deploy-practiwiz.azurewebsites.net/api/feedback",
+        newData,
+        {
+          headers: { authorization: "Bearer " + token },
+        }
+      );
       if (result.data.success) {
         return (
           toast.success(result.data.success, {

@@ -176,7 +176,10 @@ const MentorRegisterStepForm = () => {
     data.append("phoneNumber", phoneNumber);
     try {
       setLoading(true);
-      const res = await axios.post(`/mentor/register/additional-details`, data);
+      const res = await axios.post(
+        `https://deploy-practiwiz.azurewebsites.net/api/mentor/register/additional-details`,
+        data
+      );
       if (res.data.success) {
         setSuccess(res.data.success);
         toast.success(res.data.success, { position: "top-center" });

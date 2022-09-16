@@ -65,7 +65,7 @@ const MentorUpcomingSession = () => {
     const getAllMentorUpcomingSessions = async () => {
       setLoading(true);
       const res = await axios.post(
-        `/mentor/bookings/get/all-bookings/upcoming`,
+        `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/get/all-bookings/upcoming`,
         {
           headers: { authorization: "Bearer " + token },
           userEmail: user?.email,

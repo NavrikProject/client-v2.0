@@ -65,7 +65,7 @@ const CancelledSessions = () => {
     const getAllCancelledSessions = async () => {
       setLoading(true);
       const res = await axios.post(
-        `/mentor/bookings/get/all-bookings/cancelled`,
+        `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/get/all-bookings/cancelled`,
         {
           headers: { authorization: "Bearer " + token },
           userEmail: user?.email,

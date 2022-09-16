@@ -13,10 +13,13 @@ const TraineeBookingTable = () => {
   useEffect(() => {
     const getAllTheMentors = async () => {
       setLoading(true);
-      const res = await axios.post(`/mentor/bookings/get/all-bookings`, {
-        headers: { authorization: "Bearer " + token },
-        mentorEmail: user?.email,
-      });
+      const res = await axios.post(
+        `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/get/all-bookings`,
+        {
+          headers: { authorization: "Bearer " + token },
+          mentorEmail: user?.email,
+        }
+      );
       if (res.data) {
         setLoading(false);
         setAllMentors(res.data);
@@ -30,7 +33,7 @@ const TraineeBookingTable = () => {
   const confirmTheAppointMent = async (mentor) => {
     setLoading(true);
     const res = await axios.put(
-      `/mentor/bookings/update/confirm/appointment/${mentor.id}`,
+      `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/update/confirm/appointment/${mentor.id}`,
       {
         headers: { authorization: "Bearer " + token },
       }

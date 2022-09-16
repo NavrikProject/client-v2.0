@@ -55,13 +55,16 @@ const MentorRegdForm = () => {
     const type = "mentor";
     try {
       setLoading(true);
-      const res = await axios.post("/auth/email-register", {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-        type: type,
-      });
+      const res = await axios.post(
+        "https://deploy-practiwiz.azurewebsites.net/api/auth/email-register",
+        {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+          type: type,
+        }
+      );
       if (res.data.required) {
         setError(res.data.required);
         toast.error(res.data.required, { position: "top-center" });
@@ -96,7 +99,10 @@ const MentorRegdForm = () => {
     const type = "mentor";
     try {
       await axios
-        .post("/google/sign-up", { tokenId: response.tokenId, type: type })
+        .post("https://deploy-practiwiz.azurewebsites.net/api/google/sign-up", {
+          tokenId: response.tokenId,
+          type: type,
+        })
         .then((res) => {
           if (res.data.found) {
             dispatch(loginSuccess(res.data.found));

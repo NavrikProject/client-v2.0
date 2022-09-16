@@ -43,7 +43,9 @@ const ApplyContribution = () => {
   const courseCategory = watch("courseCategory");
   useEffect(() => {
     const getCourseByTitles = async () => {
-      const res = await axios.get(`/courses/master?category=${courseCategory}`);
+      const res = await axios.get(
+        `https://deploy-practiwiz.azurewebsites.net/api/courses/master?category=${courseCategory}`
+      );
       if (res.data.master) {
         setMasterCourses(res.data.master);
       } else {
@@ -56,12 +58,15 @@ const ApplyContribution = () => {
   const requestForContribution = async (data) => {
     try {
       setLoading(true);
-      const res = await axios.post(`/contributers/request-contribution`, {
-        email: user?.email,
-        fullname: user?.firstname + " " + user?.lastname,
-        data: data,
-        phoneNumber: phoneNumber,
-      });
+      const res = await axios.post(
+        `https://deploy-practiwiz.azurewebsites.net/api/contributers/request-contribution`,
+        {
+          email: user?.email,
+          fullname: user?.firstname + " " + user?.lastname,
+          data: data,
+          phoneNumber: phoneNumber,
+        }
+      );
       if (res.data.success) {
         setSuccess(res.data.success);
         toast.success(res.data.success, { position: "top-center" });
