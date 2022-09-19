@@ -56,7 +56,7 @@ const RegisterForm = () => {
     console.log(data);
     try {
       setLoading(true);
-      const res = await axios.post("/auth/email-register", data);
+      const res = await axios.post("https://deploy-practiwiz.azurewebsites.net/api/auth/email-register", data);
       if (res.data.required) {
         setError(res.data.required);
         toast.error(res.data.required, { position: "top-center" });
