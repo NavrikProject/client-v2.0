@@ -5,6 +5,28 @@ export const ImgBox = styled.div`
   align-items: center;
   justify-content: space-evenly;
 `;
+export const NotFoundTitle = styled.h1`
+  color: black;
+  opacity: 0.8;
+  font-size: 27px;
+`;
+export const MentorRegButton = styled.button`
+  padding: 10px 20px;
+  outline: none;
+  font-size: 17px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  color: #fff;
+  border-bottom-width: 2px;
+  transition: all 0.4s ease;
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  margin: 0 auto;
+  background: -webkit-linear-gradient(left, #3e5ce4, #4282fa);
+  margin-top: 20px !important;
+`;
 export const ImgForm = styled.form``;
 
 export const Img = styled.img`

@@ -48,7 +48,6 @@ const RegisterForm = () => {
   const [showIcon, setShowIcon] = useState(false);
   const [showIcons, setShowIcons] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [image, setImage] = useState("");
   const password = watch("password");
 
   const registerSubmitHandler = async (data) => {
@@ -88,17 +87,17 @@ const RegisterForm = () => {
     setError("");
   }, 7000);
 
-  const UploadFile = async (event) => {
-    event.preventDefault();
-    let data = new FormData();
-    data.append("image", image);
-    try {
-      const res = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/feedback/upload",
-        data
-      );
-    } catch (error) {}
-  };
+  // const UploadFile = async (event) => {
+  //   event.preventDefault();
+  //   let data = new FormData();
+  //   data.append("image", image);
+  //   try {
+  //     const res = await axios.post(
+  //       "https://deploy-practiwiz.azurewebsites.net/api/feedback/upload",
+  //       data
+  //     );
+  //   } catch (error) {}
+  // };
   return (
     <React.Fragment>
       <RegisterFormSect>
@@ -176,9 +175,9 @@ const RegisterForm = () => {
                         required: "Password is Required",
                         pattern: {
                           value:
-                            /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
+                            /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#_])[A-Za-z\d@$!%*?&#_]{8,16}$/,
                           message:
-                            "A minimum 8 characters password contains a combination of uppercase and lowercase letter and number are required.",
+                            "A minimum 8 characters password contains a combination of uppercase and lowercase letter, number and special character like @ $ ! % * ? & # _ is required.",
                         },
                       })}
                       onKeyUp={() => {
@@ -304,15 +303,15 @@ const RegisterForm = () => {
             </RegisterFormLeft>
             <RegisterFormRight>
               <RegistrationImageDiv>
-                {/* <RegistrationImage src={regImg} /> */}
-                <input
+                <RegistrationImage src={regImg} />
+                {/* <input
                   type="file"
                   name="image"
                   onChange={(event) => setImage(event.target.files[0])}
                 />
                 <button type="submit" onClick={UploadFile}>
                   Upload
-                </button>
+                </button> */}
               </RegistrationImageDiv>
             </RegisterFormRight>
           </RegisterFormWrapper>
