@@ -22,6 +22,7 @@ import { Link } from "react-router-dom";
 
 const MentorCourseCard = ({ searchItemWord, categoryItem }) => {
   const [mentorDetails, setMentorDetails] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     try {
@@ -31,7 +32,13 @@ const MentorCourseCard = ({ searchItemWord, categoryItem }) => {
             ? "https://deploy-practiwiz.azurewebsites.net/api/mentor/get/all"
             : `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/mentors?name=${searchItemWord}`
         );
-        setMentorDetails(res.data.mentors);
+        if (res.data.mentors) {
+          setMentorDetails(res.data.mentors);
+        }
+        if (res.data.error) {
+          setMentorDetails([]);
+          setError("No details found Please try with different name");
+        }
       };
       getAllMentorDetails();
     } catch (error) {
@@ -83,7 +90,6 @@ const MentorCourseCard = ({ searchItemWord, categoryItem }) => {
             </MentorDiv>
           ))
         : null}
-
       {categoryItem &&
         mentorDetails
           .filter(
@@ -143,6 +149,7 @@ const MentorCourseCard = ({ searchItemWord, categoryItem }) => {
             Noo mentor found! Try with different names
           </MentorNotFoundDiv>
         )}
+      {error && <MentorNotFoundDiv>{error}</MentorNotFoundDiv>}
     </>
   );
 };
