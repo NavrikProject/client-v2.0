@@ -45,6 +45,7 @@ import {
   loginSuccess,
 } from "../../../redux/userRedux";
 import { useForm } from "react-hook-form";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 import axios from "axios";
 const LoginForm = () => {
@@ -65,6 +66,7 @@ const LoginForm = () => {
 
   // login function handler
   const loginFormSubmitHandler = async (data) => {
+    setLoading(true);
     try {
       dispatch(loginStart());
       setLoading(true);
@@ -164,6 +166,7 @@ const LoginForm = () => {
   };
   return (
     <HomeSectionComponent>
+      {loading && <LoadingSpinner />}
       <LoginWrapper>
         <Wrapper>
           <WrapperRight>
