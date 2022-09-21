@@ -86,9 +86,10 @@ const MentorSlotDetails = ({
         startTime: " ",
       });
     } else {
+      let hour = startTime?.split(":")[0];
       setErrorData({
         ...errorData,
-        startTime: "Choose the proper timing from the above",
+        startTime: `Choose the proper slot timing like ${hour}:00 or ${hour}:15 or ${hour}:30 or ${hour}:45`,
       });
     }
     setFormData({ ...formData, startTime: startTime });

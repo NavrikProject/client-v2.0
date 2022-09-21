@@ -127,19 +127,18 @@ const MentorRegisterStepForm = () => {
   };
   const profileSubmitHandler = async (event) => {
     event.preventDefault();
-    if (
-      !phoneNumber &&
-      !formData.website &&
-      !formData.linkedInProfile &&
-      !image &&
-      !endTime
-    ) {
+    if (!formData.website && !formData.linkedInProfile && !image && !endTime) {
       return setError("Please fill all details");
     }
-    if (!phoneNumber) {
+    if (
+      !phoneNumber ||
+      phoneNumber === "" ||
+      phoneNumber === null ||
+      phoneNumber === undefined
+    ) {
       return setErrorData({
         ...errorData,
-        phoneNumber: "please enter your last mobile number",
+        phoneNumber: "please enter your  mobile number",
       });
     }
     if (!formData.website) {
@@ -153,6 +152,9 @@ const MentorRegisterStepForm = () => {
         ...errorData,
         linkedInProfile: "please paste your linked in profile",
       });
+    }
+    if (!image) {
+      return setError("Please choose the profile picture");
     }
     let data = new FormData();
     data.append("image", image);
@@ -176,6 +178,7 @@ const MentorRegisterStepForm = () => {
     data.append("phoneNumber", phoneNumber);
     try {
       setLoading(true);
+      setError("");
       const res = await axios.post(
         `https://deploy-practiwiz.azurewebsites.net/api/mentor/register/additional-details`,
         data
@@ -322,6 +325,12 @@ const MentorRegisterStepForm = () => {
           ...errorData,
           mentorAvailability: "please select your availability",
         });
+      }
+      if (!formData.startTime) {
+        return setErrorData({
+          ...errorData,
+          startTime: "please select the slot time",
+        });
       } else {
         setPage((currPage) => currPage + 1);
         setError("");
@@ -330,6 +339,7 @@ const MentorRegisterStepForm = () => {
       setButtonEnable(true);
     }
   };
+
   return (
     <MentorRegisterSection>
       {loading ? (
@@ -367,15 +377,20 @@ const MentorRegisterStepForm = () => {
                       <FormHeading>{FormTitles[page]}</FormHeading>
                       {PageDisplay()}
                       <ButtonDiv>
-                        <PrevButton
-                          type="button"
-                          disabled={page === 0}
-                          onClick={() => {
-                            setPage((currPage) => currPage - 1);
-                          }}
-                        >
-                          Prev
-                        </PrevButton>
+                        {page === 0 ? (
+                          ""
+                        ) : (
+                          <PrevButton
+                            type="button"
+                            disabled={page === 0}
+                            onClick={() => {
+                              setPage((currPage) => currPage - 1);
+                            }}
+                          >
+                            Prev
+                          </PrevButton>
+                        )}
+
                         {page === FormTitles.length - 1 ? (
                           <JoinButton
                             type="submit"

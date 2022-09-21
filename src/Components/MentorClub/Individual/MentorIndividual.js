@@ -192,7 +192,7 @@ const MentorIndividual = ({ socket }) => {
               </MentorDetailsName>
               <MentorDetailsImgDiv>
                 <MentorProfileImg
-                  src={`https://images.unsplash.com/photo-1641522682419-7e52d83a8ce5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60`}
+                  src={mentor.mentor_image}
                   alt="Mentor profile picture"
                 />
               </MentorDetailsImgDiv>

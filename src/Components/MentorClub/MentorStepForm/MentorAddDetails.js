@@ -32,7 +32,7 @@ const MentorAddDetails = ({
           onChange={(event) =>
             setFormData({ ...formData, website: event.target.value })
           }
-        />{" "}
+        />
         <ErrorMessage>{errorData.website}</ErrorMessage>
       </Field>
       <Field>

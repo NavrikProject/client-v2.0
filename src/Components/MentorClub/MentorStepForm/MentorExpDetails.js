@@ -47,11 +47,11 @@ const MentorExpDetails = ({
           }
         >
           <FormOption value="">Choose your experience</FormOption>
-          <FormOption value="0-5">7- 10</FormOption>
-          <FormOption value="5-10">10-15</FormOption>
-          <FormOption value="15-20">15-20</FormOption>
-          <FormOption value="20-25">20-25</FormOption>
-          <FormOption value="25+">25+</FormOption>
+          <FormOption value="0-5">7- 10 (years)</FormOption>
+          <FormOption value="5-10">10-15 (years)</FormOption>
+          <FormOption value="15-20">15-20 (years)</FormOption>
+          <FormOption value="20-25">20-25 (years)</FormOption>
+          <FormOption value="25+">25+ (years)</FormOption>
         </FormSelect>
         <ErrorMessage>{errorData.experience}</ErrorMessage>
       </Field>
