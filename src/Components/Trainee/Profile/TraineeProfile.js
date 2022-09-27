@@ -251,6 +251,15 @@ const TraineeProfile = () => {
                           <span> {trainee.trainee_points}</span> points
                         </DetailsFromDb>
                       </DetailsFlex1>
+                      <DetailsFlex1>
+                        <DetailsTitles>
+                          Your unattended sessions :
+                        </DetailsTitles>
+                        <DetailsFromDb>
+                          <b>{trainee.trainee_unattended_sessions + " "}</b>
+                          sessions
+                        </DetailsFromDb>
+                      </DetailsFlex1>
                     </DetailsFlex>
                   </div>
                 ))}

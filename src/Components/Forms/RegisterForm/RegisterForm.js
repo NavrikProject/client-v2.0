@@ -33,6 +33,8 @@ import { toast } from "react-toastify";
 import Loading from "../../utils/Loading";
 import { useForm } from "react-hook-form";
 import regImg from "../../../images/reg-img.jpg";
+import PhoneInput2 from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 const RegisterForm = () => {
   const {
     register,
@@ -48,14 +50,20 @@ const RegisterForm = () => {
   const [showIcon, setShowIcon] = useState(false);
   const [showIcons, setShowIcons] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
   const password = watch("password");
 
   const registerSubmitHandler = async (data) => {
     // // http:localhost:5000/api/auth/register
-    console.log(data);
     try {
       setLoading(true);
-      const res = await axios.post("https://deploy-practiwiz.azurewebsites.net/api/auth/email-register", data);
+      const res = await axios.post(
+        "https://deploy-practiwiz.azurewebsites.net/api/auth/email-register",
+        {
+          data,
+          phoneNumber,
+        }
+      );
       if (res.data.required) {
         setError(res.data.required);
         toast.error(res.data.required, { position: "top-center" });
@@ -87,17 +95,6 @@ const RegisterForm = () => {
     setError("");
   }, 7000);
 
-  // const UploadFile = async (event) => {
-  //   event.preventDefault();
-  //   let data = new FormData();
-  //   data.append("image", image);
-  //   try {
-  //     const res = await axios.post(
-  //       "https://deploy-practiwiz.azurewebsites.net/api/feedback/upload",
-  //       data
-  //     );
-  //   } catch (error) {}
-  // };
   return (
     <React.Fragment>
       <RegisterFormSect>
@@ -175,9 +172,9 @@ const RegisterForm = () => {
                         required: "Password is Required",
                         pattern: {
                           value:
-                            /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#_])[A-Za-z\d@$!%*?&#_]{8,16}$/,
+                            /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
                           message:
-                            "A minimum 8 characters password contains a combination of uppercase and lowercase letter, number and special character like @ $ ! % * ? & # _ is required.",
+                            "A minimum 8 characters password contains a combination of uppercase and lowercase letter and number are required special characters like @ $ ! % * ? &",
                         },
                       })}
                       onKeyUp={() => {
@@ -214,6 +211,14 @@ const RegisterForm = () => {
                       {showIcons ? <ShowIcon /> : <HideIcon />}
                     </PwdIcons>
                   </PwdField>
+                  <Field>
+                    <PhoneInput2
+                      value={phoneNumber}
+                      country="in"
+                      inputStyle={{ width: "100%", padding: "5px 10px" }}
+                      onChange={(phone) => setPhoneNumber(phone)}
+                    />
+                  </Field>
                   <Field>
                     <RadioWrapper>
                       <RadioWrapper>
@@ -285,7 +290,7 @@ const RegisterForm = () => {
                         Terms & Conditions.
                       </Link>
                     </FormLabel>
-                  </FormLabelDiv>{" "}
+                  </FormLabelDiv>
                   {errors.checkBox && (
                     <ErrorMessage>{errors.checkBox.message}</ErrorMessage>
                   )}
