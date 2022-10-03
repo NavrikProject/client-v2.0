@@ -130,6 +130,16 @@ const TraineeModifyBooking = ({
   };
   const modifyBookingAppointMent = async (event) => {
     event.preventDefault();
+    if (
+      new Date().toDateString() === new Date(mentor.bookingDate).toDateString()
+    ) {
+      return (
+        setError("Sorry you can not modify on the booking date"),
+        toast.error("Sorry you can not cancel on the booking date", {
+          position: "top-center",
+        })
+      );
+    }
     if (!date) {
       return (
         toast.error("Please select the date", { position: "top-center" }),
@@ -169,6 +179,16 @@ const TraineeModifyBooking = ({
   const payAndModifyBooking = async (event) => {
     let id = mentor.bookingId;
     event.preventDefault();
+    if (
+      new Date().toDateString() === new Date(mentor.bookingDate).toDateString()
+    ) {
+      return (
+        setError("Sorry you can not modify on the booking date"),
+        toast.error("Sorry you can not cancel on the booking date", {
+          position: "top-center",
+        })
+      );
+    }
     if (!date) {
       return (
         toast.error("Please select the date", { position: "top-center" }),

@@ -39,6 +39,8 @@ const TraineeProfile = () => {
   const [changeImageForm, setChangeImageForm] = useState(false);
   const [mentorDetails, setMentorDetails] = useState([]);
   const [showBankAccountForm, setShowBankAccountForm] = useState(false);
+  const [mentorPoints, setMentorPoints] = useState([]);
+
   const user = useSelector((state) => state.user.currentUser);
 
   const showAccountForm = () => {
@@ -91,6 +93,23 @@ const TraineeProfile = () => {
     getFullMentorDetails();
   }, [user?.email, token]);
 
+  useEffect(() => {
+    const getMentorPointsDetails = async () => {
+      const res = await axios.get(
+        `https://deploy-practiwiz.azurewebsites.net/api/feedback/reward-points/${user?.email}`,
+        {
+          headers: { authorization: "Bearer " + token },
+        }
+      );
+      if (res.data.success) {
+        setMentorPoints(res.data.success);
+      }
+      if (res.data.notFound) {
+        setMentorPoints([]);
+      }
+    };
+    getMentorPointsDetails();
+  }, [user?.email, token]);
   return (
     <>
       <Section>
@@ -309,7 +328,17 @@ const TraineeProfile = () => {
                       </DetailsFlex1>
                       <DetailsFlex1>
                         <DetailsTitles>Mentor Points: </DetailsTitles>
-                        <DetailsFromDb>{mentor.mentor_points}</DetailsFromDb>
+                        <DetailsFromDb>
+                          {mentorPoints?.map((mentorPoint) => (
+                            <>
+                              <span>
+                                {mentorPoint.user_points_dtls_closing_points +
+                                  " "}
+                              </span>
+                            </>
+                          ))}
+                          Points
+                        </DetailsFromDb>
                       </DetailsFlex1>
                     </DetailsFlex>
                   </div>
