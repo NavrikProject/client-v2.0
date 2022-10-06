@@ -139,6 +139,25 @@ const TraineeProfile = () => {
                     Account
                   </QuickMenuTitle>
                 </SidebarListItem>
+                <SidebarListItem>
+                  <QuickMenuTitle>
+                    <span>
+                      <i className="fa-solid fa-chart-line"></i>
+                    </span>
+                    Total Rewards :
+                    {mentorPoints?.length > 0 ? (
+                      mentorPoints?.map((mentorPoint) => (
+                        <>
+                          <span style={{ color: "gold" }}>
+                            {" " + mentorPoint.user_points_dtls_closing_points}
+                          </span>
+                        </>
+                      ))
+                    ) : (
+                      <span style={{ color: "gold" }}>0</span>
+                    )}
+                  </QuickMenuTitle>
+                </SidebarListItem>
                 <SidebarListItem onClick={showPasswordForm}>
                   <QuickMenuTitle>
                     <span>
@@ -324,20 +343,6 @@ const TraineeProfile = () => {
                         <DetailsTitles>Mentor Sessions Missed :</DetailsTitles>
                         <DetailsFromDb>
                           {mentor.mentor_unattended_sessions}
-                        </DetailsFromDb>
-                      </DetailsFlex1>
-                      <DetailsFlex1>
-                        <DetailsTitles>Mentor Points: </DetailsTitles>
-                        <DetailsFromDb>
-                          {mentorPoints?.map((mentorPoint) => (
-                            <>
-                              <span>
-                                {mentorPoint.user_points_dtls_closing_points +
-                                  " "}
-                              </span>
-                            </>
-                          ))}
-                          Points
                         </DetailsFromDb>
                       </DetailsFlex1>
                     </DetailsFlex>

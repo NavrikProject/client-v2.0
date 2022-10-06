@@ -115,7 +115,7 @@ const MentorBankDetails = (props) => {
     } else {
       setLoading(true);
       const response = await axios.post(
-        `/mentor/profile/bank/details/add/${user?.id}`,
+        `https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/bank/details/add/${user?.id}`,
         {
           accountNumber: accountNumber,
           ifscCode: ifscCode,

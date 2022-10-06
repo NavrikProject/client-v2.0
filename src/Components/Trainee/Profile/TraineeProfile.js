@@ -146,6 +146,28 @@ const TraineeProfile = () => {
                     Account
                   </QuickMenuTitle>
                 </SidebarListItem>
+                <SidebarListItem>
+                  <QuickMenuTitle>
+                    <span>
+                      <i className="fa-solid fa-chart-line"></i>
+                    </span>
+                    Total Rewards :
+                    {mentorPoints?.length > 0 ? (
+                      mentorPoints?.map((mentorPoint) => (
+                        <>
+                          <span
+                            style={{ color: "gold" }}
+                            key={mentorPoint.user_points_dtls_id}
+                          >
+                            {" " + mentorPoint.user_points_dtls_closing_points}
+                          </span>
+                        </>
+                      ))
+                    ) : (
+                      <span style={{ color: "gold" }}>0</span>
+                    )}
+                  </QuickMenuTitle>
+                </SidebarListItem>
                 <SidebarListItem onClick={showPasswordForm}>
                   <QuickMenuTitle>
                     <span>
@@ -264,20 +286,6 @@ const TraineeProfile = () => {
                       <DetailsFlex1>
                         <DetailsTitles>Address : </DetailsTitles>
                         <DetailsFromDb>{trainee.trainee_address}</DetailsFromDb>
-                      </DetailsFlex1>
-                      <DetailsFlex1>
-                        <DetailsTitles>Your Total Rewards : </DetailsTitles>
-                        <DetailsFromDb>
-                          <span>
-                            {mentorPoints?.map((mentorPoint) => (
-                              <>
-                                {mentorPoint.user_points_dtls_closing_points +
-                                  " "}
-                              </>
-                            ))}
-                          </span>
-                          points
-                        </DetailsFromDb>
                       </DetailsFlex1>
                       <DetailsFlex1>
                         <DetailsTitles>
