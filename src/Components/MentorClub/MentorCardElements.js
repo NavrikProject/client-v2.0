@@ -28,6 +28,15 @@ export const MentorDesc = styled.p`
   color: #627792;
   overflow: hidden;
 `;
+export const MentorSlotTimeDiv = styled.div`
+  padding: 0 10px 10px 10px;
+  font-size: 17px;
+  overflow: hidden;
+  color: #627792;
+  span {
+    color: #111 !important;
+  }
+`;
 export const MentorDescP = styled.p`
   padding: 10px;
   font-size: 19px;

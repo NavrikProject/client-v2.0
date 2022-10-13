@@ -8,6 +8,7 @@ import {
   MentorDescP,
   MentorDetailsDiv,
   MentorName,
+  MentorSlotTimeDiv,
 } from "./MentorCardElements";
 import {
   MentorCourseBox,
@@ -178,6 +179,20 @@ const MentorCourseCard = ({
                 <MentorDesc>
                   {mentor.mentor_bio.slice(0, 100) + "...."}
                 </MentorDesc>
+                <MentorSlotTimeDiv>
+                  <p>
+                    Always available From
+                    <span>
+                      {" " + mentor.mentor_availability_start_time + " "}
+                    </span>
+                    to
+                    <span>
+                      {" " + mentor.mentor_availability_end_time + " "}
+                    </span>
+                    on every
+                    <span>{" " + mentor.mentor_availability}</span>
+                  </p>
+                </MentorSlotTimeDiv>
                 <BookNowButtonDiv>
                   <BookNowButton>
                     <Link
