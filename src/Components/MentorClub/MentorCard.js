@@ -3,10 +3,13 @@ import React, { useEffect, useState } from "react";
 import {
   BookNowButton,
   BookNowButtonDiv,
+  FiltersInMentorCard,
   MentorBoxDiv,
+  MentorCategoryDiv,
   MentorDesc,
   MentorDescP,
   MentorDetailsDiv,
+  MentorExpertDiv,
   MentorName,
   MentorSlotTimeDiv,
 } from "./MentorCardElements";
@@ -20,17 +23,20 @@ import {
   MentorUpDiv,
 } from "./MentorClubElements";
 import { Link } from "react-router-dom";
+import MentorBookingCardModel from "./MentorBookingCardModel";
 
 const MentorCourseCard = ({
   skillCategoryFilter,
   searchItemWord,
-
   skillFilter,
   mentorAreaFilter,
   mentorAvailabilityFilter,
 }) => {
+  const [showModal, setShowModal] = useState(false);
   const [mentorDetails, setMentorDetails] = useState([]);
   const [error, setError] = useState("");
+  const [sendMentor, setSendMentor] = useState();
+
   useEffect(() => {
     try {
       const getAllMentorDetails = async () => {
@@ -130,11 +136,16 @@ const MentorCourseCard = ({
     mentorAreaFilter,
     mentorAvailabilityFilter,
   ]);
+
+  const ShowBookingModalHandler = (mentor) => {
+    setSendMentor(mentor);
+    setShowModal(!showModal);
+  };
   // useEffect(() => {
   //   try {
   //     const getAllMentorDetails = async () => {
   //       const res = await axios.get(
-  //         `/mentor/get/mentors/filter?category=${skillCategoryFilter}&skill=${skillFilter}&area=${mentorAreaFilter}&availability=${mentorAvailabilityFilter}`
+  //         `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/mentors/filter?category=${skillCategoryFilter}&skill=${skillFilter}&area=${mentorAreaFilter}&availability=${mentorAvailabilityFilter}`
   //       );
   //       if (res.data.mentors) {
   //         console.log(res.data.mentors);
@@ -156,6 +167,12 @@ const MentorCourseCard = ({
   // ]);
   return (
     <>
+      {showModal && (
+        <MentorBookingCardModel
+          ShowBookingModalHandler={ShowBookingModalHandler}
+          sendMentor={sendMentor}
+        />
+      )}
       {mentorDetails?.length > 0 ? (
         mentorDetails?.map((mentor) => (
           <MentorDiv key={mentor.mentor_dtls_id}>
@@ -193,19 +210,67 @@ const MentorCourseCard = ({
                     <span>{" " + mentor.mentor_availability}</span>
                   </p>
                 </MentorSlotTimeDiv>
+                <div>
+                  {skillCategoryFilter ||
+                  skillFilter ||
+                  mentorAreaFilter ||
+                  mentorAvailabilityFilter ? (
+                    <MentorExpertDiv>
+                      <p>This mentor expertise in :</p>
+                      <MentorCategoryDiv>
+                        <FiltersInMentorCard>
+                          {skillCategoryFilter && (
+                            <span>{skillCategoryFilter}</span>
+                          )}
+                        </FiltersInMentorCard>
+                        <FiltersInMentorCard>
+                          {skillFilter && <span>{skillFilter}</span>}
+                        </FiltersInMentorCard>
+                      </MentorCategoryDiv>
+                    </MentorExpertDiv>
+                  ) : null}
+                </div>
+                <MentorCategoryDiv>
+                  {skillCategoryFilter ||
+                  skillFilter ||
+                  mentorAreaFilter ||
+                  mentorAvailabilityFilter ? (
+                    <>
+                      <FiltersInMentorCard>
+                        {mentorAreaFilter && <span>{mentorAreaFilter}</span>}
+                      </FiltersInMentorCard>
+                      <FiltersInMentorCard>
+                        {mentorAvailabilityFilter && (
+                          <span>{mentorAvailabilityFilter}</span>
+                        )}
+                      </FiltersInMentorCard>
+                    </>
+                  ) : null}
+                </MentorCategoryDiv>
                 <BookNowButtonDiv>
-                  <BookNowButton>
-                    <Link
-                      style={{ textDecoration: "none", color: " #fff" }}
-                      to={`individual/${
-                        mentor.mentor_firstname.toLowerCase() +
-                        "-" +
-                        mentor.mentor_lastname.toLowerCase()
-                      }`}
+                  {!skillCategoryFilter &&
+                  !skillFilter &&
+                  !mentorAreaFilter &&
+                  !mentorAvailabilityFilter ? (
+                    <BookNowButton>
+                      <Link
+                        style={{ textDecoration: "none", color: " #fff" }}
+                        to={`individual/${
+                          mentor.mentor_firstname.toLowerCase() +
+                          "-" +
+                          mentor.mentor_lastname.toLowerCase()
+                        }`}
+                      >
+                        Know More
+                      </Link>
+                    </BookNowButton>
+                  ) : (
+                    <BookNowButton
+                      onClick={() => ShowBookingModalHandler(mentor)}
                     >
-                      Know More
-                    </Link>
-                  </BookNowButton>
+                      Book Now
+                    </BookNowButton>
+                  )}
                 </BookNowButtonDiv>
               </MentorCourseBox>
             </MentorDownDiv>

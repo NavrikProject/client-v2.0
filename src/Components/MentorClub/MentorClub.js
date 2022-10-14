@@ -104,6 +104,11 @@ const MentorClub = () => {
                     {skillFilter} <i className="fa-solid fa-xmark"></i>
                   </span>
                 </ClearFilter>
+              )}
+              {skillCategoryFilter && (
+                <span onClick={clearFilterHandler}>
+                  {skillCategoryFilter} <i className="fa-solid fa-xmark"></i>
+                </span>
               )} */}
             </MentorWrapper>
             <MentorSearchDiv>
