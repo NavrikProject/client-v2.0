@@ -82,6 +82,32 @@ const NavbarProfile = (props) => {
                   </Link>
                 </SubmenuListItem>
               )}
+              {user?.role === 1 && (
+                <>
+                  <SubmenuListItem>
+                    <Link
+                      style={{ textDecoration: "none", color: "#062C30" }}
+                      to={`/user/admin/dashboard`}
+                    >
+                      <span>
+                        <i className="fa-solid fa-chart-area"></i>
+                      </span>
+                      Dashboard
+                    </Link>
+                  </SubmenuListItem>
+                  <SubmenuListItem>
+                    <Link
+                      style={{ textDecoration: "none", color: "#062C30" }}
+                      to={`/user/admin`}
+                    >
+                      <span>
+                        <i className="fa-solid fa-chart-area"></i>
+                      </span>
+                      Admin
+                    </Link>
+                  </SubmenuListItem>
+                </>
+              )}
               {/* {user?.type === "trainee" && (
                 <SubmenuListItem>
                   <Link
