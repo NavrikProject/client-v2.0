@@ -98,7 +98,7 @@ const ModifyTraineeProgress = (props) => {
   useEffect(() => {
     const getAllUsers = async () => {
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/courses/trainee/course-status/${props.traineeDetails.trainee_course_dtls_id}`,
+        `https://deploy-practiwiz.azurewebsites.net/api/trainee/courses/trainee/course-status/${props.traineeDetails.trainee_course_dtls_id}`,
         {
           headers: { authorization: "Bearer " + user?.accessToken },
         }
@@ -117,7 +117,7 @@ const ModifyTraineeProgress = (props) => {
     setLoading(true);
     try {
       const res = await axios.put(
-        `https://deploy-practiwiz.azurewebsites.net/api/courses/update-course-progress/${props.traineeDetails.trainee_course_dtls_id}`,
+        `https://deploy-practiwiz.azurewebsites.net/api/trainee/courses/update-course-progress/${props.traineeDetails.trainee_course_dtls_id}`,
         {
           coursePercentage: data.coursePercentage,
           courseChapters: data.courseChapters,
@@ -158,7 +158,7 @@ const ModifyTraineeProgress = (props) => {
     setLoading(true);
     try {
       const res = await axios.put(
-        `https://deploy-practiwiz.azurewebsites.net/api/courses/update-video-upload/${props.traineeDetails.trainee_course_dtls_id}`,
+        `https://deploy-practiwiz.azurewebsites.net/api/trainee/courses/update-video-upload/${props.traineeDetails.trainee_course_dtls_id}`,
         {
           courseVideoUploadStatus: data.courseVideoUploadStatus,
         },

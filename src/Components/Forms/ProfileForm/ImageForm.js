@@ -22,7 +22,7 @@ const ImageForm = (props) => {
     let data = new FormData();
     data.append("image", image);
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/trainee/image/upload/${user?.id}`,
+      `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/image/upload/${user?.id}`,
       data,
       {
         headers: { authorization: "Bearer " + token },

@@ -64,7 +64,7 @@ const TraineeModifyBooking = ({
     try {
       const getAllMentorDetailsAvailability = async () => {
         const res = await axios.post(
-          `https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/get/bookings/onlymentor`,
+          `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/get/bookings/onlymentor`,
           {
             mentorEmail: mentor.mentorEmail,
           }
@@ -81,7 +81,7 @@ const TraineeModifyBooking = ({
     try {
       const getAllMentorDetailsAvailability = async () => {
         const res = await axios.post(
-          `https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/get/bookings/availability`,
+          `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/get/bookings/availability`,
           {
             mentorEmail: mentor.mentorEmail,
           }
@@ -156,8 +156,8 @@ const TraineeModifyBooking = ({
     setLoading(true);
     const res = await axios.put(
       !bookingStatus
-        ? `https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/update/bookings/${mentor.bookingId}`
-        : `https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/reschedule/bookings/${mentor.bookingId}`,
+        ? `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/update/bookings/${mentor.bookingId}`
+        : `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/reschedule/bookings/${mentor.bookingId}`,
       {
         date: date.toLocaleDateString(),
         bookingId: mentor.bookingId,
@@ -212,7 +212,7 @@ const TraineeModifyBooking = ({
       try {
         setLoading(true);
         const result = await axios.post(
-          "https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/update/bookings/modify-order",
+          "https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/update/bookings/modify-order",
           {
             bookingId: mentor.bookingId,
             date: date.toLocaleDateString(),
@@ -243,7 +243,7 @@ const TraineeModifyBooking = ({
           order_id: order_id,
           handler: async function (response) {
             const res = await axios.put(
-              "https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/update/bookings/modify-booking/pay",
+              "https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/update/bookings/modify-booking/pay",
               {
                 amount: amount,
                 razorpayPaymentId: response.razorpay_payment_id,

@@ -63,7 +63,7 @@ const MentorModifyBooking = ({
     try {
       const getAllMentorDetailsAvailability = async () => {
         const res = await axios.post(
-          `/mentor/profile/get/bookings/onlymentor`,
+          `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/get/bookings/onlymentor`,
           {
             mentorEmail: mentor.mentorEmail,
           }
@@ -80,7 +80,7 @@ const MentorModifyBooking = ({
     try {
       const getAllMentorDetailsAvailability = async () => {
         const res = await axios.post(
-          `/mentor/profile/get/bookings/availability`,
+          `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/get/bookings/availability`,
           {
             mentorEmail: mentor.mentorEmail,
           }

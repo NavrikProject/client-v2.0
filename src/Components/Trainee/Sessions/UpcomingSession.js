@@ -66,7 +66,7 @@ const UpcomingSession = () => {
     const getAllUpcomingSessions = async () => {
       setLoading(true);
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/mentor/profile/get/bookings/upcoming`,
+        `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/get/bookings/upcoming`,
         {
           headers: { authorization: "Bearer " + token },
           userEmail: user?.email,

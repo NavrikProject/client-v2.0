@@ -44,7 +44,7 @@ const AddTraineeCourses = () => {
   useEffect(() => {
     const getSkillsData = async () => {
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/courses/get-courses-by-category/master?name=${speciality}`
+        `https://deploy-practiwiz.azurewebsites.net/api/trainee/courses/get-courses-by-category/master?name=${speciality}`
       );
       if (res.data.success) {
         setSkills(res.data.success);
@@ -58,7 +58,7 @@ const AddTraineeCourses = () => {
   const addTraineeCourseHandler = async (data) => {
     setLoading(true);
     const res = await axios.post(
-      `https://deploy-practiwiz.azurewebsites.net/api/courses/add-trainee-course/${data.userId}`,
+      `https://deploy-practiwiz.azurewebsites.net/api/trainee/courses/add-trainee-course/${data.userId}`,
       {
         courseNameId: data.courseName,
         courseCategory: speciality,
