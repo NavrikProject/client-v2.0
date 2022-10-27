@@ -87,17 +87,6 @@ const NavbarProfile = (props) => {
                   <SubmenuListItem>
                     <Link
                       style={{ textDecoration: "none", color: "#062C30" }}
-                      to={`/user/admin/dashboard`}
-                    >
-                      <span>
-                        <i className="fa-solid fa-chart-area"></i>
-                      </span>
-                      Dashboard
-                    </Link>
-                  </SubmenuListItem>
-                  <SubmenuListItem>
-                    <Link
-                      style={{ textDecoration: "none", color: "#062C30" }}
                       to={`/user/admin`}
                     >
                       <span>
