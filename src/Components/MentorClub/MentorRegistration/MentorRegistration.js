@@ -63,7 +63,9 @@ const MentorRegistration = () => {
 
   useEffect(() => {
     const getSkillsData = async () => {
-      const res = await axios.get(`/get/skills/master?name=${speciality}`);
+      const res = await axios.get(
+        `https://deploy-practiwiz.azurewebsites.net/api/get/skills/master?name=${speciality}`
+      );
       setSkillsSet(res.data);
     };
     getSkillsData();
@@ -95,7 +97,10 @@ const MentorRegistration = () => {
     data.append("type", type);
     try {
       setLoading(true);
-      const res = await axios.post(`/mentor/register/all-details`, data);
+      const res = await axios.post(
+        `https://deploy-practiwiz.azurewebsites.net/api/mentor/register/all-details`,
+        data
+      );
       if (res.data.success) {
         setSuccess(res.data.success);
         toast.success(res.data.success, { position: "top-center" });
