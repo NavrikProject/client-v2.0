@@ -2,9 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import LoadingSpinner from "../../utils/LoadingSpinner";
-import { Link } from "react-router-dom";
-import TraineeAttendingCoursesDetails from "./TraineeAttendingCoursesDetails";
+import LoadingSpinner from "../utils/LoadingSpinner";
+import TraineeIncompleteCoursesDetails from "./TraineeIncompleteCoursesDetails";
 const Div = styled.div``;
 const AttendedTitle = styled.h1`
   color: #111;
@@ -54,7 +53,7 @@ const AttendedDivButtons = styled.button`
 const SessionDetailsDiv = styled.div`
   padding: 30px;
 `;
-const TraineeAttendingCourses = () => {
+const TraineeIncompleteCourses = () => {
   const [loading, setLoading] = useState(false);
   const [traineeAttendingCourses, setTraineeAttendingCourses] = useState([]);
   const [selected, setSelected] = useState(null);
@@ -64,11 +63,10 @@ const TraineeAttendingCourses = () => {
   useEffect(() => {
     const getAllTraineeAttendingCourses = async () => {
       setLoading(true);
-      const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/trainee/courses/progress/get-trainee-incomplete-course`,
+      const res = await axios.get(
+        `https://deploy-practiwiz.azurewebsites.net/api/admin/get/in-complete-courses`,
         {
           headers: { authorization: "Bearer " + token },
-          email: user?.email,
         }
       );
       if (res.data.success) {
@@ -90,7 +88,7 @@ const TraineeAttendingCourses = () => {
   return (
     <Div>
       {loading && <LoadingSpinner />}
-      <AttendedTitle>Your Attended Courses</AttendedTitle>
+      <AttendedTitle>ALl Trainee Course Progress</AttendedTitle>
       <AttendedUl>
         {traineeAttendingCourses?.length > 0 ? (
           traineeAttendingCourses?.map((traineeCourse) => (
@@ -99,7 +97,9 @@ const TraineeAttendingCourses = () => {
                 <AttendedDivFlex>
                   <AttendedDivRight>
                     <AttendedDivContent>
-                      Your course Progress for
+                      Course Progress for
+                      <span>{" " + traineeCourse.trainee_fullname}</span> course
+                      name is
                       <span>{" " + traineeCourse.trainee_course_name}</span>
                     </AttendedDivContent>
                   </AttendedDivRight>
@@ -109,13 +109,13 @@ const TraineeAttendingCourses = () => {
                         toggleShowDetails(traineeCourse.trainee_course_dtls_id)
                       }
                     >
-                      view progress details
+                      Know more
                     </AttendedDivButtons>
                   </AttendedDivLeft>
                 </AttendedDivFlex>
                 {selected === traineeCourse.trainee_course_dtls_id ? (
                   <SessionDetailsDiv>
-                    <TraineeAttendingCoursesDetails
+                    <TraineeIncompleteCoursesDetails
                       traineeCourse={traineeCourse}
                     />
                   </SessionDetailsDiv>
@@ -128,16 +128,9 @@ const TraineeAttendingCourses = () => {
             <AttendedDivFlex>
               <AttendedDivRight>
                 <AttendedDivContent>
-                  <span>You have not registered any course</span>
+                  <span>No one has complete the min course progress</span>
                 </AttendedDivContent>
               </AttendedDivRight>
-              <AttendedDivLeft>
-                <AttendedDivButtons>
-                  <Link to={"/courses"} style={{ color: "white" }}>
-                    Courses
-                  </Link>
-                </AttendedDivButtons>
-              </AttendedDivLeft>
             </AttendedDivFlex>
           </AttendedDiv>
         )}
@@ -146,4 +139,4 @@ const TraineeAttendingCourses = () => {
   );
 };
 
-export default TraineeAttendingCourses;
+export default TraineeIncompleteCourses;
