@@ -30,8 +30,8 @@ export const MentorRegisterDiv1 = styled.div``;
 
 export const MentorRegisterFlex = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 `;
 export const MentorRegisterLeftDiv = styled.div`
   width: 100%;
@@ -201,6 +201,9 @@ export const SignUpButton = styled.button`
   cursor: pointer;
   background: -webkit-linear-gradient(left, #3e5ce4, #4282fa);
   margin-top: 10px !important;
+  &:disabled {
+    cursor: not-allowed !important;
+  }
 `;
 export const FormSelect = styled.select`
   width: 100%;

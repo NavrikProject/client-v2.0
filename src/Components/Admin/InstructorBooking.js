@@ -189,7 +189,7 @@ const InstructorBooking = (props) => {
             </Field>
             <br />
             <ModifyButton type="submit" onClick={instructorBookingHandler}>
-              Book session
+              Schedule Instructor Class
             </ModifyButton>
           </FormDiv>
         </div>
