@@ -60,7 +60,7 @@ const ViewAllTraineeProgress = () => {
       )}
       <form action="">
         <Input
-          placeholder="Search by Course Name or Instructor Name or Email....."
+          placeholder="Search by Course Name or Instructor Name or Email or Course percentage....."
           type="text"
           onChange={(event) => setSearchItem(event.target.value)}
         />
@@ -94,6 +94,13 @@ const ViewAllTraineeProgress = () => {
                     .toLowerCase()
                     .includes(searchItem.toLowerCase()) ||
                   traineeFilter.trainee_course_instructor_name
+                    .toLowerCase()
+                    .includes(searchItem.toLowerCase()) ||
+                  traineeFilter.trainee_course_progress_percentage
+                    .toString()
+                    .toLowerCase()
+                    .includes(searchItem.toLowerCase()) ||
+                  traineeFilter.trainee_course_video_upload_status
                     .toLowerCase()
                     .includes(searchItem.toLowerCase())
             )
