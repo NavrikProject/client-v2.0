@@ -17,7 +17,7 @@ const JobCard = () => {
   useEffect(() => {
     const getAllJobPosts = async () => {
       const res = await axios.get(
-        "https://deploy-practiwiz.azurewebsites.net/api/jobs/get/all-jos-posts"
+        "https://deploy-practiwiz.azurewebsites.net/api/jobs/get/all-jobs-posts"
       );
       if (res.data.success) {
         setAllJobs(res.data.success);
@@ -32,14 +32,14 @@ const JobCard = () => {
     <JobCardSection>
       {allJobs?.length > 0 ? (
         allJobs?.map((job) => (
-          <JobCardDiv>
+          <JobCardDiv key={job.job_post_dtls_id}>
             <article>
               <div>
                 <div>
                   <JobTitle>
                     <Link
                       style={{ textDecoration: "none", color: "#062C30" }}
-                      to={`/jobs/individual-job/${job.job_post_role}`}
+                      to={`/jobs/individual-job/${job.job_post_unique_id}`}
                     >
                       {" " + job.job_post_role.split("-").join(" ")}
                     </Link>
@@ -96,28 +96,26 @@ const JobCard = () => {
                     Tags :<span>{" " + job.job_post_tags}</span>
                   </JobCardDescription>
                 </div>
-                <div>
-                  <i></i>
-                  <span>
-                    Posted On :
-                    {" " +
-                      moment(new Date(job.job_post_cr_dt)).format(
-                        "Do MMMM YYYY"
-                      )}
-                  </span>
-                </div>
               </JobCardDisplayFlexDiv>
             </article>
-            <div>
+            <JobCardDisplayFlexDiv>
+              <div>
+                <i></i>
+                <span>
+                  Posted On :
+                  {" " +
+                    moment(new Date(job.job_post_cr_dt)).format("Do MMMM YYYY")}
+                </span>
+              </div>
               <div>
                 <ViewJobButton>
-                  <Link to={`/jobs/individual-job/${job.job_post_role}`}>
+                  <Link to={`/jobs/individual-job/${job.job_post_unique_id}`}>
                     View Job
                   </Link>
                 </ViewJobButton>
                 <ApplyNowButton>Apply Now</ApplyNowButton>
               </div>
-            </div>
+            </JobCardDisplayFlexDiv>
           </JobCardDiv>
         ))
       ) : (
