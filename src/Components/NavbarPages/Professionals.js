@@ -32,8 +32,6 @@ import {
   ProfessionalWrapper,
   ProfessionCardTitles,
 } from "./ProfessionalElements";
-import ScrollAnimation from "react-animate-on-scroll";
-
 import CallCenter from "../../images/highlighsImages/call-center.png";
 import Content from "../../images/highlighsImages/content.png";
 import Online from "../../images/highlighsImages/learning.png";
@@ -49,7 +47,6 @@ const Professionals = () => {
           <img src={roadmap} alt="roadmap" />
         </ChronoWrapper>
       </ProfessionalDiv>
-      <ScrollAnimation animateIn="fadeIn">Some Text</ScrollAnimation>
       <ProfessionalDiv>
         <ProfessionalWrapper>
           <FlexDiv>

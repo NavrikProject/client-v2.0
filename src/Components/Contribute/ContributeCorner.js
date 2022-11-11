@@ -11,7 +11,6 @@ import "./PhoneNumbers.css";
 import axios from "axios";
 import LoadingSpinner from "../utils/LoadingSpinner";
 import { toast } from "react-toastify";
-import ScrollAnimation from "react-animate-on-scroll";
 import { Link } from "react-router-dom";
 import PhoneInput2 from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -224,7 +223,7 @@ const ContributeCorner = () => {
           </ContributeDiv>
           <ContributeDiv>
             <ContributeTitle>Add resources or content</ContributeTitle>
-            <ScrollAnimation animateIn="fadeIn">
+          
               <ContributeContentDiv>
                 <ContributeContentFlex>
                   <ContributeContentRight>
@@ -246,11 +245,11 @@ const ContributeCorner = () => {
                   </ContributeContentLeft>
                 </ContributeContentFlex>
               </ContributeContentDiv>
-            </ScrollAnimation>
+           
           </ContributeDiv>
           <ContributeDiv>
             <ContributeTitle>Suggestion or Remove the content</ContributeTitle>
-            <ScrollAnimation animateIn="fadeIn">
+          
               <ContributeContentDiv>
                 <ContributeContentFlex>
                   <ContributeContentLeft>
@@ -274,11 +273,11 @@ const ContributeCorner = () => {
                   </ContributeContentRight>
                 </ContributeContentFlex>
               </ContributeContentDiv>
-            </ScrollAnimation>
+           
           </ContributeDiv>
           <ContributeDiv>
             <ContributeTitle>Partner with us</ContributeTitle>
-            <ScrollAnimation animateIn="fadeIn">
+          
               <ContributeContentDiv>
                 <ContributeContentFlex>
                   <ContributeContentRight>
@@ -297,11 +296,11 @@ const ContributeCorner = () => {
                   </ContributeContentLeft>
                 </ContributeContentFlex>
               </ContributeContentDiv>
-            </ScrollAnimation>
+           
           </ContributeDiv>
           <ContributeDiv>
             <ContributeTitle>Give a feedback</ContributeTitle>
-            <ScrollAnimation animateIn="fadeIn">
+          
               <ContributeContentDiv>
                 <ContributeContentFlex>
                   <ContributeContentLeft>
@@ -321,13 +320,13 @@ const ContributeCorner = () => {
                   </ContributeContentRight>
                 </ContributeContentFlex>
               </ContributeContentDiv>
-            </ScrollAnimation>
+           
           </ContributeDiv>
           <ContributeDiv>
             <ContributeTitle>
               Did you Found a bug ? report to us!
             </ContributeTitle>
-            <ScrollAnimation animateIn="fadeIn">
+          
               <ContributeContentDiv>
                 <ContributeContentFlex>
                   <ContributeContentRight>
@@ -347,7 +346,7 @@ const ContributeCorner = () => {
                   </ContributeContentLeft>
                 </ContributeContentFlex>
               </ContributeContentDiv>
-            </ScrollAnimation>
+           
           </ContributeDiv>
         </ContributeWrapper>
         <ContributeWrapper id="form">
@@ -434,14 +433,14 @@ const ContributeCorner = () => {
                     Submit
                   </SubmitButton>
                 </ContactDivLeft>
-                <ScrollAnimation animateIn="fadeIn">
+              
                   <ContactDivRight>
                     <img
                       src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
                       alt=""
                     />
                   </ContactDivRight>
-                </ScrollAnimation>
+               
               </ContactDivFlex>
             </ContactDiv>
           </ContributeMainTitle>
