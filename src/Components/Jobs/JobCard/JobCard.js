@@ -28,6 +28,7 @@ const JobCard = () => {
     };
     getAllJobPosts();
   }, []);
+
   return (
     <JobCardSection>
       {allJobs?.length > 0 ? (
