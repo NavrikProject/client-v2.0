@@ -4,9 +4,9 @@
   "homepage": "https://happy-tree-0192a720f.1.azurestaticapps.net/",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.8.2",
-    "@emotion/styled": "^11.8.1",
-    "@reduxjs/toolkit": "^1.7.1",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@reduxjs/toolkit": "^1.9.0",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
