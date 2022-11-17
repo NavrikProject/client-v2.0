@@ -143,6 +143,19 @@ const TraineeProfile = () => {
                     </Link>
                   </QuickMenuTitle>
                 </SidebarListItem>
+                <SidebarListItem>
+                  <QuickMenuTitle>
+                    <Link
+                      style={{ textDecoration: "none", color: "#111" }}
+                      to={`/${user?.type}/profile/my-jobs`}
+                    >
+                      <span>
+                        <i className="fa-regular fa-file"></i>
+                      </span>
+                      Applied Jobs
+                    </Link>
+                  </QuickMenuTitle>
+                </SidebarListItem>
                 <SidebarListItem onClick={showPersonalForm}>
                   <QuickMenuTitle>
                     <span>

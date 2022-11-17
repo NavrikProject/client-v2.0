@@ -347,6 +347,7 @@ const AddFirmDetailsForm = () => {
               <Field>
                 <FormLabel>Firm Logo:</FormLabel>
                 <Input
+                  accept="image/png, image/jpg, image/jpeg"
                   required
                   type="file"
                   name="image"

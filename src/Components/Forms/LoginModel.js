@@ -41,6 +41,7 @@ const LoginModel = (props) => {
     handleSubmit,
     formState: { errors },
     trigger,
+    reset,
   } = useForm();
 
   const [type, setType] = useState("trainee");
@@ -73,6 +74,7 @@ const LoginModel = (props) => {
         dispatch(loginSuccess(res.data.success));
         setLoading(false);
         setSuccess(true);
+        reset();
       }
 
       if (res.data.notFound) {
@@ -90,6 +92,7 @@ const LoginModel = (props) => {
     } catch (error) {
       return;
     }
+    reset();
   };
   setTimeout(() => {
     setError("");
@@ -161,7 +164,7 @@ const LoginModel = (props) => {
             <SuccessDiv>
               {success && (
                 <p style={{ color: "green" }}>
-                  You are logged in, You can continue to booking
+                  You are logged in, You can close this .....
                 </p>
               )}
               {error && <p style={{ color: "red" }}>{error}</p>}
