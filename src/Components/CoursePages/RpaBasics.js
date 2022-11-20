@@ -39,10 +39,12 @@ import {
 } from "./CourseElements.js";
 //import { addCourse } from "../../../../../../redux/cartRedux";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import GoToTop from "../GoToTop";
 import { faqData } from "../Data/FaqData.js";
-const BaPractical = () => {
+import LoginModel from "../Forms/LoginModel.js";
+const RpaBasicsCourse = () => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
   //add to cart handler currently commented
   // const addToCartHandler = (course) => {
   //   dispatch(addCourse(course));
@@ -57,13 +59,21 @@ const BaPractical = () => {
     setSelected(index);
   };
   const user = useSelector((state) => state.user.currentUser);
+  const showLoginModelHandler = () => {
+    setShowLoginModal(!showLoginModal);
+  };
   return (
     <SingleCourseSect>
+      {showLoginModal && (
+        <LoginModel showLoginModelHandler={showLoginModelHandler} />
+      )}
       <SingleCourseSection>
         <SingleCourseWrapper>
           <SingleCourseFlex>
             <HeaderRightCol>
-              <SingleCourseTitle>RPA BA Practical Course</SingleCourseTitle>
+              <SingleCourseTitle>
+                RPA hands-on live training Program with live projects
+              </SingleCourseTitle>
               <CourseDescription>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Molestias illum rem labore! Quidem sunt molestias odio
@@ -92,10 +102,10 @@ const BaPractical = () => {
             </HeaderRightCol>
             <HeaderLeftCol>
               <HeaderLeftBox>
-                <HeaderRightImg src="https://www.simplilearn.com/ice9/free_resources_article_thumb/IT_Business_Analyst.jpg" />
+                <HeaderRightImg src="https://g1ant.com/wp-content/uploads/2020/12/What-is-RPA.png" />
                 <FlexBox>
                   <Label>Price:</Label>
-                  <HeaderRightPriced>Rs 4999</HeaderRightPriced>
+                  <HeaderRightPriced>Rs 3000 excluding GST</HeaderRightPriced>
                 </FlexBox>
                 {/* <FlexBox>
                     <AddToCartBtn onClick={() => addToCartHandler(course)}>
@@ -107,14 +117,12 @@ const BaPractical = () => {
                   <a
                     target={`_blank`}
                     style={{ textDecoration: "none", color: "black" }}
-                    href="https://learn.practiwiz.co/s/store/courses/description/RPA-hands-on-live-training-Program-with-live-projects"
+                    href="https://learn.practiwiz.com/courses/RPA-hands-on-live-training-Program-with-live-projects-61ea33c50cf2ed20524d4ed8"
                   >
                     <BuyNowBtn>Buy Now</BuyNowBtn>
                   </a>
                 ) : (
-                  <Link to="/login">
-                    <BuyNowBtn>Login</BuyNowBtn>
-                  </Link>
+                  <BuyNowBtn onClick={showLoginModelHandler}>Login</BuyNowBtn>
                 )}
               </HeaderLeftBox>
             </HeaderLeftCol>
@@ -222,4 +230,4 @@ const BaPractical = () => {
   );
 };
 
-export default BaPractical;
+export default RpaBasicsCourse;
