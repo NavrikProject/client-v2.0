@@ -51,27 +51,27 @@ const IndividualTrainingMenu = () => {
           <SubmenuListItem>
             <Link
               style={{ textDecoration: "none", color: "#062C30" }}
-              to="/training/individual/rpa-basics"
+              to="/training/individual/jumpstart-to-rpa-live-bot-development"
             >
-              RPA DEVELOPER BASICS PRACTICAL
+              JUMP START to RPA LIVE BOT DEVELOPMENT
             </Link>
           </SubmenuListItem>
           <SubmenuListItem>
             <Link
               style={{ textDecoration: "none", color: "#062C30" }}
-              to="/training/individual/ba"
+              to="/training/individual/ba-practical"
             >
               RPA BA PRACTICAL
             </Link>
           </SubmenuListItem>
-          <SubmenuListItem>
+          {/* <SubmenuListItem>
             <Link
               style={{ textDecoration: "none", color: "#062C30" }}
               to="/training/practical"
             >
               RPA PRACTICAL ASSIGNMENTS
             </Link>
-          </SubmenuListItem>
+          </SubmenuListItem> */}
         </SubmenuList>
       )}
     </ContainerDiv>
