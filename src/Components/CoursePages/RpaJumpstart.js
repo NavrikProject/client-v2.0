@@ -53,7 +53,9 @@ const RpaJumpstart = () => {
   useEffect(() => {
     try {
       const getIndMentorDetails = async () => {
-        const res = await axios.get(`/courses/full-course?name=${path}`);
+        const res = await axios.get(
+          `https://deploy-practiwiz.azurewebsites.net/api/courses/full-course?name=${path}`
+        );
         if (res.data.success) {
           setCourseDetails(res.data.success);
         }
