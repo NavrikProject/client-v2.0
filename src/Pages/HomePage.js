@@ -1,7 +1,7 @@
 import React from "react";
 import { Suspense } from "react";
 import CourseSection from "../Components/Home/CourseSection";
-import LoadingSpinner from "../Components/Utils/LoadingSpinner";
+import LoadingSpinner from "../Components/utils/LoadingSpinner";
 import AboutSection from "../Components/Home/AboutSection";
 import TestimonialSection from "../Components/Home/TestimonialSection";
 import RegisterSection from "../Components/Home/RegisterBannerSection";
