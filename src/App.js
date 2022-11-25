@@ -23,6 +23,7 @@ import ProtectedRoute from "./Components/Utils/ProtectedRoutes";
 import PublicRoute from "./Components/Utils/PublicRoute";
 import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/RegisterPage";
+import LoadingSpinnerBlack from "./Components/Utils/LoadingSpinnerBlack";
 // ..
 AOS.init();
 const App = () => {
@@ -30,12 +31,12 @@ const App = () => {
   const { isShowingModel } = useSelector((state) => state.model);
   return (
     <>
-      {isLoading ? <LoadingSpinner /> : null}
+      {isLoading ? <LoadingSpinnerBlack /> : null}
       {isShowingModel ? <Model /> : null}
       <ToastContainer />
       <CookieNotice />
       <Router>
-        <Suspense fallback={<LoadingSpinner />}>
+        <Suspense fallback={<LoadingSpinnerBlack />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route
