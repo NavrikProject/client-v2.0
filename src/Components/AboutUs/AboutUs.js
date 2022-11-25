@@ -1,8 +1,35 @@
 import React from "react";
-
+import aboutImg from "../../images/about-img.jpg";
+import about from "../../images/about.jpg";
+import innerBannerWeb from "../../images/inner-banner.jpg";
+import innerBannerMob from "../../images/inner-banner-mobile.jpg";
 const AboutUs = () => {
   return (
     <>
+      <section class="inner-banner">
+        <ul class="inner">
+          <li class="bannerSlide">
+            <figure class="only-des">
+              <img src={innerBannerWeb} alt="" />
+            </figure>
+            <figure class="only-mobile">
+              <img src={innerBannerMob} alt="" />
+            </figure>
+            <div class="bannerInfo">
+              <span>
+                <h1>About Us</h1>
+              </span>
+              <span>
+                <h3>
+                  Learn From the Corporate, Step Into
+                  <br />
+                  Corporate World!
+                </h3>
+              </span>
+            </div>
+          </li>
+        </ul>
+      </section>
       <section class="innty uuyi testimonials homeSec3">
         <figure class="addAnimate" data-class="fadeIn">
           <div class="center addAnimate" data-class="fadeInBottom">
@@ -23,7 +50,8 @@ const AboutUs = () => {
           </div>
         </figure>
       </section>
-      {/* <!--<section class="innty uuyi testimonials homeSec3">
+      {/* 
+    <!--<section class="innty uuyi testimonials homeSec3">
 		<figure class="addAnimate" data-class="fadeIn">
 			<div class="center addAnimate" data-class="fadeInBottom">
 				
@@ -106,7 +134,7 @@ const AboutUs = () => {
                 </ul>
               </div>
               <div class="about-right top">
-                <img src="images/about.png" alt="" />
+                <img src={about} alt="" />
               </div>
             </div>
           </div>
@@ -232,6 +260,7 @@ const AboutUs = () => {
 
               <div class="more">
                 <a
+                  rel="noreferrer"
                   href="https://www.linkedin.com/in/gautamtarun/"
                   target="_blank"
                 >
@@ -241,7 +270,7 @@ const AboutUs = () => {
             </div>
 
             <div class="about-right">
-              <img src="images/about-img.jpg" alt="" />
+              <img src={aboutImg} alt="" />
               <p>
                 Founder & CEO<span>Tarun Gautam</span>
               </p>

@@ -630,6 +630,9 @@ header.fixed {
 .moreLink:hover samp:after {
   /* background: url(../images/arrow2.png) no-repeat 0 0; */
 }
+.mission figure {
+  margin: -4px 0;
+}
 
 .moreLink_red {
   position: relative;
@@ -1250,7 +1253,6 @@ input[type="text"]:focus {
     padding-right: 0px;
     display: none;
   }
-
   .megamenu_bg {
     display: none;
   }
@@ -1379,7 +1381,7 @@ input[type="text"]:focus {
   .center {
     width: 93%;
     max-width: inherit;
-    /* margin: 30px auto; */
+    /* margin: 30 auto; */
     position: relative;
   }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LoginIcon from "../../images/login-icon.png";
 import userIcon from "../../images/user-icon.png";
-import logo from "../../images/practiwiz-logo.png";
+import logo from "../../images/Practiwiz-logo.png";
 import hoverImage from "../../images/mamu-img1.jpg";
 
 const Navbar = () => {
@@ -17,9 +17,9 @@ const Navbar = () => {
         <div className="top-bar">
           <div className="center">
             <div className="top-left">
-              <a>+91 9830259960</a>
+              <a href="link">+91 9830259960</a>
               <a>|</a>
-              <a>info@practiwiz.com</a>
+              <a href="link">info@practiwiz.com</a>
             </div>
 
             <div className="top-right">
@@ -274,7 +274,7 @@ const Navbar = () => {
                           <aside>
                             <ul>
                               <li>
-                                <a href="overview.html">Overview</a>
+                                <a href="/about-us">Overview</a>
                               </li>
                               <li>
                                 <a href="asdga">Vision Mission Values</a>

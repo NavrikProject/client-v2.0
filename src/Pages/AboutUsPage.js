@@ -4,7 +4,7 @@ import GoToTop from "../Components/GoToTop";
 import LoadingSpinner from "../Components/Utils/LoadingSpinner";
 const Navbar = React.lazy(() => import("../Components/Home/Navbar"));
 const Footer = React.lazy(() => import("../Components/Home/Footer.js"));
-const AboutUs = React.lazy(() => import("../Components/AboutUs/About-us.js"));
+const AboutUs = React.lazy(() => import("../Components/AboutUs/AboutUs.js"));
 
 const AboutUsPage = () => {
   return (

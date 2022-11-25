@@ -1957,6 +1957,35 @@ li.social_item article a.more3:hover {
   background: #ededed;
   padding: 108px 0;
 }
+
+.about-left2 {
+  float: inherit;
+  width: 100%;
+  text-align: left;
+}
+.about-left2 h2 {
+  font-size: 30px;
+  font-weight: 600;
+  color: #000;
+  padding: 25px 0 0px 0;
+  text-align: left;
+  text-transform: none;
+  margin: 0 0px 25px 0;
+}
+.about-left2 h2 span {
+  font-weight: 400;
+}
+.about-left2 h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;
+  padding: 0px 0 10px 0;
+  text-align: left;
+  text-transform: none;
+  margin: 0 0px 15px 0;
+  line-height: 30px;
+}
+
 .about-left {
   float: left;
   width: 50%;
@@ -2008,6 +2037,290 @@ li.social_item article a.more3:hover {
   float: left;
   padding: 3px;
 }
+
+.inner .bannerSlide {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin: 0px 0 0 0;
+}
+.inner .bannerInfo {
+  position: absolute;
+  left: 18%;
+  top: 111px;
+  width: 670px;
+  margin-left: 20px;
+}
+.inner .bannerInfo span h1 {
+  font-size: 21px;
+  color: #000;
+  text-transform: uppercase;
+  line-height: 30px;
+}
+.inner .bannerInfo span h3 {
+  font-size: 18px;
+  color: #000;
+  text-transform: none;
+  line-height: 28px;
+  font-style: italic;
+  font-weight: 300;
+}
+.inner .bannerInfo span h3 {
+  position: relative;
+  top: 0px; /* opacity: 0; */
+  font-size: 18px;
+  color: #000;
+  text-transform: inherit;
+  font-weight: 400;
+}
+.innty figure {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  padding: 50px 0 50px 0;
+}
+.innty .about-left h3 {
+  padding: 0 0 15px 0;
+}
+.pillars figure {
+  position: relative;
+  overflow: hidden;
+  background: #99cbd4;
+  padding: 108px 0;
+}
+.pillars h2 {
+  font-size: 28px;
+  color: #000;
+  text-transform: inherit;
+  font-style: normal !important;
+  padding: 10px 0 0 0;
+  text-align: left;
+  margin: 0px 0 50px 0;
+}
+.pillars p {
+  font-size: 16px;
+  line-height: 26px;
+  color: #000;
+  padding: 0px 0 20px 0;
+}
+.about-left-box {
+  float: left;
+  width: 50%;
+  margin: 0px;
+  padding: 0px;
+}
+.about-right-box {
+  float: right;
+  width: 50%;
+  margin: 0px;
+  padding: 0px;
+}
+.about-right-box img {
+  max-width: 100%;
+  height: auto;
+}
+.about-left-box .center-left {
+  width: 100%;
+  max-width: 600px;
+  float: right;
+  padding: 50px 35px 0 0;
+}
+.about-left-box .center-left h2 {
+  font-size: 36px;
+  font-weight: 600;
+  color: #000;
+  padding: 25px 0 25px 0;
+}
+.about-left-box .center-left h2 span {
+  font-weight: 400;
+}
+.about-left-box .center-left h3 {
+  font-size: 23px;
+  font-weight: 600;
+  color: #ee6c29;
+  padding: 25px 0 25px 0;
+}
+.about-left-box .center-left p {
+  font-size: 16px;
+  line-height: 27px;
+  padding: 0 0 15px 0;
+}
+.about-left-box .center-left ul li {
+  font-size: 16px;
+  line-height: 27px;
+  padding: 5px 0 5px 25px;
+  background: url("../images/tab.jpg") left center no-repeat;
+}
+
+.mission .about-left-box {
+  float: left;
+  width: 50%;
+  margin: 0px;
+  padding: 0px;
+}
+.mission .about-left-box img {
+  max-width: 100%;
+  height: auto;
+}
+.mission .about-right-box {
+  float: right;
+  width: 50%;
+  margin: 0px;
+  padding: 0px;
+}
+.mission .about-right-box img {
+  max-width: 100%;
+  height: auto;
+}
+.mission .about-right-box .center-left {
+  width: 100%;
+  max-width: 600px;
+  float: left;
+  padding: 50px 0px 0 55px;
+}
+.mission .about-right-box .center-left h2 {
+  font-size: 36px;
+  font-weight: 600;
+  color: #000;
+  padding: 25px 0 25px 0;
+}
+.mission .about-right-box .center-left h2 span {
+  font-weight: 400;
+}
+.mission .about-right-box .center-left h3 {
+  font-size: 23px;
+  font-weight: 600;
+  color: #ee6c29;
+  padding: 25px 0 25px 0;
+}
+.mission .about-right-box .center-left p {
+  font-size: 16px;
+  line-height: 27px;
+  padding: 0 0 15px 0;
+}
+.mission .about-right-box .center-left ul li {
+  font-size: 16px;
+  line-height: 27px;
+  padding: 5px 0 5px 25px;
+  background: url("../images/tab.jpg") left center no-repeat;
+}
+.only-mobile {
+  display: none;
+}
+.only-des {
+  display: block;
+}
+
+.about-left-box2 {
+  float: inherit;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+.about-left-box2 {
+  width: 100%;
+  padding: 0px 35px 0 0;
+}
+.about-left-box2 h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000;
+  padding: 0px;
+  text-align: left;
+  text-transform: none;
+}
+.about-left-box2 h2 span {
+  font-weight: 400;
+}
+.about-left-box2 h3 {
+  font-size: 23px;
+  font-weight: 600;
+  color: #ee6c29;
+  padding: 25px 0 25px 0;
+}
+.about-left-box2 p {
+  font-size: 16px;
+  line-height: 27px;
+  padding: 0 0 15px 0;
+}
+.about-left-box2 ul li {
+  font-size: 16px;
+  line-height: 27px;
+  padding: 5px 0 5px 25px;
+  background: url("../images/tab.jpg") left center no-repeat;
+}
+.top {
+  padding: 90px 25px 0 0px;
+}
+.usps table {
+  padding: 15px 0;
+}
+.usps table tr td {
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+.usps h3 {
+  font-size: 26px;
+  padding: 0 0 15px 0;
+  font-weight: 600;
+}
+.usps p {
+  padding: 15px 0;
+  line-height: 27px;
+}
+.founder .about-left {
+  float: left;
+  width: 60%;
+  text-align: left;
+}
+.founder .about-right {
+  float: right;
+  width: 40%;
+  position: relative;
+  padding: 70px 0 0 15px;
+}
+.founder .more {
+  background: #0a66c2;
+  font-size: 14px;
+  color: #fff;
+  font-weight: 400;
+  text-align: center;
+  padding: 15px 25px;
+  border-radius: 50px;
+  margin: 20px 0 0 0;
+  cursor: pointer;
+}
+.founder .more:hover {
+  background: #000;
+}
+.founder .more a {
+  font-size: 14px;
+  color: #fff;
+  text-transform: none;
+}
+.founder .about-right img {
+  border-radius: 15px;
+}
+.vision h3 {
+  padding: 25px 0;
+}
+.vision article {
+  float: left;
+  width: 48%;
+  border: 1px solid #ccc;
+  margin: 0 10px;
+  padding: 35px;
+  text-align: center;
+  border-radius: 5px;
+}
+.vision article {
+  background: #f4ebcb;
+}
+.vision article:last-child {
+  background: #cbf0f4;
+}
+
 @media all and (max-width: 1366px) {
   .bannerInfo {
     position: absolute;
@@ -2234,8 +2547,103 @@ li.social_item article a.more3:hover {
     border: 1px solid #dfdfdf;
     box-shadow: 0px 3px 10px 0px rgb(0 0 0 / 5%);
   }
-  .rrty .center {
+  .about-left-box .center-left {
+    width: 100%;
+    max-width: 600px;
+    float: inherit;
+    padding: 0;
+  }
+  .about-left-box {
+    float: inherit;
+    width: 100%;
     margin: 0px;
+    padding: 0px 15px;
+  }
+  .about-right-box {
+    float: none;
+    width: 100%;
+    margin: 15px 0px;
+    padding: 0px;
+  }
+  .mission .about-left-box {
+    float: none;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+  }
+  .mission .about-right-box {
+    float: inherit;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+  }
+  .inner .bannerSlide {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin: 0px 0 0 0;
+  }
+  .only-mobile {
+    display: block;
+  }
+  .only-des {
+    display: none;
+  }
+  .inner .bannerInfo {
+    position: absolute;
+    left: 0;
+    top: inherit;
+    width: auto;
+    margin-left: 0;
+  }
+  .mission .about-right-box .center-left {
+    width: 100%;
+    max-width: 600px;
+    float: none;
+    padding: 50px 15px;
+  }
+  .about-left-box2 ul li {
+    font-size: 16px;
+    line-height: 27px;
+    padding: 5px 0 5px 25px;
+    background: url(../images/tab.jpg) left center no-repeat;
+    text-align: left;
+  }
+  .top {
+    padding: 0px 0px 0 0px;
+  }
+  .usps table tr td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    vertical-align: TOP;
+  }
+  .table {
+    width: 90%;
+    overflow-x: auto;
+  }
+  .vision article {
+    float: none;
+    width: auto;
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 35px;
+    text-align: center;
+    border-radius: 5px;
+  }
+  .founder .about-left {
+    float: none;
+    width: auto;
+    text-align: left;
+  }
+  .founder .about-right {
+    float: none;
+    width: auto;
+    position: relative;
+    padding: 20px 0 0 0px;
+  }
+  section .inner-banner {
+    height: 500px !important;
   }
 }
 
@@ -2497,7 +2905,6 @@ li.social_item article a.more3:hover {
     min-height: 500px;
     margin: 60px 0;
   }
-
   .top-bar {
     background: #e6e6e6;
     line-height: 30px;
