@@ -11,7 +11,6 @@ import "./styles/slick.css";
 import "./styles/style.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import LoadingSpinner from "./Components/Utils/LoadingSpinner";
 import CookieNotice from "./Components/Utils/CookieNotice";
 import ScrollToTop from "./Components/ScrollToTop";
 import HomePage from "./Pages/HomePage";
