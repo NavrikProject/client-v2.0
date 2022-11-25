@@ -11,10 +11,10 @@ import "./styles/slick.css";
 import "./styles/style.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import CookieNotice from "./Components/Utils/CookieNotice";
-import ScrollToTop from "./Components/ScrollToTop";
+import CookieNotice from "./Components/Utils/CookieNotice.js";
+import ScrollToTop from "./Components/ScrollToTop.js";
 import HomePage from "./Pages/HomePage";
-import Model from "./Components/Utils/Model";
+import Model from "./Components/Utils/Model.js";
 import AOS from "aos";
 import "aos/dist/aos.css"; // You can also use <link> for styles
 import { useSelector } from "react-redux";
@@ -23,6 +23,7 @@ import PublicRoute from "./Components/Utils/PublicRoute";
 import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/RegisterPage";
 import LoadingSpinnerBlack from "./Components/Utils/LoadingSpinnerBlack";
+import AboutUsPage from "./Pages/AboutUsPage";
 // ..
 AOS.init();
 const App = () => {
@@ -51,6 +52,14 @@ const App = () => {
               element={
                 <PublicRoute>
                   <RegisterPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/about-us"
+              element={
+                <PublicRoute>
+                  <AboutUsPage />
                 </PublicRoute>
               }
             />
