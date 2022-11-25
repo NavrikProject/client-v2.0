@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LoginIcon from "../../images/login-icon.png";
 import userIcon from "../../images/user-icon.png";
-import logo from "../../images/Practiwiz-logo.png";
+import logo from "../../images/practiwiz-logo.png";
 import hoverImage from "../../images/mamu-img1.jpg";
 
 const Navbar = () => {
