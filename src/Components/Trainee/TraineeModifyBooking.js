@@ -9,7 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import logo from "../../images/Practiwiz-logo.png";
+import logo from "../../images/practiwiz-logo.png";
 import LoadingSpinner from "../utils/LoadingSpinner.js";
 
 const CloseButton = styled(AiOutlineClose)`

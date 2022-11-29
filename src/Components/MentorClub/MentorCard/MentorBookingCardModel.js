@@ -6,7 +6,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import logo from "../../../images/Practiwiz-logo.png";
+import logo from "../../../images/practiwiz-logo.png";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import "react-datepicker/dist/react-datepicker.css";
 import "./MentorCardDate.css";
