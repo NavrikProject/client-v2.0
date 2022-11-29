@@ -46,6 +46,8 @@ import RecruiterProfilePages from "./Pages/RecruiterPages/RecruiterProfilePages"
 import JobsAdminPage from "./Pages/DashboardPages/JobsAdminPage";
 import CourseProgressAdminPage from "./Pages/DashboardPages/CourseProgressAdminPage";
 import UsersAdminPage from "./Pages/DashboardPages/UsersAdminPage";
+import JobIndividualPage from "./Pages/JobPages/JobIndividualPage";
+
 // ..
 AOS.init();
 const App = () => {
@@ -237,6 +239,10 @@ const App = () => {
                   <JobsAdminPage />
                 </ProtectedRoute>
               }
+            />
+            <Route
+              path={`/jobs/individual-job/:id`}
+              element={<JobIndividualPage />}
             />
             {/* jobs routes ended */}
             {/* recruiter routes started */}

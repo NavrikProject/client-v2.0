@@ -4,7 +4,7 @@ export const IndividualJobSection = styled.section`
   height: auto;
 `;
 export const IndividualJobWrapper = styled.div`
-  margin: 0 10px 0 100px;
+  margin: 0 10px 0 150px;
 `;
 export const IndividualJobDisplayFlex = styled.div`
   display: flex;
