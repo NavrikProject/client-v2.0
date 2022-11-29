@@ -1,5 +1,6 @@
 import React from "react";
 import Carousel from "react-elastic-carousel";
+import { Link } from "react-router-dom";
 import jobImg1 from "../../images/job-com1.jpg";
 import jobImg2 from "../../images/job-com2.jpg";
 import jobImg3 from "../../images/job-com3.jpg";
@@ -124,7 +125,11 @@ const JobsSection = () => {
             </li>
           </Carousel>
         </ul>
-        <div className="more">View All Job</div>
+        <div className="more">
+          <Link style={{ color: "white" }} to="/jobs">
+            View All Job
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -438,6 +438,10 @@ header.fixed {
   width: 100%;
   padding: 0;
 }
+.nav li.hasMegamenu .submenuHolder .userFound {
+  width: 0%;
+  padding: 0;
+}
 .nav li:last-of-type .submenuHolder {
   left: auto;
   right: 0;

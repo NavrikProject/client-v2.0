@@ -2033,6 +2033,10 @@ li.social_item article a.more3:hover {
   line-height: 22px;
   padding: 20px 0;
 }
+.footer_menu p i {
+  margin-right: 5px;
+  font-size: 16px;
+}
 .footer_menu .card li {
   float: left;
   padding: 3px;

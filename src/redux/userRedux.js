@@ -40,6 +40,7 @@ const userSlice = createSlice({
       state.isFetching = false;
       state.currentUser = null;
       state.error = null;
+      state.isAuthenticated = false;
       toast.warning("You are successfully logged out", {
         position: "top-center",
       });

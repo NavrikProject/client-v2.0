@@ -20,7 +20,7 @@ const Footer = () => {
                 <img src={logo} alt="logo" />
               </li> */}
               <li>
-                <a href="">About Us</a>
+                <a href="/about-us">About Us</a>
                 <p>
                   There are many variations of passages of Lorem Ipsum
                   available, but the majority have suffered alteration in some
@@ -34,7 +34,7 @@ const Footer = () => {
                 <a href="">Useful Links</a>
                 <ul className="footerMenuSub">
                   <li>
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                   </li>
                   <li>
                     <a href="#">IT Training</a>
@@ -46,16 +46,16 @@ const Footer = () => {
                     <a href="#">Methodology</a>
                   </li>
                   <li>
-                    <a href="#">Mentor Club</a>
+                    <a href="/mentors-club">Mentor Club</a>
                   </li>
                   <li>
-                    <a href="#">Jobs</a>
+                    <a href="/jobs">Jobs</a>
                   </li>
                   <li>
-                    <a href="#">About Us</a>
+                    <a href="/about-us">About Us</a>
                   </li>
                   <li>
-                    <a href="#">Contact Us</a>
+                    <a href="/contact-us">Contact Us</a>
                   </li>
                 </ul>
               </li>
@@ -66,7 +66,7 @@ const Footer = () => {
                 <a href="">Useful Links</a>
                 <ul className="footerMenuSub">
                   <li>
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                   </li>
                   <li>
                     <a href="#">IT Training</a>
@@ -78,16 +78,16 @@ const Footer = () => {
                     <a href="#">Methodology</a>
                   </li>
                   <li>
-                    <a href="#">Mentor Club</a>
+                    <a href="/mentors-club">Mentor Club</a>
                   </li>
                   <li>
-                    <a href="#">Jobs</a>
+                    <a href="/jobs">Jobs</a>
                   </li>
                   <li>
-                    <a href="#">About Us</a>
+                    <a href="/privacy-policies">Privacy & Policies</a>
                   </li>
                   <li>
-                    <a href="#">Contact Us</a>
+                    <a href="/terms-conditions">Terms & Conditions</a>
                   </li>
                 </ul>
               </li>
@@ -96,13 +96,13 @@ const Footer = () => {
               <li>
                 <a href="">Contact Us</a>
                 <p>
-                  B 1/5 Safdarjung Enclave Africa Avenue New Delhi Pin-110029
-                </p>
-                <p>
-                  (120) 3569310
+                  <i className="fa-solid fa-location-dot"></i> B 1/5 Safdarjung
+                  Enclave Africa Avenue New Delhi Pin-110029 <br />
+                  <i className="fa-solid fa-phone"></i> (120) 3569310
                   <br />
-                  contact@practiwiz.com
+                  <i className="fa-solid fa-envelope"></i> contact@practiwiz.com
                 </p>
+                <p></p>
                 <ul className="card">
                   <li>
                     <img src={card1} alt="" />

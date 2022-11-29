@@ -2,10 +2,10 @@ import React from "react";
 import aboutImage from "../../images/about-img.jpg";
 const AboutSection = () => {
   return (
-    <section className="founder uuyi testimonials homeSec3">
-      <figure className="addAnimate" data-class="fadeIn">
-        <div className="center addAnimate" data-class="fadeInBottom">
-          <div className="about-left">
+    <section class="founder uuyi testimonials homeSec3">
+      <figure class="addAnimate" data-class="fadeIn">
+        <div class="center addAnimate" data-class="fadeInBottom">
+          <div class="about-left">
             <h4>Tarun Gautam</h4>
             <h2>Our Visionary Founder</h2>
             <p>
@@ -44,7 +44,7 @@ const AboutSection = () => {
               with a twist of fun with learning.
             </p>
 
-            <div className="more">
+            <div class="more">
               <a
                 href="https://www.linkedin.com/in/gautamtarun/"
                 target="_blank"
@@ -54,7 +54,7 @@ const AboutSection = () => {
             </div>
           </div>
 
-          <div className="about-right">
+          <div class="about-right">
             <img src={aboutImage} alt="" />
             <p>
               Founder & CEO<span>Tarun Gautam</span>

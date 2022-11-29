@@ -1,5 +1,5 @@
 import React from "react";
-import "./LineWaveLoader.css";
+import "./Loading.css";
 const LoadingSpinner = () => {
   return (
     <div className="loadingBackdrop">

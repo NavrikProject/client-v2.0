@@ -6,16 +6,16 @@ import innerBannerMob from "../../images/inner-banner-mobile.jpg";
 const AboutUs = () => {
   return (
     <>
-      <section className="inner-banner">
-        <ul className="inner">
-          <li className="bannerSlide">
-            <figure className="only-des">
+      <section class="inner-banner">
+        <ul class="inner">
+          <li class="bannerSlide" data-aos="fade-up">
+            <figure class="only-des">
               <img src={innerBannerWeb} alt="" />
             </figure>
-            <figure className="only-mobile">
+            <figure class="only-mobile">
               <img src={innerBannerMob} alt="" />
             </figure>
-            <div className="bannerInfo">
+            <div class="bannerInfo">
               <span>
                 <h1>About Us</h1>
               </span>
@@ -30,10 +30,10 @@ const AboutUs = () => {
           </li>
         </ul>
       </section>
-      <section className="innty uuyi testimonials homeSec3">
-        <figure className="addAnimate" data-class="fadeIn">
-          <div className="center addAnimate" data-class="fadeInBottom">
-            <div className="about-left2">
+      <section class="innty uuyi testimonials homeSec3" data-aos="fade-right">
+        <figure class="addAnimate" data-class="fadeIn">
+          <div class="center addAnimate" data-class="fadeInBottom">
+            <div class="about-left2">
               <h2>
                 At Practiwiz – <span>We Make Learning Fun!</span>
               </h2>
@@ -51,11 +51,11 @@ const AboutUs = () => {
         </figure>
       </section>
       {/* 
-    <!--<section className="innty uuyi testimonials homeSec3">
-		<figure className="addAnimate" data-class="fadeIn">
-			<div className="center addAnimate" data-class="fadeInBottom">
+    <!--<section class="innty uuyi testimonials homeSec3">
+		<figure class="addAnimate" data-class="fadeIn">
+			<div class="center addAnimate" data-class="fadeInBottom">
 				
-			  <div className="about-left">
+			  <div class="about-left">
 					<h3>At Practiwiz – We Make Learning Fun!</h3><br>
 					<p><strong>Know why Practiwiz is an e-learning platform with a difference! <br>Simple! Because Aat Practiwiz we make learning FUN! </strong></p>
 					<p>We educate young aspiring minds through practical knowledge and one-to-one guidance to help them achieve their career goals.</p>
@@ -63,15 +63,15 @@ const AboutUs = () => {
 					
 			  </div>
 				
-				<div className="about-right">
+				<div class="about-right">
 	    	    	<img src="images/about.jpg" alt=""/>
 				</div>
 		  </div>
 		</figure>
 	</section>--> */}
-      {/* <!--<section className="pillars testimonials homeSec3">
-		<figure className="addAnimate" data-class="fadeIn">
-			<div className="center addAnimate" data-class="fadeInBottom">
+      {/* <!--<section class="pillars testimonials homeSec3">
+		<figure class="addAnimate" data-class="fadeIn">
+			<div class="center addAnimate" data-class="fadeInBottom">
 				
 				<h2>Our Learning Philosophy</h2>
 				<p>We all know that “All Work and No Play Makes Jack a Dull Boy” but ever wondered what it would be like if we had All Work through Play? Wouldn’t that be fun!! Then there would never be a dull day in learning after all! </p>
@@ -81,10 +81,10 @@ const AboutUs = () => {
 			</div>
 		</figure>
 	</section>--> */}
-      <section className="uuyi testimonials homeSec3">
-        <figure className="addAnimate" data-class="fadeIn">
-          <div className="about-left-box2">
-            <div className="center addAnimate" data-class="fadeInBottom">
+      <section class="uuyi testimonials homeSec3">
+        <figure class="addAnimate" data-class="fadeIn">
+          <div class="about-left-box2">
+            <div class="center addAnimate" data-class="fadeInBottom">
               <h2>
                 Our Learning <span>Philosophy</span>
               </h2>
@@ -100,7 +100,7 @@ const AboutUs = () => {
                 remember and grasp!
               </p>
 
-              <div className="about-left">
+              <div class="about-left">
                 <ul>
                   <li>Interactive fun activities,</li>
                   <li>Practical training and</li>
@@ -133,18 +133,18 @@ const AboutUs = () => {
                   <li>Industry Mentors</li>
                 </ul>
               </div>
-              <div className="about-right top">
+              <div class="about-right top">
                 <img src={about} alt="" />
               </div>
             </div>
           </div>
         </figure>
       </section>
-      <section className="usps innty homeSec3">
-        <figure className="addAnimate" data-class="fadeIn">
-          <div className="center addAnimate" data-class="fadeInBottom">
+      <section class="usps innty homeSec3">
+        <figure class="addAnimate" data-class="fadeIn">
+          <div class="center addAnimate" data-class="fadeInBottom">
             <h3>Our USPs</h3>
-            <div className="table">
+            <div class="table">
               <table cellspacing="0" cellpadding="0">
                 <tr>
                   <td>
@@ -195,7 +195,7 @@ const AboutUs = () => {
               </strong>
             </p>
 
-            <div className="vision">
+            <div class="vision">
               <h3>VISION – MISSION</h3>
               <article>
                 <h4>Our Vision</h4>
@@ -216,10 +216,10 @@ const AboutUs = () => {
           </div>
         </figure>
       </section>
-      <section className="founder uuyi testimonials homeSec3">
-        <figure className="addAnimate" data-class="fadeIn">
-          <div className="center addAnimate" data-class="fadeInBottom">
-            <div className="about-left">
+      <section class="founder uuyi testimonials homeSec3">
+        <figure class="addAnimate" data-class="fadeIn">
+          <div class="center addAnimate" data-class="fadeInBottom">
+            <div class="about-left" data-aos="fade-right">
               <h4>Tarun Gautam</h4>
               <h2>Our Visionary Founder</h2>
               <p>
@@ -258,7 +258,7 @@ const AboutUs = () => {
                 career oriented with a twist of fun with learning.
               </p>
 
-              <div className="more">
+              <div class="more">
                 <a
                   rel="noreferrer"
                   href="https://www.linkedin.com/in/gautamtarun/"
@@ -269,7 +269,7 @@ const AboutUs = () => {
               </div>
             </div>
 
-            <div className="about-right">
+            <div class="about-right" data-aos="fade-left">
               <img src={aboutImg} alt="" />
               <p>
                 Founder & CEO<span>Tarun Gautam</span>

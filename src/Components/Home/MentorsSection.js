@@ -4,6 +4,7 @@ import mentorImage2 from "../../images/mentors2.jpg";
 import mentorImage3 from "../../images/mentors3.jpg";
 import mentorImage4 from "../../images/mentors4.jpg";
 import Carousel from "react-elastic-carousel";
+import { Link } from "react-router-dom";
 
 const MentorsSection = () => {
   const breakPoints = [
@@ -110,7 +111,11 @@ const MentorsSection = () => {
           </Carousel>
         </ul>
 
-        <div className="more">View All Mentors</div>
+        <div className="more">
+          <Link style={{ color: "white" }} to="/mentors-club">
+            View All Mentors
+          </Link>
+        </div>
       </div>
     </section>
   );

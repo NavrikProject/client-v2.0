@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import LoginIcon from "../../images/login-icon.png";
 import userIcon from "../../images/user-icon.png";
-import logo from "../../images/practiwiz-logo.png";
+import logo from "../../images/Practiwiz-logo.png";
 import hoverImage from "../../images/mamu-img1.jpg";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [showContactMenu, setShowContactMenu] = useState(false);
@@ -11,6 +12,8 @@ const Navbar = () => {
   const [showMenuBarItems, setShowMenuBarItems] = useState(false);
   const [showItTrainingMenu, setShowItTrainingMenu] = useState(false);
   const [showBtTrainingMenu, setShowBtTrainingMenu] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const user = useSelector((state) => state.user.currentUser);
   return (
     <>
       <header className="fixed">
@@ -64,6 +67,7 @@ const Navbar = () => {
                           setShowBtTrainingMenu(false),
                           setShowContactMenu(false),
                           setAboutMenu(false),
+                          setShowProfileMenu(false),
                           setAddBackGroundBackdrop("block")
                         );
                       }}
@@ -73,6 +77,7 @@ const Navbar = () => {
                           setShowBtTrainingMenu(false),
                           setShowContactMenu(false),
                           setAboutMenu(false),
+                          setShowProfileMenu(false),
                           setAddBackGroundBackdrop("block")
                         );
                       }}
@@ -86,6 +91,7 @@ const Navbar = () => {
                           setShowBtTrainingMenu(false),
                           setShowContactMenu(false),
                           setAboutMenu(false),
+                          setShowProfileMenu(false),
                           setAddBackGroundBackdrop("none")
                         );
                       }}
@@ -146,6 +152,7 @@ const Navbar = () => {
                           setShowBtTrainingMenu(!showBtTrainingMenu),
                           setShowContactMenu(false),
                           setAboutMenu(false),
+                          setShowProfileMenu(false),
                           setAddBackGroundBackdrop("block")
                         );
                       }}
@@ -155,6 +162,7 @@ const Navbar = () => {
                           setShowBtTrainingMenu(true),
                           setShowContactMenu(false),
                           setAboutMenu(false),
+                          setShowProfileMenu(false),
                           setAddBackGroundBackdrop("block")
                         );
                       }}
@@ -224,10 +232,10 @@ const Navbar = () => {
                     <a href="link">Methodology</a>
                   </li>
                   <li className="hasMegamenu">
-                    <a href="link">Mentor Club</a>
+                    <a href="/mentors-club">Mentor Club</a>
                   </li>
                   <li className="hasMegamenu">
-                    <a href="link">Jobs</a>
+                    <a href="/jobs">Jobs</a>
                   </li>
                   <li className="hasMegamenu dropdown_mob">
                     <a
@@ -237,6 +245,7 @@ const Navbar = () => {
                           setShowBtTrainingMenu(false),
                           setShowContactMenu(false),
                           setAboutMenu(!aboutMenu),
+                          setShowProfileMenu(false),
                           setAddBackGroundBackdrop("block")
                         );
                       }}
@@ -246,6 +255,7 @@ const Navbar = () => {
                           setShowBtTrainingMenu(false),
                           setShowContactMenu(false),
                           setAboutMenu(true),
+                          setShowProfileMenu(false),
                           setAddBackGroundBackdrop("block")
                         );
                       }}
@@ -259,6 +269,7 @@ const Navbar = () => {
                           setShowBtTrainingMenu(false),
                           setShowContactMenu(false),
                           setAboutMenu(false),
+                          setShowProfileMenu(false),
                           setAddBackGroundBackdrop("none")
                         );
                       }}
@@ -312,6 +323,7 @@ const Navbar = () => {
                           setShowBtTrainingMenu(false),
                           setShowContactMenu(true),
                           setAboutMenu(false),
+                          setShowProfileMenu(false),
                           setAddBackGroundBackdrop("block")
                         );
                       }}
@@ -321,6 +333,7 @@ const Navbar = () => {
                           setShowBtTrainingMenu(false),
                           setShowContactMenu(!showContactMenu),
                           setAboutMenu(false),
+                          setShowProfileMenu(false),
                           setAddBackGroundBackdrop("block")
                         );
                       }}
@@ -334,6 +347,7 @@ const Navbar = () => {
                           setShowBtTrainingMenu(false),
                           setShowContactMenu(false),
                           setAboutMenu(false),
+                          setShowProfileMenu(false),
                           setAddBackGroundBackdrop("none")
                         );
                       }}
@@ -367,6 +381,72 @@ const Navbar = () => {
                       )}
                     </div>
                   </li>
+                  {user && (
+                    <li className="hasMegamenu dropdown_mob">
+                      <a
+                        onMouseEnter={() => {
+                          return (
+                            setShowItTrainingMenu(false),
+                            setShowBtTrainingMenu(false),
+                            setShowContactMenu(false),
+                            setAboutMenu(false),
+                            setShowProfileMenu(true),
+                            setAddBackGroundBackdrop("block")
+                          );
+                        }}
+                        onClick={() => {
+                          return (
+                            setShowItTrainingMenu(false),
+                            setShowBtTrainingMenu(false),
+                            setShowContactMenu(false),
+                            setAboutMenu(false),
+                            setShowProfileMenu(!showProfileMenu),
+                            setAddBackGroundBackdrop("block")
+                          );
+                        }}
+                      >
+                        <i className="fa-solid fa-user"></i>
+                      </a>
+                      <div
+                        onMouseLeave={() => {
+                          return (
+                            setShowItTrainingMenu(false),
+                            setShowBtTrainingMenu(false),
+                            setShowContactMenu(false),
+                            setAboutMenu(false),
+                            setShowProfileMenu(false),
+                            setAddBackGroundBackdrop("none")
+                          );
+                        }}
+                        className={
+                          showProfileMenu === true
+                            ? "submenuHolder megamenu active"
+                            : "submenuHolder megamenu"
+                        }
+                        style={{
+                          display: showProfileMenu ? "block" : "none",
+                          width: showProfileMenu ? "30%" : null,
+                        }}
+                      >
+                        {showProfileMenu === true && (
+                          <>
+                            <aside
+                              style={{ width: showProfileMenu ? "100%" : 0 }}
+                            >
+                              <ul>
+                                <li>
+                                  <a href={`${user?.type}/profile`}>Profile</a>
+                                </li>
+                                <li>
+                                  <a href="asdga">Logout</a>
+                                </li>
+                              </ul>
+                            </aside>
+                          </>
+                        )}
+                      </div>
+                    </li>
+                  )}
                 </ul>
               </nav>
             </aside>
@@ -374,6 +454,16 @@ const Navbar = () => {
         </div>
       </header>
       <div
+        onMouseEnter={() => {
+          return (
+            setShowItTrainingMenu(false),
+            setShowBtTrainingMenu(false),
+            setShowContactMenu(false),
+            setAboutMenu(false),
+            setShowProfileMenu(false),
+            setAddBackGroundBackdrop("none")
+          );
+        }}
         className="submenu_bg"
         style={{ display: addBackGroundBackdrop }}
       ></div>

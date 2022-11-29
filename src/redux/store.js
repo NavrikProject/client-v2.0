@@ -4,6 +4,7 @@ import cartReducer from "./cartRedux";
 import userReducer from "./userRedux";
 import loadingReducer from "./loadingReducer";
 import modelReducer from "./modelReducer";
+import scrollModelReducer from "./scrollModelReducer";
 import {
   persistStore,
   persistReducer,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   loading: loadingReducer,
   model: modelReducer,
+  scrollModel: scrollModelReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

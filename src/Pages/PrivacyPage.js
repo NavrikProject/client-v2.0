@@ -4,16 +4,19 @@ import GoToTop from "../Components/GoToTop";
 import LoadingSpinner from "../Components/utils/LoadingSpinner";
 const Navbar = React.lazy(() => import("../Components/Home/Navbar"));
 const Footer = React.lazy(() => import("../Components/Home/Footer.js"));
-const LoginForm = React.lazy(() => import("../Components/Forms/LoginForm.js"));
-const LoginPage = () => {
+const Privacy = React.lazy(() => import("../Components/Generals/Privacy"));
+
+const PrivacyPage = () => {
   return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <Navbar />
-      <LoginForm />
-      <Footer />
-      <GoToTop />
-    </Suspense>
+    <>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Navbar />
+        <Privacy />
+        <Footer />
+        <GoToTop />
+      </Suspense>
+    </>
   );
 };
 
-export default LoginPage;
+export default PrivacyPage;

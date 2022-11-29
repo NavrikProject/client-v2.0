@@ -5,6 +5,7 @@ import courseImg3 from "../../images/courses-img3.jpg";
 import courseImg4 from "../../images/courses-img4.jpg";
 import Carousel from "react-elastic-carousel";
 import userImage1 from "../../images/user1.jpg";
+import { Link } from "react-router-dom";
 const CourseSection = () => {
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -127,7 +128,11 @@ const CourseSection = () => {
             </li>
           </Carousel>
         </ul>
-        <div className="more">View All Courses</div>
+        <div className="more">
+          <Link style={{ color: "white" }} to="/courses">
+            View All Courses
+          </Link>
+        </div>
       </div>
     </section>
   );
