@@ -292,6 +292,8 @@ header {
 header.fixed {
   position: sticky;
   top: 0;
+  right: 0;
+  left: 0;
 }
 .headSec1 {
   height: 48px;
@@ -810,9 +812,9 @@ footer aside .socialMedia {
   padding: 0 15px;
   width: 100%;
 }
-input[type="text"]:focus {
+/* input[type="text"]:focus {
   border: 1px solid #3fa6c9 !important;
-}
+} */
 
 .dateFild {
   position: relative;

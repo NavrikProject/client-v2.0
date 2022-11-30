@@ -143,7 +143,7 @@ textarea {
   font-size: 12px;
   margin-top: 5px;
 }
-.form-control {
+/* .form-control {
   width: 100%;
   padding: 1rem 0px;
   font-weight: 700;
@@ -154,4 +154,10 @@ textarea {
   cursor: pointer;
   border: solid 1px #e3e6ea;
   text-align: center !important;
+} */
+.special-label {
+  text-align: start;
+  font-size: 11px;
+  color: #333;
+  top: -12px;
 }

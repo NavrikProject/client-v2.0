@@ -22,8 +22,9 @@ import {
   ViewJobButton,
 } from "./IndividualJobElements";
 import TrendingJobs from "./TrendingJobs";
-import LoginModel from "../../../Forms/LoginModel.js";
+import LoginModel from "../../../Forms/AccountForms/LoginModel.js";
 import { useSelector } from "react-redux";
+import { ModelFixedHeight } from "../../../utils/Model";
 const IndividualJobDetails = () => {
   const user = useSelector((state) => state.user.currentUser);
   const [individualJobDetail, setIndividualJobDetail] = useState([]);
@@ -51,7 +52,9 @@ const IndividualJobDetails = () => {
   return (
     <IndividualJobSection>
       {showLoginModal && (
-        <LoginModel showLoginModelHandler={showLoginModelHandler} />
+        <ModelFixedHeight closeModelHandler={showLoginModelHandler}>
+          <LoginModel />
+        </ModelFixedHeight>
       )}
       <IndividualJobWrapper>
         <IndividualJobDisplayFlex>

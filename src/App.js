@@ -53,20 +53,18 @@ AOS.init();
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
   const isLoading = useSelector((state) => state.loading.isLoading);
-  const isShowingModel = useSelector(
-    (state) => state.model.isShowingScrollModel
-  );
   const isShowingScrollModel = useSelector(
-    (state) => state.model.isShowingModel
+    (state) => state.scrollModel.isShowingScrollModel
   );
+  const isShowingModel = useSelector((state) => state.model.isShowingModel);
 
   ReactGa.initialize("UA-220859929-1");
   ReactGa.pageview(window.location.pathname + window.location.search);
   return (
     <>
       {isLoading ? <LoadingSpinner /> : null}
-      {isShowingModel ? <ModelFixedHeight /> : null}
       {isShowingScrollModel ? <ScrollModel /> : null}
+      {isShowingModel ? <ModelFixedHeight /> : null}
       <ToastContainer />
       <CookieNotice />
       <Router>

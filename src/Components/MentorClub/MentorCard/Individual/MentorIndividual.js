@@ -48,6 +48,8 @@ import { useSelector } from "react-redux";
 
 // import LoginModel from "../../Forms/LoginModel";
 import Carousel from "react-elastic-carousel";
+import { ModelFixedHeight } from "../../../utils/Model";
+import LoginModel from "../../../Forms/AccountForms/LoginModel";
 
 const MentorIndividual = () => {
   const location = useLocation();
@@ -171,9 +173,11 @@ const MentorIndividual = () => {
           date={date}
         />
       )}
-      {/* {showLoginModal && (
-        <LoginModel showLoginModelHandler={showLoginModelHandler} />
-      )} */}
+      {showLoginModal && (
+        <ModelFixedHeight closeModelHandler={showLoginModelHandler}>
+          <LoginModel />
+        </ModelFixedHeight>
+      )}
       <MentorCoverDiv></MentorCoverDiv>
       {indMentor?.map((mentor) => (
         <MentorSectionDiv key={mentor.mentor_dtls_id}>

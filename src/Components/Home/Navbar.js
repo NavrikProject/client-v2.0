@@ -3,7 +3,9 @@ import LoginIcon from "../../images/login-icon.png";
 import userIcon from "../../images/user-icon.png";
 import logo from "../../images/practiwiz-logo.png";
 import hoverImage from "../../images/mamu-img1.jpg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../../redux/userRedux";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [showContactMenu, setShowContactMenu] = useState(false);
@@ -14,6 +16,12 @@ const Navbar = () => {
   const [showBtTrainingMenu, setShowBtTrainingMenu] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const onLogoutHandler = async () => {
+    dispatch(logOut());
+    navigate("/login");
+  };
   return (
     <>
       <header className="fixed">
@@ -29,12 +37,22 @@ const Navbar = () => {
               <a href="link">Store</a>
               <a>|</a>
               <a href="link">Chill Zone</a>
-              <a href="login">
-                <img src={LoginIcon} alt="link" /> Login
-              </a>
-              <a href="register">
-                <img src={userIcon} alt="link" /> Register
-              </a>
+              <a>|</a>
+              {!user ? (
+                <>
+                  <a href="/login">
+                    <img src={LoginIcon} alt="link" /> Login
+                  </a>
+                  <a>|</a>
+                  <a href="/register">
+                    <img src={userIcon} alt="link" /> Register
+                  </a>
+                </>
+              ) : (
+                <a onClick={onLogoutHandler}>
+                  <img src={LoginIcon} alt="link" /> Logout
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -435,10 +453,10 @@ const Navbar = () => {
                             >
                               <ul>
                                 <li>
-                                  <a href={`${user?.type}/profile`}>Profile</a>
+                                  <a href={`/${user?.type}/profile`}>Profile</a>
                                 </li>
                                 <li>
-                                  <a href="asdga">Logout</a>
+                                  <a onClick={onLogoutHandler}>Logout</a>
                                 </li>
                               </ul>
                             </aside>
