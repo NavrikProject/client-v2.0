@@ -1,10 +1,26 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import Carousel from "react-elastic-carousel";
 import { Link } from "react-router-dom";
 import jobImg1 from "../../images/job-com1.jpg";
 import jobImg2 from "../../images/job-com2.jpg";
 import jobImg3 from "../../images/job-com3.jpg";
 const JobsSection = () => {
+  const [allJobs, setAllJobs] = useState([]);
+  useEffect(() => {
+    const getAllJobPosts = async () => {
+      const res = await axios.get(
+        "https://deploy-practiwiz.azurewebsites.net/api/jobs/get/all-jobs-posts"
+      );
+      if (res.data.success) {
+        setAllJobs(res.data.success);
+      }
+      if (res.data.error) {
+        setAllJobs([]);
+      }
+    };
+    getAllJobPosts();
+  }, []);
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
@@ -27,38 +43,42 @@ const JobsSection = () => {
           data-aos="fade-up"
         >
           <Carousel breakPoints={breakPoints}>
-            <li className="ps_item auto">
+            {allJobs?.slice(0, 8).map((job) => (
               <div>
-                <aside>
-                  <img src={jobImg1} alt="" />
-                </aside>
-                <h3>
-                  Hardware Technology
-                  <br />
-                  <div className="star">
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star"></span>
-                    <span className="fa fa-star"></span>
+                <li className="ps_item auto">
+                  <div>
+                    <aside>
+                      <img src={jobImg1} alt="" />
+                    </aside>
+                    <h3>
+                      {job.job_post_company_name}
+                      <br />
+                      <div className="star">
+                        <span className="fa fa-star checked"></span>
+                        <span className="fa fa-star checked"></span>
+                        <span className="fa fa-star checked"></span>
+                        <span className="fa fa-star"></span>
+                        <span className="fa fa-star"></span>
+                      </div>
+                    </h3>
                   </div>
-                </h3>
+                  <h3>{" " + job.job_post_role.split("-").join(" ")}b</h3>
+                  <h5>{job.job_post_street_address}</h5>
+                  <ul className="job5">
+                    <li>
+                      <a>{job.job_post_no_of_positions} Opening</a>
+                    </li>
+                    <li>
+                      <a
+                        href={`/jobs/individual-job/${job.job_post_unique_id}`}
+                      >
+                        View Job
+                      </a>
+                    </li>
+                  </ul>
+                </li>
               </div>
-              <h3>Featured Active Job</h3>
-              <h5>
-                109,Midas, Sahar Plaza Complex,
-                <br />
-                Next to Kohinoor Hotel,
-              </h5>
-              <ul className="job5">
-                <li>
-                  <a href="">2 Opening</a>
-                </li>
-                <li>
-                  <a href="">Follow</a>
-                </li>
-              </ul>
-            </li>
+            ))}
             <li className="ps_item auto">
               <div>
                 <aside>

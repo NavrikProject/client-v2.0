@@ -149,9 +149,7 @@ const Navbar = () => {
                                 <a href="asdga">Data Analytics Learning Plan</a>
                               </li>
                               <li>
-                                <a href="link">
-                                  AWS Cloud Practitioner Essentials
-                                </a>
+                                <a href="/courses">All Courses </a>
                               </li>
                             </ul>
                           </aside>
@@ -233,9 +231,7 @@ const Navbar = () => {
                                 <a href="asdga">Data Analytics Learning Plan</a>
                               </li>
                               <li>
-                                <a href="link">
-                                  AWS Cloud Practitioner Essentials
-                                </a>
+                                <a href="/courses">All Courses </a>
                               </li>
                             </ul>
                           </aside>
@@ -247,7 +243,7 @@ const Navbar = () => {
                     </div>
                   </li>
                   <li className="hasMegamenu">
-                    <a href="link">Methodology</a>
+                    <a href="/methodology">Methodology</a>
                   </li>
                   <li className="hasMegamenu">
                     <a href="/mentors-club">Mentor Club</a>

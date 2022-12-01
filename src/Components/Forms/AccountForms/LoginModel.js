@@ -13,7 +13,6 @@ import {
   hideLoadingHandler,
 } from "../../../redux/loadingReducer";
 import "./login-style.css";
-import { ModelFixedHeight, ScrollModel } from "../../utils/Model";
 
 const LoginModel = () => {
   const {

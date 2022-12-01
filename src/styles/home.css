@@ -630,6 +630,7 @@ li.ps_item {
   text-align: left;
   position: relative;
   padding: 0 0 0 0px;
+  cursor: pointer;
 }
 .productSlide li.ps_item figure {
   display: block;
@@ -1630,6 +1631,8 @@ img {-webkit-transform: scale(1); transform: scale(1);}*/
   -webkit-box-shadow: 0px 0px 13px 2px rgba(168, 190, 213, 0.81);
   -moz-box-shadow: 0px 0px 13px 2px rgba(168, 190, 213, 0.81);
   box-shadow: 0px 0px 13px 2px rgba(168, 190, 213, 0.81);
+  transform: scale(1.04);
+  transition: all 0.3s ease-in-out;
 }
 
 .social_item figure {
@@ -1731,14 +1734,16 @@ li.social_item article a.more3:hover {
   color: #fff;
 }
 .like_courses {
-  background: #8bca48;
   color: #fff;
   font-size: 11px;
-  padding: 5px;
   border-radius: 3px;
-  width: 55px;
+  width: auto;
   margin: 0 25px;
   float: left;
+}
+.like_courses span {
+  display: inline-block !important;
+  padding: 1px;
 }
 .top-line {
   border-top: 1px solid #ccc;
@@ -1770,7 +1775,7 @@ li.social_item article a.more3:hover {
   color: #000;
 }
 .checked {
-  color: orange;
+  color: orange !important;
 }
 .star {
   margin: 0 0 10px 0;
@@ -1793,6 +1798,7 @@ li.social_item article a.more3:hover {
   -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
   margin: 0 10px;
+  cursor: pointer;
 }
 .mentors .center {
   width: 100%;
@@ -1802,8 +1808,8 @@ li.social_item article a.more3:hover {
 }
 .mentors h3 {
   font-size: 16px;
-  color: #061e4e;
-  text-transform: inherit;
+  color: #061e4e !important;
+  text-transform: capitalize;
   letter-spacing: inherit;
   font-weight: 600;
   padding: 15px 0 5px 0;
@@ -1811,7 +1817,7 @@ li.social_item article a.more3:hover {
 .mentors .whyGoForSf_slid h4 {
   font-size: 14px;
   color: #666;
-  text-transform: inherit;
+  text-transform: capitalize;
   letter-spacing: inherit;
   font-weight: 400;
   padding: 0 0 10px 0;
@@ -1856,7 +1862,11 @@ li.social_item article a.more3:hover {
   border: 1px solid #dfdfdf;
   box-shadow: 0px 3px 10px 0px rgb(0 0 0 / 5%);
 }
-
+.mentorImage {
+  width: 240px !important;
+  height: 400px;
+  object-fit: cover;
+}
 .register_left {
   float: left;
   vertical-align: top;

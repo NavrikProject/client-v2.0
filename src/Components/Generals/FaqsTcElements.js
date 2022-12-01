@@ -6,7 +6,7 @@ export const FaqTcSect = styled.section`
   font-size: 16px;
 `;
 export const FaqTcSection = styled.div`
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
   padding: 50px 0px;
 `;

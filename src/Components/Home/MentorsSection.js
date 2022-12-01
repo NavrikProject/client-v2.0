@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import mentorImage1 from "../../images/mentors1.jpg";
 import mentorImage2 from "../../images/mentors2.jpg";
 import mentorImage3 from "../../images/mentors3.jpg";
 import mentorImage4 from "../../images/mentors4.jpg";
 import Carousel from "react-elastic-carousel";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const MentorsSection = () => {
+  const [mentorDetails, setMentorDetails] = useState([]);
+
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
@@ -15,6 +18,20 @@ const MentorsSection = () => {
     { width: 1450, itemsToShow: 5 },
     { width: 1750, itemsToShow: 6 },
   ];
+  useEffect(() => {
+    const getMentors = async () => {
+      const res = await axios.get(
+        `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/all`
+      );
+      if (res.data.mentors) {
+        setMentorDetails(res.data.mentors);
+      }
+      if (res.data.error) {
+        setMentorDetails([]);
+      }
+    };
+    getMentors();
+  }, []);
   return (
     <section className="mentors homeSec6">
       <div
@@ -36,78 +53,41 @@ const MentorsSection = () => {
           data-aos="fade-up"
         >
           <Carousel breakPoints={breakPoints}>
-            <li className="ps_item auto">
-              <aside>
-                <img src={mentorImage1} alt="" />
-              </aside>
-              <h3>Md Dalwar Hossain</h3>
-              <h4>Web Developer</h4>
-              <div className="star">
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star"></span>
-                <span className="fa fa-star"></span>
+            {mentorDetails?.slice(0, 6).map((mentorDetail) => (
+              <div key={mentorDetail.mentor_dtls_id}>
+                <li className="ps_item auto">
+                  <aside>
+                    <img
+                      className="mentorImage"
+                      src={mentorDetail.mentor_image}
+                      alt=""
+                    />
+                  </aside>
+                  <h3>
+                    <Link
+                      style={{ color: "#061e4e" }}
+                      to={`/mentors-club/individual/${
+                        mentorDetail.mentor_firstname.toLowerCase() +
+                        "-" +
+                        mentorDetail.mentor_lastname.toLowerCase()
+                      }`}
+                    >
+                      {mentorDetail.mentor_firstname +
+                        " " +
+                        mentorDetail.mentor_lastname}
+                    </Link>
+                  </h3>
+                  <h4>{mentorDetail.mentor_current_role}</h4>
+                  <div className="star">
+                    <span className="fa fa-star checked"></span>
+                    <span className="fa fa-star checked"></span>
+                    <span className="fa fa-star checked"></span>
+                    <span className="fa fa-star"></span>
+                    <span className="fa fa-star"></span>
+                  </div>
+                </li>
               </div>
-            </li>
-            <li className="ps_item auto">
-              <aside>
-                <img src={mentorImage2} alt="" />
-              </aside>
-              <h3>Priyanka Chowdhury</h3>
-              <h4>Web Analyzer</h4>
-
-              <div className="star">
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star"></span>
-                <span className="fa fa-star"></span>
-              </div>
-            </li>
-            <li className="ps_item auto">
-              <aside>
-                <img src={mentorImage3} alt="" />
-              </aside>
-              <h3>Nazma Begum</h3>
-              <h4>Digital Marketer</h4>
-              <div className="star">
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star"></span>
-                <span className="fa fa-star"></span>
-              </div>
-            </li>
-            <li className="ps_item auto">
-              <aside>
-                <img src={mentorImage4} alt="" />
-              </aside>
-              <h3>Soneya Akther</h3>
-              <h4>SEO Expert</h4>
-              <div className="star">
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star"></span>
-                <span className="fa fa-star"></span>
-              </div>
-            </li>
-            <li className="ps_item auto">
-              <aside>
-                <img src={mentorImage2} alt="" />
-              </aside>
-              <h3>Priyanka Chowdhury</h3>
-              <h4>Web Analyzer</h4>
-
-              <div className="star">
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star"></span>
-                <span className="fa fa-star"></span>
-              </div>
-            </li>
+            ))}
           </Carousel>
         </ul>
 

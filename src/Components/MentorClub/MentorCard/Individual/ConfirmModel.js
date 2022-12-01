@@ -7,7 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import logo from "../../../../images/practiwiz-logo.png";
-import { showLoadingHandler } from "../../../../redux/loadingReducer";
+import {
+  hideLoadingHandler,
+  showLoadingHandler,
+} from "../../../../redux/loadingReducer";
 import LoadingSpinner from "../../../utils/LoadingSpinner";
 
 const Backdrop = styled.div`
@@ -153,7 +156,6 @@ const ConfirmModel = (props) => {
     };
     script.onload = async () => {
       try {
-        setLoading(true);
         dispatch(showLoadingHandler());
         const result = await axios.post(
           `https://deploy-practiwiz.azurewebsites.net/api/mentor/create/appointment/create-order`,
@@ -167,7 +169,7 @@ const ConfirmModel = (props) => {
             toast.error(result.data.error, {
               position: "top-center",
             }),
-            setLoading(false)
+            dispatch(hideLoadingHandler())
           );
         }
         const { amount, id: order_id, currency } = result.data;
@@ -211,7 +213,7 @@ const ConfirmModel = (props) => {
               toast.success(res.data.success, {
                 position: "top-center",
               });
-              setLoading(false);
+              dispatch(hideLoadingHandler());
               reset();
             }
             if (res.data.error) {
@@ -219,7 +221,7 @@ const ConfirmModel = (props) => {
               toast.error(res.data.error, {
                 position: "top-center",
               });
-              setLoading(false);
+              dispatch(hideLoadingHandler());
             }
           },
           prefill: {
@@ -232,15 +234,16 @@ const ConfirmModel = (props) => {
           },
         };
 
-        setLoading(false);
+        dispatch(hideLoadingHandler());
         const paymentObject = new window.Razorpay(options);
         paymentObject.open();
       } catch (err) {
         alert(err);
-        setLoading(false);
+        dispatch(hideLoadingHandler());
       }
     };
     document.body.appendChild(script);
+    dispatch(hideLoadingHandler());
   };
 
   return (

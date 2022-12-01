@@ -43,7 +43,7 @@ const Footer = () => {
                     <a href="#">Business Training</a>
                   </li>
                   <li>
-                    <a href="#">Methodology</a>
+                    <a href="/methodology">Methodology</a>
                   </li>
                   <li>
                     <a href="/mentors-club">Mentor Club</a>
@@ -75,13 +75,13 @@ const Footer = () => {
                     <a href="#">Business Training</a>
                   </li>
                   <li>
-                    <a href="#">Methodology</a>
+                    <a href="/methodology">Methodology</a>
                   </li>
                   <li>
                     <a href="/mentors-club">Mentor Club</a>
                   </li>
                   <li>
-                    <a href="/jobs">Jobs</a>
+                    <a href="/refund-policies">Refund Policies</a>
                   </li>
                   <li>
                     <a href="/privacy-policies">Privacy & Policies</a>

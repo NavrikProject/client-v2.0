@@ -4,8 +4,9 @@ import courseImg2 from "../../images/courses-img2.jpg";
 import courseImg3 from "../../images/courses-img3.jpg";
 import courseImg4 from "../../images/courses-img4.jpg";
 import Carousel from "react-elastic-carousel";
-import userImage1 from "../../images/user1.jpg";
+import userImg1 from "../../images/user1.jpg";
 import { Link } from "react-router-dom";
+import { courseData } from "../Data/CourseData";
 const CourseSection = () => {
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -26,106 +27,87 @@ const CourseSection = () => {
         <h2>Browse Our Online Courses</h2>
         <ul className="social_slide">
           <Carousel breakPoints={breakPoints}>
-            <li className="social_item">
-              <a href="">
-                <figure>
-                  <img src={courseImg1} alt="" />
-                </figure>
-                <article>
-                  <h3>Jumpstart to IT Business Analyst</h3>
-                  {/* <div className="like_courses">525 Like</div> */}
-                  <div className="name_courses">Tarun Gautam</div>
-                  <br />
-                  <div className="top-line">
-                    <span>
-                      <img src={userImage1} alt="" /> <b>64</b>
-                    </span>
-                    <aside>₹ 1050</aside>
-                  </div>
-                  <div className="clr"></div>
-                </article>
-              </a>
-            </li>
-            <li className="social_item">
-              <a href="">
-                <figure>
-                  <img src={courseImg2} alt="" />
-                </figure>
-                <article>
-                  <h3>Business Analysis Foundation Training</h3>
-                  {/* <div className="like_courses">525 Like</div> */}
-                  <div className="name_courses">Tarun Gautam</div>
-                  <br />
-                  <div className="top-line">
-                    <span>
-                      <img src={userImage1} alt="" /> <b>64</b>
-                    </span>
-                    <aside>₹ 1050</aside>
-                  </div>
-                  <div className="clr"></div>
-                </article>
-              </a>
-            </li>
-            <li className="social_item">
-              <a href="">
-                <figure>
-                  <img src={courseImg3} alt="" />
-                </figure>
-                <article>
-                  <h3>JUMPSTART to RPA LIVE BOT DEVELOPMENT</h3>
-                  {/* <div className="like_courses">525 Like</div> */}
-                  <div className="name_courses">Tarun Gautam</div>
-                  <br />
-                  <div className="top-line">
-                    <span>
-                      <img src={userImage1} alt="" /> <b>64</b>
-                    </span>
-                    <aside>₹ 1050</aside>
-                  </div>
-                  <div className="clr"></div>
-                </article>
-              </a>
-            </li>
-            <li className="social_item">
-              <a href="">
-                <figure>
-                  <img src={courseImg1} alt="" />
-                </figure>
-                <article>
-                  <h3>Machine Learning with RPA</h3>
-                  {/* <div className="like_courses">525 Like</div> */}
-                  <div className="name_courses">Tarun Gautam</div>
-                  <br />
-                  <div className="top-line">
-                    <span>
-                      <img src={userImage1} alt="" /> <b>64</b>
-                    </span>
-                    <aside>₹ 1050</aside>
-                  </div>
-                  <div className="clr"></div>
-                </article>
-              </a>
-            </li>
-            <li className="social_item">
-              <a href="">
-                <figure>
-                  <img src={courseImg4} alt="" />
-                </figure>
-                <article>
-                  <h3>Introduction Web design with HTML</h3>
-                  {/* <div className="like_courses">525 Like</div> */}
-                  <div className="name_courses">Duha Samra</div>
-                  <br />
-                  <div className="top-line">
-                    <span>
-                      <img src={userImage1} alt="" /> <b>64</b>
-                    </span>
-                    <aside>₹ 1050</aside>
-                  </div>
-                  <div className="clr"></div>
-                </article>
-              </a>
-            </li>
+            {courseData
+              .filter((courseFilter) => courseFilter.courseId <= 8)
+              .map((course) => (
+                <div key={course.courseId}>
+                  <li className="social_item">
+                    <a
+                      href={`/courses/individual-course/${course.courseName
+                        .split(" ")
+                        .join("-")
+                        .toLowerCase()}`}
+                    >
+                      <figure className="">
+                        <img src={course.courseImg} alt="" />
+                      </figure>
+                      <article>
+                        <h3>{course.courseName}</h3>
+                        <div className="like_courses">
+                          {course.courseRating === 5 && (
+                            <>
+                              <span className="fa fa-star checked"></span>
+                              <span className="fa fa-star checked"></span>
+                              <span className="fa fa-star checked"></span>
+                              <span className="fa fa-star checked"></span>
+                              <span className="fa fa-star checked"></span>
+                            </>
+                          )}
+                          {course.courseRating === 4 && (
+                            <>
+                              <span className="fa fa-star checked"></span>
+                              <span className="fa fa-star checked"></span>
+                              <span className="fa fa-star checked"></span>
+                              <span className="fa fa-star checked"></span>
+                              <span className="fa fa-star "></span>
+                            </>
+                          )}
+                          {course.courseRating === 3 && (
+                            <>
+                              <span className="fa fa-star checked"></span>
+                              <span className="fa fa-star checked"></span>
+                              <span className="fa fa-star checked"></span>
+                              <span className="fa fa-star "></span>
+                              <span className="fa fa-star "></span>
+                            </>
+                          )}
+                          {course.courseRating === 2 && (
+                            <>
+                              <span className="fa fa-star checked"></span>
+                              <span className="fa fa-star checked"></span>
+                              <span className="fa fa-star "></span>
+                              <span className="fa fa-star "></span>
+                              <span className="fa fa-star "></span>
+                            </>
+                          )}
+                          {course.courseRating === 1 && (
+                            <>
+                              <span className="fa fa-star checked"></span>
+                              <span className="fa fa-star "></span>
+                              <span className="fa fa-star "></span>
+                              <span className="fa fa-star "></span>
+                              <span className="fa fa-star "></span>
+                            </>
+                          )}
+                        </div>
+                        {/* <div className="like_courses">525 Like</div> */}
+                        <div className="name_courses">
+                          {course.courseInstructorName}
+                        </div>
+                        <br />
+                        <div className="top-line">
+                          <span>
+                            <img src={userImg1} alt="" />{" "}
+                            <b>{course.courseUsers}</b>
+                          </span>
+                          <aside>₹ {course.coursePrice}</aside>
+                        </div>
+                        <div className="clr"></div>
+                      </article>
+                    </a>
+                  </li>
+                </div>
+              ))}
           </Carousel>
         </ul>
         <div className="more">

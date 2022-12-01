@@ -1,6 +1,6 @@
 import styled from "styled-components";
 export const IndividualJobSection = styled.section`
-  width: 100%;
+  width: 100% !important;
   height: auto;
 `;
 export const IndividualJobWrapper = styled.div`
@@ -79,4 +79,15 @@ export const JobCardDescription = styled.p`
 `;
 export const JobCardSection = styled.div`
   margin: 20px 0px;
+`;
+export const AppliedText = styled.p`
+  color: #fff;
+  padding: 7px 10px;
+  background-color: #82cd47;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: normal;
+  i {
+    margin-right: 5px;
+  }
 `;
