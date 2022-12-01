@@ -1,7 +1,7 @@
 {
   "name": "practiwiz-training-programme",
   "version": "0.1.0",
-  "homepage": ".",
+  "homepage": "https://yellow-tree-02027130f.2.azurestaticapps.net/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.0",
