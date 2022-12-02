@@ -1,5 +1,10 @@
 import React, { Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import "./index.css";
 import "./styles/home.css";
 import "./styles/slick.css";
@@ -46,6 +51,7 @@ import IndividualCoursePage from "./Pages/CoursePages/IndividualCoursePage";
 import WhyPractiwizPage from "./Pages/WhyPractiwizPage";
 import MethodologyPage from "./Pages/MethodologyPage";
 import RefundPoliciesPage from "./Pages/RefundPoliciesPage";
+import IndCoursePage from "./Pages/CoursePages/IndCoursePage";
 // ..
 AOS.init();
 const App = () => {
@@ -68,9 +74,11 @@ const App = () => {
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
             <Route path="/why-practiwiz" element={<WhyPractiwizPage />} />
             <Route path="/methodology" element={<MethodologyPage />} />
             <Route path="/refund-policies" element={<RefundPoliciesPage />} />
+            <Route path="/course/:id" element={<IndCoursePage />} />
             <Route
               path="/login"
               element={

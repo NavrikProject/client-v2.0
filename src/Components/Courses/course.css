@@ -221,6 +221,314 @@
   max-width: inherit;
 }
 
+.left-box85 {
+  width: 70%;
+  float: left;
+  text-align: left;
+  margin: 0px 0 30px 0;
+  padding: 0 60px 0 0px;
+}
+.left-box85 p {
+  padding: 0 0 15px 0;
+  line-height: 25px;
+}
+.left-box85 ul li {
+  padding: 0 0 10px 25px;
+  line-height: 25px;
+  background: url("../../images/courseImages/tab.jpg") left 7px no-repeat;
+}
+.right-box85 {
+  width: 30%;
+  float: left;
+  text-align: left;
+  margin: 30px 0 30px 0;
+  background: #fff;
+  padding: 10px;
+  border: 1px solid #eaeaea;
+}
+
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 20px;
+  transition: 0.4s;
+  border-bottom: 1px solid #ccc;
+}
+.active,
+.accordion:hover {
+  background-color: #ccc;
+}
+.panel {
+  padding: 30px 18px;
+  /* display: none; */
+  background-color: white;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+.panel.showAccordion {
+  display: block;
+  transition: all 0.4s ease-in-out;
+  opacity: 1;
+}
+.panel p {
+  font-size: 16px;
+}
+.courseHighlightFlex {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  margin: 0 auto;
+}
+.courseHighlightItems {
+  width: 20%;
+  margin: 20px;
+}
+.courseHighlightItem {
+  width: 25%;
+  box-shadow: rgb(142 151 158 / 35%) 0px 10px 19px;
+  padding: 30px 10px;
+  text-align: center;
+}
+.courseHighlightItem img {
+  width: 100px;
+  margin: 0 auto 20px auto;
+}
+.courseHighlightItem p {
+  font-size: 14px;
+  margin: 0 auto 20px auto;
+  color: #111;
+  opacity: 0.9;
+}
+.pages-tital ul li {
+  background: none;
+  margin: 0px 10px 0 0;
+  padding: 0px;
+  float: left;
+}
+.left-box85 h2 {
+  padding: 0 0 25px 0;
+}
+.right-box85 h1 {
+  font-size: 26px;
+  padding: 15px 30px;
+}
+.right-box85 h1 small {
+  font-size: 12px;
+  font-weight: normal;
+}
+.right-box85 a {
+  font-size: 16px;
+  padding: 8px 15px;
+  text-align: center;
+  background: #d5392e;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  width: 100%;
+  display: block;
+  margin: 0 0px;
+}
+.right-box85 aside img {
+  width: 100%;
+  object-fit: cover;
+}
+.right-box85 article {
+  padding: 30px 10px;
+}
+.right-box85 article h5 {
+  padding: 0 0 15px 0;
+  font-size: 16px;
+}
+.right-box85 article ul li {
+  font-size: 14px;
+  line-height: 27px;
+  padding: 0 0 0 30px;
+}
+.right-box85 article ul li:nth-child(1) {
+  background: url("../../images/courseImages/monitor.png") left center no-repeat;
+}
+.right-box85 article ul li:nth-child(2) {
+  background: url("../../images/courseImages/file.png") left center no-repeat;
+}
+.right-box85 article ul li:nth-child(3) {
+  background: url("../../images/courseImages/folder.png") left center no-repeat;
+}
+.right-box85 article ul li:nth-child(4) {
+  background: url("../../images/courseImages/maximize.png") left center
+    no-repeat;
+}
+.right-box85 article ul li:nth-child(5) {
+  background: url("../../images/courseImages/smartphone.png") left center
+    no-repeat;
+}
+.right-box85 article ul li:nth-child(6) {
+  background: url("../../images/courseImages/award.png") left center no-repeat;
+}
+.ruty figure {
+  position: relative;
+  overflow: hidden;
+  background: #80a7c6;
+  padding: 50px 0;
+  text-align: left;
+}
+.ruty figure {
+  position: relative;
+  overflow: hidden;
+  background: #80a7c6;
+  padding: 50px 0;
+}
+.ruty h4 {
+  font-size: 20px;
+  color: #000;
+  text-transform: inherit;
+  letter-spacing: 0;
+  font-weight: 600;
+  text-align: left;
+}
+.ruty h2 {
+  font-size: 18px;
+  text-align: left;
+  line-height: 25px;
+}
+.ruty a {
+  position: absolute;
+  right: 0px;
+  top: 50px;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 600;
+  background: #ea5455;
+  padding: 12px 35px;
+  border-radius: 5px;
+}
+.yyu li.ps_item {
+  background: #fff;
+  padding: 0px !important;
+  border-bottom: 0px solid #ee6c29;
+  border-radius: 5px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  margin: 10px;
+  border: 1px solid #ccc;
+}
+.slick-slide img {
+  display: block;
+  width: 100%;
+}
+.yyu ul.kk li h3 {
+  background: #fff;
+  padding: 15px 0 0 0 !important;
+  border-bottom: 0px solid #ee6c29;
+  border-radius: 5px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  margin: 10px;
+  border: 0px solid #ccc;
+}
+.yyu ul.kk li p {
+  text-align: center;
+  padding: 0 0 15px 0;
+}
+.yyu ul.kk .ps_prev {
+  position: absolute;
+  top: -50px; /* bottom: 0; */
+  margin: auto;
+  right: 23px;
+  z-index: 5;
+  width: 30px;
+  height: 30px;
+  font-size: 0px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid #dfdfdf;
+  box-shadow: 0px 3px 10px 0px rgb(0 0 0 / 5%);
+}
+.yyu ul.kk .ps_next {
+  position: absolute;
+  top: -50px; /* bottom: 0; */
+  margin: auto;
+  right: 61px;
+  z-index: 5;
+  width: 30px;
+  height: 30px;
+  font-size: 0px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid #dfdfdf;
+  box-shadow: 0px 3px 10px 0px rgb(0 0 0 / 5%);
+}
+.jumpstart {
+  padding: 60px 0;
+}
+.jumpstart h2 {
+  padding: 0 0 15px 0;
+}
+.jumpstart p strong {
+  padding: 0 0 10px 0;
+  font-size: 18px;
+  font-style: normal;
+  display: block;
+}
+.jumpstart p {
+  font-size: 16px;
+  line-height: 25px;
+  padding: 0 0 15px 0;
+  text-align: left;
+}
+.jumpstart ul {
+  padding: 0 0 15px 0;
+}
+.jumpstart ul li {
+  font-size: 16px;
+  line-height: 25px;
+  padding: 0 0 15px 0;
+  text-align: left;
+  background: url("../../images/courseImages/tab.jpg") left 10px no-repeat;
+  padding: 5px 0 5px 20px;
+}
+.qwer p {
+  max-width: initial;
+  line-height: 25px;
+  font-size: 18px;
+  font-style: normal;
+  text-align: left;
+}
+button.accordion:after {
+  content: "+";
+  color: #777;
+  font-weight: 400;
+  float: right;
+  margin-left: 5px;
+  font-size: 23px;
+}
+button.accordion.active:after {
+  content: "-";
+  display: inline-block;
+}
+.bannerInfo ul li {
+  font-size: 16px;
+}
+.bannerInfo ul li span {
+  font-weight: 600;
+  display: inline-block;
+  vertical-align: top;
+}
+.bannerInfo .star {
+  margin: 0 0 10px 0;
+  display: inline-block;
+}
+
 @media all and (max-width: 1024px) {
   .social_slide li.social_item {
     width: auto;
@@ -260,6 +568,8 @@
   }
   .pages-tital {
     float: none;
+    margin: 35px 0 0 0;
+    display: block;
   }
   .search {
     float: none;
@@ -299,5 +609,68 @@
   }
   .benefits ul {
     margin: 0 0 50px 0;
+  }
+  .founder .about-left {
+    float: none;
+    width: auto;
+    text-align: left;
+  }
+  .founder .about-right {
+    float: none;
+    width: auto;
+    position: relative;
+    padding: 20px 0 0 0px;
+  }
+  section .inner-banner {
+    height: 500px !important;
+  }
+  .inner .bannerInfo {
+    position: inherit;
+    left: 0;
+    top: inherit;
+    width: auto;
+    margin-left: 0;
+  }
+  .homeSec6 .left-box85 {
+    width: 100% !important;
+    float: none;
+    text-align: left;
+    margin: 50px 0 0px 0;
+    padding: 0 0px 0 0px;
+  }
+  .pages-tital ul li {
+    background: none;
+    margin: 0px 10px 0 0;
+    padding: 0px;
+    float: left;
+    width: 30%;
+  }
+  .homeSec6 .right-box85 {
+    width: 100%;
+    float: none;
+    text-align: left;
+    margin: 30px 0 30px 0;
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #eaeaea;
+  }
+  .homeSec3 figure {
+    position: relative;
+    overflow: hidden;
+    background: #80a7c6;
+    padding: 35px 0;
+    min-height: inherit;
+  }
+  .ruty a {
+    position: inherit;
+    right: 0px;
+    top: 0;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 600;
+    background: #ea5455;
+    padding: 12px 35px;
+    border-radius: 5px;
   }
 }

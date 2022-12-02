@@ -526,6 +526,7 @@ header.fixed {
   font-size: 14px;
   font-weight: 400;
   position: relative;
+  text-transform: capitalize;
 }
 .megamenu aside ul li:after {
   content: "";

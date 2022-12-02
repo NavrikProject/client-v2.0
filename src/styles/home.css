@@ -2061,7 +2061,7 @@ li.social_item article a.more3:hover {
 }
 .inner .bannerInfo {
   position: absolute;
-  left: 18%;
+  /* left: 18%; */
   top: 111px;
   width: 670px;
   margin-left: 20px;

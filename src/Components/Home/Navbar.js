@@ -3,6 +3,10 @@ import LoginIcon from "../../images/login-icon.png";
 import userIcon from "../../images/user-icon.png";
 import logo from "../../images/practiwiz-logo.png";
 import hoverImage from "../../images/mamu-img1.jpg";
+import hoverImage1 from "../../images/business analyst.jpg";
+import aboutMenuImg from "../../images/about-menu.jpg";
+import contactMenuImg from "../../images/contact-menu.jpg";
+
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../redux/userRedux";
 import { useNavigate } from "react-router-dom";
@@ -58,7 +62,20 @@ const Navbar = () => {
         </div>
         <div className="center">
           <div className="headSec2">
-            <a href="/" className="logo">
+            <a
+              href="/"
+              className="logo"
+              onMouseEnter={() => {
+                return (
+                  setShowItTrainingMenu(false),
+                  setShowBtTrainingMenu(false),
+                  setShowContactMenu(false),
+                  setAboutMenu(false),
+                  setShowProfileMenu(false),
+                  setAddBackGroundBackdrop("none")
+                );
+              }}
+            >
               <img src={logo} title="Practiwiz" alt="Practiwiz" />
             </a>
             <span
@@ -125,28 +142,36 @@ const Navbar = () => {
                           <aside>
                             <ul>
                               <li>
-                                <a href="link">Data Analytics Fundamentals</a>
-                              </li>
-                              <li>
-                                <a href="link">AWS Compute Services Overview</a>
-                              </li>
-                              <li>
-                                <a href="link">
-                                  Cloud Essentials Learning Plan
+                                <a href="/course/jumpstart-to-rpa-live-bot-development">
+                                  RPA Basics
                                 </a>
                               </li>
                               <li>
-                                <a href="link">Developer Learning Plan</a>
+                                <a href="/course/jumpstart-to-rpa-live-bot-development">
+                                  Jumpstart to RPA live bot development
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/course/jumpstart-to-ai-ml-in-rpa">
+                                  Jumpstart to AI and ML in RPA
+                                </a>
+                              </li>
+                              <li>
+                                <a href="link">Introduction to Python</a>
                               </li>
                             </ul>
                           </aside>
                           <aside>
                             <ul>
                               <li>
-                                <a href="asdga">Networking Learning Plan</a>
+                                <a href="/course/jumpstart-to-rpa-live-bot-development">
+                                  RPA Foundation course
+                                </a>
                               </li>
                               <li>
-                                <a href="asdga">Data Analytics Learning Plan</a>
+                                <a href="/course/jumpstart-to-rpa-live-bot-development">
+                                  Advance Topics in RPA
+                                </a>
                               </li>
                               <li>
                                 <a href="/courses">All Courses </a>
@@ -207,10 +232,14 @@ const Navbar = () => {
                           <aside>
                             <ul>
                               <li>
-                                <a href="link">Data Analytics Fundamentals</a>
+                                <a href="/course/business-analysis-foundation-training">
+                                  Business Analysis Foundation Training
+                                </a>
                               </li>
                               <li>
-                                <a href="link">AWS Compute Services Overview</a>
+                                <a href="/course/jumpstart-to-it-business-analyst">
+                                  Jumpstart to IT Business Analyst
+                                </a>
                               </li>
                               <li>
                                 <a href="link">
@@ -236,19 +265,55 @@ const Navbar = () => {
                             </ul>
                           </aside>
                           <figure>
-                            <img src={hoverImage} alt=";" />
+                            <img src={hoverImage1} alt=";" />
                           </figure>
                         </>
                       )}
                     </div>
                   </li>
-                  <li className="hasMegamenu">
+                  <li
+                    onMouseEnter={() => {
+                      return (
+                        setShowItTrainingMenu(false),
+                        setShowBtTrainingMenu(false),
+                        setShowContactMenu(false),
+                        setAboutMenu(false),
+                        setShowProfileMenu(false),
+                        setAddBackGroundBackdrop("none")
+                      );
+                    }}
+                    className="hasMegamenu"
+                  >
                     <a href="/methodology">Methodology</a>
                   </li>
-                  <li className="hasMegamenu">
+                  <li
+                    onMouseEnter={() => {
+                      return (
+                        setShowItTrainingMenu(false),
+                        setShowBtTrainingMenu(false),
+                        setShowContactMenu(false),
+                        setAboutMenu(false),
+                        setShowProfileMenu(false),
+                        setAddBackGroundBackdrop("none")
+                      );
+                    }}
+                    className="hasMegamenu"
+                  >
                     <a href="/mentors-club">Mentor Club</a>
                   </li>
-                  <li className="hasMegamenu">
+                  <li
+                    onMouseEnter={() => {
+                      return (
+                        setShowItTrainingMenu(false),
+                        setShowBtTrainingMenu(false),
+                        setShowContactMenu(false),
+                        setAboutMenu(false),
+                        setShowProfileMenu(false),
+                        setAddBackGroundBackdrop("none")
+                      );
+                    }}
+                    className="hasMegamenu"
+                  >
                     <a href="/jobs">Jobs</a>
                   </li>
                   <li className="hasMegamenu dropdown_mob">
@@ -323,7 +388,7 @@ const Navbar = () => {
                             </ul>
                           </aside>
                           <figure>
-                            <img src={hoverImage} alt=";" />
+                            <img src={aboutMenuImg} alt=";" />
                           </figure>
                         </>
                       )}
@@ -389,7 +454,7 @@ const Navbar = () => {
                             </ul>
                           </aside>
                           <figure>
-                            <img src={hoverImage} alt=";" />
+                            <img src={contactMenuImg} alt=";" />
                           </figure>
                         </>
                       )}
@@ -451,6 +516,26 @@ const Navbar = () => {
                                 <li>
                                   <a href={`/${user?.type}/profile`}>Profile</a>
                                 </li>
+
+                                {user?.role === 1 && (
+                                  <>
+                                    <li>
+                                      <a href={`/user/admin/jobs`}>
+                                        Jobs Admin
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a href={`/user/admin/users`}>
+                                        Users Admin
+                                      </a>
+                                    </li>{" "}
+                                    <li>
+                                      <a href={`/user/admin/courses`}>
+                                        Course Admin
+                                      </a>
+                                    </li>
+                                  </>
+                                )}
                                 <li>
                                   <a onClick={onLogoutHandler}>Logout</a>
                                 </li>
