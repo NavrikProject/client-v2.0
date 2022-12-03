@@ -1,7 +1,7 @@
 import React from "react";
 import userImage1a from "../../images/user1a.jpg";
 import userImage2a from "../../images/user2a.jpg";
-import userImage3a from "../../images/user3a.jpg";
+import userImage3a from "../../images/shwetha-testimonial.jpeg";
 import Carousel from "react-elastic-carousel";
 
 const TestimonialSection = () => {
@@ -30,94 +30,100 @@ const TestimonialSection = () => {
             >
               <Carousel breakPoints={breakPoints}>
                 <li className="ps_item auto">
-                  <h3>Testimonial Name</h3>
+                  <h3>JUMPSTART to RPA LIVE BOT DEVELOPMENT</h3>
                   <div className="star">
                     <span className="fa fa-star checked"></span>
                     <span className="fa fa-star checked"></span>
                     <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star"></span>
-                    <span className="fa fa-star"></span>
+                    <span className="fa fa-star checked"></span>
+                    <span className="fa fa-star checked"></span>
                   </div>
                   <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever.
+                    Thank you team Navrik for helping me start my RPA career. I
+                    am RPA certified but lacked the real-project experience
+                  </p>
+                  <p>
+                    Tarun sir and team guided me throughout the Practiwiz
+                    programme to gain real-life project experience in which i
+                    created the live Bots and interacted with customers
                   </p>
                   <div>
                     <aside>
-                      <img src={userImage1a} alt="" />
+                      <img
+                        className="testimonialImage"
+                        src={userImage3a}
+                        alt=""
+                      />
                     </aside>
                     <p>
-                      Mike Fisher<span>Owner Ford</span>
+                      Shwetha Tyagi<span>RPA Developer</span>
                     </p>
                   </div>
                 </li>
                 <li className="ps_item auto">
-                  <h3>Testmonial Name</h3>
-                  <div className="star">
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star"></span>
-                    <span className="fa fa-star"></span>
-                  </div>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever.
-                  </p>
-                  <div>
-                    <aside>
-                      <img src={userImage2a} alt="" />
-                    </aside>
-                    <p>
-                      Mike Fisher<span>Owner Ford</span>
-                    </p>
-                  </div>
-                </li>
-                <li className="ps_item auto">
-                  <h3>Testmonial Name</h3>
+                  <h3>JUMPSTART to RPA LIVE BOT DEVELOPMENT</h3>
                   <div className="star">
                     <i className="fa fa-star checked"></i>
                     <span className="fa fa-star checked"></span>
                     <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star"></span>
-                    <span className="fa fa-star"></span>
+                    <span className="fa fa-star checked"></span>
+                    <span className="fa fa-star checked"></span>
                   </div>
                   <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever.
+                    Great Course!! Everyone should go for it without having
+                    second thoughts.. I am RPA certified but I don't have
+                    practical experience on creating the BOT's. They have helped
+                    me in creating the Live BOT's.
+                  </p>
+                  <p>
+                    Good content and explanation for beginner, with this course
+                    am ready to work on live projects.
                   </p>
                   <div>
                     <aside>
-                      <img src={userImage3a} alt="" />
+                      <img
+                        className="testimonialImage"
+                        src={
+                          "https://lh3.googleusercontent.com/a/ALm5wu0lFgzquamYfPNku2GBPG_Yv3qg826TcjP8NVFxD3I=s288-p-rw-no"
+                        }
+                        alt=""
+                      />
                     </aside>
                     <p>
-                      Mike Fisher<span>Owner Ford</span>
+                      Mahesh Bandari<span>Full stack developer</span>
                     </p>
                   </div>
                 </li>
                 <li className="ps_item auto">
-                  <h3>Testmonial Name</h3>
+                  <h3>JUMPSTART to RPA LIVE BOT DEVELOPMENT</h3>
                   <div className="star">
                     <span className="fa fa-star checked"></span>
                     <span className="fa fa-star checked"></span>
                     <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star"></span>
-                    <span className="fa fa-star"></span>
+                    <span className="fa fa-star checked"></span>
+                    <span className="fa fa-star checked"></span>
                   </div>
                   <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever.
+                    This UI Path Application is excellent RPA it is just like
+                    assigning a Command to a Robot to open my App and do
+                    whatever input is assigned to it very interesting.
+                  </p>
+                  <p>
+                    Looking forward to make use of Practiwiz and learn this tool
+                    properly and make use of it in real world scenario
                   </p>
                   <div>
                     <aside>
-                      <img src={userImage1a} alt="" />
+                      <img
+                        className="testimonialImage"
+                        src={
+                          "https://lh3.googleusercontent.com/a/ALm5wu0lFgzquamYfPNku2GBPG_Yv3qg826TcjP8NVFxD3I=s288-p-rw-n"
+                        }
+                        alt="img"
+                      />
                     </aside>
                     <p>
-                      Mike Fisher<span>Owner Ford</span>
+                      Sai Prasad<span>Illustrator</span>
                     </p>
                   </div>
                 </li>

@@ -674,7 +674,10 @@ li.ps_item {
   font-weight: 600;
   display: block;
 }
-
+.testimonialImage {
+  width: 46px !important;
+  border-radius: 50%;
+}
 .ps_prev {
   position: absolute;
   top: -80px; /* bottom: 0; */
