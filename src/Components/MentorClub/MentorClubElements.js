@@ -1,70 +1,32 @@
 import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
 export const MentorSect = styled.section`
-  background-color: #f2f2f2;
+  /* // background-color: #f2f2f2; */
   width: 100%;
+  /* background-image: url("https://res.cloudinary.com/ddzagipmh/image/upload/v1644037126/17973908_zwmwyf.jpg"); */
+  background: #f2f2f2;
 `;
 export const MentorSection = styled.section`
   width: 90%;
   height: auto;
   margin: 0 auto;
-  background-image: url("https://navrik.blob.core.windows.net/navrikimage/abstract-background-with-squares_23-2148995948.jpg");
+  /* background-image: url("https://navrik.blob.core.windows.net/navrikimage/abstract-background-with-squares_23-2148995948.jpg"); */
 `;
-export const MentorDiv = styled.div`
-  width: 27%;
-  margin: 20px;
-  margin-bottom: 40px;
-`;
-export const MentorUpDiv = styled.div`
-  width: 100%;
-  height: 50px;
-  background-color: #f2f2f2;
-`;
-export const MentorDownDiv = styled.div`
-  width: 100%;
-  //background-color: #d1dfe3;
+export const MentorTitleDesc = styled.p`
+  text-align: center;
+  width: 70%;
   margin: 0 auto;
-  padding: 20px;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  background-color: #fff;
-  /* // background-color: #eeeeee; */
-  /* background: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.5) 100%,
-    rgba(255, 255, 255, 0) 40%
-  ); */
+  padding-bottom: 10px;
 `;
-export const MentorNotFoundDiv = styled.div`
-  margin: 0 auto;
-  padding: 20px;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  background-color: #fff;
-`;
-export const MentorImgDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-export const MentorImg = styled.img`
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  margin: -100px auto 0 auto;
-  object-fit: cover;
-  border: 7px solid light;
-`;
-export const MentorWrapper = styled.div`
-  padding: 20px 0;
-`;
+export const MentorWrapper = styled.div``;
 
 export const MentorContainer = styled.div``;
-export const MentorTitle = styled.h1`
+export const MentorTitle = styled.h2`
   text-align: center;
-  font-size: 32px;
-  color: #111;
-  opacity: 0.8;
+  font-size: 28px;
+  font-weight: 700;
+  font-style: italic;
+  padding: 30px 0 10px 0;
 `;
 export const MentorDescription = styled.h4`
   text-align: center;
@@ -82,11 +44,6 @@ export const MentorDivFlex = styled.div`
   flex-wrap: wrap;
 `;
 
-export const MentorCourseBox = styled.div`
-  cursor: pointer;
-  width: 100%;
-  border-radius: 15px;
-`;
 export const MentorCourseDivFlex = styled.div`
   display: flex;
   align-items: center;
@@ -97,6 +54,7 @@ export const MentorSearchDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 20px 0px 50px 0;
 `;
 export const MentorSearchRightDiv = styled.div``;
 export const MentorSearchLeftDiv = styled.div``;

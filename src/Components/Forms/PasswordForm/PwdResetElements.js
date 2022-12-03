@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { BiHide, BiShow } from "react-icons/bi";
 
 export const PwdSectionSection = styled.section`
-  height: 100vh;
+  height: 100%;
   width: 100%;
 `;
 export const PwdSectionDiv = styled.div`

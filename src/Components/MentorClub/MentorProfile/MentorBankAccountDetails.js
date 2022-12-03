@@ -6,7 +6,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { AiOutlineClose } from "react-icons/ai";
-import Loading from "../../utils/Loading.js";
+import Loading from "../../utils/LoadingSpinner";
 const Form = styled.form`
   width: 100%;
   margin: 0 auto;

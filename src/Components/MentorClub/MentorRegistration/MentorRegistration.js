@@ -26,7 +26,6 @@ import {
   ErrorMessage,
 } from "./MentorRegistrationElements.js";
 import "./MentorRegistration.css";
-import Loading from "../../utils/LoadingSpinner";
 import { mentorshipAreas } from "../../Data/MentorData";
 import { useForm } from "react-hook-form";
 import {
@@ -36,6 +35,11 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import app from "../../FirebaseConfig";
+import {
+  hideLoadingHandler,
+  showLoadingHandler,
+} from "../../../redux/loadingReducer";
+import { useDispatch } from "react-redux";
 const MentorRegistration = () => {
   const {
     register,
@@ -52,6 +56,7 @@ const MentorRegistration = () => {
   const [skills, setSkills] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
+  const dispatch = useDispatch();
   const formSkillHandler = (event) => {
     if (event.target.value === "Others") {
       setShowOthersInput(true);
@@ -66,7 +71,6 @@ const MentorRegistration = () => {
   const [success, setSuccess] = useState("");
   const [showIcon, setShowIcon] = useState(false);
   const [showIcons, setShowIcons] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [fileUploading, setFileUploading] = useState("");
   const [imageUploaded, setImageUploaded] = useState(false);
   const [imageFileName, setImageFileName] = useState("");
@@ -106,7 +110,7 @@ const MentorRegistration = () => {
     data.append("endTime", endTime);
     data.append("type", type);
     try {
-      setLoading(true);
+      dispatch(showLoadingHandler());
       const res = await axios.post(
         `https://deploy-practiwiz.azurewebsites.net/api/mentor/register/all-details`,
         data
@@ -114,13 +118,13 @@ const MentorRegistration = () => {
       if (res.data.success) {
         setSuccess(res.data.success);
         toast.success(res.data.success, { position: "top-center" });
-        setLoading(false);
+        dispatch(hideLoadingHandler());
         reset();
       }
       if (res.data.error) {
         setError(res.data.error);
         toast.error(res.data.error, { position: "top-center" });
-        setLoading(false);
+        dispatch(hideLoadingHandler());
       }
     } catch (error) {
       return;
@@ -228,406 +232,394 @@ const MentorRegistration = () => {
   }, [image]);
   return (
     <MentorRegisterSection>
-      {loading ? (
-        <MentorRegisterDiv>
-          <MentorRegisterDiv1>
-            <Loading />
-          </MentorRegisterDiv1>
-        </MentorRegisterDiv>
-      ) : (
-        <MentorRegisterDiv>
-          <MentorRegisterDiv1>
-            <FormDiv>
-              <FormDivFlex>
-                <Form action="" onSubmit={handleSubmit(profileSubmitHandler)}>
-                  {error && (
-                    <p
-                      style={{
-                        color: "red",
-                        textAlign: "center",
-                        fontSize: "20px",
-                      }}
-                    >
-                      {error}
-                    </p>
+      <MentorRegisterDiv>
+        <MentorRegisterDiv1>
+          <FormDiv>
+            <FormDivFlex>
+              <Form action="" onSubmit={handleSubmit(profileSubmitHandler)}>
+                {error && (
+                  <p
+                    style={{
+                      color: "red",
+                      textAlign: "center",
+                      fontSize: "20px",
+                    }}
+                  >
+                    {error}
+                  </p>
+                )}
+                {success && (
+                  <p
+                    style={{
+                      color: "green",
+                      textAlign: "center",
+                      fontSize: "20px",
+                    }}
+                  >
+                    {success}
+                  </p>
+                )}
+                <Field>
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    {...register("email", {
+                      required: "Email must be Required for registration",
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: "Invalid email address",
+                      },
+                    })}
+                    onKeyUp={() => {
+                      trigger("email");
+                    }}
+                  />
+                  {errors.email && (
+                    <ErrorMessage>{errors.email.message}</ErrorMessage>
                   )}
-                  {success && (
-                    <p
-                      style={{
-                        color: "green",
-                        textAlign: "center",
-                        fontSize: "20px",
-                      }}
-                    >
-                      {success}
-                    </p>
+                </Field>
+                <Field>
+                  <Input
+                    type="text"
+                    placeholder="Enter your First Name"
+                    {...register("firstName", {
+                      required: "firstname is Required",
+                      minLength: {
+                        value: 4,
+                        message: "Must be 4 characters at least",
+                      },
+                    })}
+                    onKeyUp={() => {
+                      trigger("firstName");
+                    }}
+                  />
+                  {errors.firstName && (
+                    <ErrorMessage>{errors.firstName.message}</ErrorMessage>
                   )}
-                  <Field>
-                    <Input
-                      type="email"
-                      placeholder="Enter your email"
-                      {...register("email", {
-                        required: "Email must be Required for registration",
-                        pattern: {
-                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                          message: "Invalid email address",
-                        },
-                      })}
-                      onKeyUp={() => {
-                        trigger("email");
-                      }}
-                    />
-                    {errors.email && (
-                      <ErrorMessage>{errors.email.message}</ErrorMessage>
-                    )}
-                  </Field>
-                  <Field>
-                    <Input
-                      type="text"
-                      placeholder="Enter your First Name"
-                      {...register("firstName", {
-                        required: "firstname is Required",
-                        minLength: {
-                          value: 4,
-                          message: "Must be 4 characters at least",
-                        },
-                      })}
-                      onKeyUp={() => {
-                        trigger("firstName");
-                      }}
-                    />
-                    {errors.firstName && (
-                      <ErrorMessage>{errors.firstName.message}</ErrorMessage>
-                    )}
-                  </Field>
-                  <Field>
-                    <Input
-                      type="text"
-                      placeholder="Enter your Last Name"
-                      //onChange={(e) => setLastName(e.target.value)}
-                      {...register("lastName", {
-                        required: "last name is Required",
-                        minLength: {
-                          value: 4,
-                          message: "Must be 4 characters at least",
-                        },
-                      })}
-                      onKeyUp={() => {
-                        trigger("lastName");
-                      }}
-                    />
-                    {errors.lastName && (
-                      <ErrorMessage>{errors.lastName.message}</ErrorMessage>
-                    )}
-                  </Field>
-                  <PwdField>
-                    <Input
-                      type={showIcon ? "text" : "password"}
-                      placeholder="Enter your password"
-                      {...register("password", {
-                        required: "Password is Required",
-                        pattern: {
-                          value:
-                            /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
-                          message:
-                            "A minimum 8 characters password contains a combination of uppercase and lowercase letter and number are required special characters like @ _ $ ! % * ? &",
-                        },
-                      })}
-                      onKeyUp={() => {
-                        trigger("password");
-                      }}
-                    />
-                    {errors.password && (
-                      <ErrorMessage>{errors.password.message}</ErrorMessage>
-                    )}
-                    <PwdIcons onClick={(e) => setShowIcon(!showIcon)}>
-                      {showIcon ? <ShowIcon /> : <HideIcon />}
-                    </PwdIcons>
-                  </PwdField>
-                  <PwdField>
-                    <Input
-                      type={showIcon ? "text" : "password"}
-                      placeholder="Confirm Your Password"
-                      //onChange={(e) => setConfirmPassword(e.target.value)}
-                      {...register("confirmPassword", {
-                        required: "Enter confirm password",
-                        validate: (value) =>
-                          value === password || "Password must be matched",
-                      })}
-                      onKeyUp={() => {
-                        trigger("confirmPassword");
-                      }}
-                    />
-                    {errors.confirmPassword && (
-                      <ErrorMessage>
-                        {errors.confirmPassword.message}
-                      </ErrorMessage>
-                    )}
-                    <PwdIcons onClick={() => setShowIcons(!showIcons)}>
-                      {showIcons ? <ShowIcon /> : <HideIcon />}
-                    </PwdIcons>
-                  </PwdField>
-                  <Field>
-                    <PhoneInput2
-                      value={phoneNumber}
-                      country="in"
-                      inputStyle={{ width: "100%", padding: "5px 10px" }}
-                      onChange={(phone) => setPhoneNumber(phone)}
-                    />
-                  </Field>
-                  <Field>
-                    <TextArea
-                      {...register("bio", {
-                        required: "Enter your bio",
-                        minLength: {
-                          value: 50,
-                          message: "Must be 50 characters at least",
-                        },
-                        maxLength: {
-                          value: 200,
-                          message: "Not more than 150 characters",
-                        },
-                      })}
-                      placeholder="Enter your bio"
-                    ></TextArea>
-                    {errors.bio && (
-                      <ErrorMessage>{errors.bio.message}</ErrorMessage>
-                    )}
-                  </Field>
-                  <Field>
-                    <FormSelect
-                      {...register("experience", {
-                        required: "Choose from the experience dropdown",
-                      })}
-                      name="experience"
-                    >
-                      <FormOption value="">Choose your experience</FormOption>
-                      <FormOption value="0-5">7- 10</FormOption>
-                      <FormOption value="5-10">10-15</FormOption>
-                      <FormOption value="15-20">15-20</FormOption>
-                      <FormOption value="20-25">20-25</FormOption>
-                      <FormOption value="25+">25+</FormOption>
-                    </FormSelect>
-                    {errors.experience && (
-                      <ErrorMessage>{errors.experience.message}</ErrorMessage>
-                    )}
-                  </Field>
-                  <Field>
-                    <FormSelect
-                      required
-                      value={speciality}
-                      name="specialty"
-                      onChange={(event) => setSpeciality(event.target.value)}
-                    >
-                      <FormOption value="">Choose a Skills Category</FormOption>
-                      <FormOption value="technology">Technology</FormOption>
-                      <FormOption value="domain">Domain</FormOption>
-                      <FormOption value="business-skills">
-                        Business skills
+                </Field>
+                <Field>
+                  <Input
+                    type="text"
+                    placeholder="Enter your Last Name"
+                    //onChange={(e) => setLastName(e.target.value)}
+                    {...register("lastName", {
+                      required: "last name is Required",
+                      minLength: {
+                        value: 4,
+                        message: "Must be 4 characters at least",
+                      },
+                    })}
+                    onKeyUp={() => {
+                      trigger("lastName");
+                    }}
+                  />
+                  {errors.lastName && (
+                    <ErrorMessage>{errors.lastName.message}</ErrorMessage>
+                  )}
+                </Field>
+                <PwdField>
+                  <Input
+                    type={showIcon ? "text" : "password"}
+                    placeholder="Enter your password"
+                    {...register("password", {
+                      required: "Password is Required",
+                      pattern: {
+                        value:
+                          /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
+                        message:
+                          "A minimum 8 characters password contains a combination of uppercase and lowercase letter and number are required special characters like @ _ $ ! % * ? &",
+                      },
+                    })}
+                    onKeyUp={() => {
+                      trigger("password");
+                    }}
+                  />
+                  {errors.password && (
+                    <ErrorMessage>{errors.password.message}</ErrorMessage>
+                  )}
+                  <PwdIcons onClick={(e) => setShowIcon(!showIcon)}>
+                    {showIcon ? <ShowIcon /> : <HideIcon />}
+                  </PwdIcons>
+                </PwdField>
+                <PwdField>
+                  <Input
+                    type={showIcon ? "text" : "password"}
+                    placeholder="Confirm Your Password"
+                    //onChange={(e) => setConfirmPassword(e.target.value)}
+                    {...register("confirmPassword", {
+                      required: "Enter confirm password",
+                      validate: (value) =>
+                        value === password || "Password must be matched",
+                    })}
+                    onKeyUp={() => {
+                      trigger("confirmPassword");
+                    }}
+                  />
+                  {errors.confirmPassword && (
+                    <ErrorMessage>
+                      {errors.confirmPassword.message}
+                    </ErrorMessage>
+                  )}
+                  <PwdIcons onClick={() => setShowIcons(!showIcons)}>
+                    {showIcons ? <ShowIcon /> : <HideIcon />}
+                  </PwdIcons>
+                </PwdField>
+                <Field>
+                  <PhoneInput2
+                    value={phoneNumber}
+                    country="in"
+                    inputStyle={{ width: "100%", padding: "5px 10px" }}
+                    onChange={(phone) => setPhoneNumber(phone)}
+                  />
+                </Field>
+                <Field>
+                  <TextArea
+                    {...register("bio", {
+                      required: "Enter your bio",
+                      minLength: {
+                        value: 50,
+                        message: "Must be 50 characters at least",
+                      },
+                      maxLength: {
+                        value: 200,
+                        message: "Not more than 150 characters",
+                      },
+                    })}
+                    placeholder="Enter your bio"
+                  ></TextArea>
+                  {errors.bio && (
+                    <ErrorMessage>{errors.bio.message}</ErrorMessage>
+                  )}
+                </Field>
+                <Field>
+                  <FormSelect
+                    {...register("experience", {
+                      required: "Choose from the experience dropdown",
+                    })}
+                    name="experience"
+                  >
+                    <FormOption value="">Choose your experience</FormOption>
+                    <FormOption value="0-5">7- 10</FormOption>
+                    <FormOption value="5-10">10-15</FormOption>
+                    <FormOption value="15-20">15-20</FormOption>
+                    <FormOption value="20-25">20-25</FormOption>
+                    <FormOption value="25+">25+</FormOption>
+                  </FormSelect>
+                  {errors.experience && (
+                    <ErrorMessage>{errors.experience.message}</ErrorMessage>
+                  )}
+                </Field>
+                <Field>
+                  <FormSelect
+                    required
+                    value={speciality}
+                    name="specialty"
+                    onChange={(event) => setSpeciality(event.target.value)}
+                  >
+                    <FormOption value="">Choose a Skills Category</FormOption>
+                    <FormOption value="technology">Technology</FormOption>
+                    <FormOption value="domain">Domain</FormOption>
+                    <FormOption value="business-skills">
+                      Business skills
+                    </FormOption>
+                  </FormSelect>
+                </Field>
+                <Field>
+                  <FormSelect
+                    required
+                    name="skills"
+                    value={skills}
+                    onChange={(event) => formSkillHandler(event)}
+                  >
+                    <FormOption value="">Choose your skill</FormOption>
+                    {skillsSet?.map((skill) => (
+                      <FormOption
+                        key={skill.skill_master_id}
+                        value={skill.skill_master_skill_name}
+                      >
+                        {skill.skill_master_skill_name}
                       </FormOption>
-                    </FormSelect>
-                  </Field>
+                    ))}
+                  </FormSelect>
+                </Field>
+                {showOthersInput && (
                   <Field>
-                    <FormSelect
-                      required
+                    <Input
                       name="skills"
-                      value={skills}
-                      onChange={(event) => formSkillHandler(event)}
-                    >
-                      <FormOption value="">Choose your skill</FormOption>
-                      {skillsSet?.map((skill) => (
-                        <FormOption
-                          key={skill.skill_master_id}
-                          value={skill.skill_master_skill_name}
-                        >
-                          {skill.skill_master_skill_name}
-                        </FormOption>
-                      ))}
-                    </FormSelect>
+                      type="text"
+                      {...register("otherSkills", {
+                        required: "other Skills is Required",
+                        minLength: {
+                          value: 4,
+                          message: "Must be 4 characters at least",
+                        },
+                      })}
+                    />
                   </Field>
-                  {showOthersInput && (
-                    <Field>
-                      <Input
-                        name="skills"
-                        type="text"
-                        {...register("otherSkills", {
-                          required: "other Skills is Required",
-                          minLength: {
-                            value: 4,
-                            message: "Must be 4 characters at least",
-                          },
-                        })}
-                      />
-                    </Field>
+                )}
+                <Field>
+                  <Input
+                    type="text"
+                    placeholder="Enter your Firm name"
+                    {...register("firm", {
+                      required: "firm is Required",
+                      minLength: {
+                        value: 4,
+                        message: "Must be 4 characters at least",
+                      },
+                    })}
+                  />
+                  {errors.firm && (
+                    <ErrorMessage>{errors.firm.message}</ErrorMessage>
                   )}
-                  <Field>
-                    <Input
-                      type="text"
-                      placeholder="Enter your Firm name"
-                      {...register("firm", {
-                        required: "firm is Required",
-                        minLength: {
-                          value: 4,
-                          message: "Must be 4 characters at least",
-                        },
-                      })}
-                    />
-                    {errors.firm && (
-                      <ErrorMessage>{errors.firm.message}</ErrorMessage>
-                    )}
-                  </Field>
-                  <Field>
-                    <Input
-                      type="text"
-                      placeholder="Enter your current Role"
-                      {...register("currentRole", {
-                        required: "current Role is Required",
-                        minLength: {
-                          value: 4,
-                          message: "Must be 4 characters at least",
-                        },
-                      })}
-                    />
-                    {errors.currentRole && (
-                      <ErrorMessage>{errors.currentRole.message}</ErrorMessage>
-                    )}
-                  </Field>
-                  <Field>
-                    <Input
-                      type="text"
-                      placeholder="Enter your previous Role"
-                      {...register("previousRole", {
-                        required: "previous Role is Required",
-                        minLength: {
-                          value: 4,
-                          message: "Must be 4 characters at least",
-                        },
-                      })}
-                    />
-                    {errors.previousRole && (
-                      <ErrorMessage>{errors.previousRole.message}</ErrorMessage>
-                    )}
-                  </Field>
-                  <Field>
-                    <FormSelect
-                      {...register("mentorshipArea", {
-                        required: "Choose the mentorship area dropdown",
-                      })}
-                      name="mentorshipArea"
-                    >
-                      <FormOption value="">Choose Mentorship Area</FormOption>
-                      {mentorshipAreas.map((mentorArea) => (
-                        <FormOption key={mentorArea.id} value={mentorArea.area}>
-                          {mentorArea.area}
-                        </FormOption>
-                      ))}
-                    </FormSelect>
-                    {errors.mentorshipArea && (
-                      <ErrorMessage>
-                        {errors.mentorshipArea.message}
-                      </ErrorMessage>
-                    )}
-                  </Field>
-                  <Field>
-                    <FormSelect
-                      {...register("mentorAvailability", {
-                        required:
-                          "Choose the mentor availability area dropdown",
-                      })}
-                      name="mentorAvailability"
-                    >
-                      <FormOption value="">Choose availability</FormOption>
-                      <FormOption value="weekdays">Week Days</FormOption>
-                      <FormOption value="weekends">
-                        Weekends(Saturday and Sunday)
+                </Field>
+                <Field>
+                  <Input
+                    type="text"
+                    placeholder="Enter your current Role"
+                    {...register("currentRole", {
+                      required: "current Role is Required",
+                      minLength: {
+                        value: 4,
+                        message: "Must be 4 characters at least",
+                      },
+                    })}
+                  />
+                  {errors.currentRole && (
+                    <ErrorMessage>{errors.currentRole.message}</ErrorMessage>
+                  )}
+                </Field>
+                <Field>
+                  <Input
+                    type="text"
+                    placeholder="Enter your previous Role"
+                    {...register("previousRole", {
+                      required: "previous Role is Required",
+                      minLength: {
+                        value: 4,
+                        message: "Must be 4 characters at least",
+                      },
+                    })}
+                  />
+                  {errors.previousRole && (
+                    <ErrorMessage>{errors.previousRole.message}</ErrorMessage>
+                  )}
+                </Field>
+                <Field>
+                  <FormSelect
+                    {...register("mentorshipArea", {
+                      required: "Choose the mentorship area dropdown",
+                    })}
+                    name="mentorshipArea"
+                  >
+                    <FormOption value="">Choose Mentorship Area</FormOption>
+                    {mentorshipAreas.map((mentorArea) => (
+                      <FormOption key={mentorArea.id} value={mentorArea.area}>
+                        {mentorArea.area}
                       </FormOption>
-                      <FormOption value="saturday">Saturday</FormOption>
-                      <FormOption value="sunday">Sunday</FormOption>
-                    </FormSelect>
-                    {errors.mentorAvailability && (
-                      <ErrorMessage>
-                        {errors.mentorAvailability.message}
-                      </ErrorMessage>
-                    )}
-                  </Field>
-                  <Field>
-                    <p>
-                      Choose the Time Slots (Ex: 12:15 OR 12:30 OR 12:45 ) From
-                      :
-                    </p>
-                    <TimePicker
-                      showSecond={showSecond}
-                      className="time"
-                      onChange={onTimeSelectChangeValue}
-                      disabledMinutes={disabledMinutes}
-                      disabledSeconds={disabledSeconds}
-                      disabledHours={disabledHours}
-                    />
-                    <p>
-                      Your slot timings {startTime} to {endTime}
-                    </p>
-                  </Field>
-                  <Field>
-                    <Input
-                      type="text"
-                      placeholder="Enter your website"
-                      {...register("website", {
-                        required: "website is Required",
-                        maxLength: {
-                          value: 100,
-                          message: "Must be less than 100 characters at least",
-                        },
-                      })}
-                    />
-                    {errors.website && (
-                      <ErrorMessage>{errors.website.message}</ErrorMessage>
-                    )}
-                  </Field>
-                  <Field>
-                    <Input
-                      type="text"
-                      placeholder="Enter your linkedIn Profile"
-                      {...register("linkedInProfile", {
-                        required: "linkedIn Profile is Required",
-                        maxLength: {
-                          value: 100,
-                          message: "Must be less than 100 characters at least",
-                        },
-                      })}
-                    />
-                    {errors.linkedInProfile && (
-                      <ErrorMessage>
-                        {errors.linkedInProfile.message}
-                      </ErrorMessage>
-                    )}
-                  </Field>
-                  <Field>
-                    Choose the Profile Picture
-                    <Input
-                      required
-                      type="file"
-                      name="image"
-                      placeholder="Choose the profile picture"
-                      onChange={(event) => setImage(event.target.files[0])}
-                    />
-                    {fileUploading && (
-                      <p style={{ color: "green" }}>{fileUploading}</p>
-                    )}
-                  </Field>
-                  <Field>
-                    <SignUpButton
-                      disabled={!imageUploaded && !image}
-                      type="submit"
-                    >
-                      Signup
-                    </SignUpButton>
-                  </Field>
-                </Form>
-              </FormDivFlex>
-            </FormDiv>
-          </MentorRegisterDiv1>
-        </MentorRegisterDiv>
-      )}
+                    ))}
+                  </FormSelect>
+                  {errors.mentorshipArea && (
+                    <ErrorMessage>{errors.mentorshipArea.message}</ErrorMessage>
+                  )}
+                </Field>
+                <Field>
+                  <FormSelect
+                    {...register("mentorAvailability", {
+                      required: "Choose the mentor availability area dropdown",
+                    })}
+                    name="mentorAvailability"
+                  >
+                    <FormOption value="">Choose availability</FormOption>
+                    <FormOption value="weekdays">Week Days</FormOption>
+                    <FormOption value="weekends">
+                      Weekends(Saturday and Sunday)
+                    </FormOption>
+                    <FormOption value="saturday">Saturday</FormOption>
+                    <FormOption value="sunday">Sunday</FormOption>
+                  </FormSelect>
+                  {errors.mentorAvailability && (
+                    <ErrorMessage>
+                      {errors.mentorAvailability.message}
+                    </ErrorMessage>
+                  )}
+                </Field>
+                <Field>
+                  <p>
+                    Choose the Time Slots (Ex: 12:15 OR 12:30 OR 12:45 ) From :
+                  </p>
+                  <TimePicker
+                    showSecond={showSecond}
+                    className="time"
+                    onChange={onTimeSelectChangeValue}
+                    disabledMinutes={disabledMinutes}
+                    disabledSeconds={disabledSeconds}
+                    disabledHours={disabledHours}
+                  />
+                  <p>
+                    Your slot timings {startTime} to {endTime}
+                  </p>
+                </Field>
+                <Field>
+                  <Input
+                    type="text"
+                    placeholder="Enter your website"
+                    {...register("website", {
+                      required: "website is Required",
+                      maxLength: {
+                        value: 100,
+                        message: "Must be less than 100 characters at least",
+                      },
+                    })}
+                  />
+                  {errors.website && (
+                    <ErrorMessage>{errors.website.message}</ErrorMessage>
+                  )}
+                </Field>
+                <Field>
+                  <Input
+                    type="text"
+                    placeholder="Enter your linkedIn Profile"
+                    {...register("linkedInProfile", {
+                      required: "linkedIn Profile is Required",
+                      maxLength: {
+                        value: 100,
+                        message: "Must be less than 100 characters at least",
+                      },
+                    })}
+                  />
+                  {errors.linkedInProfile && (
+                    <ErrorMessage>
+                      {errors.linkedInProfile.message}
+                    </ErrorMessage>
+                  )}
+                </Field>
+                <Field>
+                  Choose the Profile Picture
+                  <Input
+                    required
+                    type="file"
+                    name="image"
+                    placeholder="Choose the profile picture"
+                    onChange={(event) => setImage(event.target.files[0])}
+                  />
+                  {fileUploading && (
+                    <p style={{ color: "green" }}>{fileUploading}</p>
+                  )}
+                </Field>
+                <Field>
+                  <SignUpButton
+                    disabled={!imageUploaded && !image}
+                    type="submit"
+                  >
+                    Signup
+                  </SignUpButton>
+                </Field>
+              </Form>
+            </FormDivFlex>
+          </FormDiv>
+        </MentorRegisterDiv1>
+      </MentorRegisterDiv>
       <GoToTop />
     </MentorRegisterSection>
   );

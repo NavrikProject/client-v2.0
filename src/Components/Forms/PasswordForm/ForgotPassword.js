@@ -11,7 +11,7 @@ import {
 } from "./PwdResetElements";
 import { useForm } from "react-hook-form";
 import GoToTop from "../../GoToTop.js";
-import Loading from "../../utils/Loading";
+import Loading from "../../utils/LoadingSpinner";
 import axios from "axios";
 const ForgotPassword = () => {
   const {

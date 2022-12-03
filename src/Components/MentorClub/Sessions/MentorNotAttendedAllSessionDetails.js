@@ -5,7 +5,7 @@ import {
   RefundedDoneButton,
   ModifyButton,
   UnModifiedButton,
-} from "../../Trainee/ButtonElements";
+} from "./ButtonElements";
 const UpcomingAllDivContent = styled.p`
   font-size: 20px;
   color: #111;

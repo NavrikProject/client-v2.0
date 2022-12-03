@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineClose } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import PhoneInput2 from "react-phone-input-2";
@@ -20,6 +20,10 @@ import {
   skillOptions,
 } from "../../Data/JobApplicationData";
 import Select from "react-select";
+import {
+  hideLoadingHandler,
+  showLoadingHandler,
+} from "../../../redux/loadingReducer";
 
 const Backdrop = styled.div`
   position: fixed;
@@ -40,7 +44,7 @@ const Modal = styled.div`
   background-color: white;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  z-index: 100000;
+  z-index: 130000000000;
   animation: slide-down 300ms ease-out forwards;
   /* width */
   &::-webkit-scrollbar {
@@ -132,6 +136,11 @@ const ErrorMessage = styled.p`
   color: red;
   margin: 0 0 10px 10px;
 `;
+const AppliedText = styled.h1`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const FormBtn = styled.button`
   padding: 12px 20px;
@@ -189,6 +198,8 @@ const ApplyJobForm = (props) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [experienceFoundDetails, setExperienceFoundDetails] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
+  const [appliedStatus, setAppliedStatus] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -196,6 +207,7 @@ const ApplyJobForm = (props) => {
     reset,
   } = useForm();
   const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
   useEffect(() => {
     const getJobAppliedStatus = async () => {
       const res = await axios.get(
@@ -213,8 +225,26 @@ const ApplyJobForm = (props) => {
     };
     getJobAppliedStatus();
   }, [user?.email]);
+  useEffect(() => {
+    const getJobAppliedStatus = async () => {
+      const res = await axios.post(
+        `https://deploy-practiwiz.azurewebsites.net/api/jobs/apply/post/applied-status/${props.indJobDetails.job_post_unique_id}`,
+        {
+          email: user?.email,
+        }
+      );
+      if (res.data.success) {
+        setAppliedStatus(true);
+      }
+      if (res.data.error) {
+        setAppliedStatus(false);
+      }
+    };
+    getJobAppliedStatus();
+  }, [props.indJobDetails.job_post_unique_id, user?.email]);
   const applyJobHandler = async (data) => {
     try {
+      dispatch(showLoadingHandler());
       const res = await axios.post(
         `https://deploy-practiwiz.azurewebsites.net/api/jobs/apply/post/${props.indJobDetails.job_post_unique_id}`,
         {
@@ -235,7 +265,7 @@ const ApplyJobForm = (props) => {
         toast.success(res.data.success, {
           position: "top-center",
         });
-        setLoading(false);
+        dispatch(hideLoadingHandler());
         reset();
       }
       if (res.data.error) {
@@ -243,7 +273,7 @@ const ApplyJobForm = (props) => {
         toast.error(res.data.error, {
           position: "top-center",
         });
-        setLoading(false);
+        dispatch(hideLoadingHandler());
       }
     } catch (error) {}
   };
@@ -271,7 +301,7 @@ const ApplyJobForm = (props) => {
         toast.success(res.data.success, {
           position: "top-center",
         });
-        setLoading(false);
+        dispatch(hideLoadingHandler());
         reset();
       }
       if (res.data.error) {
@@ -279,7 +309,7 @@ const ApplyJobForm = (props) => {
         toast.error(res.data.error, {
           position: "top-center",
         });
-        setLoading(false);
+        dispatch(hideLoadingHandler());
       }
     } catch (error) {}
   };
@@ -309,7 +339,7 @@ const ApplyJobForm = (props) => {
         toast.success(res.data.success, {
           position: "top-center",
         });
-        setLoading(false);
+        dispatch(hideLoadingHandler());
         reset();
       }
       if (res.data.error) {
@@ -317,7 +347,7 @@ const ApplyJobForm = (props) => {
         toast.error(res.data.error, {
           position: "top-center",
         });
-        setLoading(false);
+        dispatch(hideLoadingHandler());
       }
     } catch (error) {}
   };
@@ -396,595 +426,19 @@ const ApplyJobForm = (props) => {
             <p style={{ color: "green", textAlign: "center" }}>{success}</p>
           )}
           {loading && <p>Loading... please wait...</p>}
-          <JobName>
-            You are applying for
-            <span>{" " + props.indJobDetails.job_post_heading + " "}</span>
-            <hr />
-          </JobName>
-          {/* show default form */}
-          {experienceFoundDetails === "no" && (
+          {appliedStatus === true ? (
+            <AppliedText>You have all ready applied for this job!</AppliedText>
+          ) : (
             <>
-              <Form onSubmit={handleSubmit(applyJobHandler)}>
-                <Field>
-                  <FormLabel>Upload your resume or cv :</FormLabel>
-                  <Input
-                    accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                    required
-                    type="file"
-                    name="image"
-                    placeholder="Choose the profile picture"
-                    onChange={(event) => setResume(event.target.files[0])}
-                  />
-                  {fileUploading && (
-                    <p style={{ color: "green" }}>{fileUploading}</p>
-                  )}
-                  * Only Pdf or Doc or Docx format accepted.
-                </Field>
-                <Field>
-                  <Input
-                    {...register("fullname", {
-                      required: "Please enter your full Name",
-                    })}
-                    type="text"
-                    placeholder="Enter your full Name"
-                  />
-                  {errors.fullname && (
-                    <ErrorMessage>{errors.fullname.message}</ErrorMessage>
-                  )}
-                </Field>
-                <Field>
-                  <FormLabel>Enter your mobile number :</FormLabel>
-                  <PhoneInput2
-                    country="in"
-                    inputStyle={{ width: "100%", padding: "5px 10px" }}
-                    onChange={(phone) => setPhoneNumber(phone)}
-                  />
-                </Field>
-                <Field>
-                  <FormLabel>Choose the currency:</FormLabel>
-                  <FormSelect
-                    name="currency"
-                    {...register("currency", {
-                      required: "Choose your currency",
-                    })}
-                  >
-                    <FormOption value="">Choose a below option</FormOption>
-                    <FormOption value="INR">INR</FormOption>
-                    <FormOption value="USD">USD</FormOption>
-                    <FormOption value="Pounds">Pounds</FormOption>
-                    <FormOption value="CD">Canadian Dollars</FormOption>
-                  </FormSelect>
-                  {errors.currency && (
-                    <ErrorMessage>{errors.currency.message}</ErrorMessage>
-                  )}
-                </Field>
-                <Field>
-                  <Input
-                    {...register("location", {
-                      required: "Enter your location",
-                    })}
-                    type="text"
-                    placeholder="Enter your location"
-                  />
-                  {errors.location && (
-                    <ErrorMessage>{errors.location.message}</ErrorMessage>
-                  )}
-                </Field>
-                <Field>
-                  <Input
-                    {...register("city", {
-                      required: "Enter your city",
-                    })}
-                    type="text"
-                    placeholder="Enter your city"
-                  />
-                  {errors.city && (
-                    <ErrorMessage>{errors.city.message}</ErrorMessage>
-                  )}
-                </Field>
-                <Field>
-                  <Input
-                    {...register("state", {
-                      required: "Enter your state name",
-                    })}
-                    type="text"
-                    placeholder="Enter your state name"
-                  />
-                  {errors.state && (
-                    <ErrorMessage>{errors.state.message}</ErrorMessage>
-                  )}
-                </Field>
-                <Field>
-                  <Input
-                    {...register("country", {
-                      required: "Enter your country name",
-                    })}
-                    type="text"
-                    placeholder="Enter your country name"
-                  />
-                  {errors.country && (
-                    <ErrorMessage>{errors.country.message}</ErrorMessage>
-                  )}
-                </Field>
-                <h1>
-                  Educational Details <hr />
-                </h1>
-                <Field>
-                  <Input
-                    {...register("collegeName", {
-                      required: "Enter your college name",
-                    })}
-                    type="text"
-                    placeholder="Enter your college name"
-                  />
-                  {errors.collegeName && (
-                    <ErrorMessage>{errors.collegeName.message}</ErrorMessage>
-                  )}
-                </Field>
-                <Field>
-                  <Input
-                    {...register("universityName", {
-                      required: "Enter your university name",
-                    })}
-                    type="text"
-                    placeholder="Enter your university name"
-                  />
-                  {errors.universityName && (
-                    <ErrorMessage>{errors.universityName.message}</ErrorMessage>
-                  )}
-                </Field>
-                <Field>
-                  <FormSelect
-                    name="startingYear"
-                    {...register("startingYear", {
-                      required: "Choose the highest education starting year",
-                    })}
-                  >
-                    <FormOption value="">
-                      Choose the highest education starting year
-                    </FormOption>
-                    {academicYears.map((year) => (
-                      <FormOption value={year.value}>{year.value}</FormOption>
-                    ))}
-                  </FormSelect>
-                  {errors.startingYear && (
-                    <ErrorMessage>{errors.startingYear.message}</ErrorMessage>
-                  )}
-                </Field>
-                <Field>
-                  <FormSelect
-                    name="endingYear"
-                    {...register("endingYear", {
-                      required: "Choose the highest education starting year",
-                    })}
-                  >
-                    <FormOption value="">
-                      Choose the highest education ending year
-                    </FormOption>
-                    {academicYears.map((year) => (
-                      <FormOption value={year.value}>{year.value}</FormOption>
-                    ))}
-                  </FormSelect>
-                  {errors.endingYear && (
-                    <ErrorMessage>{errors.endingYear.message}</ErrorMessage>
-                  )}
-                </Field>
-                <Field>
-                  <FormLabel>Highest Education completion year : </FormLabel>
-                  <Input
-                    {...register("completedYear", {
-                      required: "Enter your highest education passed out year",
-                    })}
-                    type="date"
-                    placeholder="Enter your highest education passed out year"
-                  />
-                  {errors.completedYear && (
-                    <ErrorMessage>{errors.completedYear.message}</ErrorMessage>
-                  )}
-                </Field>
-                <Field>
-                  <Input
-                    {...register("percentage", {
-                      required: "Enter your highest education percentage",
-                    })}
-                    type="number"
-                    placeholder="Enter your highest education percentage"
-                  />
-                  {errors.percentage && (
-                    <ErrorMessage>{errors.percentage.message}</ErrorMessage>
-                  )}
-                </Field>
-                <Field>
-                  <FormLabel>Select your skills</FormLabel>
-                  <Select
-                    required
-                    isMulti={true}
-                    defaultValue={selectedOption}
-                    onChange={setSelectedOption}
-                    options={skillOptions}
-                  />
-                </Field>
-                <Field>
-                  <RadioWrapper>
-                    Do you have work experience ?
-                    <RadioWrapper>
-                      <InputRadio
-                        required
-                        type="radio"
-                        id="yes"
-                        value="yes"
-                        checked={haveExperience === "yes"}
-                        onChange={typeHandler}
-                      />
-                      <FormLabel htmlFor="yes">Yes</FormLabel>
-                    </RadioWrapper>
-                    <RadioWrapper>
-                      <InputRadio
-                        required
-                        type="radio"
-                        id="no"
-                        value="no"
-                        checked={haveExperience === "no"}
-                        onChange={typeHandler}
-                      />
-                      <FormLabel htmlFor="no">No</FormLabel>
-                    </RadioWrapper>
-                  </RadioWrapper>
-                </Field>
-                {showExperienceForm && (
-                  <>
-                    <h1>
-                      Experience Details
-                      <hr />
-                    </h1>
-                    <Field>
-                      <Input
-                        {...register("currentCompanyName", {
-                          required: "Enter your current company name",
-                        })}
-                        type="text"
-                        placeholder="Enter your current company name"
-                      />
-                      {errors.currentCompanyName && (
-                        <ErrorMessage>
-                          {errors.currentCompanyName.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <Input
-                        {...register("currentDesignation", {
-                          required: "Enter your current designation",
-                        })}
-                        type="text"
-                        placeholder="Enter your current designation"
-                      />
-                      {errors.currentDesignation && (
-                        <ErrorMessage>
-                          {errors.currentDesignation.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <FormSelect
-                        name="experience"
-                        {...register("experience", {
-                          required: "Choose the experience years",
-                        })}
-                      >
-                        <FormOption value="">
-                          Select the number of years experience
-                        </FormOption>
-                        {experienceYears.map((expYear) => (
-                          <FormOption key={expYear.id} value={expYear.value}>
-                            {expYear.value} years
-                          </FormOption>
-                        ))}
-                      </FormSelect>
-                      {errors.experience && (
-                        <ErrorMessage>{errors.experience.message}</ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <Input
-                        {...register("currentCompanySalary", {
-                          required: "Enter your current annual salary",
-                        })}
-                        type="number"
-                        placeholder="Enter your current annual salary"
-                      />
-                      {errors.currentCompanySalary && (
-                        <ErrorMessage>
-                          {errors.currentCompanySalary.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <Input
-                        {...register("expectedSalary", {
-                          required: "Enter your expected salary",
-                        })}
-                        type="number"
-                        placeholder="Enter your expected salary"
-                      />
-                      {errors.expectedSalary && (
-                        <ErrorMessage>
-                          {errors.expectedSalary.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <Input
-                        {...register("companyLocation", {
-                          required: "Enter your Company location",
-                        })}
-                        type="text"
-                        placeholder="Enter your company location"
-                      />
-                      {errors.companyLocation && (
-                        <ErrorMessage>
-                          {errors.companyLocation.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <Input
-                        {...register("companyCity", {
-                          required: "Enter your company city",
-                        })}
-                        type="text"
-                        placeholder="Enter your company city"
-                      />
-                      {errors.companyCity && (
-                        <ErrorMessage>
-                          {errors.companyCity.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <Input
-                        {...register("companyState", {
-                          required: "Enter your company state name",
-                        })}
-                        type="text"
-                        placeholder="Enter your company state name"
-                      />
-                      {errors.companyState && (
-                        <ErrorMessage>
-                          {errors.companyState.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <Input
-                        {...register("companyCountry", {
-                          required: "Enter your company country name",
-                        })}
-                        type="text"
-                        placeholder="Enter your company country name"
-                      />
-                      {errors.companyCountry && (
-                        <ErrorMessage>
-                          {errors.companyCountry.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                  </>
-                )}{" "}
-                <FormBtn type="submit" disabled={!imageUploaded && !resume}>
-                  Apply Now
-                </FormBtn>
-              </Form>
-            </>
-          )}
-          {/* show only experience form form */}
-          {experienceFoundDetails === false && (
-            <>
-              <Form onSubmit={handleSubmit(applyJobWithExperienceHandler)}>
-                <Field>
-                  <RadioWrapper>
-                    Do you have work experience ?
-                    <RadioWrapper>
-                      <InputRadio
-                        onFocus={() => setError(" ")}
-                        required
-                        type="radio"
-                        id="yes"
-                        value="yes"
-                        checked={haveExperience === "yes"}
-                        onChange={typeHandler}
-                      />
-                      <FormLabel htmlFor="yes">Yes</FormLabel>
-                    </RadioWrapper>
-                    <RadioWrapper>
-                      <InputRadio
-                        onFocus={() => setError(" ")}
-                        required
-                        type="radio"
-                        id="no"
-                        value="no"
-                        checked={haveExperience === "no"}
-                        onChange={typeHandler}
-                      />
-                      <FormLabel htmlFor="no">No</FormLabel>
-                    </RadioWrapper>
-                  </RadioWrapper>
-                </Field>
-                {showExperienceForm && (
-                  <>
-                    <h1>
-                      Experience Details
-                      <hr />
-                    </h1>
-                    <Field>
-                      <Input
-                        {...register("currentCompanyName", {
-                          required: "Enter your current company name",
-                        })}
-                        type="text"
-                        placeholder="Enter your current company name"
-                      />
-                      {errors.currentCompanyName && (
-                        <ErrorMessage>
-                          {errors.currentCompanyName.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <Input
-                        {...register("currentDesignation", {
-                          required: "Enter your current designation",
-                        })}
-                        type="text"
-                        placeholder="Enter your current designation"
-                      />
-                      {errors.currentDesignation && (
-                        <ErrorMessage>
-                          {errors.currentDesignation.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <FormSelect
-                        name="experience"
-                        {...register("experience", {
-                          required: "Choose the experience years",
-                        })}
-                      >
-                        <FormOption value="">
-                          Select the number of years experience
-                        </FormOption>
-                        {experienceYears.map((expYear) => (
-                          <FormOption key={expYear.id} value={expYear.value}>
-                            {expYear.value} years
-                          </FormOption>
-                        ))}
-                      </FormSelect>
-                      {errors.experience && (
-                        <ErrorMessage>{errors.experience.message}</ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <Input
-                        {...register("currentCompanySalary", {
-                          required: "Enter your current annual salary",
-                        })}
-                        type="number"
-                        placeholder="Enter your current annual salary"
-                      />
-                      {errors.currentCompanySalary && (
-                        <ErrorMessage>
-                          {errors.currentCompanySalary.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <Input
-                        {...register("expectedSalary", {
-                          required: "Enter your expected salary",
-                        })}
-                        type="number"
-                        placeholder="Enter your expected salary"
-                      />
-                      {errors.expectedSalary && (
-                        <ErrorMessage>
-                          {errors.expectedSalary.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <Input
-                        {...register("companyLocation", {
-                          required: "Enter your Company location",
-                        })}
-                        type="text"
-                        placeholder="Enter your company location"
-                      />
-                      {errors.companyLocation && (
-                        <ErrorMessage>
-                          {errors.companyLocation.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <Input
-                        {...register("companyCity", {
-                          required: "Enter your company city",
-                        })}
-                        type="text"
-                        placeholder="Enter your company city"
-                      />
-                      {errors.companyCity && (
-                        <ErrorMessage>
-                          {errors.companyCity.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <Input
-                        {...register("companyState", {
-                          required: "Enter your company state name",
-                        })}
-                        type="text"
-                        placeholder="Enter your company state name"
-                      />
-                      {errors.companyState && (
-                        <ErrorMessage>
-                          {errors.companyState.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                    <Field>
-                      <Input
-                        {...register("companyCountry", {
-                          required: "Enter your company country name",
-                        })}
-                        type="text"
-                        placeholder="Enter your company country name"
-                      />
-                      {errors.companyCountry && (
-                        <ErrorMessage>
-                          {errors.companyCountry.message}
-                        </ErrorMessage>
-                      )}
-                    </Field>
-                  </>
-                )}
-                <FormBtn type="submit">Apply Now</FormBtn>
-              </Form>
-            </>
-          )}{" "}
-          {/* show only the form when user wants to update */}
-          {experienceFoundDetails === true && (
-            <Form onSubmit={handleSubmit(applyJobWithUpdateHandler)}>
-              <Field>
-                <RadioWrapper>
-                  Do you want update your details ?
-                  <RadioWrapper>
-                    <InputRadio
-                      required
-                      type="radio"
-                      id="yes"
-                      value="yes"
-                      checked={showUpdate === "yes"}
-                      onChange={showUpdateFormHandler}
-                    />
-                    <FormLabel htmlFor="yes">Yes</FormLabel>
-                  </RadioWrapper>
-                  <RadioWrapper>
-                    <InputRadio
-                      required
-                      type="radio"
-                      id="no"
-                      value="no"
-                      checked={showUpdate === "no"}
-                      onChange={showUpdateFormHandler}
-                    />
-                    <FormLabel htmlFor="no">No</FormLabel>
-                  </RadioWrapper>
-                </RadioWrapper>
-                {showUpdate === "yes" && (
-                  <>
+              <JobName>
+                You are applying for
+                <span>{" " + props.indJobDetails.job_post_heading + " "}</span>
+                <hr />
+              </JobName>
+              {/* show default form */}
+              {experienceFoundDetails === "no" && (
+                <>
+                  <Form onSubmit={handleSubmit(applyJobHandler)}>
                     <Field>
                       <FormLabel>Upload your resume or cv :</FormLabel>
                       <Input
@@ -1372,17 +826,643 @@ const ApplyJobForm = (props) => {
                           )}
                         </Field>
                       </>
+                    )}{" "}
+                    <FormBtn type="submit" disabled={!imageUploaded && !resume}>
+                      Apply Now
+                    </FormBtn>
+                  </Form>
+                </>
+              )}
+              {/* show only experience form form */}
+              {experienceFoundDetails === false && (
+                <>
+                  <Form onSubmit={handleSubmit(applyJobWithExperienceHandler)}>
+                    <Field>
+                      <RadioWrapper>
+                        Do you have work experience ?
+                        <RadioWrapper>
+                          <InputRadio
+                            onFocus={() => setError(" ")}
+                            required
+                            type="radio"
+                            id="yes"
+                            value="yes"
+                            checked={haveExperience === "yes"}
+                            onChange={typeHandler}
+                          />
+                          <FormLabel htmlFor="yes">Yes</FormLabel>
+                        </RadioWrapper>
+                        <RadioWrapper>
+                          <InputRadio
+                            onFocus={() => setError(" ")}
+                            required
+                            type="radio"
+                            id="no"
+                            value="no"
+                            checked={haveExperience === "no"}
+                            onChange={typeHandler}
+                          />
+                          <FormLabel htmlFor="no">No</FormLabel>
+                        </RadioWrapper>
+                      </RadioWrapper>
+                    </Field>
+                    {showExperienceForm && (
+                      <>
+                        <h1>
+                          Experience Details
+                          <hr />
+                        </h1>
+                        <Field>
+                          <Input
+                            {...register("currentCompanyName", {
+                              required: "Enter your current company name",
+                            })}
+                            type="text"
+                            placeholder="Enter your current company name"
+                          />
+                          {errors.currentCompanyName && (
+                            <ErrorMessage>
+                              {errors.currentCompanyName.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <Input
+                            {...register("currentDesignation", {
+                              required: "Enter your current designation",
+                            })}
+                            type="text"
+                            placeholder="Enter your current designation"
+                          />
+                          {errors.currentDesignation && (
+                            <ErrorMessage>
+                              {errors.currentDesignation.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <FormSelect
+                            name="experience"
+                            {...register("experience", {
+                              required: "Choose the experience years",
+                            })}
+                          >
+                            <FormOption value="">
+                              Select the number of years experience
+                            </FormOption>
+                            {experienceYears.map((expYear) => (
+                              <FormOption
+                                key={expYear.id}
+                                value={expYear.value}
+                              >
+                                {expYear.value} years
+                              </FormOption>
+                            ))}
+                          </FormSelect>
+                          {errors.experience && (
+                            <ErrorMessage>
+                              {errors.experience.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <Input
+                            {...register("currentCompanySalary", {
+                              required: "Enter your current annual salary",
+                            })}
+                            type="number"
+                            placeholder="Enter your current annual salary"
+                          />
+                          {errors.currentCompanySalary && (
+                            <ErrorMessage>
+                              {errors.currentCompanySalary.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <Input
+                            {...register("expectedSalary", {
+                              required: "Enter your expected salary",
+                            })}
+                            type="number"
+                            placeholder="Enter your expected salary"
+                          />
+                          {errors.expectedSalary && (
+                            <ErrorMessage>
+                              {errors.expectedSalary.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <Input
+                            {...register("companyLocation", {
+                              required: "Enter your Company location",
+                            })}
+                            type="text"
+                            placeholder="Enter your company location"
+                          />
+                          {errors.companyLocation && (
+                            <ErrorMessage>
+                              {errors.companyLocation.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <Input
+                            {...register("companyCity", {
+                              required: "Enter your company city",
+                            })}
+                            type="text"
+                            placeholder="Enter your company city"
+                          />
+                          {errors.companyCity && (
+                            <ErrorMessage>
+                              {errors.companyCity.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <Input
+                            {...register("companyState", {
+                              required: "Enter your company state name",
+                            })}
+                            type="text"
+                            placeholder="Enter your company state name"
+                          />
+                          {errors.companyState && (
+                            <ErrorMessage>
+                              {errors.companyState.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <Input
+                            {...register("companyCountry", {
+                              required: "Enter your company country name",
+                            })}
+                            type="text"
+                            placeholder="Enter your company country name"
+                          />
+                          {errors.companyCountry && (
+                            <ErrorMessage>
+                              {errors.companyCountry.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                      </>
                     )}
-                  </>
-                )}
-              </Field>
-              <FormBtn
-                type="submit"
-                disabled={showUpdate === "yes" && !imageUploaded && !resume}
-              >
-                Apply Now
-              </FormBtn>
-            </Form>
+                    <FormBtn type="submit">Apply Now</FormBtn>
+                  </Form>
+                </>
+              )}
+              {/* show only the form when user wants to update */}
+              {experienceFoundDetails === true && (
+                <Form onSubmit={handleSubmit(applyJobWithUpdateHandler)}>
+                  <Field>
+                    <RadioWrapper>
+                      Do you want update your details ?
+                      <RadioWrapper>
+                        <InputRadio
+                          required
+                          type="radio"
+                          id="yes"
+                          value="yes"
+                          checked={showUpdate === "yes"}
+                          onChange={showUpdateFormHandler}
+                        />
+                        <FormLabel htmlFor="yes">Yes</FormLabel>
+                      </RadioWrapper>
+                      <RadioWrapper>
+                        <InputRadio
+                          required
+                          type="radio"
+                          id="no"
+                          value="no"
+                          checked={showUpdate === "no"}
+                          onChange={showUpdateFormHandler}
+                        />
+                        <FormLabel htmlFor="no">No</FormLabel>
+                      </RadioWrapper>
+                    </RadioWrapper>
+                    {showUpdate === "yes" && (
+                      <>
+                        <Field>
+                          <FormLabel>Upload your resume or cv :</FormLabel>
+                          <Input
+                            accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                            required
+                            type="file"
+                            name="image"
+                            placeholder="Choose the profile picture"
+                            onChange={(event) =>
+                              setResume(event.target.files[0])
+                            }
+                          />
+                          {fileUploading && (
+                            <p style={{ color: "green" }}>{fileUploading}</p>
+                          )}
+                          * Only Pdf or Doc or Docx format accepted.
+                        </Field>
+                        <Field>
+                          <Input
+                            {...register("fullname", {
+                              required: "Please enter your full Name",
+                            })}
+                            type="text"
+                            placeholder="Enter your full Name"
+                          />
+                          {errors.fullname && (
+                            <ErrorMessage>
+                              {errors.fullname.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <FormLabel>Enter your mobile number :</FormLabel>
+                          <PhoneInput2
+                            country="in"
+                            inputStyle={{ width: "100%", padding: "5px 10px" }}
+                            onChange={(phone) => setPhoneNumber(phone)}
+                          />
+                        </Field>
+                        <Field>
+                          <FormLabel>Choose the currency:</FormLabel>
+                          <FormSelect
+                            name="currency"
+                            {...register("currency", {
+                              required: "Choose your currency",
+                            })}
+                          >
+                            <FormOption value="">
+                              Choose a below option
+                            </FormOption>
+                            <FormOption value="INR">INR</FormOption>
+                            <FormOption value="USD">USD</FormOption>
+                            <FormOption value="Pounds">Pounds</FormOption>
+                            <FormOption value="CD">Canadian Dollars</FormOption>
+                          </FormSelect>
+                          {errors.currency && (
+                            <ErrorMessage>
+                              {errors.currency.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <Input
+                            {...register("location", {
+                              required: "Enter your location",
+                            })}
+                            type="text"
+                            placeholder="Enter your location"
+                          />
+                          {errors.location && (
+                            <ErrorMessage>
+                              {errors.location.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <Input
+                            {...register("city", {
+                              required: "Enter your city",
+                            })}
+                            type="text"
+                            placeholder="Enter your city"
+                          />
+                          {errors.city && (
+                            <ErrorMessage>{errors.city.message}</ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <Input
+                            {...register("state", {
+                              required: "Enter your state name",
+                            })}
+                            type="text"
+                            placeholder="Enter your state name"
+                          />
+                          {errors.state && (
+                            <ErrorMessage>{errors.state.message}</ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <Input
+                            {...register("country", {
+                              required: "Enter your country name",
+                            })}
+                            type="text"
+                            placeholder="Enter your country name"
+                          />
+                          {errors.country && (
+                            <ErrorMessage>
+                              {errors.country.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <h1>
+                          Educational Details <hr />
+                        </h1>
+                        <Field>
+                          <Input
+                            {...register("collegeName", {
+                              required: "Enter your college name",
+                            })}
+                            type="text"
+                            placeholder="Enter your college name"
+                          />
+                          {errors.collegeName && (
+                            <ErrorMessage>
+                              {errors.collegeName.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <Input
+                            {...register("universityName", {
+                              required: "Enter your university name",
+                            })}
+                            type="text"
+                            placeholder="Enter your university name"
+                          />
+                          {errors.universityName && (
+                            <ErrorMessage>
+                              {errors.universityName.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <FormSelect
+                            name="startingYear"
+                            {...register("startingYear", {
+                              required:
+                                "Choose the highest education starting year",
+                            })}
+                          >
+                            <FormOption value="">
+                              Choose the highest education starting year
+                            </FormOption>
+                            {academicYears.map((year) => (
+                              <FormOption value={year.value}>
+                                {year.value}
+                              </FormOption>
+                            ))}
+                          </FormSelect>
+                          {errors.startingYear && (
+                            <ErrorMessage>
+                              {errors.startingYear.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <FormSelect
+                            name="endingYear"
+                            {...register("endingYear", {
+                              required:
+                                "Choose the highest education starting year",
+                            })}
+                          >
+                            <FormOption value="">
+                              Choose the highest education ending year
+                            </FormOption>
+                            {academicYears.map((year) => (
+                              <FormOption value={year.value}>
+                                {year.value}
+                              </FormOption>
+                            ))}
+                          </FormSelect>
+                          {errors.endingYear && (
+                            <ErrorMessage>
+                              {errors.endingYear.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <FormLabel>
+                            Highest Education completion year :{" "}
+                          </FormLabel>
+                          <Input
+                            {...register("completedYear", {
+                              required:
+                                "Enter your highest education passed out year",
+                            })}
+                            type="date"
+                            placeholder="Enter your highest education passed out year"
+                          />
+                          {errors.completedYear && (
+                            <ErrorMessage>
+                              {errors.completedYear.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <Input
+                            {...register("percentage", {
+                              required:
+                                "Enter your highest education percentage",
+                            })}
+                            type="number"
+                            placeholder="Enter your highest education percentage"
+                          />
+                          {errors.percentage && (
+                            <ErrorMessage>
+                              {errors.percentage.message}
+                            </ErrorMessage>
+                          )}
+                        </Field>
+                        <Field>
+                          <FormLabel>Select your skills</FormLabel>
+                          <Select
+                            required
+                            isMulti={true}
+                            defaultValue={selectedOption}
+                            onChange={setSelectedOption}
+                            options={skillOptions}
+                          />
+                        </Field>
+                        <Field>
+                          <RadioWrapper>
+                            Do you have work experience ?
+                            <RadioWrapper>
+                              <InputRadio
+                                required
+                                type="radio"
+                                id="yes"
+                                value="yes"
+                                checked={haveExperience === "yes"}
+                                onChange={typeHandler}
+                              />
+                              <FormLabel htmlFor="yes">Yes</FormLabel>
+                            </RadioWrapper>
+                            <RadioWrapper>
+                              <InputRadio
+                                required
+                                type="radio"
+                                id="no"
+                                value="no"
+                                checked={haveExperience === "no"}
+                                onChange={typeHandler}
+                              />
+                              <FormLabel htmlFor="no">No</FormLabel>
+                            </RadioWrapper>
+                          </RadioWrapper>
+                        </Field>
+                        {showExperienceForm && (
+                          <>
+                            <h1>
+                              Experience Details
+                              <hr />
+                            </h1>
+                            <Field>
+                              <Input
+                                {...register("currentCompanyName", {
+                                  required: "Enter your current company name",
+                                })}
+                                type="text"
+                                placeholder="Enter your current company name"
+                              />
+                              {errors.currentCompanyName && (
+                                <ErrorMessage>
+                                  {errors.currentCompanyName.message}
+                                </ErrorMessage>
+                              )}
+                            </Field>
+                            <Field>
+                              <Input
+                                {...register("currentDesignation", {
+                                  required: "Enter your current designation",
+                                })}
+                                type="text"
+                                placeholder="Enter your current designation"
+                              />
+                              {errors.currentDesignation && (
+                                <ErrorMessage>
+                                  {errors.currentDesignation.message}
+                                </ErrorMessage>
+                              )}
+                            </Field>
+                            <Field>
+                              <FormSelect
+                                name="experience"
+                                {...register("experience", {
+                                  required: "Choose the experience years",
+                                })}
+                              >
+                                <FormOption value="">
+                                  Select the number of years experience
+                                </FormOption>
+                                {experienceYears.map((expYear) => (
+                                  <FormOption
+                                    key={expYear.id}
+                                    value={expYear.value}
+                                  >
+                                    {expYear.value} years
+                                  </FormOption>
+                                ))}
+                              </FormSelect>
+                              {errors.experience && (
+                                <ErrorMessage>
+                                  {errors.experience.message}
+                                </ErrorMessage>
+                              )}
+                            </Field>
+                            <Field>
+                              <Input
+                                {...register("currentCompanySalary", {
+                                  required: "Enter your current annual salary",
+                                })}
+                                type="number"
+                                placeholder="Enter your current annual salary"
+                              />
+                              {errors.currentCompanySalary && (
+                                <ErrorMessage>
+                                  {errors.currentCompanySalary.message}
+                                </ErrorMessage>
+                              )}
+                            </Field>
+                            <Field>
+                              <Input
+                                {...register("expectedSalary", {
+                                  required: "Enter your expected salary",
+                                })}
+                                type="number"
+                                placeholder="Enter your expected salary"
+                              />
+                              {errors.expectedSalary && (
+                                <ErrorMessage>
+                                  {errors.expectedSalary.message}
+                                </ErrorMessage>
+                              )}
+                            </Field>
+                            <Field>
+                              <Input
+                                {...register("companyLocation", {
+                                  required: "Enter your Company location",
+                                })}
+                                type="text"
+                                placeholder="Enter your company location"
+                              />
+                              {errors.companyLocation && (
+                                <ErrorMessage>
+                                  {errors.companyLocation.message}
+                                </ErrorMessage>
+                              )}
+                            </Field>
+                            <Field>
+                              <Input
+                                {...register("companyCity", {
+                                  required: "Enter your company city",
+                                })}
+                                type="text"
+                                placeholder="Enter your company city"
+                              />
+                              {errors.companyCity && (
+                                <ErrorMessage>
+                                  {errors.companyCity.message}
+                                </ErrorMessage>
+                              )}
+                            </Field>
+                            <Field>
+                              <Input
+                                {...register("companyState", {
+                                  required: "Enter your company state name",
+                                })}
+                                type="text"
+                                placeholder="Enter your company state name"
+                              />
+                              {errors.companyState && (
+                                <ErrorMessage>
+                                  {errors.companyState.message}
+                                </ErrorMessage>
+                              )}
+                            </Field>
+                            <Field>
+                              <Input
+                                {...register("companyCountry", {
+                                  required: "Enter your company country name",
+                                })}
+                                type="text"
+                                placeholder="Enter your company country name"
+                              />
+                              {errors.companyCountry && (
+                                <ErrorMessage>
+                                  {errors.companyCountry.message}
+                                </ErrorMessage>
+                              )}
+                            </Field>
+                          </>
+                        )}
+                      </>
+                    )}
+                  </Field>
+                  <FormBtn
+                    type="submit"
+                    disabled={showUpdate === "yes" && !imageUploaded && !resume}
+                  >
+                    Apply Now
+                  </FormBtn>
+                </Form>
+              )}
+            </>
           )}
         </FormDiv>
       </Modal>

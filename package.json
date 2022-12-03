@@ -1,7 +1,7 @@
 {
   "name": "practiwiz-training-programme",
   "version": "0.1.0",
-  "homepage": "https://happy-tree-0192a720f.1.azurestaticapps.net/",
+  "homepage": "https://yellow-tree-02027130f.2.azurestaticapps.net/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.0",
@@ -9,6 +9,7 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
     "animate.css": "^4.1.1",
+    "aos": "^3.0.0-beta.6",
     "axios": "^0.24.0",
     "date-fns": "^2.28.0",
     "datetime-slot-picker": "^0.1.8",
@@ -22,6 +23,7 @@
     "react-datepicker": "^4.8.0",
     "react-dom": "^17.0.1",
     "react-draft-wysiwyg": "^1.14.7",
+    "react-elastic-carousel": "^0.11.5",
     "react-ga": "^3.3.1",
     "react-ga4": "^1.4.1",
     "react-google-login": "^5.2.2",

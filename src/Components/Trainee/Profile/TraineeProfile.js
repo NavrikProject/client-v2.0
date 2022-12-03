@@ -28,7 +28,6 @@ import {
   Wrapper,
 } from "./TraineeProfileElements.js";
 import SingleProfile from "../../Forms/ProfileForm/SingleProfile";
-import DefaultImg from "../../../images/default.jpg";
 import { Link } from "react-router-dom";
 const TraineeProfile = () => {
   const [personalForm, setPersonalForm] = useState(false);
@@ -39,7 +38,7 @@ const TraineeProfile = () => {
   const [traineeDetails, setTraineeDetails] = useState([]);
   const [mentorPoints, setMentorPoints] = useState([]);
 
-  const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.user?.currentUser);
 
   const showPersonalForm = () => {
     setPersonalForm(!personalForm);
@@ -87,10 +86,14 @@ const TraineeProfile = () => {
           headers: { authorization: "Bearer " + token },
         }
       );
-      setTraineeDetails(res.data);
+      if (res.data) {
+        setTraineeDetails(res.data);
+      } else {
+        setTraineeDetails([]);
+      }
     };
     onImageGetHandler();
-  }, [user.id, token]);
+  }, [user?.id, token]);
 
   useEffect(() => {
     const getTraineePointsDetails = async () => {
@@ -259,66 +262,70 @@ const TraineeProfile = () => {
           <LeftDiv>
             <Wrapper>
               <DetailsWrapper>
-                {" "}
                 {traineeDetails?.length === 0 && (
                   <h1>Please fill the Personal details.</h1>
                 )}
-                {traineeDetails?.map((trainee) => (
-                  <div key={trainee.trainee_id}>
-                    <ImgBox>
-                      <div>
-                        <TraineeTitle>
-                          {user.firstname + " " + user.lastname}
-                        </TraineeTitle>
-                        <TraineeRole>
-                          <b>Role : </b> {user.type}
-                        </TraineeRole>
-                      </div>
-                      <Img src={trainee.trainee_image} />
-                    </ImgBox>
-                    <DetailsFlex>
-                      <DetailsFlex1>
-                        <DetailsTitles>Your Email : </DetailsTitles>
-                        <DetailsFromDb>{trainee.trainee_email}</DetailsFromDb>
-                      </DetailsFlex1>
-                      <DetailsFlex1>
-                        <DetailsTitles>Your Mobile : </DetailsTitles>
-                        <DetailsFromDb>{trainee.trainee_mobile}</DetailsFromDb>
-                      </DetailsFlex1>
-                      <DetailsFlex1>
-                        <DetailsTitles>Date Of Birth : </DetailsTitles>
-                        <DetailsFromDb>
-                          {new Date(trainee.trainee_dob).toLocaleDateString()}
-                        </DetailsFromDb>
-                      </DetailsFlex1>
-                      <DetailsFlex1>
-                        <DetailsTitles>Experience : </DetailsTitles>
-                        <DetailsFromDb>
-                          {trainee.trainee_experience} Year's
-                        </DetailsFromDb>
-                      </DetailsFlex1>
-                      <DetailsFlex1>
-                        <DetailsTitles>Education : </DetailsTitles>
-                        <DetailsFromDb>
-                          {trainee.trainee_profession}
-                        </DetailsFromDb>
-                      </DetailsFlex1>
-                      <DetailsFlex1>
-                        <DetailsTitles>Address : </DetailsTitles>
-                        <DetailsFromDb>{trainee.trainee_address}</DetailsFromDb>
-                      </DetailsFlex1>
-                      <DetailsFlex1>
-                        <DetailsTitles>
-                          Your unattended sessions :
-                        </DetailsTitles>
-                        <DetailsFromDb>
-                          <b>{trainee.trainee_unattended_sessions + " "}</b>
-                          sessions
-                        </DetailsFromDb>
-                      </DetailsFlex1>
-                    </DetailsFlex>
-                  </div>
-                ))}
+                {traineeDetails.length > 0 &&
+                  traineeDetails?.map((trainee) => (
+                    <div key={trainee.trainee_id}>
+                      <ImgBox>
+                        <div>
+                          <TraineeTitle>
+                            {user.firstname + " " + user.lastname}
+                          </TraineeTitle>
+                          <TraineeRole>
+                            <b>Role : </b> {user.type}
+                          </TraineeRole>
+                        </div>
+                        <Img src={trainee.trainee_image} />
+                      </ImgBox>
+                      <DetailsFlex>
+                        <DetailsFlex1>
+                          <DetailsTitles>Your Email : </DetailsTitles>
+                          <DetailsFromDb>{trainee.trainee_email}</DetailsFromDb>
+                        </DetailsFlex1>
+                        <DetailsFlex1>
+                          <DetailsTitles>Your Mobile : </DetailsTitles>
+                          <DetailsFromDb>
+                            {trainee.trainee_mobile}
+                          </DetailsFromDb>
+                        </DetailsFlex1>
+                        <DetailsFlex1>
+                          <DetailsTitles>Date Of Birth : </DetailsTitles>
+                          <DetailsFromDb>
+                            {new Date(trainee.trainee_dob).toLocaleDateString()}
+                          </DetailsFromDb>
+                        </DetailsFlex1>
+                        <DetailsFlex1>
+                          <DetailsTitles>Experience : </DetailsTitles>
+                          <DetailsFromDb>
+                            {trainee.trainee_experience} Year's
+                          </DetailsFromDb>
+                        </DetailsFlex1>
+                        <DetailsFlex1>
+                          <DetailsTitles>Education : </DetailsTitles>
+                          <DetailsFromDb>
+                            {trainee.trainee_profession}
+                          </DetailsFromDb>
+                        </DetailsFlex1>
+                        <DetailsFlex1>
+                          <DetailsTitles>Address : </DetailsTitles>
+                          <DetailsFromDb>
+                            {trainee.trainee_address}
+                          </DetailsFromDb>
+                        </DetailsFlex1>
+                        <DetailsFlex1>
+                          <DetailsTitles>
+                            Your unattended sessions :
+                          </DetailsTitles>
+                          <DetailsFromDb>
+                            <b>{trainee.trainee_unattended_sessions + " "}</b>
+                            sessions
+                          </DetailsFromDb>
+                        </DetailsFlex1>
+                      </DetailsFlex>
+                    </div>
+                  ))}
               </DetailsWrapper>
             </Wrapper>
           </LeftDiv>

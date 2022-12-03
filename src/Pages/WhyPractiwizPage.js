@@ -1,17 +1,19 @@
-import React, { Suspense } from "react";
-
+import React from "react";
+import { Suspense } from "react";
+import GoToTop from "../Components/GoToTop";
 import LoadingSpinner from "../Components/utils/LoadingSpinner";
-const Footer = React.lazy(() => import("../Components/Footer/Footer"));
+const Navbar = React.lazy(() => import("../Components/Home/Navbar"));
+const Footer = React.lazy(() => import("../Components/Home/Footer.js"));
 const WhyPractiwiz = React.lazy(() =>
-  import("../Components/Landing/WhyPractiwiz")
+  import("../Components/Home/WhyPractiwiz")
 );
-const NavbarRes = React.lazy(() => import("../Components/Navbar/NavbarRes"));
 const WhyPractiwizPage = () => {
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <NavbarRes />
+      <Navbar />
       <WhyPractiwiz />
       <Footer />
+      <GoToTop />
     </Suspense>
   );
 };

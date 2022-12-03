@@ -1,18 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import LoadingSpinner from "../../utils/LoadingSpinner";
+import {
+  hideLoadingHandler,
+  showLoadingHandler,
+} from "../../../redux/loadingReducer";
 import "./MentorBooking.css";
 const TraineeBookingTable = () => {
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
   const [allMentors, setAllMentors] = useState([]);
-  const [loading, setLoading] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const getAllTheMentors = async () => {
-      setLoading(true);
+      dispatch(showLoadingHandler());
       const res = await axios.post(
         `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/get/all-bookings`,
         {
@@ -21,17 +23,17 @@ const TraineeBookingTable = () => {
         }
       );
       if (res.data) {
-        setLoading(false);
+        dispatch(hideLoadingHandler());
         setAllMentors(res.data);
       } else {
-        setLoading(false);
+        dispatch(hideLoadingHandler());
       }
     };
     getAllTheMentors();
   }, [token, user]);
   const cancelMentorAppointMent = async (mentor) => {};
   const confirmTheAppointMent = async (mentor) => {
-    setLoading(true);
+    dispatch(showLoadingHandler());
     const res = await axios.put(
       `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/update/confirm/appointment/${mentor.id}`,
       {
@@ -42,20 +44,19 @@ const TraineeBookingTable = () => {
       toast.success(res.data.success, {
         position: "top-center",
       });
-      setLoading(false);
+      dispatch(hideLoadingHandler());
     }
     if (res.data.error) {
       toast.error(res.data.error, {
         position: "top-center",
       });
-      setLoading(false);
+      dispatch(hideLoadingHandler());
     }
   };
   return (
     <div className="rightbarSect">
       <div className="tableDiv">
         <h1>Modify booking dates</h1>
-        {loading && <LoadingSpinner />}
         {/* {showModel && (
           <TraineeModifyBooking
             mentor={mentor}

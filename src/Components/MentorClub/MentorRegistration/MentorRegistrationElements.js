@@ -9,11 +9,11 @@ export const MentorRegisterSection = styled.section`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; */
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     90deg,
     rgba(255, 244, 228, 1) 7.1%,
     rgba(240, 246, 238, 1) 67.4%
-  );
+  ); */
 `;
 export const MentorRegisterDiv = styled.div`
   width: 50%;

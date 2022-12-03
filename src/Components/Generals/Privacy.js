@@ -15,20 +15,17 @@ const Privacy = () => {
     <FaqTcSect>
       <FaqTcSection>
         <FaqTcSectWrapper>
-          <FaqTcSectTitle>Privacy Policy for elevation</FaqTcSectTitle>
-
+          <FaqTcSectTitle>Privacy Policy for Practiwiz</FaqTcSectTitle>
           <FaqTcSectParagraph>
             At www.practiwiz.com, accessible from https://practiwiz.com, one of
             our main priorities is the privacy of our visitors. This Privacy
             Policy document contains types of information that is collected and
             recorded by www.practiwiz.com and how we use it.
           </FaqTcSectParagraph>
-
           <FaqTcSectParagraph>
             If you have additional questions or require more information about
             our Privacy Policy, do not hesitate to contact us.
           </FaqTcSectParagraph>
-
           <FaqTcSectParagraph>
             This Privacy Policy applies only to our online activities and is
             valid for visitors to our website with regards to the information
@@ -37,16 +34,12 @@ const Privacy = () => {
             other than this website. Our Privacy Policy was created with the
             help of the .
           </FaqTcSectParagraph>
-
           <FaqTcSectTitleH3>Consent</FaqTcSectTitleH3>
-
           <FaqTcSectParagraph>
             By using our website, you hereby consent to our Privacy Policy and
             agree to its terms.
           </FaqTcSectParagraph>
-
           <FaqTcSectTitleH3>Information we collect</FaqTcSectTitleH3>
-
           <FaqTcSectParagraph>
             The personal information that you are asked to provide, and the
             reasons why you are asked to provide it, will be made clear to you
@@ -63,13 +56,10 @@ const Privacy = () => {
             information, including items such as name, company name, address,
             email address, and telephone number.
           </FaqTcSectParagraph>
-
           <FaqTcSectTitleH3>How we use your information</FaqTcSectTitleH3>
-
           <FaqTcSectParagraph>
             We use the information we collect in various ways, including to:
           </FaqTcSectParagraph>
-
           <FaqTcSectUl>
             <li>Provide, operate, and maintain our website</li>
             <li>Improve, personalize, and expand our website</li>
@@ -84,9 +74,7 @@ const Privacy = () => {
             <li>Send you emails</li>
             <li>Find and prevent fraud</li>
           </FaqTcSectUl>
-
           <FaqTcSectTitleH3>Log Files</FaqTcSectTitleH3>
-
           <FaqTcSectParagraph>
             www.practiwiz.com follows a standard procedure of using log files.
             These files log visitors when they visit websites. All hosting
@@ -99,9 +87,7 @@ const Privacy = () => {
             trends, administering the site, tracking users' movement on the
             website, and gathering demographic information.
           </FaqTcSectParagraph>
-
           <FaqTcSectTitleH3>Cookies and Web Beacons</FaqTcSectTitleH3>
-
           <FaqTcSectParagraph>
             Like any other website, www.practiwiz.com uses 'cookies'. These
             cookies are used to store information including visitors'
@@ -110,14 +96,13 @@ const Privacy = () => {
             experience by customizing our web page content based on visitors'
             browser type and/or other information.
           </FaqTcSectParagraph>
-
-          <FaqTcSectTitleH3>Advertising Partners Privacy Policies</FaqTcSectTitleH3>
-
+          <FaqTcSectTitleH3>
+            Advertising Partners Privacy Policies
+          </FaqTcSectTitleH3>
           <FaqTcSectParagraph>
             You may consult this list to find the Privacy Policy for each of the
             advertising partners of www.practiwiz.com.
           </FaqTcSectParagraph>
-
           <FaqTcSectParagraph>
             Third-party ad servers or ad networks uses technologies like
             cookies, JavaScript, or Web Beacons that are used in their
@@ -128,14 +113,11 @@ const Privacy = () => {
             advertising campaigns and/or to personalize the advertising content
             that you see on websites that you visit.
           </FaqTcSectParagraph>
-
           <FaqTcSectParagraph>
             Note that www.practiwiz.com has no access to or control over these
             cookies that are used by third-party advertisers.
           </FaqTcSectParagraph>
-
           <FaqTcSectTitleH3>Third Party Privacy Policies</FaqTcSectTitleH3>
-
           <FaqTcSectParagraph>
             www.practiwiz.com's Privacy Policy does not apply to other
             advertisers or websites. Thus, we are advising you to consult the
@@ -143,16 +125,15 @@ const Privacy = () => {
             detailed information. It may include their practices and
             instructions about how to opt-out of certain options.{" "}
           </FaqTcSectParagraph>
-
           <FaqTcSectParagraph>
             You can choose to disable cookies through your individual browser
             options. To know more detailed information about cookie management
             with specific web browsers, it can be found at the browsers'
             respective websites.
           </FaqTcSectParagraph>
-
-          <FaqTcSectTitleH3>CCPA Privacy Rights (Do Not Sell My Personal Information)</FaqTcSectTitleH3>
-
+          <FaqTcSectTitleH3>
+            CCPA Privacy Rights (Do Not Sell My Personal Information)
+          </FaqTcSectTitleH3>
           <FaqTcSectParagraph>
             Under the CCPA, among other rights, California consumers have the
             right to:
@@ -174,9 +155,7 @@ const Privacy = () => {
             If you make a request, we have one month to respond to you. If you
             would like to exercise any of these rights, please contact us.
           </FaqTcSectParagraph>
-
           <FaqTcSectTitleH3>GDPR Data Protection Rights</FaqTcSectTitleH3>
-
           <FaqTcSectParagraph>
             We would like to make sure you are fully aware of all of your data
             protection rights. Every user is entitled to the following:
@@ -213,15 +192,12 @@ const Privacy = () => {
             If you make a request, we have one month to respond to you. If you
             would like to exercise any of these rights, please contact us.
           </FaqTcSectParagraph>
-
           <FaqTcSectTitleH3>Children's Information</FaqTcSectTitleH3>
-
           <FaqTcSectParagraph>
             Another part of our priority is adding protection for children while
             using the internet. We encourage parents and guardians to observe,
             participate in, and/or monitor and guide their online activity.
           </FaqTcSectParagraph>
-
           <FaqTcSectParagraph>
             www.practiwiz.com does not knowingly collect any Personal
             Identifiable Information from children under the age of 13. If you

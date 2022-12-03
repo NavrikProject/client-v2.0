@@ -18,18 +18,18 @@ import {
   MentorSection,
   MentorSelect,
   MentorTitle,
+  MentorTitleDesc,
   MentorWrapper,
   SearchBoxInput,
   SearchForm,
 } from "./MentorClubElements";
-import MentorCourseCard from "./MentorCard";
-import { LineAfter } from "./MentorCardElements";
+import MentorCard from "./MentorCard/MentorCard";
 import { Link } from "react-router-dom";
 import {
   mentorAvailabilityTimings,
   mentorshipAreas,
   mentorSkills,
-} from "../Data/MentorData";
+} from "../Data/MentorData.js";
 import GoToTop from "../GoToTop";
 import axios from "axios";
 const MentorClub = () => {
@@ -40,9 +40,9 @@ const MentorClub = () => {
   const [skillCategoryFilter, setSkillCategoryFilter] = useState("");
   const [skills, setSkills] = useState([]);
 
-  const clearFilterHandler = () => {
-    window.location.reload();
-  };
+  // const clearFilterHandler = () => {
+  //   window.location.reload();
+  // };
   useEffect(() => {
     const getSkillsData = async () => {
       const res = await axios.get(
@@ -57,10 +57,15 @@ const MentorClub = () => {
     <>
       <MentorSect>
         <MentorSection>
+          <MentorTitle>Our Featured Mentors</MentorTitle>
+          <MentorTitleDesc>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
+            ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
+            accumsan lacus vel facilisis.
+          </MentorTitleDesc>
           <MentorContainer>
             <MentorWrapper>
-              <MentorTitle>Meet Our Mentors</MentorTitle>
-              <LineAfter />
               {skillFilter || skillCategoryFilter ? (
                 <span>
                   <ClearFilter>
@@ -190,7 +195,7 @@ const MentorClub = () => {
             </MentorSearchDiv>
             <MentorWrapper>
               <MentorDivFlex>
-                <MentorCourseCard
+                <MentorCard
                   searchItem={searchItem}
                   skillCategoryFilter={skillCategoryFilter}
                   skillFilter={skillFilter}
@@ -217,7 +222,7 @@ const MentorClub = () => {
                   <JoinAsMentorButton>
                     <Link
                       style={{ textDecoration: "none", color: " #fff" }}
-                      to="/mentor/join"
+                      to="/mentor/apply-for-mentor"
                     >
                       Join as a Mentor
                     </Link>

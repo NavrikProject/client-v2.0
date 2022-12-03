@@ -5,13 +5,12 @@ import { useSelector } from "react-redux";
 
 import { AiOutlineClose } from "react-icons/ai";
 import styled from "styled-components";
-import Model from "../../Trainee/Model";
-import "../MentorCardDate.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import LoadingSpinner from "../../utils/LoadingSpinner.js";
+import { ModelFixedHeight } from "../../utils/Model";
 
 const CloseButton = styled(AiOutlineClose)`
   font-size: 25px;
@@ -169,11 +168,7 @@ const MentorModifyBooking = ({
   }, 10000);
   return (
     <>
-      <Model>
-        <CloseButtonDiv onClick={modifyMentorAppointMent}>
-          <CloseButton />
-        </CloseButtonDiv>
-        {loading && <LoadingSpinner />}
+      <ModelFixedHeight>
         <FormDiv>
           {error && <p style={{ color: "red", fontSize: "20px" }}>{error}</p>}
           {success && (
@@ -207,7 +202,7 @@ const MentorModifyBooking = ({
             </p>
           </Terms>
         </FormDiv>
-      </Model>
+      </ModelFixedHeight>
     </>
   );
 };

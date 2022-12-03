@@ -9,6 +9,8 @@ const Section = styled.section`
 const Wrapper = styled.div``;
 const Table = styled.table`
   border: none;
+  width: 100%;
+  text-align: center;
 `;
 const Tbody = styled.tbody``;
 const Tr = styled.tr`

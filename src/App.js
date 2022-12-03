@@ -5,227 +5,244 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { useSelector } from "react-redux";
+import "./index.css";
+import "./styles/home.css";
+import "./styles/slick.css";
+import "./styles/style.css";
+import ReactGa from "react-ga";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import HomePage from "./Pages/HomePage";
-import FaqPage from "./Pages/FaqPage";
-import LoginPage from "./Pages/LoginPage";
-import RegisterPage from "./Pages/RegisterPage";
-import RpaCoePage from "./Pages/RpaCoePage";
-import MentorsPage from "./Pages/MentorsPage";
-import ScrollToTop from "./Components/ScrollToTop";
 import LoadingSpinner from "./Components/utils/LoadingSpinner";
-import TraineeProfilePage from "./Pages/TraineeProfilePage";
-import TraineeBookingPage from "./Pages/TraineeBookingPage";
-import MentorBookingPage from "./Pages/MentorBookingPage";
-import MentorIndividualPage from "./Pages/MentorIndividualPage";
-import WhyPractiwizPage from "./Pages/WhyPractiwizPage";
-import FeedbackFormPage from "./Pages/FeedbackFormPage";
-import ProfessionalPage from "./Pages/ProfessionalPage";
-import ContributeCornerPage from "./Pages/ContributeCornerPage";
-import "animate.css";
-import ContributerLoginPage from "./Pages/ContributerLoginPage";
-import ContributerRegisterPage from "./Pages/ContributerRegisterPage";
-import ApplyContributionPage from "./Pages/ApplyContributionpage";
-import MyContributionPage from "./Pages/MyContributionPage";
 import CookieNotice from "./Components/utils/CookieNotice";
-import MentorAddRegdFormPage from "./Pages/MentorAddRegdFormPage";
-import MentorSuccessRegdPage from "./Pages/MentorSuccessRegdPage";
-import JobHomePage from "./Pages/JobsPages/JobHomePage";
-import JobIndividualPage from "./Pages/JobsPages/JobIndividualPage";
-import RecruiterProfilePages from "./Pages/JobsPages/RecruiterProfilePages";
-import MentorRegistrationPage from "./Pages/MentorRegistrationPage";
-import AdminPage from "./Pages/AdminPage";
-import BaJumpstartPage from "./Pages/BaJumpstartPage";
-import TraineeCourseProgressPage from "./Pages/TraineeCourseProgressPage";
-import JobsAdminPage from "./Pages/AdminPages/JobsAdminPage";
-import ViewJobResponsesPage from "./Pages/JobsPages/ViewJobResponsesPage";
-import AppliedJobPage from "./Pages/JobsPages/AppliedJobPage";
-import RpaBaCoursePage from "./Pages/RpaBaCoursePage";
-import RpaBasicCoursePage from "./Pages/RpaBasicsCoursePage";
-import ProtectedRoute from "./Components/utils/ProtectedRoute";
-import RpaJumpstartPage from "./Pages/RpaJumpstartPage";
-const MentorProfilePage = React.lazy(() => import("./Pages/MentorProfilePage"));
-const ActivateAccountPage = React.lazy(() =>
-  import("./Pages/ActivateAccountPage")
-);
-const Dashboard = React.lazy(() => import("./Pages/DashBoardPage"));
-const ForgotPwdPage = React.lazy(() => import("./Pages/ForgotPwdPage"));
-const NotFound = React.lazy(() => import("./Pages/NotFound"));
-const PrivacyPage = React.lazy(() => import("./Pages/PrivacyPage"));
-const ResetPwdPage = React.lazy(() => import("./Pages/ResetPwdPage"));
-const Terms = React.lazy(() => import("./Pages/T&CPage"));
-const MentorPage = React.lazy(() => import("./Pages/MentorFormPage"));
-const RpaBaPage = React.lazy(() => import("./Pages/RpaBaCoursePage"));
+import ScrollToTop from "./Components/ScrollToTop";
+import HomePage from "./Pages/HomePage";
+import { ModelFixedHeight, ScrollModel } from "./Components/utils/Model";
+import AOS from "aos";
+import "aos/dist/aos.css"; // You can also use <link> for styles
+import { useSelector } from "react-redux";
+import ProtectedRoute from "./Components/utils/ProtectedRoutes";
+import PublicRoute from "./Components/utils/PublicRoute";
+import LoginPage from "./Pages/AccountPages/LoginPage";
+import RegisterPage from "./Pages/AccountPages/RegisterPage";
+import AboutUsPage from "./Pages/AboutUsPage";
+import MentorClubPage from "./Pages/MentorClubPages/MentorClubPage";
+import AllCoursePage from "./Pages/CoursePages/AllCoursePage";
+import AllJobsPage from "./Pages/JobPages/AllJobsPage";
+import ActivateAccountPage from "./Pages/AccountPages/ActivateAccountPage";
+import MentorIndividualPage from "./Pages/MentorClubPages/MentorIndividualPage";
+import MentorRegistrationPage from "./Pages/MentorClubPages/MentorRegistrationPage";
+import PrivacyPage from "./Pages/PrivacyPage";
+import TermsCondition from "./Pages/T&CPage";
+import MentorBookingPage from "./Pages/MentorClubPages/MentorBookingsPage";
+import MentorProfilePage from "./Pages/MentorClubPages/MentorProfilePage";
+import AppliedJobPage from "./Pages/JobPages/AppliedJobPage";
+import ResetPwdPage from "./Pages/AccountPages/ResetPwdPage";
+import ForgotPwdPage from "./Pages/AccountPages/ForgotPwdPage";
+import TraineeProfilePage from "./Pages/TraineePages/TraineeProfilePage";
+import TraineeBookingPage from "./Pages/TraineePages/TraineeBookingPage";
+import TraineeCourseProgressPage from "./Pages/TraineePages/TraineeCourseProgressPage";
+import ViewJobResponsesPage from "./Pages/RecruiterPages/ViewJobResponsesPage";
+import RecruiterProfilePages from "./Pages/RecruiterPages/RecruiterProfilePages";
+import JobsAdminPage from "./Pages/DashboardPages/JobsAdminPage";
+import CourseProgressAdminPage from "./Pages/DashboardPages/CourseProgressAdminPage";
+import UsersAdminPage from "./Pages/DashboardPages/UsersAdminPage";
+import JobIndividualPage from "./Pages/JobPages/JobIndividualPage";
+import IndividualCoursePage from "./Pages/CoursePages/IndividualCoursePage";
+import WhyPractiwizPage from "./Pages/WhyPractiwizPage";
+import MethodologyPage from "./Pages/MethodologyPage";
+import RefundPoliciesPage from "./Pages/RefundPoliciesPage";
+import IndCoursePage from "./Pages/CoursePages/IndCoursePage";
+// ..
+AOS.init();
 const App = () => {
-  const user = useSelector((state) => state.user?.currentUser);
-
+  const user = useSelector((state) => state.user.currentUser);
+  const isLoading = useSelector((state) => state.loading.isLoading);
+  const isShowingScrollModel = useSelector(
+    (state) => state.scrollModel.isShowingScrollModel
+  );
+  const isShowingModel = useSelector((state) => state.model.isShowingModel);
+  ReactGa.initialize("UA-220859929-1");
+  ReactGa.pageview(window.location.pathname + window.location.search);
   return (
     <>
+      {isLoading ? <LoadingSpinner /> : null}
+      {isShowingScrollModel ? <ScrollModel /> : null}
+      {isShowingModel ? <ModelFixedHeight /> : null}
       <ToastContainer />
       <CookieNotice />
       <Router>
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
-            <Route path="/" exact element={<HomePage />} />
-            <Route path="/faq" exact element={<FaqPage />} />
-            <Route path="/professionals" exact element={<ProfessionalPage />} />
-            <Route path="/login" exact element={<LoginPage />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/why-practiwiz" element={<WhyPractiwizPage />} />
+            <Route path="/methodology" element={<MethodologyPage />} />
+            <Route path="/refund-policies" element={<RefundPoliciesPage />} />
+            <Route path="/course/:id" element={<IndCoursePage />} />
             <Route
-              path="/contributers-corner"
+              path="/login"
+              element={
+                <PublicRoute>
+                  <LoginPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <PublicRoute>
+                  <RegisterPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/forgot-password"
+              element={
+                <PublicRoute>
+                  <ForgotPwdPage />
+                </PublicRoute>
+              }
+            />
+            <Route
               exact
-              element={<ContributeCornerPage />}
+              path={`/user/activate/reset-password/:id`}
+              element={
+                <PublicRoute>
+                  <ResetPwdPage />
+                </PublicRoute>
+              }
             />
-            <Route path="/jobs" exact element={<JobHomePage />} />
+            <Route path="/about-us" element={<AboutUsPage />} />
+            <Route path="/jobs" element={<AllJobsPage />} />
+            <Route path="/courses" element={<AllCoursePage />} />
             <Route
-              path="/contributers-corner/register"
+              path="/courses/individual-course/:id"
+              element={<IndividualCoursePage />}
+            />
+            <Route
               exact
-              element={<ContributerRegisterPage />}
+              path={`/user/activate/account/:id`}
+              element={
+                <PublicRoute>
+                  <ActivateAccountPage />
+                </PublicRoute>
+              }
             />
-            <Route
-              path="/contributers-corner/login"
-              exact
-              element={<ContributerLoginPage />}
-            />
-            <Route
-              path="/contributer/apply-for-contribution"
-              exact
-              element={<ApplyContributionPage />}
-            />
-            <Route
-              path="/contributer/my-contribution"
-              exact
-              element={<MyContributionPage />}
-            />
-            {user ? (
-              <Route element={<Navigate to="/" />} />
-            ) : (
-              <Route path="/login" exact element={<LoginPage />} />
-            )}
-            <Route path="/why-practiwiz" exact element={<WhyPractiwizPage />} />
-            <Route path="/register" exact element={<RegisterPage />} />
-            <Route path="/training/rpa-coe" exact element={<RpaCoePage />} />
-            <Route path="/mentors-club" exact element={<MentorsPage />} />
-            <Route path="/forgot-password" element={<ForgotPwdPage />} />
-            <Route
-              path="/mentor/registration-success"
-              element={<MentorSuccessRegdPage />}
-            />
-            <Route path="/privacy" element={<PrivacyPage />} />
-            <Route path="/mentor/join" element={<MentorPage />} />
-            {/* {!user ? (
-              <Route path="*" element={<NotFound />} />
-            ) : (
-              <Route
-                path="/mentor/add-details"
-                element={<MentorAddRegdFormPage />}
-              />
-            )} */}
-            <Route
-              path="/mentor/add-details"
-              element={<MentorAddRegdFormPage />}
-            />
-            <Route path="/training/individual/ba" element={<RpaBaPage />} />
+            <Route path="/privacy-policies" element={<PrivacyPage />} />
+            <Route path="/terms-conditions" element={<TermsCondition />} />
+            {/* mentor club routes starts */}
+            <Route path="/mentors-club" element={<MentorClubPage />} />
             <Route
               path={`/mentors-club/individual/:id`}
               element={<MentorIndividualPage />}
             />
-            {user?.type === "mentor" && (
-              <Route path={`/mentor/profile`} element={<MentorProfilePage />} />
-            )}
-            {user?.type === "trainee" && (
-              <Route
-                path={`/trainee/profile`}
-                element={<TraineeProfilePage />}
-              />
-            )}
-            {user?.type === "trainee" && (
-              <Route
-                path={`/trainee/profile/my-sessions`}
-                element={<TraineeBookingPage />}
-              />
-            )}
-            {user?.type === "trainee" && (
-              <Route
-                path={`/trainee/profile/bookings/feedback`}
-                element={<FeedbackFormPage />}
-              />
-            )}
-            {user?.type === "mentor" && (
-              <Route
-                path={`/mentor/profile/my-sessions`}
-                element={<MentorBookingPage />}
-              />
-            )}
-            <Route path="*" element={<NotFound />} />
             <Route
-              exact
-              path={`/user/activate/account/:id`}
-              element={<ActivateAccountPage />}
+              path="/mentor/apply-for-mentor"
+              element={
+                <PublicRoute>
+                  <MentorRegistrationPage />
+                </PublicRoute>
+              }
             />
-            {/* Trainer section */}
-            {user?.role === 1 ? (
-              <Route
-                exact
-                path="/user/admin/dashboard"
-                element={<Dashboard />}
-              />
-            ) : (
-              <Route path="/login" element={<Navigate to="/login" />} />
-            )}
             <Route
-              exact
-              path={`/user/activate/reset-password/:id`}
-              element={<ResetPwdPage />}
+              path={`/mentor/profile`}
+              element={
+                <ProtectedRoute>
+                  <MentorProfilePage />
+                </ProtectedRoute>
+              }
             />
-            <Route path="/terms-conditions" element={<Terms />} />
-            {user?.role === 1 && (
-              <Route path="/user/admin/dashboard" element={<Dashboard />} />
-            )}
-            {/* jobs pages */}
+            <Route
+              path={`/mentor/profile/my-sessions`}
+              element={
+                <ProtectedRoute>
+                  <MentorBookingPage />
+                </ProtectedRoute>
+              }
+            />
+            {/* mentor club routes ends */}
+            {/* trainee routes starts */}{" "}
+            <Route
+              path={`/trainee/profile`}
+              element={
+                <ProtectedRoute>
+                  <TraineeProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={`/trainee/profile/my-sessions`}
+              element={
+                <ProtectedRoute>
+                  <TraineeBookingPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={`/trainee/profile/my-courses`}
+              element={
+                <ProtectedRoute>
+                  <TraineeCourseProgressPage />
+                </ProtectedRoute>
+              }
+            />
+            {/* trainee routes ends */}
+            {/* jobs routes started */}
+            <Route
+              path={`/${user?.type}/profile/my-jobs`}
+              element={
+                <ProtectedRoute>
+                  <AppliedJobPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/user/admin/jobs"
+              element={
+                <ProtectedRoute>
+                  <JobsAdminPage />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path={`/jobs/individual-job/:id`}
               element={<JobIndividualPage />}
-            />{" "}
+            />
+            {/* jobs routes ended */}
+            {/* recruiter routes started */}
             <Route
               path="/recruiter/profile"
-              element={<RecruiterProfilePages />}
-            />{" "}
-            <Route
-              path="/mentor/apply-for-registration"
-              element={<MentorRegistrationPage />}
+              element={
+                <ProtectedRoute>
+                  <RecruiterProfilePages />
+                </ProtectedRoute>
+              }
             />
-            <Route path="/user/admin" element={<AdminPage />} />
-            <Route
-              path="/training/individual/ba-jumpstart"
-              element={<BaJumpstartPage />}
-            />
-            <Route
-              path="/training/individual/rpa-basics"
-              element={<RpaBasicCoursePage />}
-            />
-            <Route
-              path="/training/individual/jumpstart-to-rpa-live-bot-development"
-              element={<RpaJumpstartPage />}
-            />
-            {user?.type === "trainee" && (
-              <Route
-                path={`/trainee/profile/my-courses`}
-                element={<TraineeCourseProgressPage />}
-              />
-            )}
-            <Route path="/user/admin/jobs" element={<JobsAdminPage />} />{" "}
             <Route
               path={`/recruiter/profile/jobs/view-responses/:id`}
-              element={<ViewJobResponsesPage />}
+              element={
+                <ProtectedRoute>
+                  <ViewJobResponsesPage />
+                </ProtectedRoute>
+              }
             />
-            {user && (
-              <Route
-                path={`/${user?.type}/profile/my-jobs`}
-                element={<AppliedJobPage />}
-              />
-            )}
+            {/* recruiter routes ended */}
+            <Route
+              path="/user/admin/courses"
+              element={
+                <ProtectedRoute>
+                  <CourseProgressAdminPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/user/admin/users"
+              element={
+                <ProtectedRoute>
+                  <UsersAdminPage />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </Suspense>
       </Router>

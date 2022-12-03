@@ -19,8 +19,8 @@ const userSlice = createSlice({
     },
     loginSuccess: (state, action) => {
       state.isFetching = false;
-      state.isAuthenticated = true;
       state.currentUser = action.payload;
+      state.isAuthenticated = true;
       localStorage.setItem("user", JSON.stringify(action.payload));
       state.error = null;
       toast.success("You are successfully logging in you", {
@@ -29,9 +29,9 @@ const userSlice = createSlice({
     },
     loginFailure: (state, action) => {
       state.isFetching = false;
-      state.isAuthenticated = false;
       state.currentUser = null;
       state.error = action.payload;
+      state.isAuthenticated = false;
       toast.error("There is some error, please try again later", {
         position: "top-center",
       });
@@ -39,8 +39,8 @@ const userSlice = createSlice({
     logOut: (state) => {
       state.isFetching = false;
       state.currentUser = null;
-      state.isAuthenticated = false;
       state.error = null;
+      state.isAuthenticated = false;
       toast.warning("You are successfully logged out", {
         position: "top-center",
       });

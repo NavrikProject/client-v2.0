@@ -7,7 +7,7 @@ const Button = styled.div`
   bottom: 20px;
   right: 50px;
   font-size: 3rem;
-  z-index: 1;
+  z-index: 1200000000;
   cursor: pointer;
   color: red;
 `;
@@ -33,7 +33,7 @@ const ScrollButton = () => {
 
   return (
     <Button>
-      <FaArrowCircleUp 
+      <FaArrowCircleUp
         onClick={scrollToTop}
         style={{ display: visible ? "inline" : "none" }}
       />

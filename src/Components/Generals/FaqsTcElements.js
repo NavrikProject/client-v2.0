@@ -3,10 +3,10 @@ export const FaqTcSect = styled.section`
   height: auto !important;
   width: 100%;
   line-height: 1.6rem;
-  font-size: 19px;
+  font-size: 16px;
 `;
 export const FaqTcSection = styled.div`
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
   padding: 50px 0px;
 `;

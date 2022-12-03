@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { PwdIcons } from "../RegisterForm/RegisterFormElements";
 import {
   Field,
   Form,
@@ -15,11 +14,12 @@ import {
   PassLink,
   PassLinkA,
   ErrorMessage,
+  PwdIcons,
 } from "./PwdResetElements";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import GoToTop from "../../GoToTop.js";
-import Loading from "../../utils/Loading";
+import Loading from "../../utils/LoadingSpinner";
 import { useForm } from "react-hook-form";
 
 const ResetPassword = () => {

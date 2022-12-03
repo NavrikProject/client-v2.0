@@ -12,7 +12,7 @@ import {
 import { toast } from "react-toastify";
 
 import axios from "axios";
-import Loading from "../../utils/Loading";
+import Loading from "../../utils/LoadingSpinner";
 import { useForm } from "react-hook-form";
 const Form2 = (props) => {
   const {

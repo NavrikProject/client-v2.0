@@ -14,7 +14,7 @@ import {
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import Loading from "../../utils/Loading.js";
+import Loading from "../../utils/LoadingSpinner";
 import { useForm } from "react-hook-form";
 const Form3 = (props) => {
   const {
