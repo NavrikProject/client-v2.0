@@ -11,20 +11,34 @@ export const MentorCoverDiv = styled.div`
     rgba(0, 78, 255, 1) 100%
   );
   z-index: -122;
+  @media screen and (max-width: 768px) {
+    background: none;
+    height: 0;
+  }
 `;
 
 export const MentorDetailsDiv = styled.div`
   width: 75%;
   margin: 0 auto;
+  @media screen and (max-width: 968px) {
+    width: 85%;
+  }
 `;
 export const MentorSectionDiv = styled.div``;
 export const MentorDetailsDivFlex = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 568px) {
+    display: block;
+  }
 `;
 
-export const MentorDetailsName = styled.div``;
+export const MentorDetailsName = styled.div`
+  @media screen and (max-width: 568px) {
+    margin: 20px auto;
+  }
+`;
 export const MentorName = styled.h1`
   text-transform: capitalize;
   font-size: 32px;
@@ -52,7 +66,12 @@ export const MentorMsgButton = styled.button`
     border: 1px solid #111;
   }
 `;
-export const MentorDetailsImgDiv = styled.div``;
+export const MentorDetailsImgDiv = styled.div`
+  @media screen and (max-width: 568px) {
+    margin: 20px auto;
+    text-align: center;
+  }
+`;
 export const MentorBioDesc = styled.p`
   font-size: 16px;
   line-height: 1.6rem;
@@ -65,10 +84,27 @@ export const MentorLanguagesDiv = styled.div`
   display: flex;
   align-items: center;
   padding: 30px 0 0 0;
+  @media screen and (max-width: 568px) {
+    padding: 10px 0 0 0;
+  }
 `;
 export const MentorLanguages = styled.h3`
   span {
-    color: rgb(48, 209, 88);
+    color: #111;
+    width: auto;
+    background: #bee9f6;
+    border-radius: 6px;
+    padding: 5px 11px;
+    position: relative;
+    margin: 5px;
+    line-height: 30px;
+    transition: transform 0.2s;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 15px;
+  }
+  @media screen and (max-width: 568px) {
+    font-size: 16px;
   }
 `;
 export const MentorProfileImg = styled.img`
@@ -78,19 +114,42 @@ export const MentorProfileImg = styled.img`
   object-fit: cover;
   margin-top: -80px;
   border: 5px solid #fff;
+  @media screen and (max-width: 768px) {
+    margin-top: 0px;
+    width: 250px;
+    height: 250px;
+  }
+
+  @media screen and (max-width: 568px) {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
 `;
 
 export const MentorProfileDiv = styled.div``;
 export const MentorProfileDivFlex = styled.div`
-  display: flex; ;
+  display: flex;
+  @media screen and (max-width: 568px) {
+    display: block;
+  }
 `;
 export const MentorProfileDivLeft = styled.div`
   width: 60%;
   padding: 30px 80px 20px 0;
+  @media screen and (max-width: 568px) {
+    width: 100%;
+    padding: 0 !important;
+  }
 `;
 export const MentorProfileDivRight = styled.div`
   width: 40%;
   padding: 20px 0;
+  @media screen and (max-width: 568px) {
+    width: 100%;
+    padding: 0 !important;
+    margin: 20px 0;
+  }
 `;
 
 export const MentorProfileAvailDiv = styled.div`

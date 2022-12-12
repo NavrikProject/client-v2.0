@@ -13,7 +13,7 @@ const Backdrop = styled.div`
 `;
 const Modal = styled.div`
   position: fixed;
-  top: 15vh;
+  top: 150px;
   left: 25%;
   width: 50%;
   height: auto;

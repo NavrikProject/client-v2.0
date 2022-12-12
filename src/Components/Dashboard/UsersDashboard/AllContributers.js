@@ -13,7 +13,6 @@ const AllContributers = () => {
 
   useEffect(() => {
     const getAllTheCourse = async () => {
-      setLoading(true);
       const res = await axios.get(
         `https://deploy-practiwiz.azurewebsites.net/api/contributers/get-all`,
         {
@@ -33,7 +32,6 @@ const AllContributers = () => {
   }, [token]);
 
   const contributerApproveHandler = async (contributer) => {
-    setLoading(true);
     const res = await axios.put(
       `https://deploy-practiwiz.azurewebsites.net/api/contributers/approve/${contributer.contributer_details_id}`,
       { id: contributer.contributer_details_id },
@@ -49,7 +47,6 @@ const AllContributers = () => {
     }
   };
   const contributerDisApproveHandler = async (contributer) => {
-    setLoading(true);
     const res = await axios.put(
       `https://deploy-practiwiz.azurewebsites.net/api/contributers/disapprove/${contributer.contributer_details_id}`,
       { id: contributer.contributer_dtls_id },

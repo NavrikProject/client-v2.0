@@ -52,13 +52,21 @@
   }
 }
 @media all and (max-width: 968px) {
-  .model {
+  .model,
+  .modelFixedHeight {
     width: 80%;
+  }
+  .childrenDiv {
+    width: 100%;
   }
 }
 @media all and (max-width: 768px) {
-  .model {
+  .model,
+  .modelFixedHeight {
     width: 90%;
+  }
+  .childrenDiv {
+    width: 100%;
   }
 }
 .model div i {

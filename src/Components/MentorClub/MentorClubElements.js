@@ -5,6 +5,7 @@ export const MentorSect = styled.section`
   width: 100%;
   /* background-image: url("https://res.cloudinary.com/ddzagipmh/image/upload/v1644037126/17973908_zwmwyf.jpg"); */
   background: #f2f2f2;
+  padding-bottom: 40px;
 `;
 export const MentorSection = styled.section`
   width: 90%;
@@ -17,6 +18,9 @@ export const MentorTitleDesc = styled.p`
   width: 70%;
   margin: 0 auto;
   padding-bottom: 10px;
+  @media screen and (max-width: 868px) {
+    width: 100%;
+  }
 `;
 export const MentorWrapper = styled.div``;
 
@@ -42,6 +46,9 @@ export const MentorDivFlex = styled.div`
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  @media screen and (max-width: 868px) {
+    display: block;
+  }
 `;
 
 export const MentorCourseDivFlex = styled.div`
@@ -55,6 +62,11 @@ export const MentorSearchDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 20px 0px 50px 0;
+  width: 90%;
+  margin: 0 auto;
+  @media screen and (max-width: 668px) {
+    display: block;
+  }
 `;
 export const MentorSearchRightDiv = styled.div``;
 export const MentorSearchLeftDiv = styled.div``;
@@ -67,11 +79,16 @@ export const MentorSelect = styled.select`
   border-radius: 5px;
   padding: 8px 10px;
   border: 1px solid lightgrey;
-  margin: 5px 0px 15px 15px;
+  /* margin: 5px 0px 15px 15px; */
   border-bottom-width: 2px;
   transition: all 0.4s ease;
+  font-size: 14px;
   &:focus {
     border-color: #fc83bb;
+  }
+  @media screen and (max-width: 868px) {
+    width: 100%;
+    margin: 0px 0px 7px 0px;
   }
 `;
 export const MentorOptions = styled.option`
@@ -83,15 +100,19 @@ export const SearchBoxInput = styled.input`
   width: 100%;
   padding: 8px 10px;
   outline: none;
-  font-size: 17px;
+  font-size: 14px;
   border-radius: 5px;
   border: 1px solid lightgrey;
   border-bottom-width: 2px;
   transition: all 0.4s ease;
-  margin-bottom: 10px !important;
-  margin-left: 10px;
+  /* margin-bottom: 10px !important; */
+  /* margin-left: 10px; */
   &:focus {
     border-color: #fc83bb;
+  }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    margin-left: 0px;
   }
 `;
 export const FaSearchIcon = styled(FaSearch)`
@@ -121,18 +142,28 @@ export const ClearFilter = styled.p`
 export const MentorJoinDiv = styled.div`
   width: 70%;
   margin: 20px auto;
+  @media screen and (max-width: 868px) {
+    width: 100%;
+    margin-bottom: 0 !important;
+  }
 `;
 export const MentorJoinDivFlex = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  @media screen and (max-width: 868px) {
+    display: block;
+  }
 `;
 export const MentorJoinRightDiv = styled.div`
   width: 100%;
+  @media screen and (max-width: 868px) {
+    text-align: center;
+  }
 `;
 export const MentorRightContentDiv = styled.div``;
 export const MentorJoinDesc = styled.p`
-  font-size: 18px;
+  font-size: 16px;
   color: #627792;
 `;
 export const MentorJoinLeftDiv = styled.div`
@@ -145,6 +176,13 @@ export const MentorLeftImgDiv = styled.div`
     height: 300px;
     border-radius: 50%;
     margin: 0 100px !important;
+  }
+  @media screen and (max-width: 868px) {
+    img {
+      width: 100%;
+      margin: 20px auto 0 auto !important;
+      border-radius: 0;
+    }
   }
 `;
 export const BookNowButtonDiv = styled.div`

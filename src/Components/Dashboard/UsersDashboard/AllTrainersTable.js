@@ -13,7 +13,7 @@ const UsersTable = () => {
 
   useEffect(() => {
     const getCourseByTitles = async () => {
-      setLoading(true);
+      
       const res = await axios.get(
         `https://deploy-practiwiz.azurewebsites.net/api/trainer/getAllTrainers`,
         {
@@ -29,7 +29,7 @@ const UsersTable = () => {
   }, [token]);
 
   const trainerApproveHandler = async (trainer) => {
-    setLoading(true);
+    
     const res = await axios.put(
       `https://deploy-practiwiz.azurewebsites.net/api/trainer/update/approve`,
       { id: trainer.trainer_details_id },
@@ -45,7 +45,7 @@ const UsersTable = () => {
     }
   };
   const trainerDisApproveHandler = async (trainer) => {
-    setLoading(true);
+    
     const res = await axios.put(
       `https://deploy-practiwiz.azurewebsites.net/api/trainer/update/disapprove`,
       { id: trainer.trainer_details_id },

@@ -11,8 +11,8 @@ import LoadingSpinner from "../../utils/LoadingSpinner";
 import "react-datepicker/dist/react-datepicker.css";
 import "./MentorCardDate.css";
 import DatePicker from "react-datepicker";
-//import LoginModel from "../Forms/LoginModel";
-
+import LoginModel from "../../Forms/AccountForms/LoginModel";
+import { ModelFixedHeight } from "../../../Components/utils/Model";
 const Backdrop = styled.div`
   position: fixed;
   top: 0;
@@ -24,7 +24,7 @@ const Backdrop = styled.div`
 `;
 const Modal = styled.div`
   position: fixed;
-  top: 15vh;
+  top: 150px;
   left: 5%;
   width: 90%;
   height: auto;
@@ -298,14 +298,17 @@ const MentorBookingCardModel = (props) => {
   };
 
   const showLoginModelHandler = () => {
+    console.log("Clicked");
     setShowLoginModal(!showLoginModal);
   };
   return (
     <>
       {loading && <LoadingSpinner />}
-      {/* {showLoginModal && (
-        <LoginModel showLoginModelHandler={showLoginModelHandler} />
-      )} */}
+      {showLoginModal && (
+        <ModelFixedHeight closeModelHandler={showLoginModelHandler}>
+          <LoginModel />
+        </ModelFixedHeight>
+      )}
       <Backdrop>
         <Modal>
           <CloseButtonDiv onClick={props.ShowBookingModalHandler}>

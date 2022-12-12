@@ -62,7 +62,7 @@ const JobsSection = () => {
                       </div>
                     </h3>
                   </div>
-                  <h3>{" " + job.job_post_role.split("-").join(" ")}b</h3>
+                  <h3>{" " + job.job_post_role.split("-").join(" ")}</h3>
                   <h5>{job.job_post_street_address}</h5>
                   <ul className="job5">
                     <li>

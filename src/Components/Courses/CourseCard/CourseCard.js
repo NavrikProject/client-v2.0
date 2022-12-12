@@ -1,8 +1,25 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import userImg1 from "../../../images/user1.jpg";
 import { courseData } from "../../Data/CourseData";
 
 const CourseCard = ({ loadMoreCourses, courseSearchItem }) => {
+  const [allCourses, setAllCourses] = useState([]);
+  useEffect(() => {
+    const getAllJobPosts = async () => {
+      const res = await axios.get(
+        "https://deploy-practiwiz.azurewebsites.net/api/courses/all-courses"
+      );
+      if (res.data.success) {
+        setAllCourses(res.data.success);
+      }
+      if (res.data.error) {
+        setAllCourses([]);
+      }
+    };
+    getAllJobPosts();
+  }, []);
   return (
     <>
       {courseData

@@ -52,6 +52,8 @@ import WhyPractiwizPage from "./Pages/WhyPractiwizPage";
 import MethodologyPage from "./Pages/MethodologyPage";
 import RefundPoliciesPage from "./Pages/RefundPoliciesPage";
 import IndCoursePage from "./Pages/CoursePages/IndCoursePage";
+import JobHomePage from "./Pages/JobPages/JobHomePage";
+import QueryPage from "./Pages/QueryPage";
 // ..
 AOS.init();
 const App = () => {
@@ -113,7 +115,9 @@ const App = () => {
               }
             />
             <Route path="/about-us" element={<AboutUsPage />} />
-            <Route path="/jobs" element={<AllJobsPage />} />
+            <Route path="/jobs" element={<JobHomePage />} />
+            <Route path="/all-jobs" element={<AllJobsPage />} />
+            <Route path="/query" element={<QueryPage />} />
             <Route path="/courses" element={<AllCoursePage />} />
             <Route
               path="/courses/individual-course/:id"

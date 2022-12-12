@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Suspense } from "react";
 import CourseSection from "../Components/Home/CourseSection";
 import LoadingSpinner from "../Components/utils/LoadingSpinner";
@@ -15,6 +15,9 @@ const BannerSection = React.lazy(() =>
 );
 
 const HomePage = () => {
+  useEffect(() => {
+    document.title = "Practiwiz | Home";
+  }, []);
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Navbar />

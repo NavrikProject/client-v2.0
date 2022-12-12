@@ -3,6 +3,7 @@
   margin: 20px;
   margin-bottom: 40px;
 }
+
 .mentorDownDiv {
   width: 100% !important;
   /* background-color: #d1dfe3; */
@@ -127,5 +128,15 @@
   }
   100% {
     background-color: hsl(200, 20%, 95%);
+  }
+}
+@media screen and (max-width: 868px) {
+  .mentorDiv {
+    width: 100%;
+    margin: 0 0 40px 0;
+  }
+  .mentorImage {
+    width: 200px !important;
+    height: 200px;
   }
 }

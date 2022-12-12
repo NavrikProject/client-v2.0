@@ -148,5 +148,5 @@ export const Th = styled.th`
   width: 50px;
 `;
 export const Td = styled.td`
-  border: none;
+  border-bottom: 1px solid #ccc;
 `;

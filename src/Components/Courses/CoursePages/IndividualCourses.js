@@ -271,7 +271,7 @@ const IndividualCourses = () => {
           className="center addAnimate features-project-right2"
           data-className="fadeInBottom"
         >
-          <h2>Our Faculties</h2>
+          {/* <h2>Our Faculties</h2>
           <ul
             className="kk whyGoForSf_slid delay3 addAnimate"
             data-className="fadeInBottom"
@@ -350,7 +350,7 @@ const IndividualCourses = () => {
                 </div>
               </li>
             </Carousel>
-          </ul>
+          </ul> */}
 
           <div className="jumpstart">
             <h2>{path.split("-").join(" ").toUpperCase()}</h2>
