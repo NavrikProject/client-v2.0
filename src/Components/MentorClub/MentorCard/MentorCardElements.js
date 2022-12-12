@@ -24,11 +24,22 @@ export const MentorDownDiv = styled.div`
     rgba(0, 0, 0, 0.5) 100%,
     rgba(255, 255, 255, 0) 40%
   ); */
+  @media screen and (max-width: 868px) {
+    padding: 20px 10px;
+  }
 `;
 export const MentorDiv = styled.div`
   width: 25%;
   margin: 20px;
   margin-bottom: 40px;
+  @media screen and (max-width: 868px) {
+    width: 50%;
+    margin: 0 auto 40px auto;
+  }
+  @media screen and (max-width: 668px) {
+    width: 90%;
+    margin: 0 auto 40px auto;
+  }
 `;
 export const MentorDetailsDiv = styled.div``;
 export const MentorDetailsImgDiv = styled.div``;
@@ -64,6 +75,10 @@ export const MentorImg = styled.img`
   margin: -100px auto 0 auto;
   object-fit: cover;
   border: 7px solid light;
+  @media screen and (max-width: 868px) {
+    width: 200px;
+    height: 200px;
+  }
 `;
 export const MentorImgDiv = styled.div`
   display: flex;

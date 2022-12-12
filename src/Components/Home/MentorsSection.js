@@ -41,10 +41,10 @@ const MentorsSection = () => {
         <h4>Practiwiz</h4>
         <h2>Our Featured Mentors</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum
           suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan
-          lacus vel facilisis.
+          lacus vel facilisis. */}
         </p>
 
         <ul

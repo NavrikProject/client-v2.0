@@ -36,16 +36,22 @@ const Backdrop = styled.div`
 `;
 const Modal = styled.div`
   position: fixed;
-  top: 6vh;
-  left: 20%;
+  top: 150px;
+  left: 23vw;
   width: 60%;
-  height: 80vh;
+  height: 70vh;
   overflow: scroll;
   background-color: white;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 130000000000;
+  margin: 0 auto !important;
   animation: slide-down 300ms ease-out forwards;
+  @media (max-width: 768px) {
+    width: 90%;
+    left: 30px;
+    top: 120px;
+  }
   /* width */
   &::-webkit-scrollbar {
     width: 10px;
@@ -61,12 +67,6 @@ const Modal = styled.div`
   /* Handle on hover */
   & ::-webkit-scrollbar-thumb:hover {
     background: #555;
-  }
-  @media (min-width: 768px) {
-    .modal {
-      width: 60%;
-      left: calc(50% - 20rem);
-    }
   }
 
   @keyframes slide-down {

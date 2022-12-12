@@ -14,8 +14,8 @@ import axios from "axios";
 import moment from "moment/moment";
 import { useSelector } from "react-redux";
 import LoginModel from "../../Forms/AccountForms/LoginModel";
-import ApplyJobForm from "./ApplyJobForm";
 import { ModelFixedHeight } from "../../utils/Model";
+import ApplyJobForm from "./ApplyJobForm";
 const JobCard = () => {
   const user = useSelector((state) => state.user.currentUser);
   const [allJobs, setAllJobs] = useState([]);
@@ -47,7 +47,7 @@ const JobCard = () => {
     setApplyJobForm(false);
   };
   return (
-    <JobCardSection>
+    <>
       {showLoginModal && (
         <ModelFixedHeight closeModelHandler={showLoginModelHandler}>
           <LoginModel />
@@ -61,109 +61,47 @@ const JobCard = () => {
       )}
       {allJobs?.length > 0 ? (
         allJobs?.map((job) => (
-          <JobCardDiv key={job.job_post_dtls_id}>
-            <article>
-              <div>
-                <div>
-                  <JobTitle>
-                    <Link
-                      style={{ textDecoration: "none", color: "#062C30" }}
-                      to={`/jobs/individual-job/${job.job_post_unique_id}`}
-                    >
-                      {" " + job.job_post_role.split("-").join(" ")}
-                    </Link>
-                  </JobTitle>
-                  <div>
-                    <p>{" " + job.job_post_company_name}</p>
-                  </div>
-                  <div>{" " + job.job_post_heading}</div>
-                  <JobCardDisplayFlexDiv>
-                    <JobCardDescription>
-                      <b>Experience : </b>
-                      <span>{job.job_post_min_exp} Yrs</span>
-                    </JobCardDescription>
-                    <JobCardDescription>
-                      <b>Salary : </b>
-                      <span title="2,50,000 - 5,00,000 PA. ">
-                        {job.job_post_expected_salary} PA.
-                      </span>
-                    </JobCardDescription>
-                    <JobCardDescription>
-                      <b>Qualification :</b>
-                      <span>{job.job_post_min_qual}</span>
-                    </JobCardDescription>
-                  </JobCardDisplayFlexDiv>
-                  <JobCardDisplayFlexDiv>
-                    <JobCardDescription>
-                      <b>Work Type : </b>
-                      <span>{" " + job.job_post_work_type}</span>
-                    </JobCardDescription>
-                    <JobCardDescription>
-                      <b>Employment Type :</b>
-                      <span>{" " + job.job_post_job_type}</span>
-                    </JobCardDescription>
-                  </JobCardDisplayFlexDiv>
-                </div>
+          <div key={job.job_post_dtls_id}>
+            <article className="latest wow fadeInDown" data-wow-duration="0.4s">
+              <div className="job-list-left">
+                <img src="images/job-comp-logo1.jpg" alt="" />
               </div>
-              <div>
-                <JobCardDescription>
-                  <b> Key Skills:</b>{" "}
-                  <span>{" " + job.job_post_req_skills}</span>
-                </JobCardDescription>
+              <div className="job-list-center">
+                <p>
+                  <strong>{" " + job.job_post_company_name} - </strong>
+                  {"Looking for a "}
+                  {" " + job.job_post_role.split("-").join(" ")} at
+                  {" " + job.job_post_city}, {" " + job.job_post_state}. Salary{" "}
+                  {" " + job.job_post_expected_salary + " "} Per Annum
+                </p>
+                <p>
+                  <b>Key Skills</b> :{" " + job.job_post_req_skills + " "}
+                  <b>Experience</b> : {" " + job.job_post_min_exp} Years
+                </p>
+                <ul>
+                  <li>Location - {" " + job.job_post_city}</li>
+                  <li>
+                    {" " +
+                      moment(new Date(job.job_post_cr_dt)).format(
+                        "Do MMMM YYYY"
+                      )}
+                  </li>
+                  <li>{job.job_post_min_qual} required</li>
+                  <li>{" " + job.job_post_job_type}</li>
+                </ul>
               </div>
-              <div>
-                <JobCardDescription>
-                  <span>
-                    <b>Office Address :</b>
-                    {" " + job.job_post_street_address}
-                  </span>
-                </JobCardDescription>
+              <div className="job-list-right">
+                <a href={`/jobs/individual-job/${job.job_post_unique_id}`}>
+                  Apply Now
+                </a>
               </div>
-              <JobCardDisplayFlexDiv>
-                <div>
-                  <JobCardDescription>
-                    Tags :<span>{" " + job.job_post_tags}</span>
-                  </JobCardDescription>
-                </div>
-              </JobCardDisplayFlexDiv>
             </article>
-            <JobCardDisplayFlexDiv>
-              <div>
-                <i></i>
-                <span>
-                  Posted On :
-                  {" " +
-                    moment(new Date(job.job_post_cr_dt)).format("Do MMMM YYYY")}
-                </span>
-              </div>
-              <div>
-                <ViewJobButton>
-                  <Link to={`/jobs/individual-job/${job.job_post_unique_id}`}>
-                    View Job
-                  </Link>
-                </ViewJobButton>
-                {!user ? (
-                  <ApplyNowButton type="btn" onClick={showLoginModelHandler}>
-                    Login to Apply
-                  </ApplyNowButton>
-                ) : (
-                  <ApplyNowButton
-                    type="submit"
-                    onClick={() => {
-                      showApplyJobModalHandler(job);
-                    }}
-                  >
-                    Apply Now
-                  </ApplyNowButton>
-                )}
-              </div>
-            </JobCardDisplayFlexDiv>
-          </JobCardDiv>
+          </div>
         ))
       ) : (
         <p>No job found</p>
       )}
-    </JobCardSection>
+    </>
   );
 };
 

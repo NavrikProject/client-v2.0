@@ -22,10 +22,9 @@ const Footer = () => {
               <li>
                 <a href="/about-us">About Us</a>
                 <p>
-                  There are many variations of passages of Lorem Ipsum
-                  available, but the majority have suffered alteration in some
-                  form, by injected humour, or randomised words which don’t look
-                  even slightly believable.
+                  Welcome to our education website! We are a team of experienced
+                  educators and lifelong learners who are passionate about
+                  sharing our knowledge and expertise with others.
                 </p>
               </li>
             </ul>

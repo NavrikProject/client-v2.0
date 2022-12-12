@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   loginFailure,
   loginSuccess,
@@ -25,7 +25,6 @@ const LoginModel = () => {
   const [type, setType] = useState("trainee");
   const [error, setError] = useState("");
   const [showIcon, setShowIcon] = useState(false);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [activeState, setActiveState] = useState({
     trainee: true, //
@@ -50,7 +49,6 @@ const LoginModel = () => {
       dispatch(hideLoadingHandler());
       if (res.data.success) {
         dispatch(loginSuccess(res.data.success));
-        navigate(`/`);
       }
 
       if (res.data.notFound) {

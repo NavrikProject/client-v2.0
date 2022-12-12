@@ -38,10 +38,10 @@ const Navbar = () => {
             </div>
 
             <div className="top-right">
-              <a href="link">Store</a>
+              {/* <a href="link">Store</a>
               <a>|</a>
               <a href="link">Chill Zone</a>
-              <a>|</a>
+              <a>|</a> */}
               {!user ? (
                 <>
                   <a href="/login">
@@ -141,29 +141,29 @@ const Navbar = () => {
                         <>
                           <aside>
                             <ul>
-                              <li>
+                              {/* <li>
                                 <a href="/course/jumpstart-to-rpa-live-bot-development">
                                   RPA Basics
                                 </a>
-                              </li>
+                              </li> */}
                               <li>
                                 <a href="/course/jumpstart-to-rpa-live-bot-development">
                                   Jumpstart to RPA live bot development
                                 </a>
                               </li>
-                              <li>
+                              {/* <li>
                                 <a href="/course/jumpstart-to-ai-ml-in-rpa">
                                   Jumpstart to AI and ML in RPA
                                 </a>
                               </li>
                               <li>
                                 <a href="link">Introduction to Python</a>
-                              </li>
+                              </li> */}
                             </ul>
                           </aside>
                           <aside>
                             <ul>
-                              <li>
+                              {/* <li>
                                 <a href="/course/jumpstart-to-rpa-live-bot-development">
                                   RPA Foundation course
                                 </a>
@@ -172,7 +172,7 @@ const Navbar = () => {
                                 <a href="/course/jumpstart-to-rpa-live-bot-development">
                                   Advance Topics in RPA
                                 </a>
-                              </li>
+                              </li> */}
                               <li>
                                 <a href="/courses">All Courses </a>
                               </li>
@@ -231,34 +231,34 @@ const Navbar = () => {
                         <>
                           <aside>
                             <ul>
-                              <li>
+                              {/* <li>
                                 <a href="/course/business-analysis-foundation-training">
                                   Business Analysis Foundation Training
                                 </a>
-                              </li>
+                              </li> */}
                               <li>
                                 <a href="/course/jumpstart-to-it-business-analyst">
                                   Jumpstart to IT Business Analyst
                                 </a>
                               </li>
-                              <li>
+                              {/* <li>
                                 <a href="link">
                                   Cloud Essentials Learning Plan
                                 </a>
                               </li>
                               <li>
                                 <a href="link">Developer Learning Plan</a>
-                              </li>
+                              </li> */}
                             </ul>
                           </aside>
                           <aside>
                             <ul>
-                              <li>
+                              {/* <li>
                                 <a href="asdga">Networking Learning Plan</a>
                               </li>
                               <li>
                                 <a href="asdga">Data Analytics Learning Plan</a>
-                              </li>
+                              </li> */}
                               <li>
                                 <a href="/courses">All Courses </a>
                               </li>
@@ -271,7 +271,7 @@ const Navbar = () => {
                       )}
                     </div>
                   </li>
-                  <li
+                  {/* <li
                     onMouseEnter={() => {
                       return (
                         setShowItTrainingMenu(false),
@@ -285,7 +285,7 @@ const Navbar = () => {
                     className="hasMegamenu"
                   >
                     <a href="/methodology">Methodology</a>
-                  </li>
+                  </li> */}
                   <li
                     onMouseEnter={() => {
                       return (
@@ -366,17 +366,17 @@ const Navbar = () => {
                               <li>
                                 <a href="/about-us">Overview</a>
                               </li>
-                              <li>
+                              {/* <li>
                                 <a href="asdga">Vision Mission Values</a>
                               </li>
                               <li>
                                 <a href="asdga">Milestones</a>
-                              </li>
+                              </li> */}
                             </ul>
                           </aside>
                           <aside>
                             <ul>
-                              <li>
+                              {/* <li>
                                 <a href="link">Leadership</a>
                               </li>
                               <li>
@@ -384,7 +384,7 @@ const Navbar = () => {
                               </li>
                               <li>
                                 <a href="link">Social Initiatives</a>
-                              </li>
+                              </li> */}
                             </ul>
                           </aside>
                           <figure>
@@ -442,14 +442,14 @@ const Navbar = () => {
                           <aside>
                             <ul>
                               <li>
-                                <a href="asdga">Address/ Location</a>
+                                <a href="/query">Address/ Location</a>
                               </li>
                             </ul>
                           </aside>
                           <aside>
                             <ul>
                               <li>
-                                <a href="asdga">Query</a>
+                                <a href="/query">Query</a>
                               </li>
                             </ul>
                           </aside>

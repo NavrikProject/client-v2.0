@@ -1398,6 +1398,7 @@ footer aside .socialMedia {
   background: #384d6e;
   padding: 50px 0;
   border-top: 1px solid #ebebeb;
+  z-index: -20;
 }
 .footer1 aside {
   float: left;

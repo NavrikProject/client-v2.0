@@ -138,7 +138,26 @@ input[type="submit"],
 }
 /*  -webkit-transform: scaleX(1); transform: scaleX(1); -webkit-transition-delay:0.5s;  transition-delay:0.5s; */
 /*------------------------------------------------------------------*/
-
+#talkbubble {
+  width: 120px;
+  height: 80px;
+  background: red;
+  position: absolute;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+#talkbubble:before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 26px;
+  width: 0;
+  height: 0;
+  border-top: 13px solid transparent;
+  border-right: 26px solid red;
+  border-bottom: 13px solid transparent;
+}
 .top_panel {
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 20;
