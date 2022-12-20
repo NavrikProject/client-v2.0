@@ -1,23 +1,21 @@
 import React from "react";
-import { useEffect } from "react";
 import { Suspense } from "react";
 import GoToTop from "../../Components/GoToTop";
 import LoadingSpinner from "../../Components/utils/LoadingSpinner";
 const Navbar = React.lazy(() => import("../../Components/Home/Navbar"));
 const Footer = React.lazy(() => import("../../Components/Home/Footer.js"));
-const JobHome = React.lazy(() => import("../../Components/Jobs/JobHome.js"));
-const JobHomePage = () => {
-  useEffect(() => {
-    document.title = "Practiwiz | Jobs";
-  }, []);
+const RpaIndividualCourse = React.lazy(() =>
+  import("../../Components/Courses/CoursePages/RpaIndividualCourse.js")
+);
+const RpaIndCoursePage = () => {
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Navbar />
-      <JobHome />
+      <RpaIndividualCourse />
       <Footer />
       <GoToTop />
     </Suspense>
   );
 };
 
-export default JobHomePage;
+export default RpaIndCoursePage;

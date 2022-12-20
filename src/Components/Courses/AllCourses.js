@@ -4,7 +4,7 @@ import innerBannerWeb from "../../images/inner-banner.jpg";
 import innerBannerMob from "../../images/inner-banner-mobile.jpg";
 import searchIcon from "../../images/search.jpg";
 import benefitImg from "../../images/benefits1.jpg";
-import loadMoreImg from "../../images/load.jpg";
+import loadMoreImg from "../../images//load.jpg";
 import CourseCard from "./CourseCard/CourseCard";
 import GoToTop from "../../Components/GoToTop";
 const AllCourses = () => {
@@ -12,16 +12,16 @@ const AllCourses = () => {
   const [courseSearchItem, setCourseSearchItem] = useState("");
   return (
     <>
-      <section class="inner-banner">
-        <ul class="inner">
-          <li class="bannerSlide">
-            <figure class="only-des">
+      <section className="inner-banner">
+        <ul className="inner">
+          <li className="bannerSlide">
+            <figure className="only-des">
               <img src={innerBannerWeb} alt="" />
             </figure>
-            <figure class="only-mobile">
+            <figure className="only-mobile">
               <img src={innerBannerMob} alt="" />
             </figure>
-            <div class="bannerInfo">
+            <div className="bannerInfo">
               <span>
                 <h1>Our Courses</h1>
               </span>
@@ -36,40 +36,40 @@ const AllCourses = () => {
           </li>
         </ul>
       </section>
-      <section class="homeSec6">
+      <section className="homeSec6">
         <div
-          class="center addAnimate features-project-right2"
-          data-class="fadeInBottom"
+          className="center addAnimate features-project-right2"
+          data-className="fadeInBottom"
         >
-          <article class="pages-tital">
+          <article className="pages-tital">
             <h4>Our Courses</h4>
             <h2>Recommended Courses</h2>
           </article>
-          <div class="search">
-            <div class="search-box">
+          <div className="search">
+            <div className="search-box">
               <input
                 type="text"
-                class="search-input"
+                className="search-input"
                 placeholder="Search.."
                 onChange={(event) => setCourseSearchItem(event.target.value)}
               />
-              <button class="search-button">
+              <button className="search-button">
                 <i>
                   <img src={searchIcon} alt="" />
                 </i>
               </button>
             </div>
           </div>
-          <div class="clear"></div>
-          <ul class="social_slide">
+          <div className="clear"></div>
+          <ul className="social_slide">
             <CourseCard
               courseSearchItem={courseSearchItem}
               loadMoreCourses={loadMoreCourses}
             />
           </ul>
-          <div class="clear"></div>
+          <div className="clear"></div>
           <div
-            class="load-more"
+            className="load-more"
             onClick={() => setLoadMoreCourses(!loadMoreCourses)}
           >
             {loadMoreCourses ? (
@@ -90,9 +90,9 @@ const AllCourses = () => {
           </div>
         </div>
       </section>
-      <section class="testimonials homeSec3">
-        <figure class="addAnimate" data-class="fadeIn">
-          <div class="center addAnimate" data-class="fadeInBottom">
+      <section className="testimonials homeSec3">
+        <figure className="addAnimate" data-className="fadeIn">
+          <div className="center addAnimate" data-className="fadeInBottom">
             <h4>Our track Record</h4>
             <h2>Because words aren't enough, we let numbers do the talking.</h2>
             <ul>
@@ -112,10 +112,10 @@ const AllCourses = () => {
           </div>
         </figure>
       </section>
-      <section class="yyu homeSec6">
+      <section className="yyu homeSec6">
         <div
-          class="center addAnimate features-project-right2"
-          data-class="fadeInBottom"
+          className="center addAnimate features-project-right2"
+          data-className="fadeInBottom"
         >
           <h2>Practiwiz Benefits</h2>
           <p>
@@ -123,17 +123,17 @@ const AllCourses = () => {
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s,
           </p>
-          <div class="clear"></div>
+          <div className="clear"></div>
 
-          <div class="benefits">
+          <div className="benefits">
             <ul>
-              <li class="active">Offline job Fairs & Networking Events</li>
+              <li className="active">Offline job Fairs & Networking Events</li>
               <li>Career Services</li>
               <li>Industry-leading Curriculum</li>
               <li>24X7 Learning Support</li>
             </ul>
 
-            <div class="offline">
+            <div className="offline">
               <aside>
                 <img src={benefitImg} alt="" />
               </aside>

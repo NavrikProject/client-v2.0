@@ -33,7 +33,7 @@
   border-radius: 50px;
   cursor: pointer;
   width: 20%;
-  margin: 30px auto 20px auto;
+  margin: 0px auto 20px auto;
 }
 
 .allJobsButton:hover {
@@ -552,7 +552,7 @@ h2.title:after {
   background: #fdfdfd;
   border-radius: 10px;
   margin: 0px 0 20px 0;
-  min-height: 150px;
+  min-height: 170px;
   padding: 20px;
   text-align: left;
   border: 1px solid #e3e3e3;
@@ -591,7 +591,7 @@ h2.title:after {
 }
 .product-image-wrapper .job-list-right {
   float: right;
-  width: 17%;
+  /* width: 17%; */
   margin: 45px 0px 0 0px;
 }
 .product-image-wrapper .job-list-right a {
@@ -607,6 +607,7 @@ h2.title:after {
 .product-image-wrapper .job-list-left img {
   width: 110px;
   height: auto;
+  margin-top: 20px;
 }
 .body-part-list-1 {
   padding: 30px 0 !important;
@@ -639,6 +640,10 @@ h2.title:after {
   position: absolute;
   top: 10px;
   right: 10px;
+}
+.details-pages .col-sm-8 .apply-now aside img {
+  width: 150px;
+  height: 90px;
 }
 .details-pages .col-sm-8 .apply-now h3 {
   font-size: 18px;
@@ -783,10 +788,14 @@ h2.title:after {
   list-style: disc;
   margin: 5px 0 5px 20px;
 }
+.job-description ul li:first-child {
+  display: none;
+}
 .job-description .shift {
   padding: 15px 0;
   font-size: 14px;
   line-height: 22px;
+  text-transform: capitalize;
 }
 .job-description .key a {
   color: #6c6c6c;
@@ -796,6 +805,8 @@ h2.title:after {
   border: 1px solid #ccc;
   padding: 5px 10px;
   border-radius: 15px;
+  margin-right: 10px;
+  cursor: pointer;
 }
 .details-pages .col-sm-8 .about-company {
   padding: 35px;

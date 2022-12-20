@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { Suspense } from "react";
 import GoToTop from "../Components/GoToTop";
 import LoadingSpinner from "../Components/utils/LoadingSpinner";
@@ -7,6 +8,9 @@ const Footer = React.lazy(() => import("../Components/Home/Footer.js"));
 const AboutUs = React.lazy(() => import("../Components/AboutUs/AboutUs.js"));
 
 const AboutUsPage = () => {
+  useEffect(() => {
+    document.title = "Practiwiz | About us";
+  }, []);
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Navbar />

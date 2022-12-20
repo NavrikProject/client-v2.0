@@ -14,7 +14,7 @@ import {
 } from "../../../redux/loadingReducer";
 import "./login-style.css";
 
-const LoginModel = () => {
+const LoginModel = (props) => {
   const {
     register,
     handleSubmit,
@@ -49,6 +49,7 @@ const LoginModel = () => {
       dispatch(hideLoadingHandler());
       if (res.data.success) {
         dispatch(loginSuccess(res.data.success));
+        props.showLoginModelHandler();
       }
 
       if (res.data.notFound) {

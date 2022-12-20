@@ -1,27 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import "../../course.css";
+import "../course.css";
 import Carousel from "react-elastic-carousel";
-import mentor1 from "../../../../images/courseImages/mentors1.jpg";
-import mentor2 from "../../../../images/courseImages/mentors2.jpg";
-import mentor3 from "../../../../images/courseImages/mentors3.jpg";
-import mentor4 from "../../../../images/courseImages/mentors4.jpg";
-import innerBannerBig from "../../../../images/courseImages/inner-banner-big.jpg";
-import innerBanner from "../../../../images/courseImages/inner-banner.jpg";
-import innerBannerMobile from "../../../../images/courseImages/inner-banner-mobile.jpg";
-import courseVideo1 from "../../../../images/courseImages/course-video1.jpg";
-import courseVideo2 from "../../../../images/courseImages/course-video2.jpg";
-import courseVideo3 from "../../../../images/courseImages/course-video3.jpg";
-import courseImage from "../../../../images/courseImages/course-img1.jpg";
-import { courseFaqData } from "../../../Data/CourseData";
-import { useEffect } from "react";
+import mentor1 from "../../../images/courseImages/mentors1.jpg";
+import mentor2 from "../../../images/courseImages/mentors2.jpg";
+import mentor3 from "../../../images/courseImages/mentors3.jpg";
+import mentor4 from "../../../images/courseImages/mentors4.jpg";
+import innerBannerBig from "../../../images/courseImages/inner-banner-big.jpg";
+import innerBanner from "../../../images/courseImages/inner-banner.jpg";
+import innerBannerMobile from "../../../images/courseImages/inner-banner-mobile.jpg";
+import courseVideo1 from "../../../images/courseImages/course-video1.jpg";
+import courseVideo2 from "../../../images/courseImages/course-video2.jpg";
+import courseVideo3 from "../../../images/courseImages/course-video3.jpg";
+import { courseFaqData } from "../../Data/CourseData";
 import axios from "axios";
 import { useSelector } from "react-redux";
-const IndividualCourseDetails = () => {
-  const [courseDetails, setCourseDetails] = useState([]);
+const IndividualCourses = () => {
   const location = useLocation();
-  const path = location.pathname.split("/")[3];
+  let path = location.pathname.split("/")[2];
+  const [courseDetails, setCourseDetails] = useState([]);
   const user = useSelector((state) => state.user.currentUser);
+
   useEffect(() => {
     document.title = `Practiwiz | ${path
       .toLowerCase()
@@ -60,9 +59,10 @@ const IndividualCourseDetails = () => {
     }
     setSelected(index);
   };
+
   return (
     <>
-      {courseDetails.map((course) => (
+      {courseDetails?.map((course) => (
         <>
           <section className="inner-banner">
             <ul className="inner">
@@ -78,7 +78,7 @@ const IndividualCourseDetails = () => {
                 </figure>
                 <div className="bannerInfo">
                   <span>
-                    <h1>{course.course_name}</h1>
+                    <h1>{course.course_title.split("-").join(" ")}</h1>
                   </span>
                   <span>
                     <h3>{course.course_desc}</h3>
@@ -135,7 +135,7 @@ const IndividualCourseDetails = () => {
                       </div>
                     </li>
                     <li>
-                      <span>No of People Registered :</span>{" "}
+                      <span>No of People Registered :</span>
                       {course.course_participants}
                     </li>
                     <li>
@@ -161,49 +161,45 @@ const IndividualCourseDetails = () => {
               <div className="left-box85">
                 <h2>Description</h2>
                 <p>
-                  <strong>
-                    Do you want to become a programmer? Do you want to learn how
-                    to create games, automate your browser, visualize data, and
-                    much more?
-                  </strong>
+                  <strong>Do you want to become a RPA Developer ?</strong>
                 </p>
                 <p>
-                  If you’re looking to learn Python for the very first time or
-                  need a quick brush-up, this is the course for you!
+                  If you’re looking to learn RPA for the very first time or need
+                  a quick brush-up, this is the course for you!
                 </p>
                 <p>
-                  Python has rapidly become one of the most popular programming
-                  languages around the world. Compared to other languages such
-                  as Java or C++, Python consistently outranks and outperforms
-                  these languages in demand from businesses and job
-                  availability. The average Python developer makes over $100,000
-                  - this number is only going to grow in the coming years.
-                </p>
-                <p>
-                  The best part? Python is one of the easiest coding languages
-                  to learn right now. It doesn’t matter if you have no
-                  programming experience or are unfamiliar with the syntax of
-                  Python. By the time you finish this course, you'll be an
-                  absolute pro at programming!
+                  An RPA developer is a professional who is responsible for
+                  designing, developing, and maintaining software robots that
+                  automate repetitive and routine tasks. These robots, also
+                  known as "bots," are created using Robotic Process Automation
+                  (RPA) technology, which enables the automation of manual,
+                  rule-based processes. As an RPA developer, you would be
+                  responsible for defining the processes that the bots will
+                  automate, developing the bots using an RPA platform, testing
+                  and debugging the bots, and maintaining them to ensure they
+                  continue to function correctly. RPA developers typically have
+                  a background in software development and knowledge of RPA
+                  technology and tools.
                 </p>
                 <p>
                   This course will cover all the basics and several advanced
-                  concepts of Python. We’ll go over:
+                  concepts of RPA Developer. We’ll go over:
                 </p>
                 <ul>
-                  <li>The fundamentals of Python programming</li>
-                  <li>Writing and Reading to Files</li>
+                  <li>RPA overview and principles</li>
+                  <li>RPA platform tools and technologies</li>
                   <li>Automation of Word and Excel Files</li>
-                  <li>Web scraping with BeautifulSoup4</li>
-                  <li>Browser automation with Selenium</li>
-                  <li>Data Analysis and Visualization with MatPlotLib</li>
-                  <li>Regex parsing and Task Management</li>
-                  <li>GUI and Gaming with Tkinter</li>
+                  <li>Process automation and analysis</li>
+                  <li>Bot development and deployment</li>
+                  <li>Debugging and troubleshooting</li>
+                  <li>Bot maintenance and updates</li>
+                  <li>Agile and Waterfall methodologies</li>
+                  <li>Industry-specific applications of RPA</li>
                   <li>And much more!</li>
                 </ul>
-
+                {/* 
                 <article className="pages-tital">
-                  {/* <h2>Course Content</h2>
+                  <h2>Course Content</h2>
                   <ul>
                     <li>
                       <img src={courseVideo1} alt="" />
@@ -214,8 +210,8 @@ const IndividualCourseDetails = () => {
                     <li>
                       <img src={courseVideo3} alt="" />
                     </li>
-                  </ul> */}
-                </article>
+                  </ul>
+                </article> */}
                 <div className="clear"></div>
               </div>
 
@@ -269,6 +265,7 @@ const IndividualCourseDetails = () => {
                   </ul>
                 </article>
               </div>
+
               <div className="clear"></div>
             </div>
           </section>
@@ -284,7 +281,7 @@ const IndividualCourseDetails = () => {
               <br />
               in the form of videos, cases and projects.
             </h2>
-            <a href="/">Download Syllabus</a>
+            <a>Download Syllabus</a>
           </div>
         </figure>
       </section>
@@ -375,17 +372,19 @@ const IndividualCourseDetails = () => {
           </ul> */}
 
           <div className="jumpstart">
-            <h2>Jumpstart to rpa live bot development</h2>
+            <h2>{path.split("-").join(" ").toUpperCase()}</h2>
             <article>
               <p>
                 <strong>Who is this course for?</strong>
               </p>
               <ul>
                 <li>
-                  Graduates and Post-Graduates interested in learning skills
+                  Graduates and Post-Graduates interested in RPA BOT development
+                  skills
                 </li>
                 <li>
-                  Working Software Professionals interested in adding new skills
+                  Working Software Professionals interested in RPA BOT
+                  development skills
                 </li>
               </ul>
 
@@ -478,9 +477,56 @@ const IndividualCourseDetails = () => {
             </div>
           ))}
         </div>
+        {/* <div className="center">
+          <div className="courseHighlightFlex">
+            <div className="courseHighlightItems">
+              <div className="courseHighlightItem">
+                <div>
+                  <img src={CallCenter} alt="call center" />
+                  <p>
+                    24/7 Customer support, Available for all the time with great
+                    support
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="courseHighlightFlex">
+              <div className="courseHighlightItems">
+                <div className="courseHighlightItem">
+                  <img src={Content} alt=" " />
+                  <p>
+                    Exclusive course content, co-created by the industrial
+                    experts and professors
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="courseHighlightFlex">
+              <div className="courseHighlightItems">
+                <div className="courseHighlightItem">
+                  <img src={Online} alt="" />
+                  <p>
+                    Live online master classes delivered by industrial faculty
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="courseHighlightFlex">
+              <div className="courseHighlightItems">
+                <div>
+                  <img src={Content2} alt="" />
+                  <p>
+                    Exclusive course content, co-created by the industrial
+                    experts and professors
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> */}
       </section>
     </>
   );
 };
 
-export default IndividualCourseDetails;
+export default IndividualCourses;

@@ -64,6 +64,7 @@ const AddFirmDetailsForm = () => {
     data.append("country", newData.country);
     data.append("firmName", newData.firmName);
     data.append("address", newData.address);
+    data.append("companyDescription", newData.companyDescription);
     data.append("userEmail", userEmail);
     try {
       const res = await axios.post(
@@ -187,6 +188,10 @@ const AddFirmDetailsForm = () => {
                   <DetailsFromDb>
                     {company.hiring_company_address}
                   </DetailsFromDb>
+                </DetailsFlex1>
+                <DetailsFlex1>
+                  <DetailsTitles>About the company : </DetailsTitles>
+                  <DetailsFromDb>{company.hiring_company_about}</DetailsFromDb>
                 </DetailsFlex1>
               </DetailsFlex>
             </div>
@@ -344,6 +349,27 @@ const AddFirmDetailsForm = () => {
               {errors.website && (
                 <ErrorMessage>{errors.website.message}</ErrorMessage>
               )}
+              <Field>
+                <FormLabel>About company:</FormLabel>
+                <TextArea
+                  {...register("companyDescription", {
+                    required: "Please write the company",
+                    minLength: {
+                      value: 200,
+                      message: "Must be 200 characters at least",
+                    },
+                    maxLength: {
+                      value: 500,
+                      message: "Must be less than 500 characters",
+                    },
+                  })}
+                ></TextArea>
+                {errors.companyDescription && (
+                  <ErrorMessage>
+                    {errors.companyDescription.message}
+                  </ErrorMessage>
+                )}
+              </Field>
               <Field>
                 <FormLabel>Firm Logo:</FormLabel>
                 <Input

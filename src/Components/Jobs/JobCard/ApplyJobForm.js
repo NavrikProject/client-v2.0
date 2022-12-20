@@ -36,7 +36,7 @@ const Backdrop = styled.div`
 `;
 const Modal = styled.div`
   position: fixed;
-  top: 150px;
+  top: 130px;
   left: 23vw;
   width: 60%;
   height: 70vh;
@@ -250,14 +250,14 @@ const ApplyJobForm = (props) => {
         {
           data: data,
           jobPostDtlsId: props.indJobDetails.job_post_dtls_id,
-          hiringCompanyDtlsId: props.indJobDetails.hiring_company_dtls_id,
+          hiringCompanyDtlsId: props.indJobDetails.hiring_company_dtls_id[0],
           userDtlsId: user?.id,
           jobSeekerEmail: user?.email,
           resumeUrl: imageFileName,
           phoneNumber: phoneNumber,
           haveExperience: haveExperience,
           selectedOption: selectedOption,
-          jobRole: props.indJobDetails.job_post_heading,
+          jobRole: props.indJobDetails.job_post_role.split("-").join(" "),
         }
       );
       if (res.data.success) {
@@ -277,7 +277,6 @@ const ApplyJobForm = (props) => {
       }
     } catch (error) {}
   };
-
   const applyJobWithExperienceHandler = async (data) => {
     if (!haveExperience) {
       return setError("Please select the one of the buttons");
@@ -288,12 +287,12 @@ const ApplyJobForm = (props) => {
         {
           data: data,
           jobPostDtlsId: props.indJobDetails.job_post_dtls_id,
-          hiringCompanyDtlsId: props.indJobDetails.hiring_company_dtls_id,
+          hiringCompanyDtlsId: props.indJobDetails.hiring_company_dtls_id[0],
           userDtlsId: user?.id,
           jobSeekerEmail: user?.email,
           haveExperience: haveExperience,
           selectedOption: selectedOption,
-          jobRole: props.indJobDetails.job_post_heading,
+          jobRole: props.indJobDetails.job_post_role.split("-").join(" "),
         }
       );
       if (res.data.success) {
@@ -323,7 +322,7 @@ const ApplyJobForm = (props) => {
         {
           data: data,
           jobPostDtlsId: props.indJobDetails.job_post_dtls_id,
-          hiringCompanyDtlsId: props.indJobDetails.hiring_company_dtls_id,
+          hiringCompanyDtlsId: props.indJobDetails.hiring_company_dtls_id[0],
           userDtlsId: user?.id,
           jobSeekerEmail: user?.email,
           resumeUrl: imageFileName,
@@ -331,7 +330,7 @@ const ApplyJobForm = (props) => {
           haveExperience: haveExperience,
           selectedOption: selectedOption,
           showUpdate: showUpdate,
-          jobRole: props.indJobDetails.job_post_heading,
+          jobRole: props.indJobDetails.job_post_role.split("-").join(" "),
         }
       );
       if (res.data.success) {
@@ -432,7 +431,11 @@ const ApplyJobForm = (props) => {
             <>
               <JobName>
                 You are applying for
-                <span>{" " + props.indJobDetails.job_post_heading + " "}</span>
+                <span>
+                  {" " +
+                    props.indJobDetails.job_post_role.split("-").join(" ") +
+                    " "}
+                </span>
                 <hr />
               </JobName>
               {/* show default form */}
@@ -540,9 +543,9 @@ const ApplyJobForm = (props) => {
                         <ErrorMessage>{errors.country.message}</ErrorMessage>
                       )}
                     </Field>
-                    <h1>
+                    <h3>
                       Educational Details <hr />
-                    </h1>
+                    </h3>
                     <Field>
                       <Input
                         {...register("collegeName", {
@@ -684,10 +687,10 @@ const ApplyJobForm = (props) => {
                     </Field>
                     {showExperienceForm && (
                       <>
-                        <h1>
+                        <h3>
                           Experience Details
                           <hr />
-                        </h1>
+                        </h3>
                         <Field>
                           <Input
                             {...register("currentCompanyName", {
@@ -868,10 +871,10 @@ const ApplyJobForm = (props) => {
                     </Field>
                     {showExperienceForm && (
                       <>
-                        <h1>
+                        <h3>
                           Experience Details
                           <hr />
-                        </h1>
+                        </h3>
                         <Field>
                           <Input
                             {...register("currentCompanyName", {
@@ -1159,9 +1162,9 @@ const ApplyJobForm = (props) => {
                             </ErrorMessage>
                           )}
                         </Field>
-                        <h1>
+                        <h3>
                           Educational Details <hr />
-                        </h1>
+                        </h3>
                         <Field>
                           <Input
                             {...register("collegeName", {
@@ -1308,10 +1311,10 @@ const ApplyJobForm = (props) => {
                         </Field>
                         {showExperienceForm && (
                           <>
-                            <h1>
+                            <h3>
                               Experience Details
                               <hr />
-                            </h1>
+                            </h3>
                             <Field>
                               <Input
                                 {...register("currentCompanyName", {
