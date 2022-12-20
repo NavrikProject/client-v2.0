@@ -99,7 +99,7 @@ const Footer = () => {
                   Enclave Africa Avenue New Delhi Pin-110029 <br />
                   <i className="fa-solid fa-phone"></i> (120) 3569310
                   <br />
-                  <i className="fa-solid fa-envelope"></i> contact@practiwiz.com
+                  <i className="fa-solid fa-envelope"></i> wecare@practiwiz.com
                 </p>
                 <p></p>
                 <ul className="card">

@@ -1,12 +1,9 @@
-import React from "react";
-import courseImg1 from "../../images/courses-img1.jpg";
-import courseImg2 from "../../images/courses-img2.jpg";
-import courseImg3 from "../../images/courses-img3.jpg";
-import courseImg4 from "../../images/courses-img4.jpg";
+import React, { useEffect, useState } from "react";
 import Carousel from "react-elastic-carousel";
 import userImg1 from "../../images/user1.jpg";
 import { Link } from "react-router-dom";
 import { courseData } from "../Data/CourseData";
+import axios from "axios";
 const CourseSection = () => {
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -16,98 +13,108 @@ const CourseSection = () => {
     { width: 1450, itemsToShow: 5 },
     { width: 1750, itemsToShow: 6 },
   ];
+  const [allCourses, setAllCourses] = useState([]);
+  useEffect(() => {
+    const getAllCourses = async () => {
+      const res = await axios.get(
+        "https://deploy-practiwiz.azurewebsites.net/api/courses/all-courses"
+      );
+      if (res.data) {
+        setAllCourses(res.data);
+      }
+    };
+    getAllCourses();
+  }, []);
   return (
     <section className="homeSec6">
       <div
         className="center addAnimate features-project-right2"
         data-aos="fade-up"
-        data-class="fadeInBottom"
+        data-className="fadeInBottom"
       >
         <h4>Courses</h4>
         <h2>Browse Our Online Courses</h2>
         <ul className="social_slide">
           <Carousel breakPoints={breakPoints}>
-            {courseData
-              .filter((courseFilter) => courseFilter.courseId <= 8)
-              .map((course) => (
-                <div key={course.courseId}>
-                  <li className="social_item">
-                    <a
-                      href={`/courses/individual-course/${course.courseName
-                        .split(" ")
-                        .join("-")
-                        .toLowerCase()}`}
-                    >
-                      <figure className="">
-                        <img src={course.courseImg} alt="" />
-                      </figure>
-                      <article>
-                        <h3>{course.courseName}</h3>
-                        <div className="like_courses">
-                          {course.courseRating === 5 && (
-                            <>
-                              <span className="fa fa-star checked"></span>
-                              <span className="fa fa-star checked"></span>
-                              <span className="fa fa-star checked"></span>
-                              <span className="fa fa-star checked"></span>
-                              <span className="fa fa-star checked"></span>
-                            </>
-                          )}
-                          {course.courseRating === 4 && (
-                            <>
-                              <span className="fa fa-star checked"></span>
-                              <span className="fa fa-star checked"></span>
-                              <span className="fa fa-star checked"></span>
-                              <span className="fa fa-star checked"></span>
-                              <span className="fa fa-star "></span>
-                            </>
-                          )}
-                          {course.courseRating === 3 && (
-                            <>
-                              <span className="fa fa-star checked"></span>
-                              <span className="fa fa-star checked"></span>
-                              <span className="fa fa-star checked"></span>
-                              <span className="fa fa-star "></span>
-                              <span className="fa fa-star "></span>
-                            </>
-                          )}
-                          {course.courseRating === 2 && (
-                            <>
-                              <span className="fa fa-star checked"></span>
-                              <span className="fa fa-star checked"></span>
-                              <span className="fa fa-star "></span>
-                              <span className="fa fa-star "></span>
-                              <span className="fa fa-star "></span>
-                            </>
-                          )}
-                          {course.courseRating === 1 && (
-                            <>
-                              <span className="fa fa-star checked"></span>
-                              <span className="fa fa-star "></span>
-                              <span className="fa fa-star "></span>
-                              <span className="fa fa-star "></span>
-                              <span className="fa fa-star "></span>
-                            </>
-                          )}
-                        </div>
-                        {/* <div className="like_courses">525 Like</div> */}
-                        <div className="name_courses">
-                          {course.courseInstructorName}
-                        </div>
-                        <br />
-                        <div className="top-line">
-                          <span>
-                            <img src={userImg1} alt="" />{" "}
-                            <b>{course.courseUsers}</b>
-                          </span>
-                          <aside>₹ {course.coursePrice}</aside>
-                        </div>
-                        <div className="clr"></div>
-                      </article>
-                    </a>
-                  </li>
-                </div>
-              ))}
+            {allCourses.splice(0, 8).map((course) => (
+              <>
+                <li className="social_item zoom" key={course.course_id}>
+                  <a
+                    href={`/course/${course.course_name
+                      .split(" ")
+                      .join("-")
+                      .toLowerCase()}`}
+                  >
+                    <figure className="">
+                      <img src={course.course_image} alt="" />
+                    </figure>
+                    <article>
+                      <h3>{course.course_name}</h3>
+                      <div className="like_courses">
+                        {course.course_rating === 5 && (
+                          <>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star checked"></span>
+                          </>
+                        )}
+                        {course.course_rating === 4 && (
+                          <>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star "></span>
+                          </>
+                        )}
+                        {course.course_rating === 3 && (
+                          <>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star "></span>
+                            <span className="fa fa-star "></span>
+                          </>
+                        )}
+                        {course.course_rating === 2 && (
+                          <>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star "></span>
+                            <span className="fa fa-star "></span>
+                            <span className="fa fa-star "></span>
+                          </>
+                        )}
+                        {course.course_rating === 1 && (
+                          <>
+                            <span className="fa fa-star checked"></span>
+                            <span className="fa fa-star "></span>
+                            <span className="fa fa-star "></span>
+                            <span className="fa fa-star "></span>
+                            <span className="fa fa-star "></span>
+                          </>
+                        )}
+                      </div>
+                      {/* <div className="like_courses">525 Like</div> */}
+                      <div className="name_courses">
+                        {course.course_trainer_name}
+                      </div>
+                      <br />
+                      <div className="top-line">
+                        <span>
+                          <img src={userImg1} alt="" />
+                          <b> {" " + course.course_participants}</b>
+                        </span>
+                        <aside>₹ {course.course_price}</aside>
+                      </div>
+                      <div className="clr"></div>
+                    </article>
+                  </a>
+                </li>
+              </>
+            ))}
           </Carousel>
         </ul>
         <div className="more">

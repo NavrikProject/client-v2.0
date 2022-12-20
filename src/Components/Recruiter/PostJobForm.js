@@ -15,9 +15,15 @@ import {
 } from "./FormElements";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-
+import Select from "react-select";
 import "react-phone-input-2/lib/style.css";
 import { useForm } from "react-hook-form";
+import {
+  experienceInYears,
+  jobRoles,
+  salaryRanges,
+  skillOptions,
+} from "../Data/JobApplicationData";
 const PostJobForm = () => {
   const {
     register,
@@ -25,21 +31,30 @@ const PostJobForm = () => {
     formState: { errors },
     reset,
   } = useForm();
-
+  const [selectedOption, setSelectedOption] = useState(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const user = useSelector((state) => state.user.currentUser);
+  const [jobDescription, setJobDescription] = useState([]);
   const userEmail = user?.email;
   const JobPostHandler = async (newData) => {
+    setError(" ");
+    if (selectedOption === null || !selectedOption) {
+      return (
+        setError("select the skills"),
+        toast.error("Choose the skills", { position: "top-center" })
+      );
+    }
     try {
       const res = await axios.post(
         `https://deploy-practiwiz.azurewebsites.net/api/recruiter/create-job-post/${userEmail}`,
-        newData
+        { newData, selectedOption, jobDescription }
       );
       if (res.data.success) {
         setSuccess(res.data.success);
         toast.success(res.data.success, { position: "top-center" });
         reset();
+        selectedOption(" ");
       }
       if (res.data.error) {
         setError(res.data.error);
@@ -48,6 +63,25 @@ const PostJobForm = () => {
     } catch (error) {
       return;
     }
+  };
+  const bullet = "\u2022";
+  const bulletWithSpace = `${bullet} `;
+  const handleInput = (event) => {
+    const { keyCode, target } = event;
+    const { selectionStart, value } = target;
+
+    if (keyCode === 13) {
+      target.value = [...value]
+        .map((c, i) => (i === selectionStart - 1 ? `\n${bulletWithSpace}` : c))
+        .join("");
+
+      target.selectionStart = selectionStart + bulletWithSpace.length;
+      target.selectionEnd = selectionStart + bulletWithSpace.length;
+    }
+    if (value[0] !== bullet) {
+      target.value = `${bulletWithSpace}${value}`;
+    }
+    setJobDescription(value);
   };
   return (
     <FormDiv>
@@ -109,16 +143,23 @@ const PostJobForm = () => {
               })}
             >
               <FormOption value="">Choose job role</FormOption>
-              <FormOption value="CLOUD ARCHITECT">CLOUD ARCHITECT</FormOption>
-              <FormOption value=" Cloud automation engineer">
-                Cloud automation engineer
-              </FormOption>
-              <FormOption value="RPA Developer">RPA Developer</FormOption>
-              <FormOption value="Full stack developer">
-                Full stack developer
-              </FormOption>
+              {jobRoles?.map((role) => (
+                <FormOption value={role.value}>{role.label}</FormOption>
+              ))}
             </FormSelect>
             {errors.role && <ErrorMessage>{errors.role.message}</ErrorMessage>}
+          </Field>
+        </FieldFlexDiv>
+        <FieldFlexDiv>
+          <Field>
+            <FormLabel>Required skills :</FormLabel>
+            <Select
+              required
+              isMulti={true}
+              defaultValue={selectedOption}
+              onChange={setSelectedOption}
+              options={skillOptions}
+            />
           </Field>
           <Field>
             <FormLabel>Number of positions:</FormLabel>
@@ -135,18 +176,6 @@ const PostJobForm = () => {
             )}
           </Field>
         </FieldFlexDiv>
-        <Field>
-          <FormLabel>Skills:</FormLabel>
-          <TextArea
-            placeholder="Enter your skills separated by comma"
-            {...register("skills", {
-              required: "Enter the required skills for job separated by comma",
-            })}
-          ></TextArea>
-          {errors.skills && (
-            <ErrorMessage>{errors.skills.message}</ErrorMessage>
-          )}
-        </Field>
         <FieldFlexDiv>
           <Field>
             <FormLabel>Qualification:</FormLabel>
@@ -173,12 +202,10 @@ const PostJobForm = () => {
                 required: "select the min exper",
               })}
             >
-              <FormOption value="">Choose the age</FormOption>
-              <FormOption value="0-3">0-3 Years</FormOption>
-              <FormOption value="0-5">0-5</FormOption>
-              <FormOption value="3-5">3-5</FormOption>
-              <FormOption value="5-8">5-8</FormOption>
-              <FormOption value="8-10">8-10</FormOption>
+              <FormOption value="">Choose the experience</FormOption>
+              {experienceInYears?.map((year) => (
+                <FormOption value={year.value}>{year.label} Years</FormOption>
+              ))}
             </FormSelect>
             {errors.experience && (
               <ErrorMessage>{errors.experience.message}</ErrorMessage>
@@ -195,9 +222,9 @@ const PostJobForm = () => {
               })}
             >
               <FormOption value="">Choose salary starts range</FormOption>
-              <FormOption value="2,00,000">2,00,000</FormOption>
-              <FormOption value="3,00,000">3,00,000</FormOption>
-              <FormOption value="4,00,000">4,00,000</FormOption>
+              {salaryRanges?.map((salary) => (
+                <FormOption value={salary.value}>{salary.label}</FormOption>
+              ))}
             </FormSelect>
             {errors.salaryStarts && (
               <ErrorMessage>{errors.salaryStarts.message}</ErrorMessage>
@@ -212,9 +239,9 @@ const PostJobForm = () => {
               })}
             >
               <FormOption value="">Choose salary to range</FormOption>
-              <FormOption value="7,00,000">7,00,000</FormOption>
-              <FormOption value="8,00,000">8,00,000</FormOption>
-              <FormOption value="9,00,000">9,00,000</FormOption>
+              {salaryRanges?.map((salary) => (
+                <FormOption value={salary.value}>{salary.label}</FormOption>
+              ))}
             </FormSelect>
             {errors.salaryTo && (
               <ErrorMessage>{errors.salaryTo.message}</ErrorMessage>
@@ -266,85 +293,12 @@ const PostJobForm = () => {
         <Field>
           <FormLabel>Job Description</FormLabel>
           <TextArea
-            placeholder="Job description"
-            {...register("description", {
-              required: "Enter the job description",
-            })}
+            required
+            onKeyUp={(event) => handleInput(event)}
+            placeholder="Write in bullet points, When you press enter it will line starts with the bullet point"
+            rows="10"
           ></TextArea>
-          {errors.description && (
-            <ErrorMessage>{errors.description.message}</ErrorMessage>
-          )}
         </Field>
-        <Field>
-          <FormLabel>Job location Complete address:</FormLabel>
-          <TextArea
-            {...register("address", {
-              required: "Please fill the complete address",
-            })}
-          ></TextArea>
-          {errors.address && (
-            <ErrorMessage>{errors.address.message}</ErrorMessage>
-          )}
-        </Field>
-        <FieldFlexDiv>
-          <Field>
-            <FormLabel>City Name:</FormLabel>
-            <Input
-              placeholder="Enter the city name"
-              type="text"
-              name="city"
-              {...register("city", {
-                required: "enter the city name",
-              })}
-            />
-            {errors.city && <ErrorMessage>{errors.city.message}</ErrorMessage>}
-          </Field>
-          <Field>
-            <FormLabel>State Name:</FormLabel>
-            <Input
-              placeholder="Enter the state name"
-              type="text"
-              name="state"
-              {...register("state", {
-                required: "enter the state name",
-              })}
-            />
-            {errors.state && (
-              <ErrorMessage>{errors.state.message}</ErrorMessage>
-            )}
-          </Field>
-        </FieldFlexDiv>
-        <FieldFlexDiv>
-          <Field>
-            <FormLabel>Country Name:</FormLabel>
-            <Input
-              placeholder="Enter the country name"
-              type="text"
-              name="country"
-              {...register("country", {
-                required: "enter the country name",
-              })}
-            />
-            {errors.country && (
-              <ErrorMessage>{errors.country.message}</ErrorMessage>
-            )}
-          </Field>
-
-          <Field>
-            <FormLabel>Pincode:</FormLabel>
-            <Input
-              placeholder="Enter the pin code"
-              type="number"
-              name="pincode"
-              {...register("pincode", {
-                required: "enter the pincode ",
-              })}
-            />
-            {errors.pincode && (
-              <ErrorMessage>{errors.pincode.message}</ErrorMessage>
-            )}
-          </Field>
-        </FieldFlexDiv>
         <Field>
           <FormLabel>Tags:</FormLabel>
           <TextArea

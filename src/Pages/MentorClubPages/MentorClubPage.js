@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { Suspense } from "react";
 import GoToTop from "../../Components/GoToTop";
 import LoadingSpinner from "../../Components/utils/LoadingSpinner";
@@ -8,6 +9,9 @@ const MentorClub = React.lazy(() =>
   import("../../Components/MentorClub/MentorClub.js")
 );
 const MentorClubPage = () => {
+  useEffect(() => {
+    document.title = "Practiwiz | Mentor Club";
+  }, []);
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Navbar />

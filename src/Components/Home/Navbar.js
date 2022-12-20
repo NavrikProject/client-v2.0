@@ -4,7 +4,7 @@ import userIcon from "../../images/user-icon.png";
 import logo from "../../images/practiwiz-logo.png";
 import hoverImage from "../../images/mamu-img1.jpg";
 import hoverImage1 from "../../images/business analyst.jpg";
-import aboutMenuImg from "../../images/about-menu.jpg";
+import aboutMenuImg from "../../images/6671.jpg";
 import contactMenuImg from "../../images/contact-menu.jpg";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -34,10 +34,17 @@ const Navbar = () => {
             <div className="top-left">
               <a href="link">+91 9830259960</a>
               <a>|</a>
-              <a href="link">info@practiwiz.com</a>
+              <a href="mailto:wecare@practiwiz.com">wecare@practiwiz.com</a>
             </div>
-
             <div className="top-right">
+              {/* <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://www.navriksoftware.com/"
+              >
+                Navrik software solutions
+              </a>
+              <a>|</a> */}
               {/* <a href="link">Store</a>
               <a>|</a>
               <a href="link">Chill Zone</a>
@@ -271,7 +278,7 @@ const Navbar = () => {
                       )}
                     </div>
                   </li>
-                  {/* <li
+                  <li
                     onMouseEnter={() => {
                       return (
                         setShowItTrainingMenu(false),
@@ -285,7 +292,7 @@ const Navbar = () => {
                     className="hasMegamenu"
                   >
                     <a href="/methodology">Methodology</a>
-                  </li> */}
+                  </li>
                   <li
                     onMouseEnter={() => {
                       return (
@@ -442,7 +449,9 @@ const Navbar = () => {
                           <aside>
                             <ul>
                               <li>
-                                <a href="/query">Address/ Location</a>
+                                <a href="/address-location">
+                                  Address/ Location
+                                </a>
                               </li>
                             </ul>
                           </aside>

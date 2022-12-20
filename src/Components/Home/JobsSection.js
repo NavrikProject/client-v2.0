@@ -48,22 +48,22 @@ const JobsSection = () => {
                 <li className="ps_item auto">
                   <div>
                     <aside>
-                      <img src={jobImg1} alt="" />
+                      <img src={job.hiring_company_image} alt="" />
                     </aside>
                     <h3>
-                      {job.job_post_company_name}
+                      {job.hiring_company_name}
                       <br />
                       <div className="star">
                         <span className="fa fa-star checked"></span>
                         <span className="fa fa-star checked"></span>
                         <span className="fa fa-star checked"></span>
-                        <span className="fa fa-star"></span>
-                        <span className="fa fa-star"></span>
+                        <span className="fa fa-star checked"></span>
+                        <span className="fa fa-star checked"></span>
                       </div>
                     </h3>
                   </div>
                   <h3>{" " + job.job_post_role.split("-").join(" ")}</h3>
-                  <h5>{job.job_post_street_address}</h5>
+                  <h5>{job.hiring_company_address}</h5>
                   <ul className="job5">
                     <li>
                       <a>{job.job_post_no_of_positions} Opening</a>

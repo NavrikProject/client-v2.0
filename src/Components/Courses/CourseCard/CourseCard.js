@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import userImg1 from "../../../images/user1.jpg";
-import { courseData } from "../../Data/CourseData";
 
 const CourseCard = ({ loadMoreCourses, courseSearchItem }) => {
   const [allCourses, setAllCourses] = useState([]);
@@ -11,49 +10,41 @@ const CourseCard = ({ loadMoreCourses, courseSearchItem }) => {
       const res = await axios.get(
         "https://deploy-practiwiz.azurewebsites.net/api/courses/all-courses"
       );
-      if (res.data.success) {
-        setAllCourses(res.data.success);
-      }
-      if (res.data.error) {
-        setAllCourses([]);
+      if (res.data) {
+        setAllCourses(res.data);
       }
     };
     getAllJobPosts();
   }, []);
   return (
     <>
-      {courseData
-        .filter((courseFilter) =>
-          loadMoreCourses === true
-            ? courseData.length <= 20
-            : courseFilter.courseId <= 8
-        )
+      {allCourses
         .filter((courseFilter) =>
           courseSearchItem === " "
             ? courseFilter
-            : courseFilter.courseName
+            : courseFilter.course_name
                 .toLowerCase()
                 .includes(courseSearchItem.toLowerCase()) ||
-              courseFilter.courseInstructorName
+              courseFilter.course_trainer_name
                 .toLowerCase()
                 .includes(courseSearchItem.toLowerCase())
         )
         .map((course) => (
           <>
-            <li class="social_item zoom" key={course.courseId}>
+            <li className="social_item zoom" key={course.course_id}>
               <a
-                href={`/courses/individual-course/${course.courseName
+                href={`/course/${course.course_name
                   .split(" ")
                   .join("-")
                   .toLowerCase()}`}
               >
-                <figure class="">
-                  <img src={course.courseImg} alt="" />
+                <figure className="">
+                  <img src={course.course_image} alt="" />
                 </figure>
                 <article>
-                  <h3>{course.courseName}</h3>
+                  <h3>{course.course_name}</h3>
                   <div className="like_courses">
-                    {course.courseRating === 5 && (
+                    {course.course_rating === 5 && (
                       <>
                         <span className="fa fa-star checked"></span>
                         <span className="fa fa-star checked"></span>
@@ -62,7 +53,7 @@ const CourseCard = ({ loadMoreCourses, courseSearchItem }) => {
                         <span className="fa fa-star checked"></span>
                       </>
                     )}
-                    {course.courseRating === 4 && (
+                    {course.course_rating === 4 && (
                       <>
                         <span className="fa fa-star checked"></span>
                         <span className="fa fa-star checked"></span>
@@ -71,7 +62,7 @@ const CourseCard = ({ loadMoreCourses, courseSearchItem }) => {
                         <span className="fa fa-star "></span>
                       </>
                     )}
-                    {course.courseRating === 3 && (
+                    {course.course_rating === 3 && (
                       <>
                         <span className="fa fa-star checked"></span>
                         <span className="fa fa-star checked"></span>
@@ -80,7 +71,7 @@ const CourseCard = ({ loadMoreCourses, courseSearchItem }) => {
                         <span className="fa fa-star "></span>
                       </>
                     )}
-                    {course.courseRating === 2 && (
+                    {course.course_rating === 2 && (
                       <>
                         <span className="fa fa-star checked"></span>
                         <span className="fa fa-star checked"></span>
@@ -89,7 +80,7 @@ const CourseCard = ({ loadMoreCourses, courseSearchItem }) => {
                         <span className="fa fa-star "></span>
                       </>
                     )}
-                    {course.courseRating === 1 && (
+                    {course.course_rating === 1 && (
                       <>
                         <span className="fa fa-star checked"></span>
                         <span className="fa fa-star "></span>
@@ -99,16 +90,19 @@ const CourseCard = ({ loadMoreCourses, courseSearchItem }) => {
                       </>
                     )}
                   </div>
-                  {/* <div class="like_courses">525 Like</div> */}
-                  <div class="name_courses">{course.courseInstructorName}</div>
+                  {/* <div className="like_courses">525 Like</div> */}
+                  <div className="name_courses">
+                    {course.course_trainer_name}
+                  </div>
                   <br />
-                  <div class="top-line">
+                  <div className="top-line">
                     <span>
-                      <img src={userImg1} alt="" /> <b>{course.courseUsers}</b>
+                      <img src={userImg1} alt="" />
+                      <b>{" " + course.course_participants}</b>
                     </span>
-                    <aside>₹ {course.coursePrice}</aside>
+                    <aside>₹ {course.course_price}</aside>
                   </div>
-                  <div class="clr"></div>
+                  <div className="clr"></div>
                 </article>
               </a>
             </li>

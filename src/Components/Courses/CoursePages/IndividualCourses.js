@@ -22,6 +22,11 @@ const IndividualCourses = () => {
   const user = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
+    document.title = `Practiwiz | ${path
+      .toLowerCase()
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ")}`;
     try {
       const getIndMentorDetails = async () => {
         const res = await axios.get(

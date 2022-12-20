@@ -1,27 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import "../../course.css";
+import "../course.css";
 import Carousel from "react-elastic-carousel";
-import mentor1 from "../../../../images/courseImages/mentors1.jpg";
-import mentor2 from "../../../../images/courseImages/mentors2.jpg";
-import mentor3 from "../../../../images/courseImages/mentors3.jpg";
-import mentor4 from "../../../../images/courseImages/mentors4.jpg";
-import innerBannerBig from "../../../../images/courseImages/inner-banner-big.jpg";
-import innerBanner from "../../../../images/courseImages/inner-banner.jpg";
-import innerBannerMobile from "../../../../images/courseImages/inner-banner-mobile.jpg";
-import courseVideo1 from "../../../../images/courseImages/course-video1.jpg";
-import courseVideo2 from "../../../../images/courseImages/course-video2.jpg";
-import courseVideo3 from "../../../../images/courseImages/course-video3.jpg";
-import courseImage from "../../../../images/courseImages/course-img1.jpg";
-import { courseFaqData } from "../../../Data/CourseData";
-import { useEffect } from "react";
+import mentor1 from "../../../images/courseImages/mentors1.jpg";
+import mentor2 from "../../../images/courseImages/mentors2.jpg";
+import mentor3 from "../../../images/courseImages/mentors3.jpg";
+import mentor4 from "../../../images/courseImages/mentors4.jpg";
+import innerBannerBig from "../../../images/courseImages/inner-banner-big.jpg";
+import innerBanner from "../../../images/courseImages/inner-banner.jpg";
+import innerBannerMobile from "../../../images/courseImages/inner-banner-mobile.jpg";
+import courseVideo1 from "../../../images/courseImages/course-video1.jpg";
+import courseVideo2 from "../../../images/courseImages/course-video2.jpg";
+import courseVideo3 from "../../../images/courseImages/course-video3.jpg";
+import { courseFaqData } from "../../Data/CourseData";
 import axios from "axios";
 import { useSelector } from "react-redux";
-const IndividualCourseDetails = () => {
-  const [courseDetails, setCourseDetails] = useState([]);
+import GoToTop from "../../GoToTop";
+const IndividualCourses = () => {
   const location = useLocation();
-  const path = location.pathname.split("/")[3];
+  let path = location.pathname.split("/")[2];
+  const [courseDetails, setCourseDetails] = useState([]);
   const user = useSelector((state) => state.user.currentUser);
+
   useEffect(() => {
     document.title = `Practiwiz | ${path
       .toLowerCase()
@@ -60,9 +60,10 @@ const IndividualCourseDetails = () => {
     }
     setSelected(index);
   };
+
   return (
     <>
-      {courseDetails.map((course) => (
+      {courseDetails?.map((course) => (
         <>
           <section className="inner-banner">
             <ul className="inner">
@@ -78,7 +79,7 @@ const IndividualCourseDetails = () => {
                 </figure>
                 <div className="bannerInfo">
                   <span>
-                    <h1>{course.course_name}</h1>
+                    <h1>{course.course_title.split("-").join(" ")}</h1>
                   </span>
                   <span>
                     <h3>{course.course_desc}</h3>
@@ -135,15 +136,16 @@ const IndividualCourseDetails = () => {
                       </div>
                     </li>
                     <li>
-                      <span>No of People Registered :</span>{" "}
-                      {course.course_participants}
+                      <span>No of People Registered : </span>
+                      {" " + course.course_participants}
                     </li>
                     <li>
-                      <span>Last update on :</span> {new Date().toDateString()}
+                      <span>Last update on :</span>
+                      {" " + new Date().toDateString()}
                     </li>
                     <li>
                       <span>Course Created By :</span>
-                      {course.course_trainer_name}
+                      {" " + course.course_trainer_name}
                     </li>
                     <li>
                       <span>Languages :</span> English
@@ -161,49 +163,44 @@ const IndividualCourseDetails = () => {
               <div className="left-box85">
                 <h2>Description</h2>
                 <p>
-                  <strong>
-                    Do you want to become a programmer? Do you want to learn how
-                    to create games, automate your browser, visualize data, and
-                    much more?
-                  </strong>
+                  <strong>Do you want to become a Business Analyst?</strong>
                 </p>
                 <p>
-                  If you’re looking to learn Python for the very first time or
-                  need a quick brush-up, this is the course for you!
+                  If you want to become Business Analyst or need a quick
+                  brush-up, this is the course for you!
                 </p>
                 <p>
-                  Python has rapidly become one of the most popular programming
-                  languages around the world. Compared to other languages such
-                  as Java or C++, Python consistently outranks and outperforms
-                  these languages in demand from businesses and job
-                  availability. The average Python developer makes over $100,000
-                  - this number is only going to grow in the coming years.
+                  A business analyst is a professional who is responsible for
+                  identifying and analyzing the needs of an organization and
+                  developing solutions to business problems. These solutions may
+                  include process improvements, technology implementations, or
+                  strategic changes to the way the organization operates.
+                  Business analysts typically work closely with stakeholders in
+                  the organization to understand their needs and help define
+                  requirements for the solution. They may also be responsible
+                  for helping to implement the solution and measure its
+                  effectiveness.
                 </p>
+
                 <p>
-                  The best part? Python is one of the easiest coding languages
-                  to learn right now. It doesn’t matter if you have no
-                  programming experience or are unfamiliar with the syntax of
-                  Python. By the time you finish this course, you'll be an
-                  absolute pro at programming!
-                </p>
-                <p>
-                  This course will cover all the basics and several advanced
-                  concepts of Python. We’ll go over:
+                  This course will cover all the basics and several concepts of
+                  Business Analyst. We’ll go over:
                 </p>
                 <ul>
-                  <li>The fundamentals of Python programming</li>
-                  <li>Writing and Reading to Files</li>
-                  <li>Automation of Word and Excel Files</li>
-                  <li>Web scraping with BeautifulSoup4</li>
-                  <li>Browser automation with Selenium</li>
-                  <li>Data Analysis and Visualization with MatPlotLib</li>
-                  <li>Regex parsing and Task Management</li>
-                  <li>GUI and Gaming with Tkinter</li>
+                  <li>Requirements gathering and analysis</li>
+                  <li>Process modeling and improvement</li>
+                  <li>Project management</li>
+                  <li>Data analysis and visualization</li>
+                  <li>Business case development</li>
+                  <li>Communication and collaboration</li>
+                  <li>Agile and Waterfall methodologies</li>
+                  <li>Stakeholder management</li>
+                  <li>Solution evaluation and implementation.</li>
                   <li>And much more!</li>
                 </ul>
 
-                <article className="pages-tital">
-                  {/* <h2>Course Content</h2>
+                {/* <article className="pages-tital">
+                  <h2>Course Content</h2>
                   <ul>
                     <li>
                       <img src={courseVideo1} alt="" />
@@ -214,8 +211,8 @@ const IndividualCourseDetails = () => {
                     <li>
                       <img src={courseVideo3} alt="" />
                     </li>
-                  </ul> */}
-                </article>
+                  </ul>
+                </article> */}
                 <div className="clear"></div>
               </div>
 
@@ -242,7 +239,6 @@ const IndividualCourseDetails = () => {
                       <small> excluding GST</small>
                     </h1>
                   )}
-
                   {user ? (
                     <a
                       target="_blank"
@@ -269,6 +265,7 @@ const IndividualCourseDetails = () => {
                   </ul>
                 </article>
               </div>
+
               <div className="clear"></div>
             </div>
           </section>
@@ -284,7 +281,7 @@ const IndividualCourseDetails = () => {
               <br />
               in the form of videos, cases and projects.
             </h2>
-            <a href="/">Download Syllabus</a>
+            <a>Download Syllabus</a>
           </div>
         </figure>
       </section>
@@ -375,17 +372,17 @@ const IndividualCourseDetails = () => {
           </ul> */}
 
           <div className="jumpstart">
-            <h2>Jumpstart to rpa live bot development</h2>
+            <h2>{path.split("-").join(" ").toUpperCase()}</h2>
             <article>
               <p>
                 <strong>Who is this course for?</strong>
               </p>
               <ul>
+                <li>Professional & MBA Students</li>
+                <li>Interested in pursuing a career in IT Business Analysis</li>
                 <li>
-                  Graduates and Post-Graduates interested in learning skills
-                </li>
-                <li>
-                  Working Software Professionals interested in adding new skills
+                  IT Developers with 3 to 5 years of experience interested in
+                  transitioning to a BA role
                 </li>
               </ul>
 
@@ -399,14 +396,22 @@ const IndividualCourseDetails = () => {
                 </li>
                 <li>
                   Regular Instructor Sessions - At regular milestones on-line
-                  sessions with Instructors for doubt-clearing and coding help
+                  sessions with Instructors for doubt-clearing.
                 </li>
                 <li>
                   Mentor Session – With Industry experts on career guidance,
                   experiences etc.
                 </li>
               </ul>
-
+              <p>
+                <strong>Course content Highlights</strong>
+              </p>
+              <p>Easy to digest content on</p>
+              <ul>
+                <li>BA Skill set</li>
+                <li>BA Case studies</li>
+                <li>Assignments</li>
+              </ul>
               <p>
                 <strong>How is this training different from others ?</strong>
               </p>
@@ -425,7 +430,7 @@ const IndividualCourseDetails = () => {
               </p>
               <p>
                 On successful completion of the course a certificate will be
-                issued
+                issued and Course completion prize
               </p>
 
               <p>
@@ -478,9 +483,57 @@ const IndividualCourseDetails = () => {
             </div>
           ))}
         </div>
+        {/* <div className="center">
+          <div className="courseHighlightFlex">
+            <div className="courseHighlightItems">
+              <div className="courseHighlightItem">
+                <div>
+                  <img src={CallCenter} alt="call center" />
+                  <p>
+                    24/7 Customer support, Available for all the time with great
+                    support
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="courseHighlightFlex">
+              <div className="courseHighlightItems">
+                <div className="courseHighlightItem">
+                  <img src={Content} alt=" " />
+                  <p>
+                    Exclusive course content, co-created by the industrial
+                    experts and professors
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="courseHighlightFlex">
+              <div className="courseHighlightItems">
+                <div className="courseHighlightItem">
+                  <img src={Online} alt="" />
+                  <p>
+                    Live online master classes delivered by industrial faculty
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="courseHighlightFlex">
+              <div className="courseHighlightItems">
+                <div>
+                  <img src={Content2} alt="" />
+                  <p>
+                    Exclusive course content, co-created by the industrial
+                    experts and professors
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> */}
       </section>
+      <GoToTop />
     </>
   );
 };
 
-export default IndividualCourseDetails;
+export default IndividualCourses;

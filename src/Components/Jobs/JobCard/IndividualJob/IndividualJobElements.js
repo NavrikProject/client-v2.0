@@ -80,13 +80,15 @@ export const JobCardDescription = styled.p`
 export const JobCardSection = styled.div`
   margin: 20px 0px;
 `;
-export const AppliedText = styled.p`
+export const AppliedText = styled.a`
   color: #fff;
   padding: 7px 10px;
   background-color: #82cd47;
   text-align: center;
   border-radius: 5px;
   font-weight: normal;
+  font-size: 14px !important;
+  margin-right: 20px;
   i {
     margin-right: 5px;
   }

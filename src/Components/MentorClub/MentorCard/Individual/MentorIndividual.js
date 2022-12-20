@@ -71,6 +71,11 @@ const MentorIndividual = () => {
     { width: 1750, itemsToShow: 6 },
   ];
   useEffect(() => {
+    document.title = `Practiwiz | ${path
+      .toLowerCase()
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ")}`;
     try {
       const getIndMentorDetails = async () => {
         const res = await axios.get(
@@ -194,10 +199,10 @@ const MentorIndividual = () => {
                 <MentorDesignation>
                   {" " + mentor.mentor_current_role + " "}
                 </MentorDesignation>{" "}
-                at{" "}
+                {/* at{" "}
                 <MentorDesignation>
                   {" " + mentor.mentor_firm}
-                </MentorDesignation>
+                </MentorDesignation> */}
                 <br />
                 <MentorMsgButton>
                   Message <i className="fa-solid fa-message"></i>

@@ -208,7 +208,7 @@ const MentorCourseCard = ({
                       </MentorName>
                       <MentorDescP>
                         <span>{mentor.mentor_current_role} </span>
-                        at <span> {mentor.mentor_firm}</span>
+                        {/* at <span> {mentor.mentor_firm}</span> */}
                       </MentorDescP>
                     </MentorDetailsDiv>
                   </MentorBoxDiv>

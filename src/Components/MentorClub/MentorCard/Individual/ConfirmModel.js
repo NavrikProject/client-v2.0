@@ -24,7 +24,7 @@ const Backdrop = styled.div`
 `;
 const Modal = styled.div`
   position: fixed;
-  top: 15vh;
+  top: 150px;
   left: 5%;
   width: 90%;
   height: auto;
@@ -129,6 +129,7 @@ const LabelTitle = styled.p`
 const TextArea = styled.textarea`
   width: 100%;
   padding-bottom: 10px;
+  border: 1px solid #111;
   ::placeholder {
     font-size: 16px;
   }

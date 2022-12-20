@@ -1,0 +1,36 @@
+.skeleton {
+  opacity: 0.7;
+  animation: skelton-loading 1s linear infinite alternate;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  margin: 5px !important;
+}
+.skeleton.width {
+  width: 80% !important;
+}
+.skelton-image {
+  width: 90% !important;
+  height: 100px !important;
+  border-radius: 3px;
+  margin-right: 10px !important;
+}
+.skelton-text {
+  height: 18px;
+  width: 100%;
+  border-radius: 3px;
+}
+.skelton-text.width {
+  width: 80% !important;
+}
+.skeleton-flex {
+  display: flex;
+  align-items: center;
+}
+@keyframes skelton-loading {
+  0% {
+    background-color: hsl(200, 20%, 80%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}

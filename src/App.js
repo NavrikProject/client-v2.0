@@ -54,6 +54,8 @@ import RefundPoliciesPage from "./Pages/RefundPoliciesPage";
 import IndCoursePage from "./Pages/CoursePages/IndCoursePage";
 import JobHomePage from "./Pages/JobPages/JobHomePage";
 import QueryPage from "./Pages/QueryPage";
+import RpaIndCoursePage from "./Pages/CoursePages/RpaIndCoursePage";
+import BAIndCoursePage from "./Pages/CoursePages/BAIndCoursePage";
 // ..
 AOS.init();
 const App = () => {
@@ -81,6 +83,14 @@ const App = () => {
             <Route path="/methodology" element={<MethodologyPage />} />
             <Route path="/refund-policies" element={<RefundPoliciesPage />} />
             <Route path="/course/:id" element={<IndCoursePage />} />
+            <Route
+              path="/course/jumpstart-to-rpa-live-bot-development"
+              element={<RpaIndCoursePage />}
+            />
+            <Route
+              path="/course/jumpstart-to-it-business-analyst"
+              element={<BAIndCoursePage />}
+            />
             <Route
               path="/login"
               element={

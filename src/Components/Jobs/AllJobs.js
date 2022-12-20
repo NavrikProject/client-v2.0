@@ -131,24 +131,9 @@ const AllJobs = () => {
                     <h2>
                       Showing results for <strong>all jobs</strong>
                     </h2>
-                    {/* <div className="right-view">
-                      <span>
-                        <strong>Sort By</strong>
-                      </span>
-                      <select
-                        className="mdb-select md-outline md-form"
-                        searchable="Search here.."
-                      >
-                        <option value="" disabled>
-                          Choose your country
-                        </option>
-                        <option value="1">USA</option>
-                        <option value="2">Germany</option>
-                        <option value="3">France</option>
-                        <option value="4">Poland</option>
-                        <option value="5">Japan</option>
-                      </select>
-                    </div> */}
+                    <div className="right-view">
+                      <input type="text" />
+                    </div>
                   </div>
                   <div className="clr"></div>
                   <div className="col-sm-12">
