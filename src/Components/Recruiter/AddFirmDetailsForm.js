@@ -26,13 +26,7 @@ import { toast } from "react-toastify";
 import PhoneInput2 from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useForm } from "react-hook-form";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
-import app from "../FirebaseConfig";
+
 const AddFirmDetailsForm = () => {
   const {
     register,
@@ -45,15 +39,11 @@ const AddFirmDetailsForm = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [hiringCompanyDetails, setHiringCompanyDetails] = useState([]);
-  const [fileUploading, setFileUploading] = useState("");
-  const [imageUploaded, setImageUploaded] = useState(false);
-  const [imageFileName, setImageFileName] = useState("");
-
   const user = useSelector((state) => state.user.currentUser);
   const userEmail = user?.email;
   const addFirmDetailsSubmitHandler = async (newData) => {
     let data = new FormData();
-    data.append("imageFileName", imageFileName);
+    data.append("image", image);
     data.append("mobile", phoneNumber);
     data.append("email", newData.email);
     data.append("city", newData.city);
@@ -100,48 +90,6 @@ const AddFirmDetailsForm = () => {
     getAllFirmDetails();
   }, [userEmail]);
 
-  useEffect(() => {
-    const uploadImageTOFirebase = () => {
-      if (!image) {
-        return;
-      }
-      const fileName = new Date().getTime() + "-" + image.name;
-      const storage = getStorage(app);
-      const storageRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, image);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setFileUploading("Upload is " + progress + "% done");
-          switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused");
-              break;
-            case "running":
-              console.log("Upload is running");
-              break;
-            default:
-          }
-        },
-        (error) => {
-          console.log(error);
-          toast.error("There was an error while uploading the image", {
-            position: "top-center",
-          });
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setImageFileName(downloadURL);
-            setImageUploaded(true);
-            setFileUploading("File uploaded");
-          });
-        }
-      );
-    };
-    uploadImageTOFirebase();
-  }, [image]);
   return (
     <SingleProfileSection>
       <SingleProfileWrapper>
@@ -189,7 +137,7 @@ const AddFirmDetailsForm = () => {
                     {company.hiring_company_address}
                   </DetailsFromDb>
                 </DetailsFlex1>
-                <DetailsFlex1>
+                <DetailsFlex1 className="mediaMobile">
                   <DetailsTitles>About the company : </DetailsTitles>
                   <DetailsFromDb>{company.hiring_company_about}</DetailsFromDb>
                 </DetailsFlex1>
@@ -380,11 +328,8 @@ const AddFirmDetailsForm = () => {
                   placeholder="Choose the profile picture"
                   onChange={(event) => setImage(event.target.files[0])}
                 />
-                {fileUploading && (
-                  <p style={{ color: "green" }}>{fileUploading}</p>
-                )}
               </Field>
-              <FormBtn disabled={!imageUploaded && !image}>Add Details</FormBtn>
+              <FormBtn>Add Details</FormBtn>
             </Form>
           </FormDiv>
         )}

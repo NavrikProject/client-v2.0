@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import {
-  CloseButton,
   Form,
   FormBtn,
   FormDiv,
   ImageTitleChoose,
   ImgInput,
+  PwdField,
 } from "./FormProfileElements";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -19,10 +19,21 @@ const ImageForm = (props) => {
   const token = user?.accessToken;
   const onImageUploadHandler = async (event) => {
     event.preventDefault();
+    if (image.size > 2097152) {
+      console.log(image.size);
+      return (
+        setError("Size must be less than 2mb"),
+        toast.error("Size must be less than 2mb", {
+          position: "top-center",
+        })
+      );
+    }
     let data = new FormData();
     data.append("image", image);
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/image/upload/${user?.id}`,
+      user?.type === "member"
+        ? `https://deploy-practiwiz.azurewebsites.net/api/member/profile/image/upload/${user?.id}`
+        : `https://deploy-practiwiz.azurewebsites.net/api/${user?.type}/profile/image/up/${user?.id}`,
       data,
       {
         headers: { authorization: "Bearer " + token },
@@ -44,7 +55,6 @@ const ImageForm = (props) => {
   };
   return (
     <>
-      <CloseButton onClick={props.personal} />
       <FormDiv>
         {error && <p style={{ color: "red" }}>{error}</p>}
         {success && <p style={{ color: "green" }}>{success}</p>}
@@ -52,13 +62,17 @@ const ImageForm = (props) => {
           <ImageTitleChoose>
             Choose Picture from your local storage
           </ImageTitleChoose>
+          <PwdField>
+            <ImgInput
+              data-max-size="2048"
+              accept="image/png, image/gif, image/jpeg"
+              required
+              type="file"
+              name="image"
+              onChange={(e) => setImage(e.target.files[0])}
+            />
+          </PwdField>
 
-          <ImgInput
-            required
-            type="file"
-            name="image"
-            onChange={(e) => setImage(e.target.files[0])}
-          />
           <FormBtn>Update</FormBtn>
         </Form>
       </FormDiv>

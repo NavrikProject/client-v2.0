@@ -33,6 +33,9 @@ const Input = styled.input`
   &:focus {
     border-color: #fc83bb;
   }
+  @media screen and (max-width: 780px) {
+    width: 100%;
+  }
 `;
 const JobsTitle = styled.h1`
   color: #111;
@@ -47,6 +50,14 @@ const NotFoundDiv = styled.div`
   h1 {
     font-weight: normal;
     padding: 20px;
+  }
+`;
+const ViewText = styled.p`
+  display: none;
+  color: red;
+  margin-bottom: 10px;
+  @media screen and (max-width: 780px) {
+    display: block;
   }
 `;
 const ActiveJobs = () => {
@@ -86,6 +97,9 @@ const ActiveJobs = () => {
       </JobsTitle>
       {allActiveJobs?.length > 0 ? (
         <>
+          <ViewText>
+            Set view to the desktop site for better visualization.
+          </ViewText>
           <Input
             placeholder="Search by the Skills,Qualification,Role, Opening status...."
             type="text"

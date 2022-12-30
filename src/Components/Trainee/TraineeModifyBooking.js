@@ -2,29 +2,14 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { AiOutlineClose } from "react-icons/ai";
 import styled from "styled-components";
-import Model from "./Model";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import logo from "../../images/practiwiz-logo.png";
-import LoadingSpinner from "../utils/LoadingSpinner.js";
-
-const CloseButton = styled(AiOutlineClose)`
-  font-size: 25px;
-  color: #111;
-  cursor: pointer;
-`;
-const CloseButtonDiv = styled.div`
-  height: 30px;
-  width: 30px;
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  cursor: pointer;
-`;
+import { ModelFixedHeight } from "../utils/Model";
+import "./Model.css";
 const FormDiv = styled.div`
   padding: 40px 20px;
   width: 90%;
@@ -266,8 +251,8 @@ const TraineeModifyBooking = ({
             }
           },
           prefill: {
-            name: "example name",
-            email: "email@example.com",
+            name: user?.firstname + " " + user?.lastname,
+            email: user?.email,
             contact: "111111",
           },
           theme: {
@@ -290,11 +275,8 @@ const TraineeModifyBooking = ({
   }, 10000);
   return (
     <>
-      <Model>
-        <CloseButtonDiv onClick={modifyMentorAppointMent}>
-          <CloseButton />
-        </CloseButtonDiv>
-        {loading && <LoadingSpinner />}
+      <ModelFixedHeight closeModelHandler={modifyMentorAppointMent}>
+        {loading && <p>Loading please wait...</p>}
         <FormDiv>
           {error && <p style={{ color: "red", fontSize: "20px" }}>{error}</p>}
           {success && (
@@ -342,7 +324,7 @@ const TraineeModifyBooking = ({
             </p>
           </Terms>
         </FormDiv>
-      </Model>
+      </ModelFixedHeight>
     </>
   );
 };

@@ -30,14 +30,14 @@ const CourseSection = () => {
       <div
         className="center addAnimate features-project-right2"
         data-aos="fade-up"
-        data-className="fadeInBottom"
+        data-class="fadeInBottom"
       >
         <h4>Courses</h4>
         <h2>Browse Our Online Courses</h2>
         <ul className="social_slide">
           <Carousel breakPoints={breakPoints}>
-            {allCourses.splice(0, 8).map((course) => (
-              <>
+            {allCourses?.splice(0, 8).map((course) => (
+              <div key={course.course_id}>
                 <li className="social_item zoom" key={course.course_id}>
                   <a
                     href={`/course/${course.course_name
@@ -113,7 +113,7 @@ const CourseSection = () => {
                     </article>
                   </a>
                 </li>
-              </>
+              </div>
             ))}
           </Carousel>
         </ul>

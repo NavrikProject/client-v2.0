@@ -169,6 +169,7 @@ const MentorIndividual = () => {
   const showLoginModelHandler = () => {
     setShowLoginModal(!showLoginModal);
   };
+
   return (
     <MentorIndSection>
       {showModal && (
@@ -180,7 +181,7 @@ const MentorIndividual = () => {
       )}
       {showLoginModal && (
         <ModelFixedHeight closeModelHandler={showLoginModelHandler}>
-          <LoginModel />
+          <LoginModel showLoginModelHandler={showLoginModelHandler} />
         </ModelFixedHeight>
       )}
       <MentorCoverDiv></MentorCoverDiv>
@@ -289,7 +290,7 @@ const MentorIndividual = () => {
                       </BookNowButton>
                     ) : (
                       <BookNowButton onClick={() => showModalHandler(mentor)}>
-                        Book now
+                        Book a session
                       </BookNowButton>
                     )}
                     <p>
@@ -305,7 +306,6 @@ const MentorIndividual = () => {
       <MentorRatingDiv>
         <MentorRatingWrapper>
           <MentorRatingTitles>Testimonials</MentorRatingTitles>
-
           {mentorFeedback?.length > 0 ? (
             mentorFeedback?.map((feedback) => (
               <MentorRatingDivSlider>
@@ -313,12 +313,8 @@ const MentorIndividual = () => {
                   <RatingContentDiv>
                     <RatingContent>
                       <RatingImg
-                        src={
-                          feedback.trainee_image
-                            ? feedback.trainee_image
-                            : "https://images.pexels.com/photos/13085461/pexels-photo-13085461.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-                        }
-                        alt=""
+                        src={feedback.trainee_image}
+                        alt="Trainee image"
                       />
                       <RatingContentText>
                         {feedback.trainee_feedback_aspects}

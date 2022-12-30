@@ -10,6 +10,7 @@ import {
 } from "../../../redux/loadingReducer";
 import "./login-style.css";
 import PhoneInput2 from "react-phone-input-2";
+import { useEffect } from "react";
 
 const RegisterForm = () => {
   const {
@@ -26,13 +27,12 @@ const RegisterForm = () => {
   const password = watch("password");
   const [showIcons, setShowIcons] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumberError, setPhoneNumberError] = useState(false);
   const dispatch = useDispatch();
   const registerSubmitHandler = async (data) => {
     setError("");
-    if (!phoneNumber) {
-      return (
-        setError("Enter mobile phone number"), dispatch(hideLoadingHandler())
-      );
+    if (phoneNumber === " ") {
+      setPhoneNumberError(true);
     }
     try {
       dispatch(showLoadingHandler());
@@ -65,6 +65,7 @@ const RegisterForm = () => {
       return dispatch(hideLoadingHandler());
     }
   };
+
   return (
     <>
       <section className="top_panel transition2">
@@ -104,6 +105,7 @@ const RegisterForm = () => {
                   <ul className="signinForm2">
                     <li className="styled-input unIcon">
                       <input
+                        required
                         type="email"
                         {...register("email", {
                           required: "Email must be Required for registration",
@@ -123,6 +125,7 @@ const RegisterForm = () => {
                     </li>
                     <li className="styled-input unIcon">
                       <input
+                        required
                         type="text"
                         {...register("firstName", {
                           required: "firstname is Required",
@@ -144,6 +147,7 @@ const RegisterForm = () => {
                     </li>
                     <li className="styled-input unIcon">
                       <input
+                        required
                         type="text"
                         //onChange={(e) => setLastName(e.target.value)}
                         {...register("lastName", {
@@ -166,6 +170,7 @@ const RegisterForm = () => {
                     </li>
                     <li className="styled-input unIcon">
                       <input
+                        required
                         type={showIcon ? "text" : "password"}
                         {...register("password", {
                           required: "Password is Required",
@@ -197,6 +202,7 @@ const RegisterForm = () => {
                     </li>
                     <li className="styled-input unIcon">
                       <input
+                        required
                         type={showIcons ? "text" : "password"}
                         //onChange={(e) => setConfirmPassword(e.target.value)}
                         {...register("confirmPassword", {
@@ -228,12 +234,15 @@ const RegisterForm = () => {
                         inputProps={{
                           required: true,
                         }}
-                        className="form-check-input"
+                        placeholder="Enter phone number"
                         value={phoneNumber}
                         onChange={(phone) => setPhoneNumber(phone)}
                         country="in"
                       />
-                      <span className="errorMsg" style={{ display: "none" }}>
+                      <span
+                        className="errorMsg"
+                        style={{ display: phoneNumberError ? "block" : "none" }}
+                      >
                         Incorrect Phone
                       </span>
                     </li>
@@ -242,19 +251,19 @@ const RegisterForm = () => {
                         <input
                           className="form-check-input"
                           type="radio"
-                          id="trainee"
-                          value="trainee"
+                          id="member"
+                          value="member"
                           {...register("type", {
                             required: "User type  is Required",
                           })}
                         />
-                        Trainee
+                        Member
                         <label
                           className="form-check-label"
                           htmlFor="radio1"
                         ></label>
                       </div>
-                      <div className="form-check">
+                      {/* <div className="form-check">
                         <input
                           className="form-check-input"
                           type="radio"
@@ -269,7 +278,7 @@ const RegisterForm = () => {
                           className="form-check-label"
                           htmlFor="radio2"
                         ></label>
-                      </div>
+                      </div> */}
                       <div className="form-check">
                         <input
                           className="form-check-input"
@@ -296,6 +305,7 @@ const RegisterForm = () => {
                         Recruiter
                         <label className="form-check-label"></label>
                       </div>
+                      <div className="clr"></div>
                       {errors.type && (
                         <span className="errorMsg checkboxBorder">
                           {errors.type.message}
@@ -313,7 +323,7 @@ const RegisterForm = () => {
                         />
                         <label className="text-terms form-check-label">
                           I have read all
-                          <a href="/terms-conditions">terms & conditions.</a>
+                          <a href="/terms-conditions"> terms & conditions.</a>
                         </label>
                       </div>
                       {errors.checkBox && (

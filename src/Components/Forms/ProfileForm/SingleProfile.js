@@ -10,8 +10,6 @@ import {
   SingleProfileSect,
   SingleProfileSection,
   SingleProfileWrapper,
-  CloseButtonDiv,
-  CloseButton,
   Field,
   Input,
   TextArea,
@@ -22,15 +20,6 @@ import PhoneInput2 from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "./FormProfileElements";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
-import app from "../../FirebaseConfig";
-import { useEffect } from "react";
-
 const SingleProfile = (props) => {
   const {
     register,
@@ -39,10 +28,7 @@ const SingleProfile = (props) => {
     reset,
   } = useForm();
   const [loading, setLoading] = useState();
-  const [fileUploading, setFileUploading] = useState("");
-  const [imageUploaded, setImageUploaded] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [imageFileName, setImageFileName] = useState("");
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -50,13 +36,8 @@ const SingleProfile = (props) => {
   const token = user?.accessToken;
   const profileSubmitHandler = async (newData) => {
     setLoading(true);
-    if (!imageUploaded) {
-      toast.error("There was an error while uploading the image", {
-        position: "top-center",
-      });
-    }
     let data = new FormData();
-    data.append("imageFileName", imageFileName);
+    data.append("image", image);
     data.append("mobile", phoneNumber);
     data.append("dob", newData.date);
     data.append("address", newData.address);
@@ -65,7 +46,7 @@ const SingleProfile = (props) => {
     data.append("profession", newData.profession);
     try {
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/create/${user?.id}`,
+        `https://deploy-practiwiz.azurewebsites.net/api/member/profile/create/${user?.id}`,
         data,
         { headers: { authorization: "Bearer " + token } }
       );
@@ -83,53 +64,9 @@ const SingleProfile = (props) => {
     }
     setLoading(false);
   };
-  useEffect(() => {
-    const uploadImageTOFirebase = () => {
-      if (!image) {
-        return;
-      }
-      const fileName = new Date().getTime() + "-" + image.name;
-      const storage = getStorage(app);
-      const storageRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, image);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setFileUploading("Upload is " + progress + "% done");
-          switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused");
-              break;
-            case "running":
-              console.log("Upload is running");
-              break;
-            default:
-          }
-        },
-        (error) => {
-          console.log(error);
-          toast.error("There was an error while uploading the image", {
-            position: "top-center",
-          });
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setImageFileName(downloadURL);
-            setImageUploaded(true);
-            setFileUploading("File uploaded");
-          });
-        }
-      );
-    };
-    uploadImageTOFirebase();
-  }, [image]);
+
   return (
     <SingleProfileSect>
-      <CloseButtonDiv>
-        <CloseButton onClick={props.personal} />
-      </CloseButtonDiv>
       <SingleProfileSection>
         <SingleProfileWrapper>
           <FormDiv>
@@ -254,17 +191,15 @@ const SingleProfile = (props) => {
               <Field>
                 <FormLabel>Profile Picture:</FormLabel>
                 <Input
+                  accept="image/png, image/gif, image/jpeg"
                   required
                   type="file"
                   name="image"
                   placeholder="Choose the profile picture"
                   onChange={(event) => setImage(event.target.files[0])}
                 />
-                {fileUploading && <p>{fileUploading}</p>}
               </Field>
-              <FormBtn disabled={!imageUploaded && !image}>
-                Update Profile
-              </FormBtn>
+              <FormBtn>Update Profile</FormBtn>
             </Form>
           </FormDiv>
         </SingleProfileWrapper>

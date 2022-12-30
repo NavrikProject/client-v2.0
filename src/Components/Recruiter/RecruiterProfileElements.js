@@ -73,9 +73,15 @@ export const DetailsFromDb = styled.p`
 export const Section = styled.section`
   width: 100%;
   height: 100vh;
+  @media screen and (max-width: 780px) {
+    height: auto;
+  }
 `;
 export const Div = styled.div`
   display: flex;
+  @media screen and (max-width: 780px) {
+    display: block;
+  }
 `;
 export const RightDiv = styled.div`
   flex: 2;
@@ -89,11 +95,18 @@ export const RightDiv = styled.div`
     rgba(245, 245, 245, 1) 32%,
     rgba(224, 251, 252, 1) 100%
   );
+  @media screen and (max-width: 780px) {
+    position: static;
+    height: auto;
+  }
 `;
 export const LeftDiv = styled.div`
   flex: 9.5;
   overflow: scroll;
   height: 100vh;
+  @media screen and (max-width: 780px) {
+    height: auto;
+  }
 `;
 export const SidebarListUl = styled.ul`
   list-style: none;
@@ -103,7 +116,7 @@ export const SidebarListItem = styled.li`
   width: 100%;
   cursor: pointer;
   border-bottom: 1px solid lightgrey;
-  :nth-child(5) {
+  :nth-child(6) {
     border-bottom: none;
   }
 `;
@@ -114,6 +127,10 @@ export const DetailsWrapper = styled.div`
   margin: 10px;
   //box-shadow: rgb(142 151 158 / 15%) 0px 4px 19px;
   padding: 20px;
+  @media screen and (max-width: 780px) {
+    padding: 0;
+    margin: 0;
+  }
 `;
 export const QuickMenuTitle = styled.h3`
   font-size: 21px;

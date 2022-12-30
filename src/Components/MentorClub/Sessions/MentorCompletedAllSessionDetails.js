@@ -10,6 +10,9 @@ const UpcomingAllDivContent = styled.p`
     font-weight: 600;
     text-transform: uppercase;
   }
+  @media screen and (max-width: 780px) {
+    font-size: 16px;
+  }
 `;
 const JoinButtonDiv = styled.div`
   padding: 20px 0;
@@ -30,6 +33,10 @@ const RebookAppointment = styled.button`
   &:hover {
     transition: all 0.5s ease-in-out;
   }
+  @media screen and (max-width: 780px) {
+    font-size: 14px;
+    width: 100%;
+  }
 `;
 const Feedback = styled.p`
   font-size: 19px;
@@ -37,6 +44,9 @@ const Feedback = styled.p`
   opacity: 0.9;
   span {
     font-weight: bold;
+  }
+  @media screen and (max-width: 780px) {
+    font-size: 15px;
   }
 `;
 

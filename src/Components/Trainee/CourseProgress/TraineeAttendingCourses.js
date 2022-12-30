@@ -17,13 +17,21 @@ const AttendedDiv = styled.div`
   box-shadow: rgb(142 151 158 / 15%) 0px 4px 19px;
   height: auto;
 `;
-const AttendedUl = styled.ol``;
+const AttendedUl = styled.ol`
+  @media screen and (max-width: 780px) {
+    padding: 0;
+  }
+`;
 const AttendedList = styled.li``;
 const AttendedDivFlex = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  @media screen and (max-width: 780px) {
+    display: block;
+    padding: 0;
+  }
 `;
 const AttendedDivRight = styled.div``;
 const AttendedDivContent = styled.p`
@@ -34,7 +42,11 @@ const AttendedDivContent = styled.p`
     font-weight: 600;
   }
 `;
-const AttendedDivLeft = styled.div``;
+const AttendedDivLeft = styled.div`
+  @media screen and (max-width: 780px) {
+    margin-top: 20px;
+  }
+`;
 const AttendedDivButtons = styled.button`
   margin: 0 auto;
   padding: 12px 20px;
@@ -49,6 +61,9 @@ const AttendedDivButtons = styled.button`
   border-radius: 5px;
   &:hover {
     transition: all 0.5s ease-in-out;
+  }
+  @media screen and (max-width: 780px) {
+    font-size: 14px;
   }
 `;
 const SessionDetailsDiv = styled.div`

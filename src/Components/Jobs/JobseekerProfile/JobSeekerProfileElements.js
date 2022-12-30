@@ -5,28 +5,6 @@ export const ImgBox = styled.div`
   align-items: center;
   justify-content: space-evenly;
 `;
-export const NotFoundTitle = styled.h1`
-  color: black;
-  opacity: 0.8;
-  font-size: 27px;
-`;
-export const MentorRegButton = styled.button`
-  padding: 10px 20px;
-  outline: none;
-  font-size: 17px;
-  border-radius: 5px;
-  border: 1px solid lightgrey;
-  color: #fff;
-  border-bottom-width: 2px;
-  transition: all 0.4s ease;
-  font-size: 20px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  margin: 0 auto;
-  background: -webkit-linear-gradient(left, #3e5ce4, #4282fa);
-  margin-top: 20px !important;
-`;
 export const ImgForm = styled.form``;
 
 export const Img = styled.img`
@@ -45,9 +23,6 @@ export const TraineeTitle = styled.h1`
   font-weight: 500;
   margin-right: 20px;
   text-transform: capitalize;
-  @media only screen and (max-width: 868px) {
-    font-size: 24px;
-  }
 `;
 export const TraineeRole = styled.p`
   font-size: 19px;
@@ -56,9 +31,6 @@ export const TraineeRole = styled.p`
   margin-right: 20px;
   text-transform: capitalize;
   margin-bottom: 20px !important;
-  @media only screen and (max-width: 868px) {
-    font-size: 15px;
-  }
 `;
 export const SocialButton = styled.a`
   margin-top: 20px !important;
@@ -75,9 +47,6 @@ export const SocialButton = styled.a`
   &:hover {
     border: 1px solid #111;
   }
-  @media only screen and (max-width: 868px) {
-    font-size: 13px;
-  }
 `;
 export const DetailsFlex = styled.div`
   margin-left: 60px;
@@ -93,18 +62,12 @@ export const DetailsFlex1 = styled.div`
 export const DetailsTitles = styled.h4`
   font-weight: 600;
   margin-right: 5px;
-  @media only screen and (max-width: 868px) {
-    font-size: 16px;
-  }
 `;
 export const DetailsFromDb = styled.p`
   font-weight: 400;
   margin-left: 5px;
   span {
     color: gold;
-  }
-  @media only screen and (max-width: 868px) {
-    font-size: 14px;
   }
 `;
 export const Section = styled.section`
@@ -116,13 +79,12 @@ export const Section = styled.section`
 `;
 export const Div = styled.div`
   display: flex;
-  width: 100% !important;
   @media screen and (max-width: 780px) {
     display: block;
   }
 `;
 export const RightDiv = styled.div`
-  flex: 3;
+  flex: 2;
   position: sticky;
   top: 120px;
   width: 100%;
@@ -154,31 +116,17 @@ export const SidebarListItem = styled.li`
   width: 100%;
   cursor: pointer;
   border-bottom: 1px solid lightgrey;
-  :nth-child(8) {
+  :nth-child(6) {
     border-bottom: none;
   }
 `;
 export const Wrapper = styled.div`
-  padding: 30px;
-  @media screen and (max-width: 780px) {
-    padding: 10px;
-  }
-  h1 {
-    margin-left: 10px;
-  }
-  h1 {
-    @media only screen and (max-width: 868px) {
-      font-size: 24px;
-    }
-  }
+  padding: 10px;
 `;
 export const DetailsWrapper = styled.div`
   margin: 10px;
   //box-shadow: rgb(142 151 158 / 15%) 0px 4px 19px;
   padding: 20px;
-  @media screen and (max-width: 780px) {
-    padding: 0px;
-  }
 `;
 export const QuickMenuTitle = styled.h3`
   font-size: 21px;
@@ -188,8 +136,5 @@ export const QuickMenuTitle = styled.h3`
   margin: 3px 0;
   span {
     margin-right: 10px;
-  }
-  @media screen and (max-width: 780px) {
-    font-size: 19px;
   }
 `;

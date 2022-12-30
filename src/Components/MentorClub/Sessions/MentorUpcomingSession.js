@@ -16,13 +16,21 @@ const UpcomingDiv = styled.div`
   box-shadow: rgb(142 151 158 / 15%) 0px 4px 19px;
   height: auto;
 `;
-const UpcomingUl = styled.ol``;
+const UpcomingUl = styled.ol`
+  @media screen and (max-width: 780px) {
+    padding: 0;
+  }
+`;
 const UpcomingList = styled.li``;
 const UpcomingDivFlex = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  @media screen and (max-width: 780px) {
+    padding: 0;
+    display: block;
+  }
 `;
 const UpcomingDivRight = styled.div``;
 const UpcomingDivContent = styled.p`
@@ -33,7 +41,11 @@ const UpcomingDivContent = styled.p`
     font-weight: 600;
   }
 `;
-const UpcomingDivLeft = styled.div``;
+const UpcomingDivLeft = styled.div`
+  @media screen and (max-width: 780px) {
+    margin-top: 20px;
+  }
+`;
 const UpcomingDivButtons = styled.button`
   margin: 0 auto;
   padding: 12px 20px;
@@ -49,9 +61,15 @@ const UpcomingDivButtons = styled.button`
   &:hover {
     transition: all 0.5s ease-in-out;
   }
+  @media screen and (max-width: 780px) {
+    font-size: 14px;
+  }
 `;
 const SessionDetailsDiv = styled.div`
   padding: 30px;
+  @media screen and (max-width: 780px) {
+    padding: 10px;
+  }
 `;
 const MentorUpcomingSession = () => {
   const [loading, setLoading] = useState(false);

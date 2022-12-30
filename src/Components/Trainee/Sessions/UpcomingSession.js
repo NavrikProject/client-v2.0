@@ -17,13 +17,21 @@ const UpcomingDiv = styled.div`
   box-shadow: rgb(142 151 158 / 15%) 0px 4px 19px;
   height: auto;
 `;
-const UpcomingUl = styled.ol``;
+const UpcomingUl = styled.ol`
+  @media screen and (max-width: 780px) {
+    padding: 0px;
+  }
+`;
 const UpcomingList = styled.li``;
 const UpcomingDivFlex = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  @media screen and (max-width: 780px) {
+    display: block;
+    padding: 5px;
+  }
 `;
 const UpcomingDivRight = styled.div``;
 const UpcomingDivContent = styled.p`
@@ -33,8 +41,15 @@ const UpcomingDivContent = styled.p`
   span {
     font-weight: 600;
   }
+  @media screen and (max-width: 780px) {
+    font-size: 16px;
+  }
 `;
-const UpcomingDivLeft = styled.div``;
+const UpcomingDivLeft = styled.div`
+  @media screen and (max-width: 780px) {
+    margin-top: 20px;
+  }
+`;
 const UpcomingDivButtons = styled.button`
   margin: 0 auto;
   padding: 12px 20px;
@@ -50,9 +65,17 @@ const UpcomingDivButtons = styled.button`
   &:hover {
     transition: all 0.5s ease-in-out;
   }
+  @media screen and (max-width: 780px) {
+    font-size: 14px;
+  }
 `;
 const SessionDetailsDiv = styled.div`
   padding: 30px;
+  @media screen and (max-width: 780px) {
+    height: auto;
+    padding: 10px 0;
+    font-size: 14px;
+  }
 `;
 const UpcomingSession = () => {
   const [loading, setLoading] = useState(false);
@@ -81,9 +104,7 @@ const UpcomingSession = () => {
     };
     getAllUpcomingSessions();
   }, [token, user]);
-  console.log(upComingSessions);
   const toggleShowDetails = (index) => {
-    console.log(index);
     if (selected === index) {
       return setSelected(null);
     }

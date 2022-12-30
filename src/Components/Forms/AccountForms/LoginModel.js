@@ -22,12 +22,12 @@ const LoginModel = (props) => {
     trigger,
   } = useForm();
 
-  const [type, setType] = useState("trainee");
+  const [type, setType] = useState("member");
   const [error, setError] = useState("");
   const [showIcon, setShowIcon] = useState(false);
   const dispatch = useDispatch();
   const [activeState, setActiveState] = useState({
-    trainee: true, //
+    member: true, //
     recruiter: false,
     jobSeeker: false,
     mentor: false,
@@ -75,16 +75,16 @@ const LoginModel = (props) => {
           <ul className="login-tab">
             <li
               className={
-                activeState.trainee ? "listCenter active" : "listCenter"
+                activeState.member ? "listCenter active" : "listCenter"
               }
               onClick={() => {
-                setActiveState({ trainee: true });
-                setType("trainee");
+                setActiveState({ member: true });
+                setType("member");
               }}
             >
-              <a>Trainee</a>
+              <a>Member</a>
             </li>
-            <li
+            {/* <li
               className={
                 activeState.trainer ? "listCenter active" : "listCenter"
               }
@@ -94,7 +94,7 @@ const LoginModel = (props) => {
               }}
             >
               <a>Trainer</a>
-            </li>
+            </li> */}
             <li
               className={
                 activeState.mentor ? "listCenter active" : "listCenter"

@@ -215,7 +215,7 @@ export const MentorRatingTitles = styled.h1`
   opacity: 0.8;
 `;
 export const MentorRatingDivSlider = styled.div`
-  width: 100%;
+  width: 80%;
   height: auto;
   padding: 20px 0;
   text-align: center;
@@ -261,4 +261,6 @@ export const RatingContentStarDiv = styled.div`
     color: gold;
   }
 `;
-export const RatingContentTraineeName = styled.h4``;
+export const RatingContentTraineeName = styled.h4`
+  text-transform: capitalize;
+`;

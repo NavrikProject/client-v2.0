@@ -280,14 +280,14 @@ const MentorCourseCard = ({
                             mentor.mentor_lastname.toLowerCase()
                           }`}
                         >
-                          Know More
+                          Book a session
                         </Link>
                       </BookNowButton>
                     ) : (
                       <BookNowButton
                         onClick={() => ShowBookingModalHandler(mentor)}
                       >
-                        Book Now
+                        Book a session
                       </BookNowButton>
                     )}
                   </BookNowButtonDiv>

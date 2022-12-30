@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  CloseButton,
   ErrorMessage,
   Form,
   FormBtn,
@@ -14,7 +13,6 @@ import {
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import Loading from "../../utils/LoadingSpinner";
 import { useForm } from "react-hook-form";
 const Form3 = (props) => {
   const {
@@ -70,11 +68,10 @@ const Form3 = (props) => {
   }, 15000);
   return (
     <>
-      <CloseButton onClick={props.personal} />
       <FormDiv>
         {error && <p style={{ color: "red" }}>{error}</p>}
         {success && <p style={{ color: "green" }}>{success}</p>}
-        {loading && <Loading />}
+        {loading && <p>Loading please wait...</p>}
         <Form onSubmit={handleSubmit(onChangePasswordHandler)}>
           <PwdField>
             <FormInput
@@ -121,7 +118,10 @@ const Form3 = (props) => {
               {showIcons ? <ShowIcon /> : <HideIcon />}
             </PwdIcons>
           </PwdField>
-          <FormBtn>Save</FormBtn>
+          <PwdField>
+            
+            <FormBtn>Save</FormBtn>
+          </PwdField>
         </Form>
       </FormDiv>
     </>

@@ -103,6 +103,19 @@ const RecruiterProfile = () => {
                   </Link>
                 </QuickMenuTitle>
               </SidebarListItem>
+              <SidebarListItem>
+                <QuickMenuTitle>
+                  <Link
+                    style={{ textDecoration: "none", color: "#111" }}
+                    to={`/${user?.type}/profile/my-sessions`}
+                  >
+                    <span>
+                      <i className="fa-regular fa-file"></i>
+                    </span>
+                    My sessions
+                  </Link>
+                </QuickMenuTitle>
+              </SidebarListItem>
             </SidebarListUl>
           </Wrapper>
         </RightDiv>

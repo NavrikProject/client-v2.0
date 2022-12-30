@@ -21,8 +21,11 @@ export const Img = styled.img`
 export const TraineeTitle = styled.h1`
   font-size: 32px;
   font-weight: 500;
-  margin-right: 20px;
+  margin: 0 20px 0 0 !important;
   text-transform: capitalize;
+  @media only screen and (max-width: 868px) {
+    font-size: 24px;
+  }
 `;
 export const TraineeRole = styled.p`
   font-size: 19px;
@@ -31,6 +34,9 @@ export const TraineeRole = styled.p`
   margin-right: 20px;
   text-transform: capitalize;
   margin-bottom: 20px !important;
+  @media only screen and (max-width: 868px) {
+    font-size: 15px;
+  }
 `;
 export const SocialButton = styled.a`
   margin-top: 20px !important;
@@ -47,6 +53,9 @@ export const SocialButton = styled.a`
   &:hover {
     border: 1px solid #111;
   }
+  @media only screen and (max-width: 868px) {
+    font-size: 13px;
+  }
 `;
 export const DetailsFlex = styled.div`
   margin-left: 60px;
@@ -62,6 +71,9 @@ export const DetailsFlex1 = styled.div`
 export const DetailsTitles = styled.h4`
   font-weight: 600;
   margin-right: 5px;
+  @media only screen and (max-width: 868px) {
+    font-size: 16px;
+  }
 `;
 export const DetailsFromDb = styled.p`
   font-weight: 400;
@@ -69,13 +81,22 @@ export const DetailsFromDb = styled.p`
   span {
     color: gold;
   }
+  @media only screen and (max-width: 868px) {
+    font-size: 14px;
+  }
 `;
 export const Section = styled.section`
   width: 100%;
   height: 100vh;
+  @media screen and (max-width: 780px) {
+    height: auto;
+  }
 `;
 export const Div = styled.div`
   display: flex;
+  @media screen and (max-width: 780px) {
+    display: block;
+  }
 `;
 export const RightDiv = styled.div`
   flex: 3;
@@ -89,11 +110,18 @@ export const RightDiv = styled.div`
     rgba(245, 245, 245, 1) 32%,
     rgba(224, 251, 252, 1) 100%
   );
+  @media screen and (max-width: 780px) {
+    position: static;
+    height: auto;
+  }
 `;
 export const LeftDiv = styled.div`
   flex: 9.5;
   overflow: scroll;
   height: 100vh;
+  @media screen and (max-width: 780px) {
+    height: auto;
+  }
 `;
 export const SidebarListUl = styled.ul`
   list-style: none;
@@ -109,11 +137,25 @@ export const SidebarListItem = styled.li`
 `;
 export const Wrapper = styled.div`
   padding: 30px;
+  @media screen and (max-width: 780px) {
+    padding: 10px;
+  }
+  h1 {
+    margin-left: 10px;
+  }
+  h1 {
+    @media only screen and (max-width: 868px) {
+      font-size: 22px;
+    }
+  }
 `;
 export const DetailsWrapper = styled.div`
   margin: 10px;
   //box-shadow: rgb(142 151 158 / 15%) 0px 4px 19px;
   padding: 20px;
+  @media screen and (max-width: 780px) {
+    padding: 0px;
+  }
 `;
 export const QuickMenuTitle = styled.h3`
   font-size: 21px;
@@ -123,5 +165,8 @@ export const QuickMenuTitle = styled.h3`
   margin: 3px 0;
   span {
     margin-right: 10px;
+  }
+  @media screen and (max-width: 780px) {
+    font-size: 19px;
   }
 `;

@@ -22,7 +22,7 @@ const LoginForm = () => {
     trigger,
   } = useForm();
 
-  const [type, setType] = useState("trainee");
+  const [type, setType] = useState("member");
   const [error, setError] = useState("");
   const [showIcon, setShowIcon] = useState(false);
   const navigate = useNavigate();
@@ -115,12 +115,12 @@ const LoginForm = () => {
                       className={activeState.trainee === true && "active"}
                       onClick={() => {
                         setActiveState({ trainee: true });
-                        setType("trainee");
+                        setType("member");
                       }}
                     >
-                      <a>Trainee</a>
+                      <a>Member</a>
                     </li>
-                    <li
+                    {/* <li
                       className={activeState.trainer === true && "active"}
                       onClick={() => {
                         setActiveState({ trainer: true });
@@ -128,7 +128,7 @@ const LoginForm = () => {
                       }}
                     >
                       <a>Trainer</a>
-                    </li>
+                    </li> */}
                     <li
                       className={activeState.mentor === true && "active"}
                       onClick={() => {

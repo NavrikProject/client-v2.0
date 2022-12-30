@@ -30,6 +30,9 @@ export const JoinButton = styled.button`
       cursor: not-allowed;
     }
   }
+  @media screen and (max-width: 780px) {
+    width: 100% !important;
+  }
 `;
 export const ModifyButton = styled.button`
   outline: none;
@@ -41,6 +44,9 @@ export const ModifyButton = styled.button`
   border: none;
   border-radius: 7px;
   font-size: 14px;
+  @media screen and (max-width: 780px) {
+    width: 100%;
+  }
 `;
 export const UnModifiedButton = styled.button`
   outline: none;
@@ -52,4 +58,7 @@ export const UnModifiedButton = styled.button`
   border: none;
   border-radius: 7px;
   font-size: 14px;
+  @media screen and (max-width: 780px) {
+    width: 100%;
+  }
 `;

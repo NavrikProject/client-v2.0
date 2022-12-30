@@ -4,8 +4,11 @@ export const ModelFixedHeight = ({ children, closeModelHandler }) => {
   return (
     <div className="modelBackdrop">
       <div className="modelFixedHeight">
-        <div>
-          <i onClick={closeModelHandler} className="fa-solid fa-xmark"></i>
+        <div className="modelMargin">
+          <i
+            onClick={closeModelHandler}
+            className="fa-solid fa-xmark closeIcon"
+          ></i>
         </div>
         <div className="childrenDiv">{children}</div>
       </div>
@@ -16,10 +19,10 @@ export const ScrollModel = ({ children, closeScrollModelHandler }) => {
   return (
     <div className="modelBackdrop">
       <div className="model">
-        <div>
+        <div className="modelMargin">
           <i
             onClick={closeScrollModelHandler}
-            className="fa-solid fa-xmark"
+            className="fa-solid fa-xmark closeIcon"
           ></i>
         </div>
         <div>{children}</div>

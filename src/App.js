@@ -56,6 +56,7 @@ import JobHomePage from "./Pages/JobPages/JobHomePage";
 import QueryPage from "./Pages/QueryPage";
 import RpaIndCoursePage from "./Pages/CoursePages/RpaIndCoursePage";
 import BAIndCoursePage from "./Pages/CoursePages/BAIndCoursePage";
+import JobseekerProfilePages from "./Pages/JobSeekerPages/JobseekerProfilePages";
 // ..
 AOS.init();
 const App = () => {
@@ -175,9 +176,9 @@ const App = () => {
               }
             />
             {/* mentor club routes ends */}
-            {/* trainee routes starts */}{" "}
+            {/* trainee routes starts */}
             <Route
-              path={`/trainee/profile`}
+              path={`/member/profile`}
               element={
                 <ProtectedRoute>
                   <TraineeProfilePage />
@@ -185,7 +186,7 @@ const App = () => {
               }
             />
             <Route
-              path={`/trainee/profile/my-sessions`}
+              path={`/${user?.type}/profile/my-sessions`}
               element={
                 <ProtectedRoute>
                   <TraineeBookingPage />
@@ -193,7 +194,7 @@ const App = () => {
               }
             />
             <Route
-              path={`/trainee/profile/my-courses`}
+              path={`/member/profile/my-courses`}
               element={
                 <ProtectedRoute>
                   <TraineeCourseProgressPage />
@@ -254,6 +255,15 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <UsersAdminPage />
+                </ProtectedRoute>
+              }
+            />
+            {/* job seeker routes */}
+            <Route
+              path="/job-seeker/profile"
+              element={
+                <ProtectedRoute>
+                  <JobseekerProfilePages />
                 </ProtectedRoute>
               }
             />

@@ -17,13 +17,21 @@ const RefundedDiv = styled.div`
   box-shadow: rgb(142 151 158 / 15%) 0px 4px 19px;
   height: auto;
 `;
-const RefundedUl = styled.ol``;
+const RefundedUl = styled.ol`
+  @media screen and (max-width: 780px) {
+    padding: 0;
+  }
+`;
 const RefundedList = styled.li``;
 const RefundedDivFlex = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  @media screen and (max-width: 780px) {
+    display: block;
+    padding: 5px;
+  }
 `;
 const RefundedDivRight = styled.div``;
 const RefundedDivContent = styled.p`
@@ -34,7 +42,11 @@ const RefundedDivContent = styled.p`
     font-weight: 600;
   }
 `;
-const RefundedDivLeft = styled.div``;
+const RefundedDivLeft = styled.div`
+  @media screen and (max-width: 780px) {
+    margin-top: 20px;
+  }
+`;
 const RefundedDivButtons = styled.button`
   margin: 0 auto;
   padding: 12px 20px;
@@ -50,9 +62,15 @@ const RefundedDivButtons = styled.button`
   &:hover {
     transition: all 0.5s ease-in-out;
   }
+  @media screen and (max-width: 780px) {
+    font-size: 14px;
+  }
 `;
 const SessionDetailsDiv = styled.div`
   padding: 30px;
+  @media screen and (max-width: 780px) {
+    padding: 10px;
+  }
 `;
 const RefundedSessions = () => {
   const [loading, setLoading] = useState(false);

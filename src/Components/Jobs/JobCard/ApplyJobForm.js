@@ -6,13 +6,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import PhoneInput2 from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
-import app from "../../FirebaseConfig";
 import { toast } from "react-toastify";
 import {
   academicYears,
@@ -185,10 +178,7 @@ const RadioWrapper = styled.div`
   justify-content: space-around;
 `;
 const ApplyJobForm = (props) => {
-  const [fileUploading, setFileUploading] = useState("");
-  const [imageUploaded, setImageUploaded] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [imageFileName, setImageFileName] = useState("");
   const [resume, setResume] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -242,23 +232,49 @@ const ApplyJobForm = (props) => {
     };
     getJobAppliedStatus();
   }, [props.indJobDetails.job_post_unique_id, user?.email]);
-  const applyJobHandler = async (data) => {
+  const applyJobHandler = async (newData) => {
+    const data = new FormData();
+    data.append("image", resume);
+    data.append("fullname", newData.fullname);
+    data.append("currency", newData.currency);
+    data.append("location", newData.location);
+    data.append("city", newData.city);
+    data.append("state", newData.state);
+    data.append("country", newData.country);
+    data.append("collegeName", newData.collegeName);
+    data.append("universityName", newData.universityName);
+    data.append("startingYear", newData.startingYear);
+    data.append("endingYear", newData.endingYear);
+    data.append("completedYear", newData.completedYear);
+    data.append("percentage", newData.percentage);
+    data.append("currentCompanyName", newData.currentCompanyName);
+    data.append("currentDesignation", newData.currentDesignation);
+    data.append("currentCompanySalary", newData.currentCompanySalary);
+    data.append("expectedSalary", newData.expectedSalary);
+    data.append("companyLocation", newData.companyLocation);
+    data.append("companyCity", newData.companyCity);
+    data.append("companyState", newData.companyState);
+    data.append("companyCountry", newData.companyCountry);
+    data.append("experience", newData.experience);
+    data.append("jobPostDtlsId", props.indJobDetails.job_post_dtls_id);
+    data.append(
+      "hiringCompanyDtlsId",
+      props.indJobDetails.hiring_company_dtls_id[0]
+    );
+    data.append("userDtlsId", user?.id);
+    data.append("jobSeekerEmail", user?.email);
+    data.append("phoneNumber", phoneNumber);
+    data.append("haveExperience", haveExperience);
+    data.append(
+      "jobRole",
+      props.indJobDetails.job_post_role.split("-").join(" ")
+    );
+    data.append("selectedOption", JSON.stringify(selectedOption));
     try {
-      dispatch(showLoadingHandler());
+      // dispatch(showLoadingHandler());
       const res = await axios.post(
         `https://deploy-practiwiz.azurewebsites.net/api/jobs/apply/post/${props.indJobDetails.job_post_unique_id}`,
-        {
-          data: data,
-          jobPostDtlsId: props.indJobDetails.job_post_dtls_id,
-          hiringCompanyDtlsId: props.indJobDetails.hiring_company_dtls_id[0],
-          userDtlsId: user?.id,
-          jobSeekerEmail: user?.email,
-          resumeUrl: imageFileName,
-          phoneNumber: phoneNumber,
-          haveExperience: haveExperience,
-          selectedOption: selectedOption,
-          jobRole: props.indJobDetails.job_post_role.split("-").join(" "),
-        }
+        data
       );
       if (res.data.success) {
         setSuccess(res.data.success);
@@ -312,26 +328,51 @@ const ApplyJobForm = (props) => {
       }
     } catch (error) {}
   };
-  const applyJobWithUpdateHandler = async (data) => {
+  const applyJobWithUpdateHandler = async (newData) => {
     if (!showUpdate) {
       return setError("Please select the one of the buttons");
     }
+    const data = new FormData();
+    data.append("image", resume);
+    data.append("fullname", newData.fullname);
+    data.append("currency", newData.currency);
+    data.append("location", newData.location);
+    data.append("city", newData.city);
+    data.append("state", newData.state);
+    data.append("country", newData.country);
+    data.append("collegeName", newData.collegeName);
+    data.append("universityName", newData.universityName);
+    data.append("startingYear", newData.startingYear);
+    data.append("endingYear", newData.endingYear);
+    data.append("completedYear", newData.completedYear);
+    data.append("percentage", newData.percentage);
+    data.append("currentCompanyName", newData.currentCompanyName);
+    data.append("currentDesignation", newData.currentDesignation);
+    data.append("currentCompanySalary", newData.currentCompanySalary);
+    data.append("expectedSalary", newData.expectedSalary);
+    data.append("companyLocation", newData.companyLocation);
+    data.append("companyCity", newData.companyCity);
+    data.append("companyState", newData.companyState);
+    data.append("companyCountry", newData.companyCountry);
+    data.append("experience", newData.experience);
+    data.append("jobPostDtlsId", props.indJobDetails.job_post_dtls_id);
+    data.append(
+      "hiringCompanyDtlsId",
+      props.indJobDetails.hiring_company_dtls_id[0]
+    );
+    data.append("userDtlsId", user?.id);
+    data.append("jobSeekerEmail", user?.email);
+    data.append("phoneNumber", phoneNumber);
+    data.append("haveExperience", haveExperience);
+    data.append(
+      "jobRole",
+      props.indJobDetails.job_post_role.split("-").join(" ")
+    );
+    data.append("selectedOption", JSON.stringify(selectedOption));
     try {
       const res = await axios.post(
         `https://deploy-practiwiz.azurewebsites.net/api/jobs/apply/post/update/${props.indJobDetails.job_post_unique_id}`,
-        {
-          data: data,
-          jobPostDtlsId: props.indJobDetails.job_post_dtls_id,
-          hiringCompanyDtlsId: props.indJobDetails.hiring_company_dtls_id[0],
-          userDtlsId: user?.id,
-          jobSeekerEmail: user?.email,
-          resumeUrl: imageFileName,
-          phoneNumber: phoneNumber,
-          haveExperience: haveExperience,
-          selectedOption: selectedOption,
-          showUpdate: showUpdate,
-          jobRole: props.indJobDetails.job_post_role.split("-").join(" "),
-        }
+        data
       );
       if (res.data.success) {
         setSuccess(res.data.success);
@@ -368,48 +409,6 @@ const ApplyJobForm = (props) => {
       setShowUpdate(event.target.value);
     }
   };
-  useEffect(() => {
-    const uploadImageTOFirebase = () => {
-      if (!resume) {
-        return;
-      }
-      const fileName = new Date().getTime() + "-" + resume.name;
-      const storage = getStorage(app);
-      const storageRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, resume);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setFileUploading("Upload is " + progress + "% done");
-          switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused");
-              break;
-            case "running":
-              console.log("Upload is running");
-              break;
-            default:
-          }
-        },
-        (error) => {
-          console.log(error);
-          toast.error("There was an error while uploading the image", {
-            position: "top-center",
-          });
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setImageFileName(downloadURL);
-            setImageUploaded(true);
-            setFileUploading("File uploaded");
-          });
-        }
-      );
-    };
-    uploadImageTOFirebase();
-  }, [resume]);
 
   return (
     <Backdrop>
@@ -441,7 +440,7 @@ const ApplyJobForm = (props) => {
               {/* show default form */}
               {experienceFoundDetails === "no" && (
                 <>
-                  <Form onSubmit={handleSubmit(applyJobHandler)}>
+                  <Form onSubmit={handleSubmit(applyJobHandler)} encType="">
                     <Field>
                       <FormLabel>Upload your resume or cv :</FormLabel>
                       <Input
@@ -452,9 +451,6 @@ const ApplyJobForm = (props) => {
                         placeholder="Choose the profile picture"
                         onChange={(event) => setResume(event.target.files[0])}
                       />
-                      {fileUploading && (
-                        <p style={{ color: "green" }}>{fileUploading}</p>
-                      )}
                       * Only Pdf or Doc or Docx format accepted.
                     </Field>
                     <Field>
@@ -830,9 +826,7 @@ const ApplyJobForm = (props) => {
                         </Field>
                       </>
                     )}{" "}
-                    <FormBtn type="submit" disabled={!imageUploaded && !resume}>
-                      Apply Now
-                    </FormBtn>
+                    <FormBtn type="submit">Apply Now</FormBtn>
                   </Form>
                 </>
               )}
@@ -1061,9 +1055,6 @@ const ApplyJobForm = (props) => {
                               setResume(event.target.files[0])
                             }
                           />
-                          {fileUploading && (
-                            <p style={{ color: "green" }}>{fileUploading}</p>
-                          )}
                           * Only Pdf or Doc or Docx format accepted.
                         </Field>
                         <Field>
@@ -1457,12 +1448,7 @@ const ApplyJobForm = (props) => {
                       </>
                     )}
                   </Field>
-                  <FormBtn
-                    type="submit"
-                    disabled={showUpdate === "yes" && !imageUploaded && !resume}
-                  >
-                    Apply Now
-                  </FormBtn>
+                  <FormBtn type="submit">Apply Now</FormBtn>
                 </Form>
               )}
             </>

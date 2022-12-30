@@ -1,6 +1,6 @@
 import { AiOutlineClose } from "react-icons/ai";
 import styled from "styled-components";
-export const SingleProfileSect = styled.section`
+export const SingleProfileSect = styled.div`
   height: auto;
   background-color: #fff;
   width: 100%;

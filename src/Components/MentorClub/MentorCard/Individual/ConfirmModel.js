@@ -130,6 +130,7 @@ const TextArea = styled.textarea`
   width: 100%;
   padding-bottom: 10px;
   border: 1px solid #111;
+  border-radius: 5px;
   ::placeholder {
     font-size: 16px;
   }
@@ -226,8 +227,8 @@ const ConfirmModel = (props) => {
             }
           },
           prefill: {
-            name: "example name",
-            email: "email@example.com",
+            name: user?.firstname + " " + user?.lastname,
+            email: user?.email,
             contact: "111111",
           },
           theme: {
