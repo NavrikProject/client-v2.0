@@ -7,7 +7,6 @@ import Form3 from "../../Forms/ProfileForm/Form3.js";
 import Form4 from "../../Forms/ProfileForm/Form4.js";
 import ImageForm from "../../Forms/ProfileForm/ImageForm.js";
 import GoToTop from "../../GoToTop.js";
-import Model from "./Model.js";
 import {
   DetailsFlex,
   DetailsFlex1,
@@ -32,6 +31,7 @@ import {
 } from "./MentorBookingProfileElements.js";
 import { Link } from "react-router-dom";
 import MentorBankDetails from "./MentorBankAccountDetails";
+import { ModelFixedHeight, ScrollModel } from "../../utils/Model.js";
 const TraineeProfile = () => {
   const [accountForm, setAccountForm] = useState(false);
   const [changePasswordForm, setChangePasswordForm] = useState(false);
@@ -182,7 +182,7 @@ const TraineeProfile = () => {
                 <SidebarListItem onClick={showBankAccountFormHandler}>
                   <QuickMenuTitle>
                     <span>
-                      <i className="fa-regular fa-image"></i>
+                      <i class="fa-solid fa-money-check-dollar"></i>
                     </span>
                     Add Bank account
                   </QuickMenuTitle>
@@ -207,37 +207,37 @@ const TraineeProfile = () => {
             </Wrapper>
           </RightDiv>
           {accountForm ? (
-            <Model>
-              <Form2 personal={showAccountForm} />
-            </Model>
+            <ModelFixedHeight closeModelHandler={showAccountForm}>
+              <Form2 />
+            </ModelFixedHeight>
           ) : (
             ""
           )}
           {changePasswordForm ? (
-            <Model>
-              <Form3 personal={showPasswordForm} />
-            </Model>
+            <ScrollModel closeScrollModelHandler={showPasswordForm}>
+              <Form3 />
+            </ScrollModel>
           ) : (
             ""
           )}
           {deleteAccountForm ? (
-            <Model>
-              <Form4 personal={showDeleteAccount} />
-            </Model>
+            <ModelFixedHeight closeModelHandler={showDeleteAccount}>
+              <Form4 />
+            </ModelFixedHeight>
           ) : (
             ""
           )}
           {changeImageForm ? (
-            <Model>
-              <ImageForm personal={showImageForm} />
-            </Model>
+            <ModelFixedHeight closeModelHandler={showImageForm}>
+              <ImageForm />
+            </ModelFixedHeight>
           ) : (
             ""
           )}
           {showBankAccountForm ? (
-            <Model>
-              <MentorBankDetails personal={showBankAccountFormHandler} />
-            </Model>
+            <ScrollModel closeScrollModelHandler={showBankAccountFormHandler}>
+              <MentorBankDetails />
+            </ScrollModel>
           ) : (
             ""
           )}
@@ -282,21 +282,18 @@ const TraineeProfile = () => {
                           >
                             website
                           </SocialButton>
-                          <SocialButton
-                            target="_blank"
-                            href={mentor.mentor_linkedin_profile}
-                          >
-                            linked in
+                          <SocialButton>
+                            <a
+                              rel="noreferrer noopener"
+                              target="_blank"
+                              href={`${mentor.mentor_linkedin_profile}`}
+                            >
+                              linked in
+                            </a>
                           </SocialButton>
                         </div>
                       </div>
-                      <Img
-                        src={
-                          !mentor.trainee_image
-                            ? `https://navrik.blob.core.windows.net/navrikimage/default.jpg`
-                            : mentor.trainee_image
-                        }
-                      />
+                      <Img src={mentor.mentor_image} />
                     </ImgBox>
                     <DetailsFlex>
                       <DetailsFlex1>

@@ -2,15 +2,14 @@ import styled from "styled-components";
 import { BiHide, BiShow } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 export const FormDiv = styled.div`
-  padding: 50px;
-  margin-left: 20px;
+  padding: 50px 0;
   @media only screen and (max-width: 868px) {
     padding: 30px 20px;
     margin-left: 0px;
   }
   @media only screen and (max-width: 468px) {
-    padding: 20px 10px;
     margin-left: 0px;
+    padding: 50px !important;
   }
 `;
 
@@ -19,7 +18,7 @@ export const FormInput = styled.input`
   padding: 5px 10px;
   display: block;
   width: 90%;
-  
+  margin: 0 auto;
   font-size: 19px;
   background: transparent;
   border: none;
@@ -65,7 +64,7 @@ export const FormInputFile = styled.input`
   }
 `;
 export const ImgInput = styled.input`
-  width: 100%;
+  width: 90%;
   outline: none;
   font-size: 17px;
   border-radius: 5px;
@@ -73,7 +72,7 @@ export const ImgInput = styled.input`
   border-bottom-width: 2px;
   transition: all 0.4s ease;
   padding: 5px;
-
+  margin: 0 auto;
   &:focus {
     border-color: #fc83bb;
   }
@@ -84,11 +83,17 @@ export const FormBtn = styled.button`
   outline: none;
   border-radius: 10px;
   padding: 10px 30px;
-  margin-top: 20px;
   background-color: blue;
   color: white;
   cursor: pointer;
   transition: all 0.4s ease-in-out;
+  width: 50%;
+  margin-left: 30px;
+  @media only screen and (max-width: 468px) {
+    width: 90%;
+    margin-left: 20px !important;
+  }
+
   &:hover {
     opacity: 0.9;
   }
@@ -144,6 +149,9 @@ export const PwdIcons = styled.div`
   width: 20px;
   height: 20px;
   cursor: pointer;
+  @media only screen and (max-width: 768px) {
+    right: 30px;
+  }
 `;
 export const ShowIcon = styled(BiShow)`
   font-size: 22px;

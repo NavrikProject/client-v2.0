@@ -16,13 +16,21 @@ const CancelledDiv = styled.div`
   box-shadow: rgb(142 151 158 / 15%) 0px 4px 19px;
   height: auto;
 `;
-const CancelledUl = styled.ol``;
+const CancelledUl = styled.ol`
+  @media screen and (max-width: 780px) {
+    padding: 0px;
+  }
+`;
 const CancelledList = styled.li``;
 const CancelledDivFlex = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  @media screen and (max-width: 780px) {
+    padding: 0px;
+    display: block;
+  }
 `;
 const CancelledDivRight = styled.div``;
 const CancelledDivContent = styled.p`
@@ -33,7 +41,11 @@ const CancelledDivContent = styled.p`
     font-weight: 600;
   }
 `;
-const CancelledDivLeft = styled.div``;
+const CancelledDivLeft = styled.div`
+  @media screen and (max-width: 780px) {
+    margin-top: 20px;
+  }
+`;
 const CancelledDivButtons = styled.button`
   margin: 0 auto;
   padding: 12px 20px;
@@ -49,9 +61,15 @@ const CancelledDivButtons = styled.button`
   &:hover {
     transition: all 0.5s ease-in-out;
   }
+  @media screen and (max-width: 780px) {
+    font-size: 14px;
+  }
 `;
 const SessionDetailsDiv = styled.div`
   padding: 30px;
+  @media screen and (max-width: 780px) {
+    padding: 10px;
+  }
 `;
 const CancelledSessions = () => {
   const [loading, setLoading] = useState(false);

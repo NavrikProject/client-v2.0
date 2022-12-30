@@ -298,7 +298,6 @@ const MentorBookingCardModel = (props) => {
   };
 
   const showLoginModelHandler = () => {
-    console.log("Clicked");
     setShowLoginModal(!showLoginModal);
   };
   return (

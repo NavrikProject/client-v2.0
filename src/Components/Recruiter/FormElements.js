@@ -12,6 +12,9 @@ export const ErrorMessage = styled.p`
 export const SingleProfileSection = styled.section`
   width: 80%;
   margin: 0 auto;
+  @media screen and (max-width: 780px) {
+    width: 95%;
+  }
 `;
 export const CloseButton = styled(AiOutlineClose)`
   font-size: 25px;
@@ -63,6 +66,9 @@ export const WarnText = styled.h1`
 `;
 export const FormDiv = styled.div`
   margin-left: 20px;
+  @media screen and (max-width: 780px) {
+    margin: 10px;
+  }
 `;
 export const FormInputDiv = styled.div`
   width: 100%;
@@ -128,6 +134,9 @@ export const FieldFlexDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  @media screen and (max-width: 780px) {
+    display: block;
+  }
 `;
 export const ImgBox = styled.div`
   margin-bottom: 20px;
@@ -174,6 +183,11 @@ export const DetailsFlex = styled.div`
 export const DetailsFlex1 = styled.div`
   display: flex;
   padding: 7px 10px;
+  &:nth-child(5) {
+    @media only screen and (max-width: 968px) {
+      display: block;
+    }
+  }
 `;
 export const DetailsTitles = styled.h4`
   font-weight: 600;
@@ -185,5 +199,8 @@ export const DetailsFromDb = styled.p`
   width: 60%;
   span {
     color: gold;
+  }
+  @media only screen and (max-width: 968px) {
+    width: 100%;
   }
 `;

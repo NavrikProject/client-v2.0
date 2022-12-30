@@ -9,6 +9,9 @@ const UpcomingAllDivContent = styled.p`
     font-weight: 600;
     text-transform: uppercase;
   }
+  @media screen and (max-width: 780px) {
+    font-size: 16px;
+  }
 `;
 const JoinButtonDiv = styled.div`
   padding: 20px 0;

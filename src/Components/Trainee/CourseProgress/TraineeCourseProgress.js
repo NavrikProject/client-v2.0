@@ -9,9 +9,15 @@ import TraineeCompletedCourses from "./TraineeCompletedCourses";
 const Section = styled.section`
   width: 100%;
   height: 100vh;
+  @media screen and (max-width: 780px) {
+    height: auto;
+  }
 `;
 const Div = styled.div`
   display: flex;
+  @media screen and (max-width: 780px) {
+    display: block;
+  }
 `;
 const RightDiv = styled.div`
   flex: 2.5;
@@ -25,11 +31,18 @@ const RightDiv = styled.div`
     rgba(245, 245, 245, 1) 32%,
     rgba(224, 251, 252, 1) 100%
   );
+  @media screen and (max-width: 780px) {
+    position: static;
+    height: auto;
+  }
 `;
 const LeftDiv = styled.div`
   flex: 9.5;
   overflow: scroll;
   height: 100vh;
+  @media screen and (max-width: 780px) {
+    height: auto;
+  }
 `;
 const SidebarListUl = styled.ul`
   list-style: none;
@@ -48,6 +61,9 @@ const SidebarListItem = styled.li`
 `;
 const Wrapper = styled.div`
   padding: 30px;
+  @media screen and (max-width: 780px) {
+    padding: 10px;
+  }
 `;
 const QuickMenuTitle = styled.h3`
   font-size: 21px;

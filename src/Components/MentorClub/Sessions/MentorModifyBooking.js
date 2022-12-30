@@ -2,29 +2,13 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-
-import { AiOutlineClose } from "react-icons/ai";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import LoadingSpinner from "../../utils/LoadingSpinner.js";
 import { ModelFixedHeight } from "../../utils/Model";
 
-const CloseButton = styled(AiOutlineClose)`
-  font-size: 25px;
-  color: #111;
-  cursor: pointer;
-`;
-const CloseButtonDiv = styled.div`
-  height: 30px;
-  width: 30px;
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  cursor: pointer;
-`;
 const FormDiv = styled.div`
   padding: 40px 20px;
   width: 90%;
@@ -143,7 +127,7 @@ const MentorModifyBooking = ({
     }
     setLoading(true);
     const res = await axios.put(
-      `/mentor/bookings/get/all-bookings/reschedule/${mentor.bookingId}`,
+      `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/get/all-bookings/reschedule/${mentor.bookingId}`,
       {
         date: date.toLocaleDateString(),
         bookingId: mentor.bookingId,
@@ -168,8 +152,9 @@ const MentorModifyBooking = ({
   }, 10000);
   return (
     <>
-      <ModelFixedHeight>
+      <ModelFixedHeight closeModelHandler={modifyMentorAppointMent}>
         <FormDiv>
+          {loading && <p>Loading please wait........</p>}
           {error && <p style={{ color: "red", fontSize: "20px" }}>{error}</p>}
           {success && (
             <p style={{ color: "green", fontSize: "20px" }}>{success}</p>

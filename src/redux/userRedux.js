@@ -41,6 +41,7 @@ const userSlice = createSlice({
       state.currentUser = null;
       state.error = null;
       state.isAuthenticated = false;
+      localStorage.removeItem("user");
       toast.warning("You are successfully logged out", {
         position: "top-center",
       });

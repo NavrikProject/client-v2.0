@@ -1,42 +1,25 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Model from "./Model";
-import { AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import LoadingSpinner from "../utils/LoadingSpinner";
 import { useForm } from "react-hook-form";
+import { ScrollModel } from "../utils/Model";
 
-const CloseButton = styled(AiOutlineClose)`
-  font-size: 25px;
-  color: #111;
-  cursor: pointer;
-`;
-const CloseButtonDiv = styled.div`
-  height: 30px;
-  width: 30px;
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  cursor: pointer;
-`;
 const FormDiv = styled.div`
   padding: 0px 0px;
   width: 90%;
   margin: 0 auto;
 `;
-
 const CancelDescriptor = styled.p`
   font-size: 16px;
 `;
-
 const MentorBoxDiv = styled.div`
   width: 90%;
   margin: 0 auto;
   padding: 10px;
 `;
-
 const ConfirmButton = styled.button`
   margin: 0 10px 0 0;
   width: 100%;
@@ -49,12 +32,13 @@ const ConfirmButton = styled.button`
   cursor: pointer;
   border-radius: 5px;
   background-color: red;
-
   &:hover {
     opacity: 0.7;
     background-color: red;
-
     transition: all 0.5s ease-in-out;
+  }
+  @media screen and (max-width: 780px) {
+    margin: 0 0 10px 0;
   }
 `;
 const CancelProcess = styled.button`
@@ -72,6 +56,9 @@ const CancelProcess = styled.button`
   &:hover {
     background-color: lightblue;
     transition: all 0.5s ease-in-out;
+  }
+  @media screen and (max-width: 780px) {
+    margin: 0;
   }
 `;
 const FormSelect = styled.select`
@@ -93,6 +80,8 @@ const TextArea = styled.textarea`
   width: 100%;
   padding-bottom: 10px;
   font-size: 16px;
+  border: 1px solid #111;
+  border-radius: 7px;
   ::placeholder {
     font-size: 18px;
     padding-left: 10px;
@@ -105,6 +94,10 @@ const ButtonDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  @media screen and (max-width: 780px) {
+    display: block;
+    width: 100%;
+  }
 `;
 const ErrorMessage = styled.p`
   color: red;
@@ -168,10 +161,7 @@ const CancelAppointment = ({ mentor, showCancelMentorModel }) => {
     }
   };
   return (
-    <Model>
-      <CloseButtonDiv onClick={showCancelMentorModel}>
-        <CloseButton />
-      </CloseButtonDiv>
+    <ScrollModel closeScrollModelHandler={showCancelMentorModel}>
       <FormDiv>
         <FormData>
           {loading && <LoadingSpinner />}
@@ -243,7 +233,7 @@ const CancelAppointment = ({ mentor, showCancelMentorModel }) => {
           </form>
         </FormData>
       </FormDiv>
-    </Model>
+    </ScrollModel>
   );
 };
 

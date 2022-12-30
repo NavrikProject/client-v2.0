@@ -6,7 +6,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import LoadingSpinner from "../../utils/LoadingSpinner";
 
 const Backdrop = styled.div`
   position: fixed;
@@ -19,7 +18,7 @@ const Backdrop = styled.div`
 `;
 const Modal = styled.div`
   position: fixed;
-  top: 18vh;
+  top: 150px;
   left: 5%;
   width: 90%;
   height: auto;
@@ -136,6 +135,8 @@ const LabelTitle = styled.p`
 const TextArea = styled.textarea`
   width: 100%;
   padding-bottom: 10px;
+  border: 1px solid #111;
+  border-radius: 7px;
   ::placeholder {
     font-size: 18px;
     padding-left: 10px;
@@ -205,12 +206,12 @@ const CancelWarningModal = (props) => {
 
   return (
     <Backdrop>
-      {loading && <LoadingSpinner />}
       <Modal>
         <CloseButtonDiv onClick={props.cancelAppointmentHandler}>
           <CloseButton />
         </CloseButtonDiv>
         <MentorBoxDiv>
+          {loading && <p>Loading......</p>}
           {error && (
             <p style={{ color: "red", textAlign: "center" }}>{error}</p>
           )}

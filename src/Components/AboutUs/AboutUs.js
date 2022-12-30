@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import aboutImg from "../../images/about-img.jpg";
 import about from "../../images/about.jpg";
 import innerBannerWeb from "../../images/inner-banner.jpg";
 import innerBannerMob from "../../images/inner-banner-mobile.jpg";
+import axios from "axios";
 const AboutUs = () => {
+  const [file, setFile] = useState("");
+  const uploadImageHandler = async (event) => {
+    event.preventDefault();
+    const data = new FormData();
+    data.append("image", file);
+    const res = await axios.post("http://localhost:1337/upload-image", data);
+    console.log(res.data);
+  };
   return (
     <>
       <section className="inner-banner">
@@ -30,6 +39,23 @@ const AboutUs = () => {
           </li>
         </ul>
       </section>
+      {/* <img
+        src="https://navrikimages.blob.core.windows.net/practiwizcontainer/mentorprofilepictures/1671685469787-hero-bg.jpg"
+        alt=""
+      />
+      <img
+        src="https://navrikimages.blob.core.windows.net/practiwizcontainer/mentorprofilepictures/1671686369505-business analyst.jpg"
+        alt=""
+      />
+      <form onSubmit={uploadImageHandler} enctype="multipart/form-data">
+        <input
+          type="file"
+          name="image"
+          onChange={(event) => setFile(event.target.files[0])}
+        />
+        <button type="submit">Submit</button>
+      </form> */}
+
       {/* <section className="innty uuyi testimonials homeSec3" data-aos="fade-right">
         <figure className="addAnimate" data-class="fadeIn">
           <div className="center addAnimate" data-class="fadeInBottom">

@@ -7,7 +7,6 @@ import Form3 from "../../Forms/ProfileForm/Form3.js";
 import Form4 from "../../Forms/ProfileForm/Form4.js";
 import ImageForm from "../../Forms/ProfileForm/ImageForm.js";
 import GoToTop from "../../GoToTop.js";
-import Model from ".././Model.js";
 import {
   DetailsFlex,
   DetailsFlex1,
@@ -29,6 +28,7 @@ import {
 } from "./TraineeProfileElements.js";
 import SingleProfile from "../../Forms/ProfileForm/SingleProfile";
 import { Link } from "react-router-dom";
+import { ModelFixedHeight, ScrollModel } from "../../utils/Model";
 const TraineeProfile = () => {
   const [personalForm, setPersonalForm] = useState(false);
   const [accountForm, setAccountForm] = useState(false);
@@ -80,20 +80,21 @@ const TraineeProfile = () => {
 
   useEffect(() => {
     const onImageGetHandler = async () => {
-      const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/details/get/${user?.id}`,
+      const res = await axios.post(
+        `https://deploy-practiwiz.azurewebsites.net/api/member/profile/details/get/${user?.id}`,
+        { email: user?.email },
         {
           headers: { authorization: "Bearer " + token },
         }
       );
-      if (res.data) {
-        setTraineeDetails(res.data);
+      if (res.data.success) {
+        setTraineeDetails(res.data.success);
       } else {
         setTraineeDetails([]);
       }
     };
     onImageGetHandler();
-  }, [user?.id, token]);
+  }, [user?.id, token, user?.email]);
 
   useEffect(() => {
     const getTraineePointsDetails = async () => {
@@ -124,7 +125,7 @@ const TraineeProfile = () => {
                   <QuickMenuTitle>
                     <Link
                       style={{ textDecoration: "none", color: "#062C30" }}
-                      to={`/trainee/profile/my-sessions`}
+                      to={`/member/profile/my-sessions`}
                     >
                       <span>
                         <i className="fa-solid fa-calendar-check"></i>
@@ -137,10 +138,10 @@ const TraineeProfile = () => {
                   <QuickMenuTitle>
                     <Link
                       style={{ textDecoration: "none", color: "#062C30" }}
-                      to={`/trainee/profile/my-courses`}
+                      to={`/member/profile/my-courses`}
                     >
                       <span>
-                        <i className="fa-solid fa-calendar-chec"></i>
+                        <i className="fa-solid fa-book"></i>
                       </span>
                       My Courses
                     </Link>
@@ -225,37 +226,37 @@ const TraineeProfile = () => {
             </Wrapper>
           </RightDiv>
           {personalForm ? (
-            <Model>
-              <SingleProfile personal={showPersonalForm} />
-            </Model>
+            <ScrollModel closeScrollModelHandler={showPersonalForm}>
+              <SingleProfile />
+            </ScrollModel>
           ) : (
             ""
           )}
           {accountForm ? (
-            <Model>
-              <Form2 personal={showAccountForm} />
-            </Model>
+            <ModelFixedHeight closeModelHandler={showAccountForm}>
+              <Form2 />
+            </ModelFixedHeight>
           ) : (
             ""
           )}
           {changePasswordForm ? (
-            <Model>
-              <Form3 personal={showPasswordForm} />
-            </Model>
+            <ModelFixedHeight closeModelHandler={showPasswordForm}>
+              <Form3 />
+            </ModelFixedHeight>
           ) : (
             ""
           )}
           {deleteAccountForm ? (
-            <Model>
-              <Form4 personal={showDeleteAccount} />
-            </Model>
+            <ModelFixedHeight closeModelHandler={showDeleteAccount}>
+              <Form4 />
+            </ModelFixedHeight>
           ) : (
             ""
           )}
           {changeImageForm ? (
-            <Model>
-              <ImageForm personal={showImageForm} />
-            </Model>
+            <ModelFixedHeight closeModelHandler={showImageForm}>
+              <ImageForm />
+            </ModelFixedHeight>
           ) : (
             ""
           )}

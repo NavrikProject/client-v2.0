@@ -20,6 +20,9 @@ const UpcomingAllDivContent = styled.p`
     font-weight: 600;
     text-transform: uppercase;
   }
+  @media screen and (max-width: 780px) {
+    font-size: 15px;
+  }
 `;
 const JoinButtonDiv = styled.div`
   padding: 20px 0;
@@ -29,6 +32,9 @@ const AllButtonDiv = styled.div`
   align-items: center;
   justify-content: space-evenly;
   padding: 10px 0;
+  @media screen and (max-width: 780px) {
+    display: block;
+  }
 `;
 const MoreOptionText = styled.h1`
   color: #111;
@@ -51,11 +57,9 @@ const UpcomingAllSessionDetails = (props) => {
 
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
-  console.log(props);
   const attendMeetingHandler = async (bookingId) => {
-    console.log(bookingId);
     await axios.post(
-      `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/get/bookings/attended/update`,
+      `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/get/bookings/attended/update`,
       { userEmail: user?.email, bookingId: bookingId },
       {
         headers: { authorization: "Bearer " + token },
@@ -180,21 +184,6 @@ const UpcomingAllSessionDetails = (props) => {
             >
               Cancel this appointment
             </UnModifiedButton>
-          )}
-        </div>
-        <div>
-          {props.mentor.paymentStatus === "Refunded" ? (
-            <RefundedDoneButton>Refund has been issued</RefundedDoneButton>
-          ) : (
-            <JoinButton
-              disabled
-              onClick={() => showFeedBackMentorHandler(props.mentor)}
-            >
-              Feedback
-              {/* <Link to={`/trainee/profile/bookings/feedback`}>
-                          Give feedback
-                        </Link> */}
-            </JoinButton>
           )}
         </div>
       </AllButtonDiv>

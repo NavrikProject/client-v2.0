@@ -9,6 +9,9 @@ export const RefundedDoneButton = styled.button`
   background-color: rgb(212, 87, 87);
   transition: all 0.4s ease-in-out;
   border-radius: 7px;
+  @media screen and (max-width: 780px) {
+    width: 100%;
+  }
 `;
 export const JoinButton = styled.button`
   outline: none;
@@ -30,6 +33,10 @@ export const JoinButton = styled.button`
       cursor: not-allowed;
     }
   }
+  @media screen and (max-width: 780px) {
+    width: 100%;
+    margin-top: 10px;
+  }
 `;
 export const ModifyButton = styled.button`
   outline: none;
@@ -41,6 +48,10 @@ export const ModifyButton = styled.button`
   border: none;
   border-radius: 7px;
   font-size: 14px;
+  @media screen and (max-width: 780px) {
+    width: 100%;
+    margin-top: 10px;
+  }
 `;
 export const UnModifiedButton = styled.button`
   outline: none;
@@ -52,4 +63,8 @@ export const UnModifiedButton = styled.button`
   border: none;
   border-radius: 7px;
   font-size: 14px;
+  @media screen and (max-width: 780px) {
+    width: 100%;
+    margin-top: 10px;
+  }
 `;

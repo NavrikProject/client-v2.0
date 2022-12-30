@@ -44,7 +44,7 @@ const JobsSection = () => {
         >
           <Carousel breakPoints={breakPoints}>
             {allJobs?.slice(0, 8).map((job) => (
-              <div>
+              <div key={job.job_post_dtls_id}>
                 <li className="ps_item auto">
                   <div>
                     <aside>

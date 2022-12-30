@@ -10,14 +10,14 @@ const JobCardSkelton = () => {
             <img className="skelton-image" src="" alt="" />
           </div>
           <div className="job-list-center">
-            <p>
+            <>
               <div className="skeleton">
                 <div className="skelton-text"></div>
               </div>
               <div className="skeleton width">
                 <div className="skelton-text"></div>
               </div>
-            </p>
+            </>
             <div className="skeleton">
               <div className="skelton-text"></div>
             </div>

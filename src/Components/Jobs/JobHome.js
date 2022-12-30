@@ -76,18 +76,18 @@ const JobHome = () => {
   };
   return (
     <>
-      <section class="">
-        <div class="qsb-header-container">
-          <h1 class="qsb-title">Find your dream job now</h1>
-          <div class="qsb-byLine">So many jobs for you to explore</div>
+      <section className="">
+        <div className="qsb-header-container">
+          <h1 className="qsb-title">Find your dream job now</h1>
+          <div className="qsb-byLine">So many jobs for you to explore</div>
         </div>
         <div
-          class="center addAnimate features-project-right2"
+          className="center addAnimate features-project-right2"
           data-class="fadeInBottom"
         >
-          <section class="listing no-back section resources-bg specialities middle">
-            <div class="body-part-list center">
-              <div class="job-search">
+          <section className="listing no-back section resources-bg specialities middle">
+            <div className="body-part-list center">
+              <div className="job-search">
                 <ul>
                   <li>
                     <input
@@ -137,9 +137,9 @@ const JobHome = () => {
                     />
                   </li>
                 </ul>
-                <div class="clear"></div>
+                <div className="clear"></div>
               </div>
-              <div class="sec2">
+              <div className="sec2">
                 <ul>
                   <li>
                     <aside>
@@ -222,7 +222,7 @@ const JobHome = () => {
                     </aside>
                   </li>
                 </ul>
-                <div class="clear"></div>
+                <div className="clear"></div>
               </div>
 
               <div className="padding-right">
@@ -311,7 +311,7 @@ const JobHome = () => {
                   </div>
                 </div>
               </div>
-              {/* <div class="job-card">
+              {/* <div className="job-card">
                 <h2>Cloud Automation Engineer</h2>
                 <ul>
                   <li>
@@ -336,7 +336,7 @@ const JobHome = () => {
                     <strong>Employment Type:</strong> Full Time
                   </li>
                 </ul>
-                <div class="clear"></div>
+                <div className="clear"></div>
                 <p>
                   <strong>Note:</strong> Lorem Ipsum is simply dummy text of the
                   printing and typesetting industry. Lorem Ipsum has been the
@@ -348,12 +348,12 @@ const JobHome = () => {
                   <strong>Posted On:</strong> 17th November 2022
                 </span>
 
-                <div class="clear"></div>
+                <div className="clear"></div>
                 <article>
                   <a href="job-listing.html">View Job</a>
                   <a href="login.html">Login to Apply</a>
                 </article>
-                <div class="clear"></div>
+                <div className="clear"></div>
               </div> */}
             </div>
           </section>

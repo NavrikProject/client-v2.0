@@ -29,13 +29,6 @@ import "./MentorRegistration.css";
 import { mentorshipAreas } from "../../Data/MentorData";
 import { useForm } from "react-hook-form";
 import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
-import app from "../../FirebaseConfig";
-import {
   hideLoadingHandler,
   showLoadingHandler,
 } from "../../../redux/loadingReducer";
@@ -71,9 +64,6 @@ const MentorRegistration = () => {
   const [success, setSuccess] = useState("");
   const [showIcon, setShowIcon] = useState(false);
   const [showIcons, setShowIcons] = useState(false);
-  const [fileUploading, setFileUploading] = useState("");
-  const [imageUploaded, setImageUploaded] = useState(false);
-  const [imageFileName, setImageFileName] = useState("");
 
   useEffect(() => {
     const getSkillsData = async () => {
@@ -86,9 +76,18 @@ const MentorRegistration = () => {
   }, [speciality]);
 
   const profileSubmitHandler = async (newData) => {
+    setError(" ");
+    setSuccess(" ");
+    if (image.size > 2097152) {
+      return (
+        setError("Size must be less than 2mb"),
+        toast.error("Size must be less than 2mb", {
+          position: "top-center",
+        })
+      );
+    }
     const type = "mentor";
     let data = new FormData();
-    data.append("imageFileName", imageFileName);
     data.append("email", newData.email);
     data.append("firstName", newData.firstName);
     data.append("lastName", newData.lastName);
@@ -109,6 +108,7 @@ const MentorRegistration = () => {
     data.append("startTime", startTime);
     data.append("endTime", endTime);
     data.append("type", type);
+    data.append("image", image);
     try {
       dispatch(showLoadingHandler());
       const res = await axios.post(
@@ -188,48 +188,7 @@ const MentorRegistration = () => {
   }
 
   const password = watch("password");
-  useEffect(() => {
-    const uploadImageTOFirebase = () => {
-      if (!image) {
-        return;
-      }
-      const fileName = new Date().getTime() + "-" + image.name;
-      const storage = getStorage(app);
-      const storageRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, image);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setFileUploading("Upload is " + progress + "% done");
-          switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused");
-              break;
-            case "running":
-              console.log("Upload is running");
-              break;
-            default:
-          }
-        },
-        (error) => {
-          console.log(error);
-          toast.error("There was an error while uploading the image", {
-            position: "top-center",
-          });
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setImageFileName(downloadURL);
-            setImageUploaded(true);
-            setFileUploading("File uploaded successfully");
-          });
-        }
-      );
-    };
-    uploadImageTOFirebase();
-  }, [image]);
+
   return (
     <MentorRegisterSection>
       <MentorRegisterDiv>
@@ -366,6 +325,7 @@ const MentorRegistration = () => {
                 </PwdField>
                 <Field>
                   <PhoneInput2
+                    className="form-check-input"
                     value={phoneNumber}
                     country="in"
                     inputStyle={{ width: "100%", padding: "5px 10px" }}
@@ -597,23 +557,16 @@ const MentorRegistration = () => {
                 <Field>
                   Choose the Profile Picture
                   <Input
+                    accept="image/png, image/gif, image/jpeg"
                     required
                     type="file"
                     name="image"
                     placeholder="Choose the profile picture"
                     onChange={(event) => setImage(event.target.files[0])}
                   />
-                  {fileUploading && (
-                    <p style={{ color: "green" }}>{fileUploading}</p>
-                  )}
                 </Field>
                 <Field>
-                  <SignUpButton
-                    disabled={!imageUploaded && !image}
-                    type="submit"
-                  >
-                    Signup
-                  </SignUpButton>
+                  <SignUpButton type="submit">Signup</SignUpButton>
                 </Field>
               </Form>
             </FormDivFlex>

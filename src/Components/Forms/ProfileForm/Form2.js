@@ -60,11 +60,10 @@ const Form2 = (props) => {
 
   return (
     <>
-      <CloseButton onClick={props.personal} />
       <FormDiv>
         {error && <p style={{ color: "red" }}>{error}</p>}
         {success && <p style={{ color: "green" }}>{success}</p>}
-        {loading && <Loading />}
+        {loading && <p>Loading... Please wait...</p>}
         <Form onSubmit={handleSubmit(changePersonalDetails)}>
           <PwdField>
             <FormInput
@@ -90,7 +89,9 @@ const Form2 = (props) => {
           {errors.lastName && (
             <ErrorMessage>{errors.lastName.message}</ErrorMessage>
           )}
-          <FormBtn>Update</FormBtn>
+          <PwdField>
+            <FormBtn>Update</FormBtn>
+          </PwdField>
         </Form>
       </FormDiv>
     </>

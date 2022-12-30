@@ -1,24 +1,11 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import {
-  ApplyNowButton,
-  JobCardDescription,
-  JobCardDisplayFlexDiv,
-  JobCardDiv,
-  JobCardSection,
-  JobTitle,
-  ViewJobButton,
-} from "./JobCardElements";
 import axios from "axios";
-import moment from "moment/moment";
-import { useSelector } from "react-redux";
 import LoginModel from "../../Forms/AccountForms/LoginModel";
 import { ModelFixedHeight } from "../../utils/Model";
 import ApplyJobForm from "./ApplyJobForm";
 import JobCardSkelton from "../../SkeltonLoaders/JobCardSkelton";
 const JobCard = () => {
-  const user = useSelector((state) => state.user.currentUser);
   const [allJobs, setAllJobs] = useState([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showApplyJobForm, setApplyJobForm] = useState(false);

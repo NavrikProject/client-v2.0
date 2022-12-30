@@ -659,6 +659,9 @@ textarea:valid ~ label {
   position: relative;
   padding: 0px 0 0 0px;
 }
+.styled-input:nth-child(6) {
+  margin: 0;
+}
 .styled-input label {
   font-size: 15px;
   color: #000;
@@ -711,17 +714,22 @@ textarea:valid ~ label {
   line-height: 20px;
 }
 .errorMsg {
-  position: absolute;
-  top: 39px;
+  position: inherit;
+  top: 0px;
   right: 0;
   color: #ed1c24;
-  font-size: 12px;
+  font-size: 13px;
+  line-height: 13px;
   width: 100%;
-  border-top: 1px solid #ed1c24;
+  /* border-top: 1px solid #ed1c24; */
   text-align: right;
+  float: right;
+  padding: 5px 0 0 0;
 }
 .checkboxBorder {
-  border-top: none !important;
+  /* border-top: none !important;
+  top: 23px !important; */
+  top: -10px;
 }
 .login_usp_sec {
   padding: 60px 0;
@@ -1429,7 +1437,7 @@ textarea:valid ~ label {
   background-color: #fff;
   border-radius: 10px;
   width: 444px;
-  height: 630px;
+  height: inherit;
   position: relative;
   overflow: hidden;
 }
@@ -1465,6 +1473,7 @@ ul.login-tab li {
   padding: 3px 7px;
   border-radius: 3px;
   font-size: 14px;
+  width: 25%;
 }
 ul.login-tab li a {
   color: #000;
@@ -1486,8 +1495,10 @@ ul.login-tab .active {
 }
 .form-check {
   float: left;
-  width: 20%;
+  /* width: 20%; */
+  width: 33%;
 }
+
 .signinForm2 .checkbox input {
   font-size: 15px;
   color: #30323f;
@@ -1556,9 +1567,10 @@ ul.login-tab .active {
   font-size: 14px;
   text-transform: uppercase;
   text-align: center;
-  position: absolute;
+  position: inherit;
   left: 30px;
-  bottom: 35px;
+  /* bottom: 35px; */
+  bottom: 0px;
   width: 83%;
 }
 .top-part {

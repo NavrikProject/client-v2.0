@@ -47,7 +47,6 @@ const FormBtn = styled.button`
   }
 `;
 const FormDiv = styled.div`
-  padding: 50px;
   margin-left: 20px;
   @media only screen and (max-width: 868px) {
     padding: 30px 20px;
@@ -79,14 +78,6 @@ const FormInputCheck = styled.input`
   margin: 0 10px 10px;
 `;
 
-const CloseButton = styled(AiOutlineClose)`
-  font-size: 25px;
-  color: #111;
-  cursor: pointer;
-  position: absolute;
-  top: 14px;
-  right: 16px;
-`;
 const MentorBankDetails = (props) => {
   const [ifscCode, setIfscCode] = useState("");
   const [validIfscCode, setValidIfscCode] = useState(false);
@@ -161,7 +152,6 @@ const MentorBankDetails = (props) => {
 
   return (
     <>
-      <CloseButton onClick={props.personal} />
       <FormDiv>
         <Form onSubmit={verifyIfscCode}>
           <ForDiv>

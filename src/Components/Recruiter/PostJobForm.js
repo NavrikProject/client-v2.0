@@ -19,7 +19,6 @@ import Select from "react-select";
 import "react-phone-input-2/lib/style.css";
 import { useForm } from "react-hook-form";
 import {
-  experienceInYears,
   jobRoles,
   salaryRanges,
   skillOptions,
@@ -202,10 +201,12 @@ const PostJobForm = () => {
                 required: "select the min exper",
               })}
             >
-              <FormOption value="">Choose the experience</FormOption>
-              {experienceInYears?.map((year) => (
-                <FormOption value={year.value}>{year.label} Years</FormOption>
-              ))}
+              <FormOption value="">Choose the age</FormOption>
+              <FormOption value="0-3">0-3 Years</FormOption>
+              <FormOption value="0-5">0-5</FormOption>
+              <FormOption value="3-5">3-5</FormOption>
+              <FormOption value="5-8">5-8</FormOption>
+              <FormOption value="8-10">8-10</FormOption>
             </FormSelect>
             {errors.experience && (
               <ErrorMessage>{errors.experience.message}</ErrorMessage>

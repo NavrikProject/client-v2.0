@@ -16,11 +16,17 @@ const UpcomingAllDivContent = styled.p`
     font-weight: 600;
     text-transform: uppercase;
   }
+  @media screen and (max-width: 780px) {
+    font-size: 16px;
+  }
 `;
 
 const AllButtonDiv = styled.div`
   margin-top: 30px;
   padding: 10px 0;
+  @media screen and (max-width: 780px) {
+    margin: 0;
+  }
 `;
 
 const NoteText = styled.p`

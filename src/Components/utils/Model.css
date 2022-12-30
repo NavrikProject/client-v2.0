@@ -24,6 +24,17 @@
   animation: slide-down 300ms ease-out forwards;
   position: relative;
 }
+.closeIcon {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 30;
+}
+.modelMargin {
+  margin-bottom: 20px;
+}
 .modelFixedHeight {
   width: 42%;
   margin: 0 auto;
@@ -64,6 +75,7 @@
   .model,
   .modelFixedHeight {
     width: 90%;
+    padding: 0px;
   }
   .childrenDiv {
     width: 100%;

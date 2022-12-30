@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import LoadingSpinner from "../../utils/LoadingSpinner";
-import { Link } from "react-router-dom";
 import MentorNotAttendedAllSessionDetails from "./MentorNotAttendedAllSessionDetails";
 const Div = styled.div``;
 const AttendedTitle = styled.h1`
@@ -17,13 +16,21 @@ const AttendedDiv = styled.div`
   box-shadow: rgb(142 151 158 / 15%) 0px 4px 19px;
   height: auto;
 `;
-const AttendedUl = styled.ol``;
+const AttendedUl = styled.ol`
+  @media screen and (max-width: 780px) {
+    padding: 0px;
+  }
+`;
 const AttendedList = styled.li``;
 const AttendedDivFlex = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  @media screen and (max-width: 780px) {
+    padding: 0px;
+    display: block;
+  }
 `;
 const AttendedDivRight = styled.div``;
 const AttendedDivContent = styled.p`
@@ -34,7 +41,11 @@ const AttendedDivContent = styled.p`
     font-weight: 600;
   }
 `;
-const AttendedDivLeft = styled.div``;
+const AttendedDivLeft = styled.div`
+  @media screen and (max-width: 780px) {
+    margin-top: 20px;
+  }
+`;
 const AttendedDivButtons = styled.button`
   margin: 0 auto;
   padding: 12px 20px;
@@ -50,9 +61,16 @@ const AttendedDivButtons = styled.button`
   &:hover {
     transition: all 0.5s ease-in-out;
   }
+  @media screen and (max-width: 780px) {
+    width: 100%;
+    font-size: 14px;
+  }
 `;
 const SessionDetailsDiv = styled.div`
   padding: 30px;
+  @media screen and (max-width: 780px) {
+    padding: 10px;
+  }
 `;
 const MentorNotAttendedSessions = () => {
   const [loading, setLoading] = useState(false);
@@ -137,18 +155,10 @@ const MentorNotAttendedSessions = () => {
             <AttendedDivFlex>
               <AttendedDivRight>
                 <AttendedDivContent>
-                  <span>
-                    You have not attended any sessions, Book right now!
-                  </span>
+                  <span>You have not missed any mentor session</span>
                 </AttendedDivContent>
               </AttendedDivRight>
-              <AttendedDivLeft>
-                <AttendedDivButtons>
-                  <Link to={"/mentors-club"} style={{ color: "white" }}>
-                    Find Mentors
-                  </Link>
-                </AttendedDivButtons>
-              </AttendedDivLeft>
+              <AttendedDivLeft></AttendedDivLeft>
             </AttendedDivFlex>
           </AttendedDiv>
         )}

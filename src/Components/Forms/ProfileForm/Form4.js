@@ -14,7 +14,6 @@ const Form4 = (props) => {
   // const token = user?.accessToken;
   return (
     <>
-      <CloseButton onClick={props.personal} />
       <FormDiv>
         <Form>
           <ImageTitleChoose>
