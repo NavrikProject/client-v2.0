@@ -9,9 +9,9 @@ import {
   showLoadingHandler,
 } from "../../../redux/loadingReducer";
 import "./login-style.css";
-import PhoneInput2 from "react-phone-input-2";
-import { useEffect } from "react";
-
+import { PhoneNumberUtil } from "google-libphonenumber";
+import { countriesWithCodes } from "../../Data/FaqData";
+const phoneUtil = PhoneNumberUtil.getInstance();
 const RegisterForm = () => {
   const {
     register,
@@ -27,13 +27,17 @@ const RegisterForm = () => {
   const password = watch("password");
   const [showIcons, setShowIcons] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [phoneNumberError, setPhoneNumberError] = useState(false);
+  const [phoneNumberError, setPhoneNumberError] = useState("");
+  const [validPhoneNumber, setValidPhoneNumber] = useState(false);
+  const [countryCode, setCountryCode] = useState("");
   const dispatch = useDispatch();
   const registerSubmitHandler = async (data) => {
-    setError("");
-    if (phoneNumber === " ") {
-      setPhoneNumberError(true);
+    setError(" ");
+    setSuccess(" ");
+    if (!validPhoneNumber) {
+      return setPhoneNumberError("Mobile number must be valid");
     }
+
     try {
       dispatch(showLoadingHandler());
       const res = await axios.post(
@@ -65,7 +69,36 @@ const RegisterForm = () => {
       return dispatch(hideLoadingHandler());
     }
   };
-
+  const verifyMobileNumber = (event) => {
+    if (!countryCode) {
+      return (
+        setPhoneNumberError("Select the country first"),
+        setValidPhoneNumber(false)
+      );
+    }
+    const number = countryCode + event.target.value;
+    if (number.length < 6 || number.length > 13) {
+      return (
+        setPhoneNumberError("Must be a valid phone number"),
+        setValidPhoneNumber(false)
+      );
+    }
+    const parsePhoneNumber = phoneUtil.parseAndKeepRawInput(number);
+    // Check if the number is valid
+    if (phoneUtil.isValidNumber(parsePhoneNumber) === true) {
+      return (
+        setPhoneNumberError(" "),
+        setPhoneNumber(number),
+        setValidPhoneNumber(true)
+      );
+    } else {
+      // Not a valid number
+      return (
+        setPhoneNumberError("Must be a valid phone number"),
+        setValidPhoneNumber(false)
+      );
+    }
+  };
   return (
     <>
       <section className="top_panel transition2">
@@ -106,9 +139,9 @@ const RegisterForm = () => {
                     <li className="styled-input unIcon">
                       <input
                         required
-                        type="email"
+                        type="text"
                         {...register("email", {
-                          required: "Email must be Required for registration",
+                          required: "Enter an email to register",
                           pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                             message: "Invalid email address",
@@ -118,7 +151,7 @@ const RegisterForm = () => {
                           trigger("email");
                         }}
                       />
-                      <label>Enter your email *</label>
+                      <label>Enter your email address *</label>
                       {errors.email && (
                         <span className="errorMsg">{errors.email.message}</span>
                       )}
@@ -178,7 +211,11 @@ const RegisterForm = () => {
                             value:
                               /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
                             message:
-                              "A minimum 8 characters password contains a combination of uppercase and lowercase letter and number are required special characters like @ $ ! % * ? &",
+                              "A min 8 - 16 characters password contains a combination of upper and lowercase letter and number are required special characters like @ $ ! % * ? & _",
+                          },
+                          maxLength: {
+                            value: 16,
+                            message: "Must be less than 16 characters.",
                           },
                         })}
                         onKeyUp={() => {
@@ -230,21 +267,38 @@ const RegisterForm = () => {
                       )}
                     </li>
                     <li className="styled-input unIcon">
-                      <PhoneInput2
-                        inputProps={{
-                          required: true,
+                      <select
+                        required
+                        name=""
+                        id=""
+                        onChange={(event) => {
+                          return (
+                            setCountryCode(event.target.value),
+                            setPhoneNumberError("")
+                          );
                         }}
-                        placeholder="Enter phone number"
-                        value={phoneNumber}
-                        onChange={(phone) => setPhoneNumber(phone)}
-                        country="in"
-                      />
-                      <span
-                        className="errorMsg"
-                        style={{ display: phoneNumberError ? "block" : "none" }}
                       >
-                        Incorrect Phone
-                      </span>
+                        <>
+                          <option value="">Choose the country code</option>
+                          {countriesWithCodes.map((country, index) => (
+                            <option value={country.mobileCode}>
+                              {country.name + " "}(
+                              {country.code + " " + country.mobileCode})
+                            </option>
+                          ))}
+                        </>
+                      </select>
+                    </li>
+                    <li className="styled-input unIcon">
+                      <input
+                        required
+                        type="number"
+                        onChange={verifyMobileNumber}
+                      />
+                      <label>Enter your phone number *</label>
+                      {phoneNumberError && (
+                        <span className="errorMsg">{phoneNumberError}</span>
+                      )}
                     </li>
                     <li className="checkbox styled-input passIcon">
                       <div className="form-check">

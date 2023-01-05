@@ -20,13 +20,16 @@ import {
   DetailsFlex1,
   DetailsTitles,
   DetailsFromDb,
+  FormOption,
+  FormSelect,
 } from "./FormElements";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import PhoneInput2 from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
-import { useForm } from "react-hook-form";
 
+import { useForm } from "react-hook-form";
+import { PhoneNumberUtil } from "google-libphonenumber";
+import { countriesWithCodes } from "../Data/FaqData";
+const phoneUtil = PhoneNumberUtil.getInstance();
 const AddFirmDetailsForm = () => {
   const {
     register,
@@ -39,9 +42,17 @@ const AddFirmDetailsForm = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [hiringCompanyDetails, setHiringCompanyDetails] = useState([]);
+  const [phoneNumberError, setPhoneNumberError] = useState("");
+  const [validPhoneNumber, setValidPhoneNumber] = useState(false);
+  const [countryCode, setCountryCode] = useState("");
   const user = useSelector((state) => state.user.currentUser);
   const userEmail = user?.email;
   const addFirmDetailsSubmitHandler = async (newData) => {
+    setError(" ");
+    setSuccess(" ");
+    if (!validPhoneNumber) {
+      return setPhoneNumberError("Mobile number must be valid");
+    }
     let data = new FormData();
     data.append("image", image);
     data.append("mobile", phoneNumber);
@@ -89,7 +100,36 @@ const AddFirmDetailsForm = () => {
     };
     getAllFirmDetails();
   }, [userEmail]);
-
+  const verifyMobileNumber = (event) => {
+    if (!countryCode) {
+      return (
+        setPhoneNumberError("Select the country first"),
+        setValidPhoneNumber(false)
+      );
+    }
+    const number = countryCode + event.target.value;
+    if (number.length < 6 || number.length > 13) {
+      return (
+        setPhoneNumberError("Must be a valid phone number"),
+        setValidPhoneNumber(false)
+      );
+    }
+    const parsePhoneNumber = phoneUtil.parseAndKeepRawInput(number);
+    // Check if the number is valid
+    if (phoneUtil.isValidNumber(parsePhoneNumber) === true) {
+      return (
+        setPhoneNumberError(" "),
+        setPhoneNumber(number),
+        setValidPhoneNumber(true)
+      );
+    } else {
+      // Not a valid number
+      return (
+        setPhoneNumberError("Must be a valid phone number"),
+        setValidPhoneNumber(false)
+      );
+    }
+  };
   return (
     <SingleProfileSection>
       <SingleProfileWrapper>
@@ -169,6 +209,7 @@ const AddFirmDetailsForm = () => {
               <Field>
                 <FormLabel>Email:</FormLabel>
                 <Input
+                  required
                   placeholder="Enter the firm email address"
                   type="email"
                   name="date"
@@ -183,6 +224,7 @@ const AddFirmDetailsForm = () => {
               <Field>
                 <FormLabel>Firm Name:</FormLabel>
                 <Input
+                  required
                   placeholder="Enter the firm name"
                   type="text"
                   name="firmName"
@@ -197,6 +239,7 @@ const AddFirmDetailsForm = () => {
               <Field>
                 <FormLabel>Address:</FormLabel>
                 <TextArea
+                  required
                   {...register("address", {
                     required: "Please add the address",
                   })}
@@ -208,6 +251,7 @@ const AddFirmDetailsForm = () => {
               <Field>
                 <FormLabel>City Name:</FormLabel>
                 <Input
+                  required
                   placeholder="Enter the city name"
                   type="text"
                   name="city"
@@ -222,6 +266,7 @@ const AddFirmDetailsForm = () => {
               <Field>
                 <FormLabel>State Name:</FormLabel>
                 <Input
+                  required
                   placeholder="Enter the state name"
                   type="text"
                   name="state"
@@ -236,6 +281,7 @@ const AddFirmDetailsForm = () => {
               <Field>
                 <FormLabel>Country Name:</FormLabel>
                 <Input
+                  required
                   placeholder="Enter the country name"
                   type="text"
                   name="country"
@@ -250,6 +296,7 @@ const AddFirmDetailsForm = () => {
               <Field>
                 <FormLabel>Pincode:</FormLabel>
                 <Input
+                  required
                   placeholder="Enter the pin code"
                   type="number"
                   name="pincode"
@@ -264,6 +311,7 @@ const AddFirmDetailsForm = () => {
               <Field>
                 <FormLabel>Contact Person:</FormLabel>
                 <Input
+                  required
                   placeholder="Enter the contact person"
                   type="text"
                   name="contactPerson"
@@ -276,16 +324,44 @@ const AddFirmDetailsForm = () => {
                 <ErrorMessage>{errors.contactPerson.message}</ErrorMessage>
               )}
               <Field>
-                <FormLabel>Mobile Number:</FormLabel>
-                <PhoneInput2
-                  country="in"
-                  inputStyle={{ width: "100%", padding: "5px 10px" }}
-                  onChange={(phone) => setPhoneNumber(phone)}
+                <FormSelect
+                  required
+                  name=""
+                  id=""
+                  onChange={(event) => {
+                    return (
+                      setCountryCode(event.target.value),
+                      setPhoneNumberError("")
+                    );
+                  }}
+                >
+                  <>
+                    <FormOption value="">Choose the country code</FormOption>
+                    {countriesWithCodes.map((country, index) => (
+                      <FormOption value={country.mobileCode}>
+                        {country.name + " "}(
+                        {country.code + " " + country.mobileCode})
+                      </FormOption>
+                    ))}
+                  </>
+                </FormSelect>
+              </Field>
+              <Field>
+                <FormLabel>Enter your mobile number:</FormLabel>
+                <Input
+                  required
+                  type="number"
+                  placeholder="Enter your mobile number"
+                  onChange={verifyMobileNumber}
                 />
+                {phoneNumberError && (
+                  <ErrorMessage>{phoneNumberError}</ErrorMessage>
+                )}
               </Field>
               <Field>
                 <FormLabel>Website:</FormLabel>
                 <Input
+                  required
                   placeholder="Enter the firm website"
                   type="text"
                   name="website"
@@ -300,6 +376,7 @@ const AddFirmDetailsForm = () => {
               <Field>
                 <FormLabel>About company:</FormLabel>
                 <TextArea
+                  required
                   {...register("companyDescription", {
                     required: "Please write the company",
                     minLength: {
@@ -321,15 +398,15 @@ const AddFirmDetailsForm = () => {
               <Field>
                 <FormLabel>Firm Logo:</FormLabel>
                 <Input
-                  accept="image/png, image/jpg, image/jpeg"
                   required
+                  accept="image/png, image/jpg, image/jpeg"
                   type="file"
                   name="image"
                   placeholder="Choose the profile picture"
                   onChange={(event) => setImage(event.target.files[0])}
                 />
               </Field>
-              <FormBtn>Add Details</FormBtn>
+              <FormBtn type="submit">Add Details</FormBtn>
             </Form>
           </FormDiv>
         )}

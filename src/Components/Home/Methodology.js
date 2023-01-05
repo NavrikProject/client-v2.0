@@ -4,11 +4,13 @@ import about from "../../images/about.jpg";
 const Methodology = () => {
   return (
     <>
-      {" "}
-      <section class="innty uuyi testimonials homeSec3" data-aos="fade-right">
-        <figure class="addAnimate" data-class="fadeIn">
-          <div class="center addAnimate" data-class="fadeInBottom">
-            <div class="about-left2">
+      <section
+        className="innty uuyi testimonials homeSec3"
+        data-aos="fade-right"
+      >
+        <figure className="addAnimate" data-class="fadeIn">
+          <div className="center addAnimate" data-class="fadeInBottom">
+            <div className="about-left2">
               <h2>
                 At Practiwiz – <span>We Make Learning Fun!</span>
               </h2>
@@ -26,11 +28,11 @@ const Methodology = () => {
         </figure>
       </section>
       {/* 
-    <!--<section class="innty uuyi testimonials homeSec3">
-		<figure class="addAnimate" data-class="fadeIn">
-			<div class="center addAnimate" data-class="fadeInBottom">
+    <!--<section className="innty uuyi testimonials homeSec3">
+		<figure className="addAnimate" data-class="fadeIn">
+			<div className="center addAnimate" data-class="fadeInBottom">
 				
-			  <div class="about-left">
+			  <div className="about-left">
 					<h3>At Practiwiz – We Make Learning Fun!</h3><br>
 					<p><strong>Know why Practiwiz is an e-learning platform with a difference! <br>Simple! Because Aat Practiwiz we make learning FUN! </strong></p>
 					<p>We educate young aspiring minds through practical knowledge and one-to-one guidance to help them achieve their career goals.</p>
@@ -38,15 +40,15 @@ const Methodology = () => {
 					
 			  </div>
 				
-				<div class="about-right">
+				<div className="about-right">
 	    	    	<img src="images/about.jpg" alt=""/>
 				</div>
 		  </div>
 		</figure>
 	</section>--> */}
-      {/* <!--<section class="pillars testimonials homeSec3">
-		<figure class="addAnimate" data-class="fadeIn">
-			<div class="center addAnimate" data-class="fadeInBottom">
+      {/* <!--<section className="pillars testimonials homeSec3">
+		<figure className="addAnimate" data-class="fadeIn">
+			<div className="center addAnimate" data-class="fadeInBottom">
 				
 				<h2>Our Learning Philosophy</h2>
 				<p>We all know that “All Work and No Play Makes Jack a Dull Boy” but ever wondered what it would be like if we had All Work through Play? Wouldn’t that be fun!! Then there would never be a dull day in learning after all! </p>
@@ -56,10 +58,10 @@ const Methodology = () => {
 			</div>
 		</figure>
 	</section>--> */}
-      <section class="uuyi testimonials homeSec3">
-        <figure class="addAnimate" data-class="fadeIn">
-          <div class="about-left-box2">
-            <div class="center addAnimate" data-class="fadeInBottom">
+      <section className="uuyi testimonials homeSec3">
+        <figure className="addAnimate" data-class="fadeIn">
+          <div className="about-left-box2">
+            <div className="center addAnimate" data-class="fadeInBottom">
               <h2>
                 Our Learning <span>Philosophy</span>
               </h2>
@@ -75,7 +77,7 @@ const Methodology = () => {
                 remember and grasp!
               </p>
 
-              <div class="about-left">
+              <div className="about-left">
                 <ul>
                   <li>Interactive fun activities,</li>
                   <li>Practical training and</li>
@@ -108,53 +110,55 @@ const Methodology = () => {
                   <li>Industry Mentors</li>
                 </ul>
               </div>
-              <div class="about-right top">
+              <div className="about-right top">
                 <img src={about} alt="" />
               </div>
             </div>
           </div>
         </figure>
       </section>
-      <section class="usps innty homeSec3">
-        <figure class="addAnimate" data-class="fadeIn">
-          <div class="center addAnimate" data-class="fadeInBottom">
+      <section className="usps innty homeSec3">
+        <figure className="addAnimate" data-class="fadeIn">
+          <div className="center addAnimate" data-class="fadeInBottom">
             <h3>Our USPs</h3>
-            <div class="table">
-              <table cellspacing="0" cellpadding="0">
-                <tr>
-                  <td>
-                    <p>Learning through fun</p>
-                  </td>
-                  <td>
-                    <p>Practical Training high quality content</p>
-                  </td>
-                  <td>
-                    <p>Hybrid modules</p>
-                  </td>
-                  <td>
-                    <p>External Internships Job Assistance</p>
-                  </td>
-                  <td>
-                    <p>Customizable Career-oriented curriculums</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>Engaging e- flexible learning platforms</p>
-                  </td>
-                  <td>
-                    <p>Mentorship by Trained teachers and industry leaders</p>
-                  </td>
-                  <td>
-                    <p>Teaching critical tech skills</p>
-                  </td>
-                  <td>
-                    <p>Upgrade through research and innovation</p>
-                  </td>
-                  <td>
-                    <p>Certifications and Accreditations</p>
-                  </td>
-                </tr>
+            <div className="table">
+              <table cellSpacing="0" cellPadding="0">
+                <tbody>
+                  <tr>
+                    <td>
+                      <p>Learning through fun</p>
+                    </td>
+                    <td>
+                      <p>Practical Training high quality content</p>
+                    </td>
+                    <td>
+                      <p>Hybrid modules</p>
+                    </td>
+                    <td>
+                      <p>External Internships Job Assistance</p>
+                    </td>
+                    <td>
+                      <p>Customizable Career-oriented curriculums</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>Engaging e- flexible learning platforms</p>
+                    </td>
+                    <td>
+                      <p>Mentorship by Trained teachers and industry leaders</p>
+                    </td>
+                    <td>
+                      <p>Teaching critical tech skills</p>
+                    </td>
+                    <td>
+                      <p>Upgrade through research and innovation</p>
+                    </td>
+                    <td>
+                      <p>Certifications and Accreditations</p>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
             <p>
@@ -170,7 +174,7 @@ const Methodology = () => {
               </strong>
             </p>
 
-            <div class="vision">
+            {/* <div className="vision">
               <h3>VISION – MISSION</h3>
               <article>
                 <h4>Our Vision</h4>
@@ -187,7 +191,7 @@ const Methodology = () => {
                   technology, business and domain skills.
                 </p>
               </article>
-            </div>
+            </div> */}
           </div>
         </figure>
       </section>

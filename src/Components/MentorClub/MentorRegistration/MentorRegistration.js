@@ -4,8 +4,6 @@ import { toast } from "react-toastify";
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
 import GoToTop from "../../GoToTop";
-import PhoneInput2 from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
 import {
   MentorRegisterDiv,
   MentorRegisterSection,
@@ -33,6 +31,10 @@ import {
   showLoadingHandler,
 } from "../../../redux/loadingReducer";
 import { useDispatch } from "react-redux";
+import { PhoneNumberUtil } from "google-libphonenumber";
+import { countriesWithCodes } from "../../Data/FaqData";
+const phoneUtil = PhoneNumberUtil.getInstance();
+
 const MentorRegistration = () => {
   const {
     register,
@@ -49,6 +51,14 @@ const MentorRegistration = () => {
   const [skills, setSkills] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
+  const [image, setImage] = useState();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [showIcon, setShowIcon] = useState(false);
+  const [showIcons, setShowIcons] = useState(false);
+  const [phoneNumberError, setPhoneNumberError] = useState("");
+  const [validPhoneNumber, setValidPhoneNumber] = useState(false);
+  const [countryCode, setCountryCode] = useState("");
   const dispatch = useDispatch();
   const formSkillHandler = (event) => {
     if (event.target.value === "Others") {
@@ -59,11 +69,6 @@ const MentorRegistration = () => {
       setShowOthersInput(false);
     }
   };
-  const [image, setImage] = useState();
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [showIcon, setShowIcon] = useState(false);
-  const [showIcons, setShowIcons] = useState(false);
 
   useEffect(() => {
     const getSkillsData = async () => {
@@ -78,6 +83,17 @@ const MentorRegistration = () => {
   const profileSubmitHandler = async (newData) => {
     setError(" ");
     setSuccess(" ");
+    if (!startTime && !endTime) {
+      return (
+        setError("Select the time slot"),
+        toast.error("Select the time slot", {
+          position: "top-center",
+        })
+      );
+    }
+    if (!validPhoneNumber) {
+      return setPhoneNumberError("Mobile number must be valid");
+    }
     if (image.size > 2097152) {
       return (
         setError("Size must be less than 2mb"),
@@ -186,7 +202,36 @@ const MentorRegistration = () => {
     }
     setStartTime(startTime);
   }
-
+  const verifyMobileNumber = (event) => {
+    if (!countryCode) {
+      return (
+        setPhoneNumberError("Select the country first"),
+        setValidPhoneNumber(false)
+      );
+    }
+    const number = countryCode + event.target.value;
+    if (number.length < 6 || number.length > 13) {
+      return (
+        setPhoneNumberError("Must be a valid phone number"),
+        setValidPhoneNumber(false)
+      );
+    }
+    const parsePhoneNumber = phoneUtil.parseAndKeepRawInput(number);
+    // Check if the number is valid
+    if (phoneUtil.isValidNumber(parsePhoneNumber) === true) {
+      return (
+        setPhoneNumberError(" "),
+        setPhoneNumber(number),
+        setValidPhoneNumber(true)
+      );
+    } else {
+      // Not a valid number
+      return (
+        setPhoneNumberError("Must be a valid phone number"),
+        setValidPhoneNumber(false)
+      );
+    }
+  };
   const password = watch("password");
 
   return (
@@ -220,6 +265,7 @@ const MentorRegistration = () => {
                 )}
                 <Field>
                   <Input
+                    required
                     type="email"
                     placeholder="Enter your email"
                     {...register("email", {
@@ -239,6 +285,7 @@ const MentorRegistration = () => {
                 </Field>
                 <Field>
                   <Input
+                    required
                     type="text"
                     placeholder="Enter your First Name"
                     {...register("firstName", {
@@ -258,6 +305,7 @@ const MentorRegistration = () => {
                 </Field>
                 <Field>
                   <Input
+                    required
                     type="text"
                     placeholder="Enter your Last Name"
                     //onChange={(e) => setLastName(e.target.value)}
@@ -278,6 +326,7 @@ const MentorRegistration = () => {
                 </Field>
                 <PwdField>
                   <Input
+                    required
                     type={showIcon ? "text" : "password"}
                     placeholder="Enter your password"
                     {...register("password", {
@@ -286,7 +335,11 @@ const MentorRegistration = () => {
                         value:
                           /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
                         message:
-                          "A minimum 8 characters password contains a combination of uppercase and lowercase letter and number are required special characters like @ _ $ ! % * ? &",
+                          "A minimum 8 - 16 characters password contains a combination of upper, lowercase letter and number are required special characters like @ _ $ ! % * ? &",
+                      },
+                      maxLength: {
+                        value: 16,
+                        message: "Must be less than 16 characters.",
                       },
                     })}
                     onKeyUp={() => {
@@ -302,6 +355,7 @@ const MentorRegistration = () => {
                 </PwdField>
                 <PwdField>
                   <Input
+                    required
                     type={showIcon ? "text" : "password"}
                     placeholder="Confirm Your Password"
                     //onChange={(e) => setConfirmPassword(e.target.value)}
@@ -324,16 +378,42 @@ const MentorRegistration = () => {
                   </PwdIcons>
                 </PwdField>
                 <Field>
-                  <PhoneInput2
-                    className="form-check-input"
-                    value={phoneNumber}
-                    country="in"
-                    inputStyle={{ width: "100%", padding: "5px 10px" }}
-                    onChange={(phone) => setPhoneNumber(phone)}
+                  <FormSelect
+                    required
+                    name=""
+                    id=""
+                    onChange={(event) => {
+                      return (
+                        setCountryCode(event.target.value),
+                        setPhoneNumberError("")
+                      );
+                    }}
+                  >
+                    <>
+                      <FormOption value="">Choose the country code</FormOption>
+                      {countriesWithCodes.map((country, index) => (
+                        <FormOption value={country.mobileCode}>
+                          {country.name + " "}(
+                          {country.code + " " + country.mobileCode})
+                        </FormOption>
+                      ))}
+                    </>
+                  </FormSelect>
+                </Field>
+                <Field>
+                  <Input
+                    required
+                    type="number"
+                    placeholder="Enter your mobile number"
+                    onChange={verifyMobileNumber}
                   />
+                  {phoneNumberError && (
+                    <ErrorMessage>{phoneNumberError}</ErrorMessage>
+                  )}
                 </Field>
                 <Field>
                   <TextArea
+                    required
                     {...register("bio", {
                       required: "Enter your bio",
                       minLength: {
@@ -353,17 +433,18 @@ const MentorRegistration = () => {
                 </Field>
                 <Field>
                   <FormSelect
+                    required
                     {...register("experience", {
                       required: "Choose from the experience dropdown",
                     })}
                     name="experience"
                   >
                     <FormOption value="">Choose your experience</FormOption>
-                    <FormOption value="0-5">7- 10</FormOption>
-                    <FormOption value="5-10">10-15</FormOption>
-                    <FormOption value="15-20">15-20</FormOption>
-                    <FormOption value="20-25">20-25</FormOption>
-                    <FormOption value="25+">25+</FormOption>
+                    <FormOption value="0-5">7- 10 Years</FormOption>
+                    <FormOption value="5-10">10-15 Years</FormOption>
+                    <FormOption value="15-20">15-20 Years</FormOption>
+                    <FormOption value="20-25">20-25 Years</FormOption>
+                    <FormOption value="25+">25+ Years</FormOption>
                   </FormSelect>
                   {errors.experience && (
                     <ErrorMessage>{errors.experience.message}</ErrorMessage>
@@ -405,6 +486,7 @@ const MentorRegistration = () => {
                 {showOthersInput && (
                   <Field>
                     <Input
+                      required
                       name="skills"
                       type="text"
                       {...register("otherSkills", {
@@ -419,6 +501,7 @@ const MentorRegistration = () => {
                 )}
                 <Field>
                   <Input
+                    required
                     type="text"
                     placeholder="Enter your Firm name"
                     {...register("firm", {
@@ -435,6 +518,7 @@ const MentorRegistration = () => {
                 </Field>
                 <Field>
                   <Input
+                    required
                     type="text"
                     placeholder="Enter your current Role"
                     {...register("currentRole", {
@@ -451,6 +535,7 @@ const MentorRegistration = () => {
                 </Field>
                 <Field>
                   <Input
+                    required
                     type="text"
                     placeholder="Enter your previous Role"
                     {...register("previousRole", {
@@ -467,6 +552,7 @@ const MentorRegistration = () => {
                 </Field>
                 <Field>
                   <FormSelect
+                    required
                     {...register("mentorshipArea", {
                       required: "Choose the mentorship area dropdown",
                     })}
@@ -485,6 +571,7 @@ const MentorRegistration = () => {
                 </Field>
                 <Field>
                   <FormSelect
+                    required
                     {...register("mentorAvailability", {
                       required: "Choose the mentor availability area dropdown",
                     })}
@@ -509,6 +596,7 @@ const MentorRegistration = () => {
                     Choose the Time Slots (Ex: 12:15 OR 12:30 OR 12:45 ) From :
                   </p>
                   <TimePicker
+                    required
                     showSecond={showSecond}
                     className="time"
                     onChange={onTimeSelectChangeValue}
@@ -522,6 +610,7 @@ const MentorRegistration = () => {
                 </Field>
                 <Field>
                   <Input
+                    required
                     type="text"
                     placeholder="Enter your website"
                     {...register("website", {
@@ -538,6 +627,7 @@ const MentorRegistration = () => {
                 </Field>
                 <Field>
                   <Input
+                    required
                     type="text"
                     placeholder="Enter your linkedIn Profile"
                     {...register("linkedInProfile", {
@@ -557,8 +647,8 @@ const MentorRegistration = () => {
                 <Field>
                   Choose the Profile Picture
                   <Input
-                    accept="image/png, image/gif, image/jpeg"
                     required
+                    accept="image/png, image/gif, image/jpeg"
                     type="file"
                     name="image"
                     placeholder="Choose the profile picture"

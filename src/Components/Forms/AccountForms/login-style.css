@@ -32,9 +32,9 @@ samp {
   padding: 0;
   margin: 0;
 }
-input[type="text"]:focus {
+/* input[type="text"]:focus {
   border: none;
-}
+} */
 a,
 input {
   text-decoration: none;
@@ -718,8 +718,8 @@ textarea:valid ~ label {
   top: 0px;
   right: 0;
   color: #ed1c24;
-  font-size: 13px;
-  line-height: 13px;
+  font-size: 11px;
+  line-height: 11px;
   width: 100%;
   /* border-top: 1px solid #ed1c24; */
   text-align: right;
@@ -1384,6 +1384,14 @@ textarea:valid ~ label {
   position: relative;
 }
 
+.signinForm2 li select {
+  width: 100%;
+  padding: 7px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  font-size: 15px;
+  color: #000;
+}
 .signinForm2 li.captcha {
   float: left;
   width: 50%;

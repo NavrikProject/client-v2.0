@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ConfirmationJobPostModel from "./ConfirmationJobPostModel";
+import { useSelector } from "react-redux";
 const Table = styled.table`
   border: none;
   width: 100%;
@@ -65,11 +66,13 @@ const ActiveJobs = () => {
   const [jobDetails, setJobDetails] = useState("");
   const [showModel, setShowModel] = useState(false);
   const [searchItem, setSearchItem] = useState("");
+  const user = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     const getAllActiveJobPosts = async () => {
-      const res = await axios.get(
-        "https://deploy-practiwiz.azurewebsites.net/api/recruiter/get/open-positions"
+      const res = await axios.post(
+        "https://deploy-practiwiz.azurewebsites.net/api/recruiter/get/open-positions",
+        { email: user?.email }
       );
       if (res.data.success) {
         setAllActiveJobs(res.data.success);
@@ -79,7 +82,7 @@ const ActiveJobs = () => {
       }
     };
     getAllActiveJobPosts();
-  }, []);
+  }, [user?.email]);
   const showModalHandler = (job) => {
     setShowModel(!showModel);
     setJobDetails(job);

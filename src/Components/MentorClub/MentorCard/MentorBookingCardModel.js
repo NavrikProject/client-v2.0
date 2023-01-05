@@ -111,7 +111,7 @@ const ConfirmButton = styled.button`
 const FormSelect = styled.select`
   height: 30px;
   width: 100%;
-  font-size: 18px;
+  font-size: 15px;
   border-radius: 5px;
   padding-bottom: 10px;
   &:focus {
@@ -122,14 +122,19 @@ const ErrorMessage = styled.p`
   color: red;
   margin: 0 0 10px 10px;
 `;
-const FormOption = styled.option``;
+const FormOption = styled.option`
+  font-weight: 17px !important;
+`;
 const LabelTitle = styled.p`
   font-size: 16px;
   padding: 7px 0;
 `;
 const TextArea = styled.textarea`
-  width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
   padding-bottom: 10px;
+  border: 1px solid #000;
+  border-radius: 3px;
   ::placeholder {
     font-size: 16px;
   }
@@ -174,7 +179,7 @@ const MentorBookingCardModel = (props) => {
     const script = document.createElement("script");
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.onerror = () => {
-      alert("Razorpay SDK failed to load. Are you online?");
+      alert("Are you online ?");
     };
     script.onload = async () => {
       try {
@@ -197,9 +202,7 @@ const MentorBookingCardModel = (props) => {
         const { amount, id: order_id, currency } = result.data;
         const {
           data: { key: razorpayKey },
-        } = await axios.get(
-          "https://deploy-practiwiz.azurewebsites.net/api/get-razorpay-key"
-        );
+        } = await axios.get("https://deploy-practiwiz.azurewebsites.net/api/get-razorpay-key");
         const options = {
           key: razorpayKey,
           amount: amount.toString(),
@@ -247,8 +250,8 @@ const MentorBookingCardModel = (props) => {
             }
           },
           prefill: {
-            name: "example name",
-            email: "email@example.com",
+            name: user?.firstname + " " + user?.lastname,
+            email: user?.email,
             contact: "111111",
           },
           theme: {
@@ -366,12 +369,13 @@ const MentorBookingCardModel = (props) => {
             <MentorBoxDiv>
               <LabelTitle>Choose one of the following :</LabelTitle>
               <FormSelect
+                required
                 {...register("selected", {
                   required: "Choose from the dropdown",
                 })}
                 name="selected"
               >
-                <FormOption value=""></FormOption>
+                <FormOption value="">Select from the dropdown</FormOption>
                 <FormOption value="Need help n building apps">
                   Need help in building apps
                 </FormOption>
@@ -385,8 +389,9 @@ const MentorBookingCardModel = (props) => {
               {errors.selected && (
                 <ErrorMessage>{errors.selected.message}</ErrorMessage>
               )}
-              <LabelTitle>Choose one of the following :</LabelTitle>
+              <LabelTitle>Write your queries :</LabelTitle>
               <TextArea
+                required
                 {...register("questions", {
                   required: "Write all your queries",
                 })}
