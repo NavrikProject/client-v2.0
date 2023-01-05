@@ -31,7 +31,10 @@ export const MentorDownDiv = styled.div`
 export const MentorDiv = styled.div`
   width: 25%;
   margin: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10px !important;
   margin-bottom: 40px;
+  background-color: #fff;
   @media screen and (max-width: 868px) {
     width: 50%;
     margin: 0 auto 40px auto;
@@ -48,7 +51,7 @@ export const MentorName = styled.h3`
   text-align: center;
   padding-top: 10px;
   font-size: 24px;
-  color: rgb(19, 25, 70);
+  color: #111;
 `;
 // export const MentorImg = styled.img`
 //   width: 50%;
@@ -99,9 +102,12 @@ export const MentorExpertDiv = styled.div`
   }
 `;
 export const MentorCategoryDiv = styled.div`
+  margin-top: 10px !important;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-top: 5px;
 `;
 export const MentorSlotTimeDiv = styled.div`
   padding: 0 10px 10px 10px;
@@ -110,22 +116,24 @@ export const MentorSlotTimeDiv = styled.div`
   color: #627792;
   span {
     color: #111 !important;
+    text-transform: capitalize;
   }
 `;
 export const MentorDescP = styled.p`
-  padding: 10px;
+  padding: 0 10px 10px 10px;
   font-size: 19px;
   text-align: center;
   span {
-    color: #66bfbf;
+    color: grey;
+    font-size: 16px;
   }
 `;
 export const BookNowButtonDiv = styled.div`
-  width: 100%;
+  width: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 7px;
+  margin: 0 auto 16px auto;
 `;
 export const BookNowButton = styled.button`
   margin: 0 auto;
@@ -142,6 +150,9 @@ export const BookNowButton = styled.button`
   &:hover {
     opacity: 0.7;
     transition: all 0.5s ease-in-out;
+  }
+  @media screen and (max-width: 868px) {
+    margin-bottom: 16px;
   }
 `;
 export const LineAfter = styled.div`
@@ -164,11 +175,14 @@ export const LineAfter = styled.div`
   }
 `;
 export const FiltersInMentorCard = styled.p`
-  margin: 3px;
+  margin-bottom: 5px;
+  flex-wrap: nowrap;
+  display: flex;
+  margin-left: 30px;
   span {
+    text-transform: capitalize;
     margin-left: 10px;
     padding: 3px 7px;
-    background-color: lightgray;
     color: #111;
     border-radius: 5px;
     cursor: pointer;
@@ -177,4 +191,20 @@ export const FiltersInMentorCard = styled.p`
   i {
     padding: 5px;
   }
+`;
+
+export const FiltersInMentorCardColor = styled.span`
+  margin-bottom: 5px;
+  text-transform: capitalize;
+  margin-left: 10px;
+  padding: 5px 10px;
+  color: #111;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #cbbef6;
+  font-size: 13px;
+
+  /* &:nth-child(4) {
+    background: #bef6e7;
+  } */
 `;

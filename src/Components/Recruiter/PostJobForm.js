@@ -104,6 +104,7 @@ const PostJobForm = () => {
         <Field>
           <FormLabel>Job Heading:</FormLabel>
           <Input
+            required
             placeholder="Give heading like Looking for RPA developer"
             type="text"
             name="heading"
@@ -119,6 +120,7 @@ const PostJobForm = () => {
           <Field>
             <FormLabel>Job Category:</FormLabel>
             <FormSelect
+              required
               name="category"
               {...register("category", {
                 required: "Choose the job category",
@@ -136,6 +138,7 @@ const PostJobForm = () => {
           <Field>
             <FormLabel>Job Role:</FormLabel>
             <FormSelect
+              required
               name="role"
               {...register("role", {
                 required: "Choose the job role",
@@ -163,6 +166,7 @@ const PostJobForm = () => {
           <Field>
             <FormLabel>Number of positions:</FormLabel>
             <Input
+              required
               placeholder="Enter the number of positions"
               type="number"
               name="positions"
@@ -179,6 +183,7 @@ const PostJobForm = () => {
           <Field>
             <FormLabel>Qualification:</FormLabel>
             <FormSelect
+              required
               name="qualification"
               {...register("qualification", {
                 required: "Choose the required qualification for the job",
@@ -196,6 +201,7 @@ const PostJobForm = () => {
           <Field>
             <FormLabel>Min Experience:</FormLabel>
             <FormSelect
+              required
               name="experience"
               {...register("experience", {
                 required: "select the min exper",
@@ -217,6 +223,7 @@ const PostJobForm = () => {
           <Field>
             <FormLabel>Expected salary start from:</FormLabel>
             <FormSelect
+              required
               name="salaryStarts"
               {...register("salaryStarts", {
                 required: "Choose salary starting range",
@@ -234,6 +241,7 @@ const PostJobForm = () => {
           <Field>
             <FormLabel>Range :</FormLabel>
             <FormSelect
+              required
               name="salaryTo"
               {...register("salaryTo", {
                 required: "Choose the salary range",
@@ -253,6 +261,7 @@ const PostJobForm = () => {
           <Field>
             <FormLabel>Preferred work type</FormLabel>
             <FormSelect
+              required
               name="workType"
               {...register("workType", {
                 required: "Choose preferred work type",
@@ -275,6 +284,7 @@ const PostJobForm = () => {
           <Field>
             <FormLabel>Employment Type</FormLabel>
             <FormSelect
+              required
               name="jobType"
               {...register("jobType", {
                 required: "Choose the employment type",
@@ -303,6 +313,7 @@ const PostJobForm = () => {
         <Field>
           <FormLabel>Tags:</FormLabel>
           <TextArea
+            required
             placeholder="Enter the tags related to this field"
             {...register("tags", {
               required: "Enter the tags for this job",

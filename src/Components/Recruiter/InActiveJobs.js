@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 const Table = styled.table`
   border: none;
   width: 100%;
@@ -50,10 +51,12 @@ const NotFoundDiv = styled.div`
 const InActiveJobs = () => {
   const [allInActiveJobs, setAllInActiveJobs] = useState([]);
   const [searchItem, setSearchItem] = useState("");
+  const user = useSelector((state) => state.user.currentUser);
   useEffect(() => {
     const getAllActiveJobPosts = async () => {
-      const res = await axios.get(
-        "https://deploy-practiwiz.azurewebsites.net/api/recruiter/get/closed-positions"
+      const res = await axios.post(
+        "https://deploy-practiwiz.azurewebsites.net/api/recruiter/get/closed-positions",
+        { email: user?.email }
       );
       if (res.data.success) {
         setAllInActiveJobs(res.data.success);
@@ -63,7 +66,7 @@ const InActiveJobs = () => {
       }
     };
     getAllActiveJobPosts();
-  }, []);
+  }, [user?.email]);
   return (
     <div>
       <JobsTitle>

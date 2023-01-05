@@ -19,11 +19,47 @@ import {
   MentorImgDiv,
   MentorNotFoundDiv,
   MentorUpDiv,
+  FiltersInMentorCardColor,
 } from "./MentorCardElements";
 import { Link } from "react-router-dom";
 import MentorBookingCardModel from "./MentorBookingCardModel";
 import MentorCardSkelton from "./MentorCardSkelton";
+import styled from "styled-components";
+const Image = styled.img`
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+`;
+const Card = styled.div`
+  /* max-width: 300px; */
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+`;
 
+const ContentDiv = styled.div`
+  margin: 0px 0 0 0;
+`;
+const Button = styled.button`
+  margin: 0 auto;
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 17px;
+  border: none;
+  outline: none;
+  width: 100%;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+  background-color: #1363df;
+  color: #fff;
+  border-radius: 5px;
+  &:hover {
+    opacity: 0.7;
+    transition: all 0.5s ease-in-out;
+  }
+`;
 const MentorCourseCard = ({
   skillCategoryFilter,
   searchItem,
@@ -195,29 +231,49 @@ const MentorCourseCard = ({
           )
           .map((mentor) => (
             <MentorDiv key={mentor.mentor_dtls_id}>
-              <MentorUpDiv></MentorUpDiv>
-              <MentorDownDiv>
-                <MentorImgDiv>
-                  <MentorImg src={mentor.mentor_image} alt="trainer picture" />
-                </MentorImgDiv>
-                <MentorCourseBox>
-                  <MentorBoxDiv>
-                    <MentorDetailsDiv>
-                      <MentorName>
-                        {mentor.mentor_firstname + " " + mentor.mentor_lastname}
-                      </MentorName>
-                      <MentorDescP>
-                        <span>{mentor.mentor_current_role} </span>
-                        {/* at <span> {mentor.mentor_firm}</span> */}
-                      </MentorDescP>
-                    </MentorDetailsDiv>
-                  </MentorBoxDiv>
-                  <MentorDesc>
-                    {mentor.mentor_bio.slice(0, 100) + "...."}
-                  </MentorDesc>
+              <Card>
+                <Image src={mentor.mentor_image} alt="John" />
+                <MentorName>
+                  {mentor.mentor_firstname + " " + mentor.mentor_lastname}
+                </MentorName>
+                <MentorDescP>
+                  <span>{mentor.mentor_current_role} </span>
+                  {/* at <span> {mentor.mentor_firm}</span> */}
+                </MentorDescP>
+                <ContentDiv>
                   <MentorSlotTimeDiv>
-                    <p>
-                      Always available From
+                    <ul>
+                      <li>
+                        <FiltersInMentorCard>
+                          Experience :
+                          {<span>{mentor.mentor_experience} Years</span>}
+                        </FiltersInMentorCard>
+                      </li>
+                      <li>
+                        <p style={{ marginLeft: "30px", textAlign: "left" }}>
+                          Expertise in :
+                        </p>
+                        <MentorCategoryDiv>
+                          <FiltersInMentorCardColor>
+                            {mentor.mentor_speciality}
+                          </FiltersInMentorCardColor>
+                          <FiltersInMentorCardColor>
+                            {mentor.mentor_mentorship_area}
+                          </FiltersInMentorCardColor>
+                          <FiltersInMentorCardColor>
+                            {mentor.mentor_skills}
+                          </FiltersInMentorCardColor>
+                          {mentor.mentor_otherSkills === "undefined" ||
+                          mentor.mentor_otherSkills === "" ? null : (
+                            <FiltersInMentorCardColor>
+                              {mentor.mentor_otherSkills}
+                            </FiltersInMentorCardColor>
+                          )}
+                        </MentorCategoryDiv>
+                      </li>
+                    </ul>
+                    <p style={{ marginTop: "10px", fontSize: "15px" }}>
+                      Available From
                       <span>
                         {" " + mentor.mentor_availability_start_time + " "}
                       </span>
@@ -225,74 +281,37 @@ const MentorCourseCard = ({
                       <span>
                         {" " + mentor.mentor_availability_end_time + " "}
                       </span>
-                      on every
+                      <br /> on every
                       <span>{" " + mentor.mentor_availability}</span>
                     </p>
                   </MentorSlotTimeDiv>
-                  <div>
-                    {skillCategoryFilter ||
-                    skillFilter ||
-                    mentorAreaFilter ||
-                    mentorAvailabilityFilter ? (
-                      <MentorExpertDiv>
-                        <p>This mentor expertise in :</p>
-                        <MentorCategoryDiv>
-                          <FiltersInMentorCard>
-                            {skillCategoryFilter && (
-                              <span>{skillCategoryFilter}</span>
-                            )}
-                          </FiltersInMentorCard>
-                          <FiltersInMentorCard>
-                            {skillFilter && <span>{skillFilter}</span>}
-                          </FiltersInMentorCard>
-                        </MentorCategoryDiv>
-                      </MentorExpertDiv>
-                    ) : null}
-                  </div>
-                  <MentorCategoryDiv>
-                    {skillCategoryFilter ||
-                    skillFilter ||
-                    mentorAreaFilter ||
-                    mentorAvailabilityFilter ? (
-                      <>
-                        <FiltersInMentorCard>
-                          {mentorAreaFilter && <span>{mentorAreaFilter}</span>}
-                        </FiltersInMentorCard>
-                        <FiltersInMentorCard>
-                          {mentorAvailabilityFilter && (
-                            <span>{mentorAvailabilityFilter}</span>
-                          )}
-                        </FiltersInMentorCard>
-                      </>
-                    ) : null}
-                  </MentorCategoryDiv>
-                  <BookNowButtonDiv>
-                    {!skillCategoryFilter &&
-                    !skillFilter &&
-                    !mentorAreaFilter &&
-                    !mentorAvailabilityFilter ? (
-                      <BookNowButton>
-                        <Link
-                          style={{ textDecoration: "none", color: " #fff" }}
-                          to={`individual/${
-                            mentor.mentor_firstname.toLowerCase() +
-                            "-" +
-                            mentor.mentor_lastname.toLowerCase()
-                          }`}
-                        >
-                          Book a session
-                        </Link>
-                      </BookNowButton>
-                    ) : (
-                      <BookNowButton
-                        onClick={() => ShowBookingModalHandler(mentor)}
+                </ContentDiv>
+                <BookNowButtonDiv>
+                  {!skillCategoryFilter &&
+                  !skillFilter &&
+                  !mentorAreaFilter &&
+                  !mentorAvailabilityFilter ? (
+                    <BookNowButton>
+                      <Link
+                        style={{ textDecoration: "none", color: " #fff" }}
+                        to={`individual/${
+                          mentor.mentor_firstname.toLowerCase() +
+                          "-" +
+                          mentor.mentor_lastname.toLowerCase()
+                        }`}
                       >
                         Book a session
-                      </BookNowButton>
-                    )}
-                  </BookNowButtonDiv>
-                </MentorCourseBox>
-              </MentorDownDiv>
+                      </Link>
+                    </BookNowButton>
+                  ) : (
+                    <BookNowButton
+                      onClick={() => ShowBookingModalHandler(mentor)}
+                    >
+                      Book a session
+                    </BookNowButton>
+                  )}
+                </BookNowButtonDiv>
+              </Card>
             </MentorDiv>
           ))}
       {!loading && mentorDetails?.length === 0 && (
