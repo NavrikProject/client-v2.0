@@ -291,8 +291,8 @@ const MentorRegistration = () => {
                     {...register("firstName", {
                       required: "firstname is Required",
                       minLength: {
-                        value: 4,
-                        message: "Must be 4 characters at least",
+                        value: 1,
+                        message: "Must be 1 character at least",
                       },
                     })}
                     onKeyUp={() => {
@@ -312,8 +312,8 @@ const MentorRegistration = () => {
                     {...register("lastName", {
                       required: "last name is Required",
                       minLength: {
-                        value: 4,
-                        message: "Must be 4 characters at least",
+                        value: 1,
+                        message: "Must be 1 characters at least",
                       },
                     })}
                     onKeyUp={() => {
