@@ -145,22 +145,22 @@ const PostJobForm = () => {
           </Field>
           <Field>
             <FormLabel>Job Role:</FormLabel>
-            <FormSelect
+            <Input
               required
+              placeholder="Enter the job role"
+              type="text"
               name="role"
               {...register("role", {
-                required: "Choose the job role",
+                required: "Enter the job role like full stack web developer",
                 pattern: {
                   value: /\S+(?:\s+\S+)*/g,
                   message: "Remove the space from the field",
                 },
               })}
-            >
-              <FormOption value="">Choose job role</FormOption>
-              {jobRoles?.map((role) => (
-                <FormOption value={role.value}>{role.label}</FormOption>
-              ))}
-            </FormSelect>
+              onKeyUp={() => {
+                trigger("role");
+              }}
+            />
             {errors.role && <ErrorMessage>{errors.role.message}</ErrorMessage>}
           </Field>
         </FieldFlexDiv>
