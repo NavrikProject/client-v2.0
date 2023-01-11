@@ -16,10 +16,11 @@ import {
 } from "./SingleProfileElements";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import PhoneInput2 from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "./FormProfileElements";
+import { PhoneNumberUtil } from "google-libphonenumber";
+import { countriesWithCodes } from "../../Data/FaqData";
+const phoneUtil = PhoneNumberUtil.getInstance();
 const SingleProfile = (props) => {
   const {
     register,
@@ -32,9 +33,15 @@ const SingleProfile = (props) => {
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [phoneNumberError, setPhoneNumberError] = useState("");
+  const [validPhoneNumber, setValidPhoneNumber] = useState(false);
+  const [countryCode, setCountryCode] = useState("");
   const user = useSelector((state) => state.user.currentUser);
   const token = user?.accessToken;
   const profileSubmitHandler = async (newData) => {
+    if (!validPhoneNumber) {
+      return setPhoneNumberError("Mobile number must be valid");
+    }
     setLoading(true);
     let data = new FormData();
     data.append("image", image);
@@ -64,7 +71,36 @@ const SingleProfile = (props) => {
     }
     setLoading(false);
   };
-
+  const verifyMobileNumber = (event) => {
+    if (!countryCode) {
+      return (
+        setPhoneNumberError("Select the country first"),
+        setValidPhoneNumber(false)
+      );
+    }
+    const number = countryCode + event.target.value;
+    if (number.length < 6 || number.length > 13) {
+      return (
+        setPhoneNumberError("Must be a valid phone number"),
+        setValidPhoneNumber(false)
+      );
+    }
+    const parsePhoneNumber = phoneUtil.parseAndKeepRawInput(number);
+    // Check if the number is valid
+    if (phoneUtil.isValidNumber(parsePhoneNumber) === true) {
+      return (
+        setPhoneNumberError(" "),
+        setPhoneNumber(number),
+        setValidPhoneNumber(true)
+      );
+    } else {
+      // Not a valid number
+      return (
+        setPhoneNumberError("Must be a valid phone number"),
+        setValidPhoneNumber(false)
+      );
+    }
+  };
   return (
     <SingleProfileSect>
       <SingleProfileSection>
@@ -90,16 +126,46 @@ const SingleProfile = (props) => {
             )}
             <Form onSubmit={handleSubmit(profileSubmitHandler)}>
               <Field>
-                <FormLabel>Enter your mobile number :</FormLabel>
-                <PhoneInput2
-                  country="in"
-                  inputStyle={{ width: "100%", padding: "5px 10px" }}
-                  onChange={(phone) => setPhoneNumber(phone)}
+                <FormLabel>Education:</FormLabel>
+                <FormSelect
+                  required
+                  name=""
+                  id=""
+                  onChange={(event) => {
+                    return (
+                      setCountryCode(event.target.value),
+                      setPhoneNumberError("")
+                    );
+                  }}
+                >
+                  <>
+                    <option value="">Choose the country code</option>
+                    {countriesWithCodes.map((country, index) => (
+                      <option value={country.mobileCode}>
+                        {country.name + " "}(
+                        {country.code + " " + country.mobileCode})
+                      </option>
+                    ))}
+                  </>
+                </FormSelect>
+              </Field>
+              <Field>
+                <FormLabel htmlFor="">Enter your mobile number :</FormLabel>
+                <Input
+                  required
+                  type="number"
+                  name="phoneNumber"
+                  pattern="/^\S*$/,"
+                  onChange={verifyMobileNumber}
                 />
+                {phoneNumberError && (
+                  <ErrorMessage>{phoneNumberError}</ErrorMessage>
+                )}
               </Field>
               <Field>
                 <FormLabel htmlFor="">Enter your Dob :</FormLabel>
                 <Input
+                  required
                   type="date"
                   name="date"
                   {...register("date", {
@@ -113,6 +179,7 @@ const SingleProfile = (props) => {
               <Field>
                 <FormLabel>Education:</FormLabel>
                 <FormSelect
+                  required
                   name="graduate"
                   {...register("graduate", {
                     required: "Choose your education",
@@ -131,6 +198,7 @@ const SingleProfile = (props) => {
               <Field>
                 <FormLabel> Profession:</FormLabel>
                 <FormSelect
+                  required
                   name="profession"
                   {...register("profession", {
                     required: "select your profession",
@@ -160,6 +228,7 @@ const SingleProfile = (props) => {
               <Field>
                 <FormLabel>Experience:</FormLabel>
                 <FormSelect
+                  required
                   name="experience"
                   {...register("experience", {
                     required: "select the experience",
@@ -180,6 +249,7 @@ const SingleProfile = (props) => {
               <Field>
                 <FormLabel>Address:</FormLabel>
                 <TextArea
+                  required
                   {...register("address", {
                     required: "Please add the address",
                   })}

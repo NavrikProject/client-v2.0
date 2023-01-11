@@ -34,6 +34,9 @@ const RegisterForm = () => {
   const registerSubmitHandler = async (data) => {
     setError(" ");
     setSuccess(" ");
+    if (data.firstname) {
+      return console.log("Found space");
+    }
     if (!validPhoneNumber) {
       return setPhoneNumberError("Mobile number must be valid");
     }
@@ -160,11 +163,16 @@ const RegisterForm = () => {
                       <input
                         required
                         type="text"
+                        pattern="/^\S*$/"
                         {...register("firstName", {
                           required: "firstname is Required",
                           minLength: {
-                            value: 4,
-                            message: "Must be 4 characters at least",
+                            value: 1,
+                            message: "Must be  character at least",
+                          },
+                          pattern: {
+                            value: /\S+(?:\s+\S+)*/g,
+                            message: "Remove the space from the field",
                           },
                         })}
                         onKeyUp={() => {
@@ -186,8 +194,12 @@ const RegisterForm = () => {
                         {...register("lastName", {
                           required: "last name is Required",
                           minLength: {
-                            value: 4,
-                            message: "Must be 4 characters at least",
+                            value: 1,
+                            message: "Must be 1 character at least",
+                          },
+                          pattern: {
+                            value: /\S+(?:\s+\S+)*/g,
+                            message: "Remove the space from the field",
                           },
                         })}
                         onKeyUp={() => {
@@ -209,9 +221,9 @@ const RegisterForm = () => {
                           required: "Password is Required",
                           pattern: {
                             value:
-                              /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
+                              /^(?!.* )(?=.*[a-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&.]{8,16}$/,
                             message:
-                              "A min 8 - 16 characters password contains a combination of upper and lowercase letter and number are required special characters like @ $ ! % * ? & _",
+                              "A min 8 - 16 characters contains a combination of upper, lowercase letter, number and special characters like @ $ ! % * ? & _ . without space",
                           },
                           maxLength: {
                             value: 16,
@@ -291,6 +303,7 @@ const RegisterForm = () => {
                     </li>
                     <li className="styled-input unIcon">
                       <input
+                        pattern="/^\S*$/,"
                         required
                         type="number"
                         onChange={verifyMobileNumber}

@@ -20,6 +20,7 @@ const Form2 = (props) => {
     handleSubmit,
     formState: { errors },
     reset,
+    trigger,
   } = useForm();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -63,15 +64,26 @@ const Form2 = (props) => {
       <FormDiv>
         {error && <p style={{ color: "red" }}>{error}</p>}
         {success && <p style={{ color: "green" }}>{success}</p>}
-        {loading && <p>Loading... Please wait...</p>}
+        {loading && <Loading />}
         <Form onSubmit={handleSubmit(changePersonalDetails)}>
           <PwdField>
             <FormInput
               type="text"
               placeholder="Enter your First Name"
               {...register("firstName", {
-                required: "Please enter your First Name",
+                required: "firstname is Required",
+                minLength: {
+                  value: 1,
+                  message: "Must be  character at least",
+                },
+                pattern: {
+                  value: /^\S*$/,
+                  message: "Remove the space from the fields",
+                },
               })}
+              onKeyUp={() => {
+                trigger("firstName");
+              }}
             />
           </PwdField>
           {errors.firstName && (
@@ -79,19 +91,28 @@ const Form2 = (props) => {
           )}
           <PwdField>
             <FormInput
-              {...register("lastName", {
-                required: "Please enter your Last Name",
-              })}
               type="text"
               placeholder="Enter your Last Name"
+              {...register("lastName", {
+                required: "last name is Required",
+                minLength: {
+                  value: 1,
+                  message: "Must be 1 character at least",
+                },
+                pattern: {
+                  value: /^\S*$/,
+                  message: "Remove the space from the fields",
+                },
+              })}
+              onKeyUp={() => {
+                trigger("lastName");
+              }}
             />
           </PwdField>
           {errors.lastName && (
             <ErrorMessage>{errors.lastName.message}</ErrorMessage>
           )}
-          <PwdField>
-            <FormBtn>Update</FormBtn>
-          </PwdField>
+          <FormBtn>Update</FormBtn>
         </Form>
       </FormDiv>
     </>

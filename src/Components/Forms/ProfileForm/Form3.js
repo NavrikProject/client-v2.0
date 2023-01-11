@@ -81,9 +81,13 @@ const Form3 = (props) => {
                 required: "Password is Required",
                 pattern: {
                   value:
-                    /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
+                    /^(?!.* )(?=.*[a-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&.]{8,16}$/,
                   message:
-                    "A minimum 8 characters password contains a combination of uppercase and lowercase letter and number are required.",
+                    "A min 8 - 16 characters contains a combination of upper, lowercase letter, number and special characters like @ $ ! % * ? & _ . without space",
+                },
+                maxLength: {
+                  value: 16,
+                  message: "Must be less than 16 characters.",
                 },
               })}
               onKeyUp={() => {
@@ -118,10 +122,7 @@ const Form3 = (props) => {
               {showIcons ? <ShowIcon /> : <HideIcon />}
             </PwdIcons>
           </PwdField>
-          <PwdField>
-            
-            <FormBtn>Save</FormBtn>
-          </PwdField>
+          <FormBtn>Update</FormBtn>
         </Form>
       </FormDiv>
     </>

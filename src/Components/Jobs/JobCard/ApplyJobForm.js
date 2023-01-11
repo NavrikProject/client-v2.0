@@ -4,8 +4,6 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineClose } from "react-icons/ai";
 import { useForm } from "react-hook-form";
-import PhoneInput2 from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
 import { toast } from "react-toastify";
 import {
   academicYears,
@@ -17,7 +15,9 @@ import {
   hideLoadingHandler,
   showLoadingHandler,
 } from "../../../redux/loadingReducer";
-
+import { PhoneNumberUtil } from "google-libphonenumber";
+import { countriesWithCodes } from "../../Data/FaqData";
+const phoneUtil = PhoneNumberUtil.getInstance();
 const Backdrop = styled.div`
   position: fixed;
   top: 0;
@@ -189,12 +189,19 @@ const ApplyJobForm = (props) => {
   const [experienceFoundDetails, setExperienceFoundDetails] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
   const [appliedStatus, setAppliedStatus] = useState(false);
-
+  const [phoneNumberError, setPhoneNumberError] = useState("");
+  const [validPhoneNumber, setValidPhoneNumber] = useState(false);
+  const [countryCode, setCountryCode] = useState("");
+  const [showErrors, setShowErrors] = useState({
+    selectedSkillsError: "",
+    showHaveExperienceError: "",
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    trigger,
   } = useForm();
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
@@ -233,6 +240,24 @@ const ApplyJobForm = (props) => {
     getJobAppliedStatus();
   }, [props.indJobDetails.job_post_unique_id, user?.email]);
   const applyJobHandler = async (newData) => {
+    if (!selectedOption) {
+      return (
+        setError("Please select the skills"),
+        setShowErrors({ selectedSkillsError: "Please select the skills" })
+      );
+    }
+    if (!haveExperience) {
+      return (
+        setError("Please select the one of the buttons"),
+        setShowErrors({
+          showHaveExperienceError: "Please select one of the button",
+        })
+      );
+    }
+    if (!validPhoneNumber) {
+      return setPhoneNumberError("Mobile number must be valid");
+    }
+
     const data = new FormData();
     data.append("image", resume);
     data.append("fullname", newData.fullname);
@@ -332,6 +357,25 @@ const ApplyJobForm = (props) => {
     if (!showUpdate) {
       return setError("Please select the one of the buttons");
     }
+    if (showUpdate === "yes") {
+      if (!validPhoneNumber) {
+        return setPhoneNumberError("Mobile number must be valid");
+      }
+      if (!selectedOption) {
+        return (
+          setError("Please select the skills"),
+          setShowErrors({ selectedSkillsError: "Please select the skills" })
+        );
+      }
+      if (!haveExperience) {
+        return (
+          setError("Please select the one of the buttons"),
+          setShowErrors({
+            showHaveExperienceError: "Please select one of the button",
+          })
+        );
+      }
+    }
     const data = new FormData();
     data.append("image", resume);
     data.append("fullname", newData.fullname);
@@ -393,6 +437,9 @@ const ApplyJobForm = (props) => {
   };
   const typeHandler = (event) => {
     setError(" ");
+    setShowErrors({
+      showHaveExperienceError: " ",
+    });
     if (event.target.value === "yes") {
       setHaveExperience(event.target.value);
       setShowExperienceForm(true);
@@ -409,7 +456,36 @@ const ApplyJobForm = (props) => {
       setShowUpdate(event.target.value);
     }
   };
-
+  const verifyMobileNumber = (event) => {
+    if (!countryCode) {
+      return (
+        setPhoneNumberError("Select the country first"),
+        setValidPhoneNumber(false)
+      );
+    }
+    const number = countryCode + event.target.value;
+    if (number.length < 6 || number.length > 13) {
+      return (
+        setPhoneNumberError("Must be a valid phone number"),
+        setValidPhoneNumber(false)
+      );
+    }
+    const parsePhoneNumber = phoneUtil.parseAndKeepRawInput(number);
+    // Check if the number is valid
+    if (phoneUtil.isValidNumber(parsePhoneNumber) === true) {
+      return (
+        setPhoneNumberError(" "),
+        setPhoneNumber(number),
+        setValidPhoneNumber(true)
+      );
+    } else {
+      // Not a valid number
+      return (
+        setPhoneNumberError("Must be a valid phone number"),
+        setValidPhoneNumber(false)
+      );
+    }
+  };
   return (
     <Backdrop>
       <Modal>
@@ -455,11 +531,19 @@ const ApplyJobForm = (props) => {
                     </Field>
                     <Field>
                       <Input
+                        required
                         {...register("fullname", {
                           required: "Please enter your full Name",
+                          pattern: {
+                            value: /\S+(?:\s+\S+)*/g,
+                            message: "Remove the space from the field",
+                          },
                         })}
                         type="text"
                         placeholder="Enter your full Name"
+                        onKeyUp={() => {
+                          trigger("firstName");
+                        }}
                       />
                       {errors.fullname && (
                         <ErrorMessage>{errors.fullname.message}</ErrorMessage>
@@ -467,15 +551,45 @@ const ApplyJobForm = (props) => {
                     </Field>
                     <Field>
                       <FormLabel>Enter your mobile number :</FormLabel>
-                      <PhoneInput2
-                        country="in"
-                        inputStyle={{ width: "100%", padding: "5px 10px" }}
-                        onChange={(phone) => setPhoneNumber(phone)}
+                      <FormSelect
+                        required
+                        name=""
+                        id=""
+                        onChange={(event) => {
+                          return (
+                            setCountryCode(event.target.value),
+                            setPhoneNumberError("")
+                          );
+                        }}
+                      >
+                        <>
+                          <FormOption value="">
+                            Choose the country code
+                          </FormOption>
+                          {countriesWithCodes.map((country, index) => (
+                            <FormOption value={country.mobileCode}>
+                              {country.name + " "}(
+                              {country.code + " " + country.mobileCode})
+                            </FormOption>
+                          ))}
+                        </>
+                      </FormSelect>
+                    </Field>
+                    <Field>
+                      <Input
+                        pattern="/^\S*$/,"
+                        required
+                        type="number"
+                        onChange={verifyMobileNumber}
                       />
+                      {phoneNumberError && (
+                        <ErrorMessage>{phoneNumberError}</ErrorMessage>
+                      )}
                     </Field>
                     <Field>
                       <FormLabel>Choose the currency:</FormLabel>
                       <FormSelect
+                        required
                         name="currency"
                         {...register("currency", {
                           required: "Choose your currency",
@@ -493,9 +607,15 @@ const ApplyJobForm = (props) => {
                     </Field>
                     <Field>
                       <Input
+                        required
                         {...register("location", {
                           required: "Enter your location",
+                          pattern: {
+                            value: /\S+(?:\s+\S+)*/g,
+                            message: "Remove the space from the field",
+                          },
                         })}
+                        onKeyUp={() => trigger("location")}
                         type="text"
                         placeholder="Enter your location"
                       />
@@ -507,7 +627,13 @@ const ApplyJobForm = (props) => {
                       <Input
                         {...register("city", {
                           required: "Enter your city",
+                          pattern: {
+                            value: /\S+(?:\s+\S+)*/g,
+                            message: "Remove the space from the field",
+                          },
                         })}
+                        onKeyUp={() => trigger("city")}
+                        required
                         type="text"
                         placeholder="Enter your city"
                       />
@@ -517,9 +643,15 @@ const ApplyJobForm = (props) => {
                     </Field>
                     <Field>
                       <Input
+                        required
                         {...register("state", {
                           required: "Enter your state name",
+                          pattern: {
+                            value: /\S+(?:\s+\S+)*/g,
+                            message: "Remove the space from the field",
+                          },
                         })}
+                        onKeyUp={() => trigger("state")}
                         type="text"
                         placeholder="Enter your state name"
                       />
@@ -529,9 +661,15 @@ const ApplyJobForm = (props) => {
                     </Field>
                     <Field>
                       <Input
+                        required
                         {...register("country", {
                           required: "Enter your country name",
+                          pattern: {
+                            value: /\S+(?:\s+\S+)*/g,
+                            message: "Remove the space from the field",
+                          },
                         })}
+                        onKeyUp={() => trigger("country")}
                         type="text"
                         placeholder="Enter your country name"
                       />
@@ -544,9 +682,15 @@ const ApplyJobForm = (props) => {
                     </h3>
                     <Field>
                       <Input
+                        required
                         {...register("collegeName", {
                           required: "Enter your college name",
+                          pattern: {
+                            value: /\S+(?:\s+\S+)*/g,
+                            message: "Remove the space from the field",
+                          },
                         })}
+                        onKeyUp={() => trigger("collegeName")}
                         type="text"
                         placeholder="Enter your college name"
                       />
@@ -560,7 +704,13 @@ const ApplyJobForm = (props) => {
                       <Input
                         {...register("universityName", {
                           required: "Enter your university name",
+                          pattern: {
+                            value: /\S+(?:\s+\S+)*/g,
+                            message: "Remove the space from the field",
+                          },
                         })}
+                        onKeyUp={() => trigger("universityName")}
+                        required
                         type="text"
                         placeholder="Enter your university name"
                       />
@@ -572,6 +722,7 @@ const ApplyJobForm = (props) => {
                     </Field>
                     <Field>
                       <FormSelect
+                        required
                         name="startingYear"
                         {...register("startingYear", {
                           required:
@@ -595,6 +746,7 @@ const ApplyJobForm = (props) => {
                     </Field>
                     <Field>
                       <FormSelect
+                        required
                         name="endingYear"
                         {...register("endingYear", {
                           required:
@@ -619,6 +771,7 @@ const ApplyJobForm = (props) => {
                         Highest Education completion year :{" "}
                       </FormLabel>
                       <Input
+                        required
                         {...register("completedYear", {
                           required:
                             "Enter your highest education passed out year",
@@ -634,6 +787,7 @@ const ApplyJobForm = (props) => {
                     </Field>
                     <Field>
                       <Input
+                        required
                         {...register("percentage", {
                           required: "Enter your highest education percentage",
                         })}
@@ -653,6 +807,11 @@ const ApplyJobForm = (props) => {
                         onChange={setSelectedOption}
                         options={skillOptions}
                       />
+                      {showErrors?.selectedSkillsError && (
+                        <ErrorMessage>
+                          {showErrors.selectedSkillsError}
+                        </ErrorMessage>
+                      )}
                     </Field>
                     <Field>
                       <RadioWrapper>
@@ -680,6 +839,11 @@ const ApplyJobForm = (props) => {
                           <FormLabel htmlFor="no">No</FormLabel>
                         </RadioWrapper>
                       </RadioWrapper>
+                      {showErrors?.showHaveExperienceError && (
+                        <ErrorMessage>
+                          {showErrors.showHaveExperienceError}
+                        </ErrorMessage>
+                      )}
                     </Field>
                     {showExperienceForm && (
                       <>
@@ -691,7 +855,13 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("currentCompanyName", {
                               required: "Enter your current company name",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => trigger("currentCompanyName")}
+                            required
                             type="text"
                             placeholder="Enter your current company name"
                           />
@@ -705,7 +875,13 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("currentDesignation", {
                               required: "Enter your current designation",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => trigger("currentDesignation")}
+                            required
                             type="text"
                             placeholder="Enter your current designation"
                           />
@@ -717,6 +893,7 @@ const ApplyJobForm = (props) => {
                         </Field>
                         <Field>
                           <FormSelect
+                            required
                             name="experience"
                             {...register("experience", {
                               required: "Choose the experience years",
@@ -742,6 +919,7 @@ const ApplyJobForm = (props) => {
                         </Field>
                         <Field>
                           <Input
+                            required
                             {...register("currentCompanySalary", {
                               required: "Enter your current annual salary",
                             })}
@@ -756,6 +934,7 @@ const ApplyJobForm = (props) => {
                         </Field>
                         <Field>
                           <Input
+                            required
                             {...register("expectedSalary", {
                               required: "Enter your expected salary",
                             })}
@@ -772,7 +951,13 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("companyLocation", {
                               required: "Enter your Company location",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => trigger("companyLocation")}
+                            required
                             type="text"
                             placeholder="Enter your company location"
                           />
@@ -786,7 +971,13 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("companyCity", {
                               required: "Enter your company city",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => trigger("companyCity")}
+                            required
                             type="text"
                             placeholder="Enter your company city"
                           />
@@ -800,7 +991,13 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("companyState", {
                               required: "Enter your company state name",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => trigger("companyState")}
+                            required
                             type="text"
                             placeholder="Enter your company state name"
                           />
@@ -814,7 +1011,13 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("companyCountry", {
                               required: "Enter your company country name",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => trigger("companyCountry")}
+                            required
                             type="text"
                             placeholder="Enter your company country name"
                           />
@@ -862,6 +1065,11 @@ const ApplyJobForm = (props) => {
                           <FormLabel htmlFor="no">No</FormLabel>
                         </RadioWrapper>
                       </RadioWrapper>
+                      {showErrors?.showHaveExperienceError && (
+                        <ErrorMessage>
+                          {showErrors.showHaveExperienceError}
+                        </ErrorMessage>
+                      )}
                     </Field>
                     {showExperienceForm && (
                       <>
@@ -873,7 +1081,13 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("currentCompanyName", {
                               required: "Enter your current company name",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => trigger("currentCompanyName")}
+                            required
                             type="text"
                             placeholder="Enter your current company name"
                           />
@@ -887,7 +1101,13 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("currentDesignation", {
                               required: "Enter your current designation",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => trigger("currentDesignation")}
+                            required
                             type="text"
                             placeholder="Enter your current designation"
                           />
@@ -899,6 +1119,7 @@ const ApplyJobForm = (props) => {
                         </Field>
                         <Field>
                           <FormSelect
+                            required
                             name="experience"
                             {...register("experience", {
                               required: "Choose the experience years",
@@ -926,7 +1147,13 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("currentCompanySalary", {
                               required: "Enter your current annual salary",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => trigger("currentCompanySalary")}
+                            required
                             type="number"
                             placeholder="Enter your current annual salary"
                           />
@@ -938,6 +1165,7 @@ const ApplyJobForm = (props) => {
                         </Field>
                         <Field>
                           <Input
+                            required
                             {...register("expectedSalary", {
                               required: "Enter your expected salary",
                             })}
@@ -954,7 +1182,13 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("companyLocation", {
                               required: "Enter your Company location",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => trigger("companyLocation")}
+                            required
                             type="text"
                             placeholder="Enter your company location"
                           />
@@ -968,7 +1202,13 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("companyCity", {
                               required: "Enter your company city",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => trigger("companyCity")}
+                            required
                             type="text"
                             placeholder="Enter your company city"
                           />
@@ -982,7 +1222,13 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("companyState", {
                               required: "Enter your company state name",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => trigger("companyState")}
+                            required
                             type="text"
                             placeholder="Enter your company state name"
                           />
@@ -996,7 +1242,13 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("companyCountry", {
                               required: "Enter your company country name",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => trigger("companyCountry")}
+                            required
                             type="text"
                             placeholder="Enter your company country name"
                           />
@@ -1059,9 +1311,17 @@ const ApplyJobForm = (props) => {
                         </Field>
                         <Field>
                           <Input
+                            required
                             {...register("fullname", {
                               required: "Please enter your full Name",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => {
+                              trigger("fullname");
+                            }}
                             type="text"
                             placeholder="Enter your full Name"
                           />
@@ -1073,15 +1333,45 @@ const ApplyJobForm = (props) => {
                         </Field>
                         <Field>
                           <FormLabel>Enter your mobile number :</FormLabel>
-                          <PhoneInput2
-                            country="in"
-                            inputStyle={{ width: "100%", padding: "5px 10px" }}
-                            onChange={(phone) => setPhoneNumber(phone)}
+                          <FormSelect
+                            required
+                            name=""
+                            id=""
+                            onChange={(event) => {
+                              return (
+                                setCountryCode(event.target.value),
+                                setPhoneNumberError("")
+                              );
+                            }}
+                          >
+                            <>
+                              <FormOption value="">
+                                Choose the country code
+                              </FormOption>
+                              {countriesWithCodes.map((country, index) => (
+                                <FormOption value={country.mobileCode}>
+                                  {country.name + " "}(
+                                  {country.code + " " + country.mobileCode})
+                                </FormOption>
+                              ))}
+                            </>
+                          </FormSelect>
+                        </Field>
+                        <Field>
+                          <Input
+                            pattern="/^\S*$/,"
+                            required
+                            type="number"
+                            onChange={verifyMobileNumber}
                           />
+                          {phoneNumberError && (
+                            <ErrorMessage>{phoneNumberError}</ErrorMessage>
+                          )}
                         </Field>
                         <Field>
                           <FormLabel>Choose the currency:</FormLabel>
                           <FormSelect
+                            required
                             name="currency"
                             {...register("currency", {
                               required: "Choose your currency",
@@ -1105,7 +1395,15 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("location", {
                               required: "Enter your location",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => {
+                              trigger("location");
+                            }}
+                            required
                             type="text"
                             placeholder="Enter your location"
                           />
@@ -1119,7 +1417,15 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("city", {
                               required: "Enter your city",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            required
+                            onKeyUp={() => {
+                              trigger("city");
+                            }}
                             type="text"
                             placeholder="Enter your city"
                           />
@@ -1131,7 +1437,15 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("state", {
                               required: "Enter your state name",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            required
+                            onKeyUp={() => {
+                              trigger("state");
+                            }}
                             type="text"
                             placeholder="Enter your state name"
                           />
@@ -1143,7 +1457,15 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("country", {
                               required: "Enter your country name",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            required
+                            onKeyUp={() => {
+                              trigger("country");
+                            }}
                             type="text"
                             placeholder="Enter your country name"
                           />
@@ -1160,7 +1482,15 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("collegeName", {
                               required: "Enter your college name",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => {
+                              trigger("collegeName");
+                            }}
+                            required
                             type="text"
                             placeholder="Enter your college name"
                           />
@@ -1174,7 +1504,15 @@ const ApplyJobForm = (props) => {
                           <Input
                             {...register("universityName", {
                               required: "Enter your university name",
+                              pattern: {
+                                value: /\S+(?:\s+\S+)*/g,
+                                message: "Remove the space from the field",
+                              },
                             })}
+                            onKeyUp={() => {
+                              trigger("universityName");
+                            }}
+                            required
                             type="text"
                             placeholder="Enter your university name"
                           />
@@ -1186,6 +1524,7 @@ const ApplyJobForm = (props) => {
                         </Field>
                         <Field>
                           <FormSelect
+                            required
                             name="startingYear"
                             {...register("startingYear", {
                               required:
@@ -1209,6 +1548,7 @@ const ApplyJobForm = (props) => {
                         </Field>
                         <Field>
                           <FormSelect
+                            required
                             name="endingYear"
                             {...register("endingYear", {
                               required:
@@ -1235,6 +1575,7 @@ const ApplyJobForm = (props) => {
                             Highest Education completion year :{" "}
                           </FormLabel>
                           <Input
+                            required
                             {...register("completedYear", {
                               required:
                                 "Enter your highest education passed out year",
@@ -1250,6 +1591,7 @@ const ApplyJobForm = (props) => {
                         </Field>
                         <Field>
                           <Input
+                            required
                             {...register("percentage", {
                               required:
                                 "Enter your highest education percentage",
@@ -1272,6 +1614,11 @@ const ApplyJobForm = (props) => {
                             onChange={setSelectedOption}
                             options={skillOptions}
                           />
+                          {showErrors?.selectedSkillsError && (
+                            <ErrorMessage>
+                              {showErrors.selectedSkillsError}
+                            </ErrorMessage>
+                          )}
                         </Field>
                         <Field>
                           <RadioWrapper>
@@ -1299,6 +1646,11 @@ const ApplyJobForm = (props) => {
                               <FormLabel htmlFor="no">No</FormLabel>
                             </RadioWrapper>
                           </RadioWrapper>
+                          {showErrors?.showHaveExperienceError && (
+                            <ErrorMessage>
+                              {showErrors.showHaveExperienceError}
+                            </ErrorMessage>
+                          )}
                         </Field>
                         {showExperienceForm && (
                           <>
@@ -1310,7 +1662,15 @@ const ApplyJobForm = (props) => {
                               <Input
                                 {...register("currentCompanyName", {
                                   required: "Enter your current company name",
+                                  pattern: {
+                                    value: /\S+(?:\s+\S+)*/g,
+                                    message: "Remove the space from the field",
+                                  },
                                 })}
+                                onKeyUp={() => {
+                                  trigger("currentCompanyName");
+                                }}
+                                required
                                 type="text"
                                 placeholder="Enter your current company name"
                               />
@@ -1324,7 +1684,15 @@ const ApplyJobForm = (props) => {
                               <Input
                                 {...register("currentDesignation", {
                                   required: "Enter your current designation",
+                                  pattern: {
+                                    value: /\S+(?:\s+\S+)*/g,
+                                    message: "Remove the space from the field",
+                                  },
                                 })}
+                                onKeyUp={() => {
+                                  trigger("currentDesignation");
+                                }}
+                                required
                                 type="text"
                                 placeholder="Enter your current designation"
                               />
@@ -1336,6 +1704,7 @@ const ApplyJobForm = (props) => {
                             </Field>
                             <Field>
                               <FormSelect
+                                required
                                 name="experience"
                                 {...register("experience", {
                                   required: "Choose the experience years",
@@ -1361,6 +1730,7 @@ const ApplyJobForm = (props) => {
                             </Field>
                             <Field>
                               <Input
+                                required
                                 {...register("currentCompanySalary", {
                                   required: "Enter your current annual salary",
                                 })}
@@ -1375,6 +1745,7 @@ const ApplyJobForm = (props) => {
                             </Field>
                             <Field>
                               <Input
+                                required
                                 {...register("expectedSalary", {
                                   required: "Enter your expected salary",
                                 })}
@@ -1391,7 +1762,15 @@ const ApplyJobForm = (props) => {
                               <Input
                                 {...register("companyLocation", {
                                   required: "Enter your Company location",
+                                  pattern: {
+                                    value: /\S+(?:\s+\S+)*/g,
+                                    message: "Remove the space from the field",
+                                  },
                                 })}
+                                onKeyUp={() => {
+                                  trigger("companyLocation");
+                                }}
+                                required
                                 type="text"
                                 placeholder="Enter your company location"
                               />
@@ -1405,7 +1784,15 @@ const ApplyJobForm = (props) => {
                               <Input
                                 {...register("companyCity", {
                                   required: "Enter your company city",
+                                  pattern: {
+                                    value: /\S+(?:\s+\S+)*/g,
+                                    message: "Remove the space from the field",
+                                  },
                                 })}
+                                onKeyUp={() => {
+                                  trigger("companyCity");
+                                }}
+                                required
                                 type="text"
                                 placeholder="Enter your company city"
                               />
@@ -1419,7 +1806,15 @@ const ApplyJobForm = (props) => {
                               <Input
                                 {...register("companyState", {
                                   required: "Enter your company state name",
+                                  pattern: {
+                                    value: /\S+(?:\s+\S+)*/g,
+                                    message: "Remove the space from the field",
+                                  },
                                 })}
+                                onKeyUp={() => {
+                                  trigger("companyState");
+                                }}
+                                required
                                 type="text"
                                 placeholder="Enter your company state name"
                               />
@@ -1433,7 +1828,15 @@ const ApplyJobForm = (props) => {
                               <Input
                                 {...register("companyCountry", {
                                   required: "Enter your company country name",
+                                  pattern: {
+                                    value: /\S+(?:\s+\S+)*/g,
+                                    message: "Remove the space from the field",
+                                  },
                                 })}
+                                onKeyUp={() => {
+                                  trigger("companyCountry");
+                                }}
+                                required
                                 type="text"
                                 placeholder="Enter your company country name"
                               />

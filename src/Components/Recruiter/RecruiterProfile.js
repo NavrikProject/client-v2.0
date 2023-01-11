@@ -21,14 +21,10 @@ const RecruiterProfile = () => {
   const user = useSelector((state) => state.user.currentUser);
   const [showAddFirmDetails, setShowAddFirmDetails] = useState(true);
   const [showJobPostForm, setShowJobPostForm] = useState(false);
-  const [showResponseForJobPost, setShowResponseForJobPost] = useState(false);
-  const [showViewJobPosts, setShowViewJobPosts] = useState(false);
   const [activeJobPosts, setActiveJobPosts] = useState(false);
   const [inActiveJobPosts, setInActiveJobPosts] = useState(false);
   const AddFirmDetailsHandler = () => {
     setShowAddFirmDetails(!showAddFirmDetails);
-    setShowResponseForJobPost(false);
-    setShowViewJobPosts(false);
     setShowJobPostForm(false);
     setInActiveJobPosts(false);
     setActiveJobPosts(false);
@@ -36,36 +32,17 @@ const RecruiterProfile = () => {
   const PostAJobHandler = () => {
     setShowJobPostForm(!showJobPostForm);
     setShowAddFirmDetails(false);
-    setShowResponseForJobPost(false);
-    setShowViewJobPosts(false);
+
     setInActiveJobPosts(false);
     setActiveJobPosts(false);
   };
-
-  const ViewResponseHandler = () => {
-    setShowResponseForJobPost(!showResponseForJobPost);
-    setShowJobPostForm(false);
-    setShowAddFirmDetails(false);
-    setShowViewJobPosts(false);
-  };
-
-  const ViewJobPosts = () => {
-    setShowViewJobPosts(!showViewJobPosts);
-    setShowResponseForJobPost(false);
-    setShowJobPostForm(false);
-    setShowAddFirmDetails(false);
-  };
   const inActiveJobPostsHandler = () => {
-    setShowViewJobPosts(false);
-    setShowResponseForJobPost(false);
     setShowJobPostForm(false);
     setShowAddFirmDetails(false);
     setInActiveJobPosts(!inActiveJobPosts);
     setActiveJobPosts(false);
   };
   const activeJobPostsHandler = () => {
-    setShowViewJobPosts(false);
-    setShowResponseForJobPost(false);
     setShowJobPostForm(false);
     setShowAddFirmDetails(false);
     setInActiveJobPosts(false);

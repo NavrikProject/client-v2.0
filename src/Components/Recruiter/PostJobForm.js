@@ -29,6 +29,7 @@ const PostJobForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    trigger,
   } = useForm();
   const [selectedOption, setSelectedOption] = useState(null);
   const [error, setError] = useState("");
@@ -110,7 +111,14 @@ const PostJobForm = () => {
             name="heading"
             {...register("heading", {
               required: "Give heading like Looking for RPA developer",
+              pattern: {
+                value: /\S+(?:\s+\S+)*/g,
+                message: "Remove the space from the field",
+              },
             })}
+            onKeyUp={() => {
+              trigger("heading");
+            }}
           />
           {errors.heading && (
             <ErrorMessage>{errors.heading.message}</ErrorMessage>
@@ -142,6 +150,10 @@ const PostJobForm = () => {
               name="role"
               {...register("role", {
                 required: "Choose the job role",
+                pattern: {
+                  value: /\S+(?:\s+\S+)*/g,
+                  message: "Remove the space from the field",
+                },
               })}
             >
               <FormOption value="">Choose job role</FormOption>
@@ -172,6 +184,10 @@ const PostJobForm = () => {
               name="positions"
               {...register("positions", {
                 required: "enter the number of positions",
+                pattern: {
+                  value: /\S+(?:\s+\S+)*/g,
+                  message: "Remove the space from the field",
+                },
               })}
             />
             {errors.positions && (
@@ -187,6 +203,10 @@ const PostJobForm = () => {
               name="qualification"
               {...register("qualification", {
                 required: "Choose the required qualification for the job",
+                pattern: {
+                  value: /\S+(?:\s+\S+)*/g,
+                  message: "Remove the space from the field",
+                },
               })}
             >
               <FormOption value="">Choose job qualification</FormOption>
@@ -317,7 +337,14 @@ const PostJobForm = () => {
             placeholder="Enter the tags related to this field"
             {...register("tags", {
               required: "Enter the tags for this job",
+              pattern: {
+                value: /\S+(?:\s+\S+)*/g,
+                message: "Remove the space from the field",
+              },
             })}
+            onKeyUp={() => {
+              trigger("tags");
+            }}
           ></TextArea>
           {errors.tags && <ErrorMessage>{errors.tags.message}</ErrorMessage>}
         </Field>

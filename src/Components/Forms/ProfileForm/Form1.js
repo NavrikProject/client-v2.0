@@ -87,13 +87,19 @@ const Form1 = (props) => {
         <Form onSubmit={handleSubmit(profileAccountHandler)}>
           <FormLabel>Enter your mobile number :</FormLabel>
           <PhoneInput2
+            required
             country="in"
             inputStyle={{ width: "100%", padding: "5px 10px" }}
             onChange={(phone) => setPhoneNumber(phone)}
           />
           <FormFlex>
+            <FormLabel htmlFor="">Enter your mobile number :</FormLabel>
+            <FormInputDate required type="number" name="phoneNumber" />
+          </FormFlex>
+          <FormFlex>
             <FormLabel htmlFor="">Enter your Dob :</FormLabel>
             <FormInputDate
+              required
               type="date"
               name="date"
               {...register("date", {
@@ -105,6 +111,7 @@ const Form1 = (props) => {
           <FormFlex>
             <FormLabel>Education:</FormLabel>
             <FormSelect
+              required
               name="graduate"
               {...register("graduate", {
                 required: "Choose your education",
@@ -123,6 +130,7 @@ const Form1 = (props) => {
           <FormFlex>
             <FormLabel> Profession:</FormLabel>
             <FormSelect
+              required
               name="profession"
               {...register("profession", {
                 required: "select your profession",
@@ -143,6 +151,7 @@ const Form1 = (props) => {
           <FormFlex>
             <FormLabel>Experience:</FormLabel>
             <FormSelect
+              required
               name="experience"
               {...register("experience", {
                 required: "select the experience",
@@ -161,6 +170,7 @@ const Form1 = (props) => {
             <ErrorMessage>{errors.experience.message}</ErrorMessage>
           )}
           <FormAddress
+            required
             {...register("address", {
               required: "Please add the address",
             })}

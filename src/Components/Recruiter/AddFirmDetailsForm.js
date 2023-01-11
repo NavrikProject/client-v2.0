@@ -36,6 +36,7 @@ const AddFirmDetailsForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    trigger,
   } = useForm();
   const [phoneNumber, setPhoneNumber] = useState("");
   const [image, setImage] = useState("");
@@ -210,12 +211,17 @@ const AddFirmDetailsForm = () => {
                 <FormLabel>Email:</FormLabel>
                 <Input
                   required
-                  placeholder="Enter the firm email address"
                   type="email"
-                  name="date"
                   {...register("email", {
-                    required: "enter the firm email address",
+                    required: "Enter an email to register",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email address",
+                    },
                   })}
+                  onKeyUp={() => {
+                    trigger("email");
+                  }}
                 />
               </Field>
               {errors.email && (
@@ -230,7 +236,14 @@ const AddFirmDetailsForm = () => {
                   name="firmName"
                   {...register("firmName", {
                     required: "enter the firm name",
+                    pattern: {
+                      value: /\S+(?:\s+\S+)*/g,
+                      message: "Remove the space from the field",
+                    },
                   })}
+                  onKeyUp={() => {
+                    trigger("firmName");
+                  }}
                 />
               </Field>
               {errors.firmName && (
@@ -242,7 +255,14 @@ const AddFirmDetailsForm = () => {
                   required
                   {...register("address", {
                     required: "Please add the address",
+                    pattern: {
+                      value: /\S+(?:\s+\S+)*/g,
+                      message: "Remove the space from the field",
+                    },
                   })}
+                  onKeyUp={() => {
+                    trigger("address");
+                  }}
                 ></TextArea>
                 {errors.address && (
                   <ErrorMessage>{errors.address.message}</ErrorMessage>
@@ -257,7 +277,14 @@ const AddFirmDetailsForm = () => {
                   name="city"
                   {...register("city", {
                     required: "enter the city name",
+                    pattern: {
+                      value: /\S+(?:\s+\S+)*/g,
+                      message: "Remove the space from the field",
+                    },
                   })}
+                  onKeyUp={() => {
+                    trigger("city");
+                  }}
                 />
               </Field>
               {errors.city && (
@@ -272,7 +299,14 @@ const AddFirmDetailsForm = () => {
                   name="state"
                   {...register("state", {
                     required: "enter the state name",
+                    pattern: {
+                      value: /\S+(?:\s+\S+)*/g,
+                      message: "Remove the space from the field",
+                    },
                   })}
+                  onKeyUp={() => {
+                    trigger("state");
+                  }}
                 />
               </Field>
               {errors.state && (
@@ -287,7 +321,14 @@ const AddFirmDetailsForm = () => {
                   name="country"
                   {...register("country", {
                     required: "enter the country name",
+                    pattern: {
+                      value: /\S+(?:\s+\S+)*/g,
+                      message: "Remove the space from the field",
+                    },
                   })}
+                  onKeyUp={() => {
+                    trigger("country");
+                  }}
                 />
               </Field>
               {errors.country && (
@@ -302,7 +343,14 @@ const AddFirmDetailsForm = () => {
                   name="pincode"
                   {...register("pincode", {
                     required: "enter the pincode ",
+                    pattern: {
+                      value: /\S+(?:\s+\S+)*/g,
+                      message: "Remove the space from the field",
+                    },
                   })}
+                  onKeyUp={() => {
+                    trigger("pincode");
+                  }}
                 />
               </Field>
               {errors.pincode && (
@@ -317,7 +365,14 @@ const AddFirmDetailsForm = () => {
                   name="contactPerson"
                   {...register("contactPerson", {
                     required: "enter the contact person",
+                    pattern: {
+                      value: /\S+(?:\s+\S+)*/g,
+                      message: "Remove the space from the field",
+                    },
                   })}
+                  onKeyUp={() => {
+                    trigger("contactPerson");
+                  }}
                 />
               </Field>
               {errors.contactPerson && (
@@ -367,7 +422,14 @@ const AddFirmDetailsForm = () => {
                   name="website"
                   {...register("website", {
                     required: "enter the contact person",
+                    pattern: {
+                      value: /\S+(?:\s+\S+)*/g,
+                      message: "Remove the space from the field",
+                    },
                   })}
+                  onKeyUp={() => {
+                    trigger("website");
+                  }}
                 />
               </Field>
               {errors.website && (
@@ -379,6 +441,10 @@ const AddFirmDetailsForm = () => {
                   required
                   {...register("companyDescription", {
                     required: "Please write the company",
+                    pattern: {
+                      value: /\S+(?:\s+\S+)*/g,
+                      message: "Remove the space from the field",
+                    },
                     minLength: {
                       value: 200,
                       message: "Must be 200 characters at least",
@@ -388,6 +454,9 @@ const AddFirmDetailsForm = () => {
                       message: "Must be less than 500 characters",
                     },
                   })}
+                  onKeyUp={() => {
+                    trigger("companyDescription");
+                  }}
                 ></TextArea>
                 {errors.companyDescription && (
                   <ErrorMessage>
@@ -406,7 +475,7 @@ const AddFirmDetailsForm = () => {
                   onChange={(event) => setImage(event.target.files[0])}
                 />
               </Field>
-              <FormBtn type="submit">Add Details</FormBtn>
+              <FormBtn>Add Details</FormBtn>
             </Form>
           </FormDiv>
         )}

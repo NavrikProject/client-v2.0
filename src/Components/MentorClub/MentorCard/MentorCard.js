@@ -4,21 +4,12 @@ import {
   BookNowButton,
   BookNowButtonDiv,
   FiltersInMentorCard,
-  MentorBoxDiv,
   MentorCategoryDiv,
-  MentorDesc,
   MentorDescP,
-  MentorDetailsDiv,
-  MentorExpertDiv,
   MentorName,
   MentorSlotTimeDiv,
-  MentorCourseBox,
   MentorDiv,
-  MentorDownDiv,
-  MentorImg,
-  MentorImgDiv,
   MentorNotFoundDiv,
-  MentorUpDiv,
   FiltersInMentorCardColor,
 } from "./MentorCardElements";
 import { Link } from "react-router-dom";
@@ -42,24 +33,7 @@ const Card = styled.div`
 const ContentDiv = styled.div`
   margin: 0px 0 0 0;
 `;
-const Button = styled.button`
-  margin: 0 auto;
-  padding: 12px 20px;
-  text-align: center;
-  font-size: 17px;
-  border: none;
-  outline: none;
-  width: 100%;
-  transition: all 0.5s ease-in-out;
-  cursor: pointer;
-  background-color: #1363df;
-  color: #fff;
-  border-radius: 5px;
-  &:hover {
-    opacity: 0.7;
-    transition: all 0.5s ease-in-out;
-  }
-`;
+
 const MentorCourseCard = ({
   skillCategoryFilter,
   searchItem,
@@ -161,7 +135,7 @@ const MentorCourseCard = ({
           !mentorAvailabilityFilter
         ) {
           const res = await axios.get(
-            `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/all`
+            `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/al`
           );
           setLoading(false);
           if (res.data.mentors) {
@@ -232,7 +206,16 @@ const MentorCourseCard = ({
           .map((mentor) => (
             <MentorDiv key={mentor.mentor_dtls_id}>
               <Card>
-                <Image src={mentor.mentor_image} alt="John" />
+                <Image
+                  src={mentor.mentor_image}
+                  alt={
+                    mentor.mentor_firstname +
+                    " " +
+                    mentor.mentor_lastname +
+                    " " +
+                    " "
+                  }
+                />
                 <MentorName>
                   {mentor.mentor_firstname + " " + mentor.mentor_lastname}
                 </MentorName>
