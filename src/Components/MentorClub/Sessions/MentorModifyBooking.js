@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ModelFixedHeight } from "../../utils/Model";
-
+import moment from "moment";
 const FormDiv = styled.div`
   padding: 40px 20px;
   width: 90%;
@@ -163,10 +163,10 @@ const MentorModifyBooking = ({
             <form onSubmit={modifyBookingAppointMent}>
               Choose the next Date :
               <DatePicker
-                className="form-control"
+                className="form-control-1"
                 closeOnScroll={true}
                 selected={date}
-                value={date}
+                value={moment(date).format("DD-MMMM-YYYY")}
                 onChange={(date) => setDate(date)}
                 minDate={new Date()}
                 maxDate={new Date(newEndDate)}

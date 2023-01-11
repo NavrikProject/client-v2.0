@@ -3,6 +3,7 @@ import axios from "axios";
 import "swiper/swiper.min.css";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import moment from "moment";
 import {
   BookNowButton,
   MentorBioDesc,
@@ -169,7 +170,6 @@ const MentorIndividual = () => {
   const showLoginModelHandler = () => {
     setShowLoginModal(!showLoginModal);
   };
-
   return (
     <MentorIndSection>
       {showModal && (
@@ -215,7 +215,13 @@ const MentorIndividual = () => {
               <MentorDetailsImgDiv>
                 <MentorProfileImg
                   src={mentor.mentor_image}
-                  alt="Mentor profile picture"
+                  alt={
+                    mentor.mentor_firstname +
+                    " " +
+                    mentor.mentor_lastname +
+                    " " +
+                    " "
+                  }
                 />
               </MentorDetailsImgDiv>
             </MentorDetailsDivFlex>
@@ -250,11 +256,11 @@ const MentorIndividual = () => {
                     <MentorProfileDateDiv>
                       Choose the Date: <br />
                       <DatePicker
+                        value={moment(date).format("DD-MMMM-YYYY")}
                         required
                         className="form-control"
                         closeOnScroll={true}
                         selected={date}
-                        value={date}
                         onChange={(date) => setDate(date)}
                         minDate={new Date()}
                         maxDate={new Date(mentor.mentor_available_end_date)}

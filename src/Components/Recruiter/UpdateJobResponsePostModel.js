@@ -1,7 +1,9 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineClose } from "react-icons/ai";
 import styled from "styled-components";
+import { ModelFixedHeight } from "../utils/Model";
 const Backdrop = styled.div`
   position: fixed;
   top: 0;
@@ -54,13 +56,13 @@ const CloseButtonDiv = styled.div`
   cursor: pointer;
 `;
 const MentorBoxDiv = styled.div`
-  width: 80%;
+  width: 95%;
   margin: 0 auto;
-  padding: 30px 20px 20px;
+  padding: 50px 20px 20px;
 `;
 const ConfirmButton = styled.button`
   margin: 0 auto;
-  width: 48%;
+  width: 45%;
   padding: 12px 20px;
   text-align: center;
   font-size: 17px;
@@ -147,21 +149,17 @@ const UpdateJobResponsePostModel = (props) => {
   };
 
   return (
-    <Backdrop>
-      <Modal>
-        <CloseButtonDiv onClick={props.showModalHandler}>
-          <CloseButton />
-        </CloseButtonDiv>
-        {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
-        {success && (
-          <p style={{ color: "green", textAlign: "center" }}>{success}</p>
-        )}
-        <MentorBoxDiv>
-          <form
-            action=""
-            onSubmit={handleSubmit(updateJobToClosePositionHandler)}
-          >
-            {/* <Field>
+    <ModelFixedHeight closeModelHandler={props.showModalHandler}>
+      {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
+      {success && (
+        <p style={{ color: "green", textAlign: "center" }}>{success}</p>
+      )}
+      <MentorBoxDiv>
+        <form
+          action=""
+          onSubmit={handleSubmit(updateJobToClosePositionHandler)}
+        >
+          {/* <Field>
               <FormLabel>Hiring Status:</FormLabel>
               <FormSelect
                 name="hiringStatus"
@@ -191,19 +189,18 @@ const UpdateJobResponsePostModel = (props) => {
                 <ErrorMessage>{errors.openPosition.message}</ErrorMessage>
               )}
             </Field> */}
-            <ConfirmButton type="submit">Confirm</ConfirmButton>
-            <CancelButton onClick={props.showModalHandler} type="btn">
-              Cancel
-            </CancelButton>
-          </form>
-          <WarnText>
-            If you confirm this job post will not displayed in the all the jobs
-            in the Home page and will no longer accept the applications and job
-            post will be closed.
-          </WarnText>
-        </MentorBoxDiv>
-      </Modal>
-    </Backdrop>
+          <ConfirmButton type="submit">Confirm</ConfirmButton>
+          <CancelButton onClick={props.showModalHandler} type="btn">
+            Cancel
+          </CancelButton>
+        </form>
+        <WarnText>
+          If you confirm this job post will not displayed in the all the jobs in
+          the Home page and will no longer accept the applications and job post
+          will be closed.
+        </WarnText>
+      </MentorBoxDiv>
+    </ModelFixedHeight>
   );
 };
 

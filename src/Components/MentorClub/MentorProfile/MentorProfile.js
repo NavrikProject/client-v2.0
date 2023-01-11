@@ -214,9 +214,9 @@ const TraineeProfile = () => {
             ""
           )}
           {changePasswordForm ? (
-            <ScrollModel closeScrollModelHandler={showPasswordForm}>
+            <ModelFixedHeight closeModelHandler={showPasswordForm}>
               <Form3 />
-            </ScrollModel>
+            </ModelFixedHeight>
           ) : (
             ""
           )}

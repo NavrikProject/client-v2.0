@@ -13,6 +13,7 @@ import "./MentorCardDate.css";
 import DatePicker from "react-datepicker";
 import LoginModel from "../../Forms/AccountForms/LoginModel";
 import { ModelFixedHeight } from "../../../Components/utils/Model";
+import moment from "moment";
 const Backdrop = styled.div`
   position: fixed;
   top: 0;
@@ -202,7 +203,9 @@ const MentorBookingCardModel = (props) => {
         const { amount, id: order_id, currency } = result.data;
         const {
           data: { key: razorpayKey },
-        } = await axios.get("https://deploy-practiwiz.azurewebsites.net/api/get-razorpay-key");
+        } = await axios.get(
+          "https://deploy-practiwiz.azurewebsites.net/api/get-razorpay-key"
+        );
         const options = {
           key: razorpayKey,
           amount: amount.toString(),
@@ -341,7 +344,7 @@ const MentorBookingCardModel = (props) => {
                 className="form-control"
                 closeOnScroll={true}
                 selected={date}
-                value={date}
+                value={moment(date).format("DD-MMMM-YYYY")}
                 onChange={(date) => setDate(date)}
                 minDate={new Date()}
                 maxDate={new Date(props.sendMentor.mentor_available_end_date)}

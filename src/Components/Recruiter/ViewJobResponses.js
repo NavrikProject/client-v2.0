@@ -56,6 +56,7 @@ const JobsTitle = styled.h1`
   color: #111;
   opacity: 0.7;
   padding-bottom: 10px;
+  margin-top: 10px;
 `;
 const NotFoundDiv = styled.div`
   box-shadow: rgb(142 151 158 / 15%) 0px 4px 19px;

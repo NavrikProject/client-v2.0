@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import logo from "../../images/practiwiz-logo.png";
 import { ModelFixedHeight } from "../utils/Model";
+import moment from "moment";
 import "./Model.css";
 const FormDiv = styled.div`
   padding: 40px 20px;
@@ -294,10 +295,10 @@ const TraineeModifyBooking = ({
             >
               Choose the next Date :
               <DatePicker
-                className="form-control"
+                className="form-control-1"
                 closeOnScroll={true}
                 selected={date}
-                value={date}
+                value={moment(date).format("DD-MMMM-YYYY")}
                 onChange={(date) => setDate(date)}
                 minDate={new Date()}
                 maxDate={new Date(newEndDate)}
