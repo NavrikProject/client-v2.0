@@ -163,7 +163,6 @@ const RegisterForm = () => {
                       <input
                         required
                         type="text"
-                        pattern="/^\S*$/"
                         {...register("firstName", {
                           required: "firstname is Required",
                           minLength: {
@@ -303,7 +302,6 @@ const RegisterForm = () => {
                     </li>
                     <li className="styled-input unIcon">
                       <input
-                        pattern="/^\S*$/,"
                         required
                         type="number"
                         onChange={verifyMobileNumber}
