@@ -210,7 +210,7 @@ const TraineeModifyBooking = ({
             setLoading(false)
           );
         }
-        const { amount, id: order_id, currency } = result.data;
+        const { amount, id: order_id, currency } = result?.data;
         const {
           data: { key: razorpayKey },
         } = await axios.get(
@@ -219,7 +219,7 @@ const TraineeModifyBooking = ({
 
         const options = {
           key: razorpayKey,
-          amount: amount.toString(),
+          amount: amount?.toString(),
           currency: currency,
           name: "Navrik Software Solutions",
           description: "Paying for the mentor",
@@ -237,11 +237,13 @@ const TraineeModifyBooking = ({
               }
             );
             if (res.data.success) {
-              setSuccess(res.data.success);
-              toast.success(res.data.success, {
-                position: "top-center",
-              });
-              setLoading(false);
+              return (
+                (setSuccess(res.data.success),
+                toast.success(res.data.success, {
+                  position: "top-center",
+                })),
+                setLoading(false)
+              );
             }
             if (res.data.error) {
               setError(res.data.error);
@@ -254,7 +256,7 @@ const TraineeModifyBooking = ({
           prefill: {
             name: user?.firstname + " " + user?.lastname,
             email: user?.email,
-            contact: "111111",
+            contact: "",
           },
           theme: {
             color: "#80c0f0",

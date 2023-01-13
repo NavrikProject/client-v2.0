@@ -163,7 +163,6 @@ const RegisterForm = () => {
                       <input
                         required
                         type="text"
-                        pattern="/^\S*$/"
                         {...register("firstName", {
                           required: "firstname is Required",
                           minLength: {

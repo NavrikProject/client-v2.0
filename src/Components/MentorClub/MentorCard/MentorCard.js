@@ -135,7 +135,7 @@ const MentorCourseCard = ({
           !mentorAvailabilityFilter
         ) {
           const res = await axios.get(
-            `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/al`
+            `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/all`
           );
           setLoading(false);
           if (res.data.mentors) {
@@ -159,7 +159,7 @@ const MentorCourseCard = ({
     mentorAvailabilityFilter,
   ]);
 
-  const ShowBookingModalHandler = (mentor) => {
+  const showBookingModalHandler = (mentor) => {
     setSendMentor(mentor);
     setShowModal(!showModal);
   };
@@ -168,7 +168,7 @@ const MentorCourseCard = ({
     <>
       {showModal && (
         <MentorBookingCardModel
-          ShowBookingModalHandler={ShowBookingModalHandler}
+          showBookingModalHandler={showBookingModalHandler}
           sendMentor={sendMentor}
         />
       )}
@@ -288,7 +288,7 @@ const MentorCourseCard = ({
                     </BookNowButton>
                   ) : (
                     <BookNowButton
-                      onClick={() => ShowBookingModalHandler(mentor)}
+                      onClick={() => showBookingModalHandler(mentor)}
                     >
                       Book a session
                     </BookNowButton>
