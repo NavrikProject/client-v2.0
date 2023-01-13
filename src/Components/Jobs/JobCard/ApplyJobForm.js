@@ -501,7 +501,7 @@ const ApplyJobForm = (props) => {
           )}
           {loading && <p>Loading... please wait...</p>}
           {appliedStatus === true ? (
-            <AppliedText>You have all ready applied for this job!</AppliedText>
+            <AppliedText>You have already applied for this job!</AppliedText>
           ) : (
             <>
               <JobName>

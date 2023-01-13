@@ -200,7 +200,7 @@ const MentorBookingCardModel = (props) => {
             setLoading(false)
           );
         }
-        const { amount, id: order_id, currency } = result.data;
+        const { amount, id: order_id, currency } = result?.data;
         const {
           data: { key: razorpayKey },
         } = await axios.get(
@@ -208,7 +208,7 @@ const MentorBookingCardModel = (props) => {
         );
         const options = {
           key: razorpayKey,
-          amount: amount.toString(),
+          amount: amount?.toString(),
           currency: currency,
           name: "Navrik Software Solutions",
           description: "Paying for the mentor",
@@ -237,12 +237,14 @@ const MentorBookingCardModel = (props) => {
               }
             );
             if (res.data.success) {
-              setSuccess(res.data.success);
-              toast.success(res.data.success, {
-                position: "top-center",
-              });
-              setLoading(false);
-              reset();
+              return (
+                (setSuccess(res.data.success),
+                toast.success(res.data.success, {
+                  position: "top-center",
+                })),
+                setLoading(false),
+                reset()
+              );
             }
             if (res.data.error) {
               setError(res.data.error);
@@ -255,7 +257,7 @@ const MentorBookingCardModel = (props) => {
           prefill: {
             name: user?.firstname + " " + user?.lastname,
             email: user?.email,
-            contact: "111111",
+            contact: "",
           },
           theme: {
             color: "#80c0f0",
@@ -316,7 +318,7 @@ const MentorBookingCardModel = (props) => {
       )}
       <Backdrop>
         <Modal>
-          <CloseButtonDiv onClick={props.ShowBookingModalHandler}>
+          <CloseButtonDiv onClick={props.showBookingModalHandler}>
             <CloseButton />
           </CloseButtonDiv>
           <MentorBoxDiv>
@@ -335,13 +337,13 @@ const MentorBookingCardModel = (props) => {
                   " " +
                   props.sendMentor.mentor_lastname}
               </span>
-              <hr />
             </MentorSessionName>
+            <hr />
             <div>
               Choose the Date: <br />
               <DatePicker
                 required
-                className="form-control"
+                className="form-control-1"
                 closeOnScroll={true}
                 selected={date}
                 value={moment(date).format("DD-MMMM-YYYY")}

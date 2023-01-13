@@ -186,135 +186,138 @@ const MentorIndividual = () => {
       )}
       <MentorCoverDiv></MentorCoverDiv>
       {indMentor?.map((mentor) => (
-        <MentorSectionDiv key={mentor.mentor_dtls_id}>
-          <MentorDetailsDiv>
-            <MentorDetailsDivFlex>
-              <MentorDetailsName>
-                <MentorName>
-                  {mentor.mentor_firstname +
-                    " " +
-                    mentor.mentor_lastname +
-                    " " +
-                    " "}
-                </MentorName>
-                <MentorDesignation>
-                  {" " + mentor.mentor_current_role + " "}
-                </MentorDesignation>{" "}
-                {/* at{" "}
+        <div key={mentor.mentor_dtls_id}>
+          <MentorSectionDiv>
+            <MentorDetailsDiv>
+              <MentorDetailsDivFlex>
+                <MentorDetailsName>
+                  <MentorName>
+                    {mentor.mentor_firstname +
+                      " " +
+                      mentor.mentor_lastname +
+                      " " +
+                      " "}
+                  </MentorName>
+                  <MentorDesignation>
+                    {" " + mentor.mentor_current_role + " "}
+                  </MentorDesignation>{" "}
+                  {/* at{" "}
                 <MentorDesignation>
                   {" " + mentor.mentor_firm}
                 </MentorDesignation> */}
-                <br />
-                <MentorMsgButton>
-                  Message <i className="fa-solid fa-message"></i>
-                </MentorMsgButton>
-                <MentorMsgButton>
-                  Share Profile <i className="fa-solid fa-share-nodes"></i>
-                </MentorMsgButton>
-              </MentorDetailsName>
-              <MentorDetailsImgDiv>
-                <MentorProfileImg
-                  src={mentor.mentor_image}
-                  alt={
-                    mentor.mentor_firstname +
-                    " " +
-                    mentor.mentor_lastname +
-                    " " +
-                    " "
-                  }
-                />
-              </MentorDetailsImgDiv>
-            </MentorDetailsDivFlex>
-          </MentorDetailsDiv>
-          <MentorDetailsDiv>
-            <h1>OverView</h1>
-            <hr />
-            <MentorProfileDiv>
-              <MentorProfileDivFlex>
-                <MentorProfileDivLeft>
-                  <MentorBioDesc>{mentor.mentor_bio}</MentorBioDesc>
-                  <MentorLanguagesDiv>
-                    <MentorLanguages>
-                      Skills Known: <span>{mentor.mentor_skills}</span>
-                    </MentorLanguages>
-                  </MentorLanguagesDiv>
-                  <MentorLanguagesDiv>
-                    <MentorLanguages>
-                      Expertise In: <span>{mentor.mentor_mentorship_area}</span>
-                    </MentorLanguages>
-                  </MentorLanguagesDiv>
-                  <MentorLanguagesDiv>
-                    <MentorLanguages>
-                      Languages Known: <span>English</span>
-                    </MentorLanguages>
-                  </MentorLanguagesDiv>
-                </MentorProfileDivLeft>
-                <MentorProfileDivRight>
-                  <MentorProfileAvailDiv>
-                    <h4>Available Sessions:</h4>
-                    <hr />
-                    <MentorProfileDateDiv>
-                      Choose the Date: <br />
-                      <DatePicker
-                        value={moment(date).format("DD-MMMM-YYYY")}
-                        required
-                        className="form-control"
-                        closeOnScroll={true}
-                        selected={date}
-                        onChange={(date) => setDate(date)}
-                        minDate={new Date()}
-                        maxDate={new Date(mentor.mentor_available_end_date)}
-                        dayClassName={(date) => getDate(date, mentor)}
-                        filterDate={(date) =>
-                          isWorkDay(mentor.mentor_availability, date)
-                        }
-                      />
-                      <MentorBoxDiv>
-                        <div className="booked"></div>
-                        <p>The red color shows those are not available</p>
-                      </MentorBoxDiv>
-                    </MentorProfileDateDiv>
-                    <MentorProfileDateDiv>
-                      Choose the Time slot: <br />
-                      <MentorTimeSlotDiv
-                        value={mentor.mentor_availability_slot_from}
-                        isActive={isActive}
-                        onClick={setTimeSlotActive}
-                      >
-                        <strong>
-                          {mentor.mentor_availability_start_time + " "}
-                        </strong>
-                        to
-                        <strong>
-                          {" " + mentor.mentor_availability_end_time}
-                        </strong>
-                      </MentorTimeSlotDiv>
-                    </MentorProfileDateDiv>
-                    {!user ? (
-                      <BookNowButton onClick={showLoginModelHandler}>
-                        Login
-                      </BookNowButton>
-                    ) : (
-                      <BookNowButton onClick={() => showModalHandler(mentor)}>
-                        Book a session
-                      </BookNowButton>
-                    )}
-                    <p>
-                      Note : You will earn 10 points for each mentor booking.
-                    </p>
-                  </MentorProfileAvailDiv>
-                </MentorProfileDivRight>
-              </MentorProfileDivFlex>
-            </MentorProfileDiv>
-          </MentorDetailsDiv>
-        </MentorSectionDiv>
+                  <br />
+                  <MentorMsgButton>
+                    Message <i className="fa-solid fa-message"></i>
+                  </MentorMsgButton>
+                  <MentorMsgButton>
+                    Share Profile <i className="fa-solid fa-share-nodes"></i>
+                  </MentorMsgButton>
+                </MentorDetailsName>
+                <MentorDetailsImgDiv>
+                  <MentorProfileImg
+                    src={mentor.mentor_image}
+                    alt={
+                      mentor.mentor_firstname +
+                      " " +
+                      mentor.mentor_lastname +
+                      " " +
+                      " "
+                    }
+                  />
+                </MentorDetailsImgDiv>
+              </MentorDetailsDivFlex>
+            </MentorDetailsDiv>
+            <MentorDetailsDiv>
+              <h1>OverView</h1>
+              <hr />
+              <MentorProfileDiv>
+                <MentorProfileDivFlex>
+                  <MentorProfileDivLeft>
+                    <MentorBioDesc>{mentor.mentor_bio}</MentorBioDesc>
+                    <MentorLanguagesDiv>
+                      <MentorLanguages>
+                        Skills Known: <span>{mentor.mentor_skills}</span>
+                      </MentorLanguages>
+                    </MentorLanguagesDiv>
+                    <MentorLanguagesDiv>
+                      <MentorLanguages>
+                        Expertise In:{" "}
+                        <span>{mentor.mentor_mentorship_area}</span>
+                      </MentorLanguages>
+                    </MentorLanguagesDiv>
+                    <MentorLanguagesDiv>
+                      <MentorLanguages>
+                        Languages Known: <span>English</span>
+                      </MentorLanguages>
+                    </MentorLanguagesDiv>
+                  </MentorProfileDivLeft>
+                  <MentorProfileDivRight>
+                    <MentorProfileAvailDiv>
+                      <h4>Available Sessions:</h4>
+                      <hr />
+                      <MentorProfileDateDiv>
+                        Choose the Date: <br />
+                        <DatePicker
+                          value={moment(date).format("DD-MMMM-YYYY")}
+                          required
+                          className="form-control"
+                          closeOnScroll={true}
+                          selected={date}
+                          onChange={(date) => setDate(date)}
+                          minDate={new Date()}
+                          maxDate={new Date(mentor.mentor_available_end_date)}
+                          dayClassName={(date) => getDate(date, mentor)}
+                          filterDate={(date) =>
+                            isWorkDay(mentor.mentor_availability, date)
+                          }
+                        />
+                        <MentorBoxDiv>
+                          <div className="booked"></div>
+                          <p>The red color shows those are not available</p>
+                        </MentorBoxDiv>
+                      </MentorProfileDateDiv>
+                      <MentorProfileDateDiv>
+                        Choose the Time slot: <br />
+                        <MentorTimeSlotDiv
+                          value={mentor.mentor_availability_slot_from}
+                          isActive={isActive}
+                          onClick={setTimeSlotActive}
+                        >
+                          <strong>
+                            {mentor.mentor_availability_start_time + " "}
+                          </strong>
+                          to
+                          <strong>
+                            {" " + mentor.mentor_availability_end_time}
+                          </strong>
+                        </MentorTimeSlotDiv>
+                      </MentorProfileDateDiv>
+                      {!user ? (
+                        <BookNowButton onClick={showLoginModelHandler}>
+                          Login
+                        </BookNowButton>
+                      ) : (
+                        <BookNowButton onClick={() => showModalHandler(mentor)}>
+                          Book a session
+                        </BookNowButton>
+                      )}
+                      <p>
+                        Note : You will earn 10 points for each mentor booking.
+                      </p>
+                    </MentorProfileAvailDiv>
+                  </MentorProfileDivRight>
+                </MentorProfileDivFlex>
+              </MentorProfileDiv>
+            </MentorDetailsDiv>
+          </MentorSectionDiv>
+        </div>
       ))}
       <MentorRatingDiv>
         <MentorRatingWrapper>
           <MentorRatingTitles>Testimonials</MentorRatingTitles>
           {mentorFeedback?.length > 0 ? (
             mentorFeedback?.map((feedback) => (
-              <MentorRatingDivSlider>
+              <MentorRatingDivSlider key={feedback.trainee_feedback_dtls_id}>
                 <Carousel breakPoints={breakPoints}>
                   <RatingContentDiv>
                     <RatingContent>

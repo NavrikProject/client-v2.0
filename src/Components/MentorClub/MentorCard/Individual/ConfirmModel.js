@@ -142,7 +142,6 @@ const ConfirmModel = (props) => {
     formState: { errors },
     reset,
   } = useForm();
-
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   const [error, setError] = useState("");
@@ -154,7 +153,7 @@ const ConfirmModel = (props) => {
     const script = document.createElement("script");
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.onerror = () => {
-      alert("Razorpay SDK failed to load. Are you online?");
+      alert("Are you online?");
     };
     script.onload = async () => {
       try {
@@ -174,7 +173,7 @@ const ConfirmModel = (props) => {
             dispatch(hideLoadingHandler())
           );
         }
-        const { amount, id: order_id, currency } = result.data;
+        const { amount, id: order_id, currency } = result?.data;
         const {
           data: { key: razorpayKey },
         } = await axios.get(
@@ -182,7 +181,7 @@ const ConfirmModel = (props) => {
         );
         const options = {
           key: razorpayKey,
-          amount: amount.toString(),
+          amount: amount?.toString(),
           currency: currency,
           name: "Navrik Software Solutions",
           description: "Paying for the mentor",
@@ -211,12 +210,15 @@ const ConfirmModel = (props) => {
               }
             );
             if (res.data.success) {
-              setSuccess(res.data.success);
-              toast.success(res.data.success, {
-                position: "top-center",
-              });
-              dispatch(hideLoadingHandler());
-              reset();
+              return (
+                (setSuccess(res.data.success),
+                toast.success(res.data.success, {
+                  position: "top-center",
+                })),
+                setLoading(false),
+                reset(),
+                props.showModalHandler()
+              );
             }
             if (res.data.error) {
               setError(res.data.error);
@@ -229,7 +231,7 @@ const ConfirmModel = (props) => {
           prefill: {
             name: user?.firstname + " " + user?.lastname,
             email: user?.email,
-            contact: "111111",
+            contact: "",
           },
           theme: {
             color: "#80c0f0",

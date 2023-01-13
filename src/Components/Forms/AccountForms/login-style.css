@@ -424,6 +424,9 @@ input[type="submit"],
   position: relative;
   z-index: 1;
 }
+.signIn {
+  padding: 20px !important;
+}
 .loginBox > div.password_reset {
   position: absolute;
   left: 100%;
