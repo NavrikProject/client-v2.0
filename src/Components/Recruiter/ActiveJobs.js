@@ -71,7 +71,7 @@ const ActiveJobs = () => {
   useEffect(() => {
     const getAllActiveJobPosts = async () => {
       const res = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/recruiter/get/open-positions",
+        "https://practiwiz-backend.azurewebsites.net/api/recruiter/get/open-positions",
         { email: user?.email }
       );
       if (res.data.success) {

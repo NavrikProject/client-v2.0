@@ -46,7 +46,7 @@ const ViewAllTraineeProgress = () => {
   useEffect(() => {
     const getAllTraineeProgress = async () => {
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/trainee/courses/get-all-trainee-courses`,
+        `https://practiwiz-backend.azurewebsites.net/api/trainee/courses/get-all-trainee-courses`,
         {
           headers: { authorization: "Bearer " + user?.accessToken },
         }

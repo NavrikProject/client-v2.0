@@ -16,7 +16,7 @@ const TraineeBookingTable = () => {
     const getAllTheMentors = async () => {
       dispatch(showLoadingHandler());
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/get/all-bookings`,
+        `https://practiwiz-backend.azurewebsites.net/api/mentor/bookings/get/all-bookings`,
         {
           headers: { authorization: "Bearer " + token },
           mentorEmail: user?.email,
@@ -35,7 +35,7 @@ const TraineeBookingTable = () => {
   const confirmTheAppointMent = async (mentor) => {
     dispatch(showLoadingHandler());
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/update/confirm/appointment/${mentor.id}`,
+      `https://practiwiz-backend.azurewebsites.net/api/mentor/bookings/update/confirm/appointment/${mentor.id}`,
       {
         headers: { authorization: "Bearer " + token },
       }

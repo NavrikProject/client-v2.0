@@ -48,7 +48,7 @@ const ContributerRegister = () => {
     try {
       setLoading(true);
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/contributers/register`,
+        `https://practiwiz-backend.azurewebsites.net/api/contributers/register`,
         data
       );
       if (res.data.success) {

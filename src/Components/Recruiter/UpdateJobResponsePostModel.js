@@ -136,7 +136,7 @@ const UpdateJobResponsePostModel = (props) => {
   const updateJobToClosePositionHandler = async (data) => {
     alert("Job status update");
     // const res = await axios.put(
-    //   `https://deploy-practiwiz.azurewebsites.net/api/recruiter/update/to-closed-position/${props.jobDetails.job_post_dtls_id}`
+    //   `https://practiwiz-backend.azurewebsites.net/api/recruiter/update/to-closed-position/${props.jobDetails.job_post_dtls_id}`
     // );
     // if (res.data.success) {
     //   setSuccess(res.data.success);

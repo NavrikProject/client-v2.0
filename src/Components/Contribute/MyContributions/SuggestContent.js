@@ -84,7 +84,7 @@ const SuggestContent = () => {
     const getSuggestContentCourses = async () => {
       setLoading(true);
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/contributers/suggest-content`,
+        `https://practiwiz-backend.azurewebsites.net/api/contributers/suggest-content`,
         {
           email: user?.email,
         }

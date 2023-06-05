@@ -53,7 +53,7 @@ const UpcomingAllSessionDetails = (props) => {
   const token = user?.accessToken;
   const attendMeetingHandler = async (bookingId) => {
     await axios.post(
-      `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/get/all-bookings/attended/update`,
+      `https://practiwiz-backend.azurewebsites.net/api/mentor/bookings/get/all-bookings/attended/update`,
       { userEmail: user?.email, bookingId: bookingId },
       {
         headers: { authorization: "Bearer " + token },

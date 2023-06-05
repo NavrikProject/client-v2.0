@@ -57,7 +57,7 @@ const MentorCourseCard = ({
           !mentorAvailabilityFilter
         ) {
           const res = await axios.get(
-            `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/mentors/filter?category=${skillCategoryFilter}`
+            `https://practiwiz-backend.azurewebsites.net/api/mentor/get/mentors/filter?category=${skillCategoryFilter}`
           );
 
           if (res.data.mentors) {
@@ -79,7 +79,7 @@ const MentorCourseCard = ({
           !mentorAvailabilityFilter
         ) {
           const res = await axios.get(
-            `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/mentors/filter?category=${skillCategoryFilter}&skill=${skillFilter}`
+            `https://practiwiz-backend.azurewebsites.net/api/mentor/get/mentors/filter?category=${skillCategoryFilter}&skill=${skillFilter}`
           );
           setLoading(false);
 
@@ -98,7 +98,7 @@ const MentorCourseCard = ({
           !mentorAvailabilityFilter
         ) {
           const res = await axios.get(
-            `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/mentors/filter?category=${skillCategoryFilter}&skill=${skillFilter}&area=${mentorAreaFilter}`
+            `https://practiwiz-backend.azurewebsites.net/api/mentor/get/mentors/filter?category=${skillCategoryFilter}&skill=${skillFilter}&area=${mentorAreaFilter}`
           );
           setLoading(false);
 
@@ -117,7 +117,7 @@ const MentorCourseCard = ({
           mentorAvailabilityFilter
         ) {
           const res = await axios.get(
-            `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/mentors/filter?category=${skillCategoryFilter}&skill=${skillFilter}&area=${mentorAreaFilter}&availability=${mentorAvailabilityFilter}`
+            `https://practiwiz-backend.azurewebsites.net/api/mentor/get/mentors/filter?category=${skillCategoryFilter}&skill=${skillFilter}&area=${mentorAreaFilter}&availability=${mentorAvailabilityFilter}`
           );
           setLoading(false);
           if (res.data.mentors) {
@@ -135,7 +135,7 @@ const MentorCourseCard = ({
           !mentorAvailabilityFilter
         ) {
           const res = await axios.get(
-            `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/all`
+            `https://practiwiz-backend.azurewebsites.net/api/mentor/get/all`
           );
           setLoading(false);
           if (res.data.mentors) {

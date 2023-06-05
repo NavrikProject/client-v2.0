@@ -160,7 +160,7 @@ const ContributeCorner = () => {
     setLoading(true);
     try {
       const result = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/feedback/contact-us",
+        "https://practiwiz-backend.azurewebsites.net/api/feedback/contact-us",
         {
           fullname: data.fullname,
           email: data.email,

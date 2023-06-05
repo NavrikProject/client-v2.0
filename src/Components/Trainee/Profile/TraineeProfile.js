@@ -81,7 +81,7 @@ const TraineeProfile = () => {
   useEffect(() => {
     const onImageGetHandler = async () => {
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/member/profile/details/get/${user?.id}`,
+        `https://practiwiz-backend.azurewebsites.net/api/member/profile/details/get/${user?.id}`,
         { email: user?.email },
         {
           headers: { authorization: "Bearer " + token },
@@ -99,7 +99,7 @@ const TraineeProfile = () => {
   useEffect(() => {
     const getTraineePointsDetails = async () => {
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/feedback/reward-points/${user?.email}`,
+        `https://practiwiz-backend.azurewebsites.net/api/feedback/reward-points/${user?.email}`,
         {
           headers: { authorization: "Bearer " + token },
         }

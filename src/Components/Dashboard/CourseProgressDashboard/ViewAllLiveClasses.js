@@ -12,7 +12,7 @@ const ViewAllLiveClasses = () => {
   useEffect(() => {
     const getAllTraineeProgress = async () => {
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/admin/get/all/instructor-class`,
+        `https://practiwiz-backend.azurewebsites.net/api/admin/get/all/instructor-class`,
         {
           headers: { authorization: "Bearer " + user?.accessToken },
         }

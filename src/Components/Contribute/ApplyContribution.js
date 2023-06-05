@@ -44,7 +44,7 @@ const ApplyContribution = () => {
   useEffect(() => {
     const getCourseByTitles = async () => {
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/courses/master?category=${courseCategory}`
+        `https://practiwiz-backend.azurewebsites.net/api/courses/master?category=${courseCategory}`
       );
       if (res.data.master) {
         setMasterCourses(res.data.master);
@@ -59,7 +59,7 @@ const ApplyContribution = () => {
     try {
       setLoading(true);
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/contributers/request-contribution`,
+        `https://practiwiz-backend.azurewebsites.net/api/contributers/request-contribution`,
         {
           email: user?.email,
           fullname: user?.firstname + " " + user?.lastname,

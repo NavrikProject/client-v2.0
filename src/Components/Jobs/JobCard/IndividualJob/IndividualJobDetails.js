@@ -22,7 +22,7 @@ const IndividualJobDetails = () => {
     const getAllJobPosts = async () => {
       setLoading(true);
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/jobs/get/individual-job-post/${path}`
+        `https://practiwiz-backend.azurewebsites.net/api/jobs/get/individual-job-post/${path}`
       );
       if (res.data.success) {
         setIndividualJobDetail(res.data.success);
@@ -38,7 +38,7 @@ const IndividualJobDetails = () => {
   useEffect(() => {
     const getJobAppliedStatus = async () => {
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/jobs/apply/post/applied-status/${path}`,
+        `https://practiwiz-backend.azurewebsites.net/api/jobs/apply/post/applied-status/${path}`,
         {
           email: user?.email,
         }

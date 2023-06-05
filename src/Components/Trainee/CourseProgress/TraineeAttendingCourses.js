@@ -80,7 +80,7 @@ const TraineeAttendingCourses = () => {
     const getAllTraineeAttendingCourses = async () => {
       setLoading(true);
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/trainee/courses/progress/get-trainee-incomplete-course`,
+        `https://practiwiz-backend.azurewebsites.net/api/trainee/courses/progress/get-trainee-incomplete-course`,
         {
           headers: { authorization: "Bearer " + token },
           email: user?.email,

@@ -30,7 +30,7 @@ const IndividualCourses = () => {
     try {
       const getIndMentorDetails = async () => {
         const res = await axios.get(
-          `https://deploy-practiwiz.azurewebsites.net/api/courses/full-course?name=${path}`
+          `https://practiwiz-backend.azurewebsites.net/api/courses/full-course?name=${path}`
         );
         if (res.data.success) {
           setCourseDetails(res.data.success);

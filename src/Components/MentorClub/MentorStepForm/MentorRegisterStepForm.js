@@ -180,7 +180,7 @@ const MentorRegisterStepForm = () => {
       setLoading(true);
       setError("");
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/mentor/register/additional-details`,
+        `https://practiwiz-backend.azurewebsites.net/api/mentor/register/additional-details`,
         data
       );
       if (res.data.success) {

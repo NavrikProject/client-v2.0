@@ -84,7 +84,7 @@ const RefundedSessions = () => {
     const getAllRefundedSessions = async () => {
       setLoading(true);
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/get/bookings/refunded`,
+        `https://practiwiz-backend.azurewebsites.net/api/trainee/profile/booking/get/bookings/refunded`,
         {
           headers: { authorization: "Bearer " + token },
           userEmail: user?.email,

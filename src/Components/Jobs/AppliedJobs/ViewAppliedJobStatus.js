@@ -76,7 +76,7 @@ const ViewAppliedJobStatus = () => {
   useEffect(() => {
     const getAllJobPosts = async () => {
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/job-seeker/view-jobs/${user?.id}`,
+        `https://practiwiz-backend.azurewebsites.net/api/job-seeker/view-jobs/${user?.id}`,
         {
           userEmail: user?.email,
         }

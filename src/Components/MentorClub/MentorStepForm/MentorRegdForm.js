@@ -56,7 +56,7 @@ const MentorRegdForm = () => {
     try {
       setLoading(true);
       const res = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/auth/email-register",
+        "https://practiwiz-backend.azurewebsites.net/api/auth/email-register",
         {
           firstName: firstName,
           lastName: lastName,
@@ -99,7 +99,7 @@ const MentorRegdForm = () => {
     const type = "mentor";
     try {
       await axios
-        .post("https://deploy-practiwiz.azurewebsites.net/api/google/sign-up", {
+        .post("https://practiwiz-backend.azurewebsites.net/api/google/sign-up", {
           tokenId: response.tokenId,
           type: type,
         })

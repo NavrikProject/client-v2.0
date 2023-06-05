@@ -8,7 +8,7 @@ const CourseCard = ({ loadMoreCourses, courseSearchItem }) => {
   useEffect(() => {
     const getAllJobPosts = async () => {
       const res = await axios.get(
-        "https://deploy-practiwiz.azurewebsites.net/api/courses/all-courses"
+        "https://practiwiz-backend.azurewebsites.net/api/courses/all-courses"
       );
       if (res.data) {
         setAllCourses(res.data);

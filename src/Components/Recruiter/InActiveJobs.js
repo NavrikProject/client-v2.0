@@ -55,7 +55,7 @@ const InActiveJobs = () => {
   useEffect(() => {
     const getAllActiveJobPosts = async () => {
       const res = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/recruiter/get/closed-positions",
+        "https://practiwiz-backend.azurewebsites.net/api/recruiter/get/closed-positions",
         { email: user?.email }
       );
       if (res.data.success) {

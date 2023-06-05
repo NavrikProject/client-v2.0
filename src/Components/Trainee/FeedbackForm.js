@@ -128,7 +128,7 @@ const FeedbackForm = (props) => {
     try {
       setLoading(true);
       const result = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/feedback",
+        "https://practiwiz-backend.azurewebsites.net/api/feedback",
         newData,
         {
           headers: { authorization: "Bearer " + token },

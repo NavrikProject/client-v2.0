@@ -97,7 +97,7 @@ const ConfirmationJobPostModel = (props) => {
 
   const updateJobToActiveHandler = async () => {
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/jobs/put/job-posts/active-status/${props.jobDetails.job_post_dtls_id}`
+      `https://practiwiz-backend.azurewebsites.net/api/jobs/put/job-posts/active-status/${props.jobDetails.job_post_dtls_id}`
     );
     if (res.data.success) {
       setSuccess(res.data.success);
@@ -108,7 +108,7 @@ const ConfirmationJobPostModel = (props) => {
   };
   const updateJobToInActiveHandler = async () => {
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/jobs/put/job-posts/inactive-status/${props.jobDetails.job_post_dtls_id}`
+      `https://practiwiz-backend.azurewebsites.net/api/jobs/put/job-posts/inactive-status/${props.jobDetails.job_post_dtls_id}`
     );
     if (res.data.success) {
       setSuccess(res.data.success);

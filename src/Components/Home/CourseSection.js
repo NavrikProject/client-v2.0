@@ -17,7 +17,7 @@ const CourseSection = () => {
   useEffect(() => {
     const getAllCourses = async () => {
       const res = await axios.get(
-        "https://deploy-practiwiz.azurewebsites.net/api/courses/all-courses"
+        "https://practiwiz-backend.azurewebsites.net/api/courses/all-courses"
       );
       if (res.data) {
         setAllCourses(res.data);

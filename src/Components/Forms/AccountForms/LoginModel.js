@@ -40,7 +40,7 @@ const LoginModel = (props) => {
     try {
       dispatch(loginStart());
       const res = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/auth/login",
+        "https://practiwiz-backend.azurewebsites.net/api/auth/login",
         {
           data: data,
           type: type,

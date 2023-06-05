@@ -56,7 +56,7 @@ const CompletedAllSessionDetails = (props) => {
   const getFeedbackHandler = async (bookingId) => {
     try {
       const res = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/feedback/get/mentor-feedback",
+        "https://practiwiz-backend.azurewebsites.net/api/feedback/get/mentor-feedback",
         {
           userEmail: user?.email,
           bookingId: bookingId,

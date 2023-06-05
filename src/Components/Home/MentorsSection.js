@@ -21,7 +21,7 @@ const MentorsSection = () => {
   useEffect(() => {
     const getMentors = async () => {
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/all`
+        `https://practiwiz-backend.azurewebsites.net/api/mentor/get/all`
       );
       if (res.data.mentors) {
         setMentorDetails(res.data.mentors);

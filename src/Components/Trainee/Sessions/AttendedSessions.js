@@ -84,7 +84,7 @@ const AttendedSessions = () => {
     const getAllAttendedSessions = async () => {
       setLoading(true);
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/get/bookings/attended`,
+        `https://practiwiz-backend.azurewebsites.net/api/trainee/profile/booking/get/bookings/attended`,
         {
           headers: { authorization: "Bearer " + token },
           userEmail: user?.email,

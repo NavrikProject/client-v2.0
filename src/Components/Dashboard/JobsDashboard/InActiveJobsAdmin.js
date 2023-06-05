@@ -68,7 +68,7 @@ const InActiveJobsAdmin = () => {
   useEffect(() => {
     const getAllActiveJobPosts = async () => {
       const res = await axios.get(
-        "https://deploy-practiwiz.azurewebsites.net/api/jobs/get/inactive-jobs-posts"
+        "https://practiwiz-backend.azurewebsites.net/api/jobs/get/inactive-jobs-posts"
       );
       if (res.data.success) {
         setAllInActiveJobs(res.data.success);

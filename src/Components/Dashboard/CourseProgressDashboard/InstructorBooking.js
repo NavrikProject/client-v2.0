@@ -114,7 +114,7 @@ const InstructorBooking = (props) => {
       try {
         dispatch(showLoadingHandler());
         const res = await axios.post(
-          `https://deploy-practiwiz.azurewebsites.net/api/admin/post/instructor-class`,
+          `https://practiwiz-backend.azurewebsites.net/api/admin/post/instructor-class`,
           {
             date: bookingInsDate,
             startTime: bookingInsTime,

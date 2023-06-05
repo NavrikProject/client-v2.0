@@ -46,7 +46,7 @@ const MentorModifyBooking = ({
     try {
       const getAllMentorDetailsAvailability = async () => {
         const res = await axios.post(
-          `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/get/bookings/onlymentor`,
+          `https://practiwiz-backend.azurewebsites.net/api/trainee/profile/booking/get/bookings/onlymentor`,
           {
             mentorEmail: mentor.mentorEmail,
           }
@@ -63,7 +63,7 @@ const MentorModifyBooking = ({
     try {
       const getAllMentorDetailsAvailability = async () => {
         const res = await axios.post(
-          `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/get/bookings/availability`,
+          `https://practiwiz-backend.azurewebsites.net/api/trainee/profile/booking/get/bookings/availability`,
           {
             mentorEmail: mentor.mentorEmail,
           }
@@ -127,7 +127,7 @@ const MentorModifyBooking = ({
     }
     setLoading(true);
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/get/all-bookings/reschedule/${mentor.bookingId}`,
+      `https://practiwiz-backend.azurewebsites.net/api/mentor/bookings/get/all-bookings/reschedule/${mentor.bookingId}`,
       {
         date: date.toLocaleDateString(),
         bookingId: mentor.bookingId,

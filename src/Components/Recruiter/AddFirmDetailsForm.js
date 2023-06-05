@@ -70,7 +70,7 @@ const AddFirmDetailsForm = () => {
     data.append("userEmail", userEmail);
     try {
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/recruiter/add-company-details`,
+        `https://practiwiz-backend.azurewebsites.net/api/recruiter/add-company-details`,
         data
       );
       if (res.data.success) {
@@ -90,7 +90,7 @@ const AddFirmDetailsForm = () => {
   useEffect(() => {
     const getAllFirmDetails = async () => {
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/recruiter/get-company-details/${userEmail}`
+        `https://practiwiz-backend.azurewebsites.net/api/recruiter/get-company-details/${userEmail}`
       );
       if (res.data.found) {
         setHiringCompanyDetails(res.data.found);

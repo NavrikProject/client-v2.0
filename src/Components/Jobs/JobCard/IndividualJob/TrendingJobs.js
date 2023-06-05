@@ -16,7 +16,7 @@ const TrendingJobs = () => {
   useEffect(() => {
     const getAllJobPosts = async () => {
       const res = await axios.get(
-        "https://deploy-practiwiz.azurewebsites.net/api/jobs/get/all-jobs-posts"
+        "https://practiwiz-backend.azurewebsites.net/api/jobs/get/all-jobs-posts"
       );
       if (res.data.success) {
         setAllJobs(res.data.success);
