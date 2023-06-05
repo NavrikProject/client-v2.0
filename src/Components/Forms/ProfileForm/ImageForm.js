@@ -32,8 +32,8 @@ const ImageForm = (props) => {
     data.append("image", image);
     const res = await axios.put(
       user?.type === "member"
-        ? `https://deploy-practiwiz.azurewebsites.net/api/member/profile/image/upload/${user?.id}`
-        : `https://deploy-practiwiz.azurewebsites.net/api/${user?.type}/profile/image/up/${user?.id}`,
+        ? `https://practiwiz-backend.azurewebsites.net/api/member/profile/image/upload/${user?.id}`
+        : `https://practiwiz-backend.azurewebsites.net/api/${user?.type}/profile/image/up/${user?.id}`,
       data,
       {
         headers: { authorization: "Bearer " + token },

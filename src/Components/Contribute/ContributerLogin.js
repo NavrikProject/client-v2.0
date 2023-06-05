@@ -49,7 +49,7 @@ const ContributerLogin = () => {
     try {
       setLoading(true);
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/contributers/login`,
+        `https://practiwiz-backend.azurewebsites.net/api/contributers/login`,
         data
       );
       if (res.data.success) {

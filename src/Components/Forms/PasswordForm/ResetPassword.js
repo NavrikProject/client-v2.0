@@ -44,7 +44,7 @@ const ResetPassword = () => {
   const forgotpasswordHandler = async (data) => {
     setLoading(true);
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/auth/reset-password/${token}`,
+      `https://practiwiz-backend.azurewebsites.net/api/auth/reset-password/${token}`,
       data,
       {
         headers: { authorization: "Bearer " + token },

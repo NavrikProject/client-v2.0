@@ -44,7 +44,7 @@ const RegisterForm = () => {
     try {
       dispatch(showLoadingHandler());
       const res = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/auth/email-register",
+        "https://practiwiz-backend.azurewebsites.net/api/auth/email-register",
         {
           data,
           phoneNumber,

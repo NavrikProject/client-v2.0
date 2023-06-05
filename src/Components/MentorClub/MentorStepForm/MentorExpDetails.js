@@ -18,7 +18,7 @@ const MentorExpDetails = ({
   useEffect(() => {
     const getSkillsData = async () => {
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/get/skills/master?name=${formData?.specialty}`
+        `https://practiwiz-backend.azurewebsites.net/api/get/skills/master?name=${formData?.specialty}`
       );
       setSkills(res.data);
     };

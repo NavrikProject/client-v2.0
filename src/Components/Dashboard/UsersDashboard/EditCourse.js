@@ -161,7 +161,7 @@ const EditCourse = () => {
     data.append("description", description);
     try {
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/courses/new/add/${user?.id}`,
+        `https://practiwiz-backend.azurewebsites.net/api/courses/new/add/${user?.id}`,
         data,
         {
           headers: {

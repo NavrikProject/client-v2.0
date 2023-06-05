@@ -83,7 +83,7 @@ const AddContent = () => {
     const getAddCoursesCourses = async () => {
       setLoading(true);
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/contributers/add-content`,
+        `https://practiwiz-backend.azurewebsites.net/api/contributers/add-content`,
         {
           email: user?.email,
         }

@@ -31,7 +31,7 @@ const JobHome = () => {
         !searchItem.skills &&
           !searchItem.location &&
           !searchItem.experience &&
-          "https://deploy-practiwiz.azurewebsites.net/api/jobs/get/all-jobs-posts"
+          "https://practiwiz-backend.azurewebsites.net/api/jobs/get/all-jobs-posts"
       );
       if (res.data.success) {
         setAllJobs(res.data.success);
@@ -63,7 +63,7 @@ const JobHome = () => {
       return;
     }
     const res = await axios.get(
-      `https://deploy-practiwiz.azurewebsites.net/api/jobs/get/search?skills=${searchItem?.skills}&experience=${searchItem?.experience}&location=${searchItem?.location}`
+      `https://practiwiz-backend.azurewebsites.net/api/jobs/get/search?skills=${searchItem?.skills}&experience=${searchItem?.experience}&location=${searchItem?.location}`
     );
     if (res.data.success) {
       setAllJobs(res.data.success);

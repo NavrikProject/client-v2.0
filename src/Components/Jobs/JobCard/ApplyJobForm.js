@@ -208,7 +208,7 @@ const ApplyJobForm = (props) => {
   useEffect(() => {
     const getJobAppliedStatus = async () => {
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/jobs/apply/post/form-status/${user?.email}`
+        `https://practiwiz-backend.azurewebsites.net/api/jobs/apply/post/form-status/${user?.email}`
       );
       if (res.data.foundExp) {
         setExperienceFoundDetails(true);
@@ -225,7 +225,7 @@ const ApplyJobForm = (props) => {
   useEffect(() => {
     const getJobAppliedStatus = async () => {
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/jobs/apply/post/applied-status/${props.indJobDetails.job_post_unique_id}`,
+        `https://practiwiz-backend.azurewebsites.net/api/jobs/apply/post/applied-status/${props.indJobDetails.job_post_unique_id}`,
         {
           email: user?.email,
         }
@@ -298,7 +298,7 @@ const ApplyJobForm = (props) => {
     try {
       // dispatch(showLoadingHandler());
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/jobs/apply/post/${props.indJobDetails.job_post_unique_id}`,
+        `https://practiwiz-backend.azurewebsites.net/api/jobs/apply/post/${props.indJobDetails.job_post_unique_id}`,
         data
       );
       if (res.data.success) {
@@ -324,7 +324,7 @@ const ApplyJobForm = (props) => {
     }
     try {
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/jobs/apply/post/experience/${props.indJobDetails.job_post_unique_id}`,
+        `https://practiwiz-backend.azurewebsites.net/api/jobs/apply/post/experience/${props.indJobDetails.job_post_unique_id}`,
         {
           data: data,
           jobPostDtlsId: props.indJobDetails.job_post_dtls_id,
@@ -415,7 +415,7 @@ const ApplyJobForm = (props) => {
     data.append("selectedOption", JSON.stringify(selectedOption));
     try {
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/jobs/apply/post/update/${props.indJobDetails.job_post_unique_id}`,
+        `https://practiwiz-backend.azurewebsites.net/api/jobs/apply/post/update/${props.indJobDetails.job_post_unique_id}`,
         data
       );
       if (res.data.success) {

@@ -14,7 +14,7 @@ const AllContributers = () => {
   useEffect(() => {
     const getAllTheCourse = async () => {
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/contributers/get-all`,
+        `https://practiwiz-backend.azurewebsites.net/api/contributers/get-all`,
         {
           headers: { authorization: "Bearer " + token },
         }
@@ -33,7 +33,7 @@ const AllContributers = () => {
 
   const contributerApproveHandler = async (contributer) => {
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/contributers/approve/${contributer.contributer_details_id}`,
+      `https://practiwiz-backend.azurewebsites.net/api/contributers/approve/${contributer.contributer_details_id}`,
       { id: contributer.contributer_details_id },
       {
         headers: { authorization: "Bearer " + token },
@@ -48,7 +48,7 @@ const AllContributers = () => {
   };
   const contributerDisApproveHandler = async (contributer) => {
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/contributers/disapprove/${contributer.contributer_details_id}`,
+      `https://practiwiz-backend.azurewebsites.net/api/contributers/disapprove/${contributer.contributer_details_id}`,
       { id: contributer.contributer_dtls_id },
       {
         headers: { authorization: "Bearer " + token },

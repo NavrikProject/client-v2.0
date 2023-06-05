@@ -54,7 +54,7 @@ const TraineeIncompleteCoursesDetails = (props) => {
   useEffect(() => {
     const getAllTraineeAttendingCourses = async () => {
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/admin/get/individual/instructor-class`,
+        `https://practiwiz-backend.azurewebsites.net/api/admin/get/individual/instructor-class`,
         {
           traineeCourseId: props.traineeCourse.trainee_course_id,
         }

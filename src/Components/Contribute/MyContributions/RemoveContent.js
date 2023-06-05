@@ -84,7 +84,7 @@ const RemoveContent = () => {
     const getRemoveContentCourses = async () => {
       setLoading(true);
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/contributers/remove-content`,
+        `https://practiwiz-backend.azurewebsites.net/api/contributers/remove-content`,
         {
           email: user?.email,
         }

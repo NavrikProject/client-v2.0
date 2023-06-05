@@ -83,7 +83,7 @@ const TraineeProfile = () => {
   useEffect(() => {
     const getFullMentorDetails = async () => {
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/full-details/${user?.email}`,
+        `https://practiwiz-backend.azurewebsites.net/api/mentor/get/full-details/${user?.email}`,
         {
           headers: { authorization: "Bearer " + token },
         }
@@ -96,7 +96,7 @@ const TraineeProfile = () => {
   useEffect(() => {
     const getMentorPointsDetails = async () => {
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/feedback/reward-points/${user?.email}`,
+        `https://practiwiz-backend.azurewebsites.net/api/feedback/reward-points/${user?.email}`,
         {
           headers: { authorization: "Bearer " + token },
         }

@@ -53,7 +53,7 @@ const SingleProfile = (props) => {
     data.append("profession", newData.profession);
     try {
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/member/profile/create/${user?.id}`,
+        `https://practiwiz-backend.azurewebsites.net/api/member/profile/create/${user?.id}`,
         data,
         { headers: { authorization: "Bearer " + token } }
       );

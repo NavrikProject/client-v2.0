@@ -15,7 +15,7 @@ const UsersTable = () => {
     const getCourseByTitles = async () => {
       
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/trainer/getAllTrainers`,
+        `https://practiwiz-backend.azurewebsites.net/api/trainer/getAllTrainers`,
         {
           headers: { authorization: "Bearer " + token },
         }
@@ -31,7 +31,7 @@ const UsersTable = () => {
   const trainerApproveHandler = async (trainer) => {
     
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/trainer/update/approve`,
+      `https://practiwiz-backend.azurewebsites.net/api/trainer/update/approve`,
       { id: trainer.trainer_details_id },
       {
         headers: { authorization: "Bearer " + token },
@@ -47,7 +47,7 @@ const UsersTable = () => {
   const trainerDisApproveHandler = async (trainer) => {
     
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/trainer/update/disapprove`,
+      `https://practiwiz-backend.azurewebsites.net/api/trainer/update/disapprove`,
       { id: trainer.trainer_details_id },
       {
         headers: { authorization: "Bearer " + token },

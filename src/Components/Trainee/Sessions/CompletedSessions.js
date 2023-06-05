@@ -85,7 +85,7 @@ const CompletedSessions = () => {
     const getAllCompletedSessions = async () => {
       setLoading(true);
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/trainee/profile/booking/get/bookings/completed`,
+        `https://practiwiz-backend.azurewebsites.net/api/trainee/profile/booking/get/bookings/completed`,
         {
           headers: { authorization: "Bearer " + token },
           userEmail: user?.email,

@@ -181,7 +181,7 @@ const CancelWarningModal = (props) => {
     }
     setLoading(true);
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/mentor/bookings/update/cancel/appointment/${props.sendMentor.bookingId}`,
+      `https://practiwiz-backend.azurewebsites.net/api/mentor/bookings/update/cancel/appointment/${props.sendMentor.bookingId}`,
       { reasonExp: data.reasonExp, reason: data.reason },
       {
         headers: { authorization: "Bearer " + user?.accessToken },

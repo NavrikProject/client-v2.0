@@ -89,7 +89,7 @@ const MentorForm = () => {
 
     try {
       const res = await axios.post(
-        `https://deploy-practiwiz.azurewebsites.net/api/mentor/register`,
+        `https://practiwiz-backend.azurewebsites.net/api/mentor/register`,
         data,
         {
           headers: { authorization: "Bearer " + token },

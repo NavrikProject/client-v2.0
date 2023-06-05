@@ -64,7 +64,7 @@ const AllTraineeCompletedCourses = () => {
     const getAllTraineeAttendingCourses = async () => {
       setLoading(true);
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/admin/get/all/completed-courses`,
+        `https://practiwiz-backend.azurewebsites.net/api/admin/get/all/completed-courses`,
         {
           headers: { authorization: "Bearer " + token },
         }

@@ -14,7 +14,7 @@ const AllMentors = () => {
     const getAllTheMentors = async () => {
       setLoading(true);
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/mentor/get`,
+        `https://practiwiz-backend.azurewebsites.net/api/mentor/get`,
         {
           headers: { authorization: "Bearer " + token },
         }
@@ -32,7 +32,7 @@ const AllMentors = () => {
   const mentorApproveHandler = async (mentor) => {
     setLoading(true);
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/mentor/approve/${mentor.mentor_dtls_id}`,
+      `https://practiwiz-backend.azurewebsites.net/api/mentor/approve/${mentor.mentor_dtls_id}`,
       { id: mentor.mentor_dtls_id },
       {
         headers: { authorization: "Bearer " + token },
@@ -48,7 +48,7 @@ const AllMentors = () => {
   const mentorDisApproveHandler = async (mentor) => {
     setLoading(true);
     const res = await axios.put(
-      `https://deploy-practiwiz.azurewebsites.net/api/mentor/disapprove/${mentor.mentor_dtls_id}`,
+      `https://practiwiz-backend.azurewebsites.net/api/mentor/disapprove/${mentor.mentor_dtls_id}`,
       { id: mentor.mentor_dtls_id },
       {
         headers: { authorization: "Bearer " + token },

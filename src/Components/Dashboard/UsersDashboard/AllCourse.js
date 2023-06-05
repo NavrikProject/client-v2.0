@@ -13,7 +13,7 @@ const AllCourse = () => {
     const getAllTheCourse = async () => {
       setLoading(true);
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/courses/new/dashboard/courses`,
+        `https://practiwiz-backend.azurewebsites.net/api/courses/new/dashboard/courses`,
         {
           headers: { authorization: "Bearer " + token },
         }
@@ -28,7 +28,7 @@ const AllCourse = () => {
 
   const courseDeleteHandler = async (course) => {
     const res = await axios.delete(
-      `https://deploy-practiwiz.azurewebsites.net/api/courses/new/delete/${course.course_id}`,
+      `https://practiwiz-backend.azurewebsites.net/api/courses/new/delete/${course.course_id}`,
       {
         headers: { authorization: "Bearer " + token },
       }

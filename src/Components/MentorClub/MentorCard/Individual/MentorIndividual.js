@@ -80,7 +80,7 @@ const MentorIndividual = () => {
     try {
       const getIndMentorDetails = async () => {
         const res = await axios.get(
-          `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/individual/mentors?name=${path}`
+          `https://practiwiz-backend.azurewebsites.net/api/mentor/get/individual/mentors?name=${path}`
         );
         setIndMentor(res.data);
       };
@@ -94,7 +94,7 @@ const MentorIndividual = () => {
     try {
       const getIndMentorFeedback = async () => {
         const res = await axios.get(
-          `https://deploy-practiwiz.azurewebsites.net/api/feedback/get/mentor-feedback/mentors?name=${path}`
+          `https://practiwiz-backend.azurewebsites.net/api/feedback/get/mentor-feedback/mentors?name=${path}`
         );
         setMentorFeedback(res.data.data);
       };
@@ -107,7 +107,7 @@ const MentorIndividual = () => {
     try {
       const getAllMentorDetailsAvailability = async () => {
         const res = await axios.get(
-          `https://deploy-practiwiz.azurewebsites.net/api/mentor/get/booking`
+          `https://practiwiz-backend.azurewebsites.net/api/mentor/get/booking`
         );
         setMentorBookingDate(res.data);
       };

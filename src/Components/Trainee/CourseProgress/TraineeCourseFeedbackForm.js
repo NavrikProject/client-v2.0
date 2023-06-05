@@ -175,7 +175,7 @@ const TraineeCourseFeedbackForm = (props) => {
     try {
       setLoading(true);
       const result = await axios.post(
-        "https://deploy-practiwiz.azurewebsites.net/api/trainee/courses/progress/course/feedback",
+        "https://practiwiz-backend.azurewebsites.net/api/trainee/courses/progress/course/feedback",
         newData,
         {
           headers: { authorization: "Bearer " + token },

@@ -46,7 +46,7 @@ const MentorClub = () => {
   useEffect(() => {
     const getSkillsData = async () => {
       const res = await axios.get(
-        `https://deploy-practiwiz.azurewebsites.net/api/get/skills/master?name=${skillCategoryFilter}`
+        `https://practiwiz-backend.azurewebsites.net/api/get/skills/master?name=${skillCategoryFilter}`
       );
       setSkills(res.data);
     };
