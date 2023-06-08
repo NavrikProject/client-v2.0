@@ -5,21 +5,55 @@ import styled from "styled-components";
 import { PhoneNumberUtil } from "google-libphonenumber";
 import { countriesWithCodes } from "../../Data/FaqData";
 import { BiHide, BiShow } from "react-icons/bi";
+import logo from "../../../images/practiwiz-logo.png";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  hideLoadingHandler,
+  showLoadingHandler,
+} from "../../../redux/loadingReducer";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
 const phoneUtil = PhoneNumberUtil.getInstance();
 const MentorSection = styled.section`
   width: 100%;
   height: calc(100vh - 130px) !important;
 `;
-const MentorWrapper = styled.div``;
+const MentorWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+`;
+const MentorNavBar = styled.div`
+  width: 100%;
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  img {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    cursor: pointer;
+  }
+`;
 const MentorDivFlex = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
 `;
 const MentorRightDiv = styled.div`
   width: 100%;
   height: 100vh;
+  @media screen and (max-width: 768px) {
+    height: auto;
+    padding: 20px;
+  }
 `;
 const MentorLeftDiv = styled.div`
   width: 100%;
@@ -29,6 +63,10 @@ const MentorLeftDiv = styled.div`
   width: 100% !important;
   background-position: center;
   background-size: cover;
+  @media screen and (max-width: 768px) {
+    height: auto;
+    padding: 130px 20px 20px 40px;
+  }
 `;
 const MentorChildrenFlex = styled.div`
   display: flex;
@@ -70,12 +108,10 @@ const ShowIcon = styled(BiShow)`
   font-size: 22px;
   color: #111;
 `;
-
 const HideIcon = styled(BiHide)`
   font-size: 22px;
   color: #111;
 `;
-
 const ErrorMessage = styled.p`
   color: red;
   margin: 0px 0 0 10px;
@@ -147,12 +183,16 @@ const MentorLeftTitle = styled.h1`
 `;
 const MentorLeftChildren = styled.div`
   width: 70%;
+
   p {
     color: #fff;
     font-size: 15px;
     margin-bottom: 20px;
     line-height: 18px;
     font-weight: 300;
+  }
+  @media screen and (max-width: 768px) {
+    width: 100%;
   }
 `;
 const MentorRegistration1 = () => {
@@ -164,10 +204,14 @@ const MentorRegistration1 = () => {
     watch,
     trigger,
   } = useForm();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showIcon, setShowIcon] = useState(false);
   const [showIcons, setShowIcons] = useState(false);
   const [phoneNumberError, setPhoneNumberError] = useState("");
   const [validPhoneNumber, setValidPhoneNumber] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   const [countryCode, setCountryCode] = useState("");
   const verifyMobileNumber = (event) => {
     if (!countryCode) {
@@ -186,7 +230,11 @@ const MentorRegistration1 = () => {
     const parsePhoneNumber = phoneUtil.parseAndKeepRawInput(number);
     // Check if the number is valid
     if (phoneUtil.isValidNumber(parsePhoneNumber) === true) {
-      return setPhoneNumberError(" "), setValidPhoneNumber(true);
+      return (
+        setPhoneNumberError(" "),
+        setValidPhoneNumber(true),
+        setPhoneNumber(number)
+      );
     } else {
       // Not a valid number
       return (
@@ -196,9 +244,47 @@ const MentorRegistration1 = () => {
     }
   };
   const password = watch("password");
+  const registerSubmitHandler = async (data) => {
+    if (!validPhoneNumber) {
+      return setPhoneNumberError("Mobile number must be valid");
+    }
+
+    try {
+      dispatch(showLoadingHandler());
+      const res = await axios.post(
+        "https://practiwiz-backend.azurewebsites.net/api/mentor/register/basic-details",
+        {
+          data,
+          phoneNumber,
+        }
+      );
+      dispatch(hideLoadingHandler());
+      if (res.data.required) {
+        toast.error(res.data.required, { position: "top-center" });
+      }
+      if (res.data.exists) {
+        toast.error(res.data.exists, { position: "top-center" });
+      }
+      if (res.data.error) {
+        toast.error(res.data.error, { position: "top-center" });
+      }
+      if (res.data.success) {
+        toast.success(res.data.success, { position: "top-center" });
+        reset();
+        navigate("/mentor/registration-success");
+      }
+    } catch (error) {
+      return dispatch(hideLoadingHandler());
+    }
+  };
   return (
     <MentorSection>
       <MentorWrapper>
+        <MentorNavBar>
+          <Link to="/">
+            <img src={logo} alt="" />
+          </Link>
+        </MentorNavBar>
         <MentorDivFlex>
           <MentorLeftDiv>
             <MentorChildrenFlex>
@@ -208,15 +294,18 @@ const MentorRegistration1 = () => {
                 </div>
                 <div>
                   <p>
-                    Are you an industry expert or Are you good at Mentoring the
-                    people to achieve there goals.Then join now as mentor in the
-                    practiwiz.com and win exciting prizes
+                    If you're interested in becoming a mentor, you have the
+                    opportunity to make a significant impact on someone's
+                    personal and professional development. As a mentor, you'll
+                    have the opportunity to share your knowledge and experiences
+                    with a mentee, and guide them as they navigate their own
+                    career path.
                   </p>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Architecto amet veritatis, eum alias error perferendis nemo
-                    iste necessitatibus reiciendis sit soluta, fuga consequatur
-                    exercitationem facilis temporibus quia quisquam beatae in.
+                    Being a mentor can be a rewarding experience, as you'll be
+                    able to see firsthand the progress and growth of the
+                    individual you're mentoring. It's also a great opportunity
+                    to give back to your community and industry.
                   </p>
                 </div>
               </MentorLeftChildren>
@@ -228,155 +317,167 @@ const MentorRegistration1 = () => {
                 <div>
                   <MentorTitle>Sign Up Right Now !</MentorTitle>
                 </div>
-                <Field>
-                  <Input
-                    required
-                    type="email"
-                    placeholder="Enter your email"
-                    {...register("email", {
-                      required: "Email must be Required for registration",
-                      pattern: {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                        message: "Invalid email address",
-                      },
-                    })}
-                    onKeyUp={() => {
-                      trigger("email");
-                    }}
-                  />
-                  {errors.email && (
-                    <ErrorMessage>{errors.email.message}</ErrorMessage>
-                  )}
-                </Field>
-                <Field>
-                  <Input
-                    required
-                    type="text"
-                    placeholder="Enter your First Name"
-                    {...register("firstName", {
-                      required: "firstname is Required",
-                      minLength: {
-                        value: 4,
-                        message: "Must be 4 characters at least",
-                      },
-                    })}
-                    onKeyUp={() => {
-                      trigger("firstName");
-                    }}
-                  />
-                  {errors.firstName && (
-                    <ErrorMessage>{errors.firstName.message}</ErrorMessage>
-                  )}
-                </Field>
-                <Field>
-                  <Input
-                    required
-                    type="text"
-                    placeholder="Enter your Last Name"
-                    //onChange={(e) => setLastName(e.target.value)}
-                    {...register("lastName", {
-                      required: "last name is Required",
-                      minLength: {
-                        value: 4,
-                        message: "Must be 4 characters at least",
-                      },
-                    })}
-                    onKeyUp={() => {
-                      trigger("lastName");
-                    }}
-                  />
-                  {errors.lastName && (
-                    <ErrorMessage>{errors.lastName.message}</ErrorMessage>
-                  )}
-                </Field>
-                <PwdField>
-                  <Input
-                    required
-                    type={showIcon ? "text" : "password"}
-                    placeholder="Enter your password"
-                    {...register("password", {
-                      required: "Password is Required",
-                      pattern: {
-                        value:
-                          /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
-                        message:
-                          "A minimum 8 - 16 characters password contains a combination of upper, lowercase letter and number are required special characters like @ _ $ ! % * ? &",
-                      },
-                      maxLength: {
-                        value: 16,
-                        message: "Must be less than 16 characters.",
-                      },
-                    })}
-                    onKeyUp={() => {
-                      trigger("password");
-                    }}
-                  />
-                  {errors.password && (
-                    <ErrorMessage>{errors.password.message}</ErrorMessage>
-                  )}
-                  <PwdIcons onClick={(e) => setShowIcon(!showIcon)}>
-                    {showIcon ? <ShowIcon /> : <HideIcon />}
-                  </PwdIcons>
-                </PwdField>
-                <PwdField>
-                  <Input
-                    required
-                    type={showIcon ? "text" : "password"}
-                    placeholder="Confirm Your Password"
-                    //onChange={(e) => setConfirmPassword(e.target.value)}
-                    {...register("confirmPassword", {
-                      required: "Enter confirm password",
-                      validate: (value) =>
-                        value === password || "Password must be matched",
-                    })}
-                    onKeyUp={() => {
-                      trigger("confirmPassword");
-                    }}
-                  />
-                  {errors.confirmPassword && (
-                    <ErrorMessage>
-                      {errors.confirmPassword.message}
-                    </ErrorMessage>
-                  )}
-                  <PwdIcons onClick={() => setShowIcons(!showIcons)}>
-                    {showIcons ? <ShowIcon /> : <HideIcon />}
-                  </PwdIcons>
-                </PwdField>
-                <Field>
-                  <FormSelect
-                    required
-                    name=""
-                    id=""
-                    onChange={(event) => {
-                      return (
-                        setCountryCode(event.target.value),
-                        setPhoneNumberError("")
-                      );
-                    }}
-                  >
-                    <>
-                      <FormOption value="">Choose the country code</FormOption>
-                      {countriesWithCodes.map((country, index) => (
-                        <FormOption value={country.mobileCode}>
-                          {country.name + " "}(
-                          {country.code + " " + country.mobileCode})
+                <form action="" onSubmit={handleSubmit(registerSubmitHandler)}>
+                  <Field>
+                    <Input
+                      placeholder="Enter your email"
+                      required
+                      type="text"
+                      {...register("email", {
+                        required: "Enter an email to register",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: "Invalid email address",
+                        },
+                      })}
+                      onKeyUp={() => {
+                        trigger("email");
+                      }}
+                    />
+                    {errors.email && (
+                      <ErrorMessage>{errors.email.message}</ErrorMessage>
+                    )}
+                  </Field>
+                  <Field>
+                    <Input
+                      placeholder="Enter your firstname"
+                      required
+                      type="text"
+                      {...register("firstName", {
+                        required: "firstname is Required",
+                        minLength: {
+                          value: 1,
+                          message: "Must be  character at least",
+                        },
+                        pattern: {
+                          value: /\S+(?:\s+\S+)*/g,
+                          message: "Remove the space from the field",
+                        },
+                      })}
+                      onKeyUp={() => {
+                        trigger("firstName");
+                      }}
+                    />
+                    {errors.firstName && (
+                      <ErrorMessage>{errors.firstName.message}</ErrorMessage>
+                    )}
+                  </Field>
+                  <Field>
+                    <Input
+                      placeholder="Enter your lastname"
+                      required
+                      type="text"
+                      //onChange={(e) => setLastName(e.target.value)}
+                      {...register("lastName", {
+                        required: "last name is Required",
+                        minLength: {
+                          value: 1,
+                          message: "Must be 1 character at least",
+                        },
+                        pattern: {
+                          value: /\S+(?:\s+\S+)*/g,
+                          message: "Remove the space from the field",
+                        },
+                      })}
+                      onKeyUp={() => {
+                        trigger("lastName");
+                      }}
+                    />
+                    {errors.lastName && (
+                      <ErrorMessage>{errors.lastName.message}</ErrorMessage>
+                    )}
+                  </Field>
+                  <PwdField>
+                    <Input
+                      placeholder="Enter your password"
+                      required
+                      type={showIcon ? "text" : "password"}
+                      {...register("password", {
+                        required: "Password is Required",
+                        pattern: {
+                          value:
+                            /^(?!.* )(?=.*[a-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&.]{8,16}$/,
+                          message:
+                            "A min 8 - 16 characters contains a combination of upper, lowercase letter, number and special characters like @ $ ! % * ? & _ . without space",
+                        },
+                        maxLength: {
+                          value: 16,
+                          message: "Must be less than 16 characters.",
+                        },
+                      })}
+                      onKeyUp={() => {
+                        trigger("password");
+                      }}
+                    />
+                    {errors.password && (
+                      <ErrorMessage>{errors.password.message}</ErrorMessage>
+                    )}
+                    <PwdIcons onClick={(e) => setShowIcon(!showIcon)}>
+                      {showIcon ? <ShowIcon /> : <HideIcon />}
+                    </PwdIcons>
+                  </PwdField>
+                  <PwdField>
+                    <Input
+                      placeholder="Enter your confirm password"
+                      required
+                      type={showIcons ? "text" : "password"}
+                      //onChange={(e) => setConfirmPassword(e.target.value)}
+                      {...register("confirmPassword", {
+                        required: "Enter confirm password",
+                        validate: (value) =>
+                          value === password || "Password must be matched",
+                      })}
+                      onKeyUp={() => {
+                        trigger("confirmPassword");
+                      }}
+                    />
+                    {errors.confirmPassword && (
+                      <ErrorMessage>
+                        {errors.confirmPassword.message}
+                      </ErrorMessage>
+                    )}
+                    <PwdIcons onClick={() => setShowIcons(!showIcons)}>
+                      {showIcons ? <ShowIcon /> : <HideIcon />}
+                    </PwdIcons>
+                  </PwdField>
+                  <Field>
+                    <FormSelect
+                      required
+                      name=""
+                      id=""
+                      onChange={(event) => {
+                        return (
+                          setCountryCode(event.target.value),
+                          setPhoneNumberError("")
+                        );
+                      }}
+                    >
+                      <>
+                        <FormOption value="">
+                          Choose the country code
                         </FormOption>
-                      ))}
-                    </>
-                  </FormSelect>
-                </Field>
-                <Field>
-                  <Input
-                    required
-                    type="number"
-                    placeholder="Enter your mobile number"
-                    onChange={verifyMobileNumber}
-                  />
-                  {phoneNumberError && (
-                    <ErrorMessage>{phoneNumberError}</ErrorMessage>
-                  )}
-                </Field>
-                <SignUpButton>Register now!</SignUpButton>
+                        {countriesWithCodes.map((country, index) => (
+                          <FormOption value={country.mobileCode}>
+                            {country.name + " "}(
+                            {country.code + " " + country.mobileCode})
+                          </FormOption>
+                        ))}
+                      </>
+                    </FormSelect>
+                  </Field>
+                  <Field>
+                    <Input
+                      required
+                      type="number"
+                      placeholder="Enter your mobile number"
+                      onChange={verifyMobileNumber}
+                    />
+                    {phoneNumberError && (
+                      <ErrorMessage>{phoneNumberError}</ErrorMessage>
+                    )}
+                  </Field>
+                  <SignUpButton type="submit">Register now!</SignUpButton>
+                </form>
                 <p>
                   have an account
                   <span>

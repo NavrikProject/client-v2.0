@@ -29,10 +29,22 @@ const Navbar = () => {
   return (
     <>
       <header className="fixed">
-        <div className="top-bar">
+        <div
+          className="top-bar"
+          onMouseEnter={() => {
+            return (
+              setShowItTrainingMenu(false),
+              setShowBtTrainingMenu(false),
+              setShowContactMenu(false),
+              setAboutMenu(false),
+              setShowProfileMenu(false),
+              setAddBackGroundBackdrop("none")
+            );
+          }}
+        >
           <div className="center">
             <div className="top-left">
-              <a href="link">+91 9830259960</a>
+              <a>+91 9830259960</a>
               <a>|</a>
               <a href="mailto:wecare@practiwiz.com">wecare@practiwiz.com</a>
             </div>
@@ -51,6 +63,9 @@ const Navbar = () => {
               <a>|</a> */}
               {!user ? (
                 <>
+                  {" "}
+                  <a href="/mentor/apply-for-mentor">Join as Mentor</a>
+                  <a>|</a>
                   <a href="/login">
                     <img src={LoginIcon} alt="link" /> Login
                   </a>
@@ -554,6 +569,40 @@ const Navbar = () => {
                         )}
                       </div>
                     </li>
+                  )}
+                  {showMenuBarItems && !user && (
+                    <>
+                      <li
+                        onMouseEnter={() => {
+                          return (
+                            setShowItTrainingMenu(false),
+                            setShowBtTrainingMenu(false),
+                            setShowContactMenu(false),
+                            setAboutMenu(false),
+                            setShowProfileMenu(false),
+                            setAddBackGroundBackdrop("none")
+                          );
+                        }}
+                        className="hasMegamenu"
+                      >
+                        <a href="/Login">Login</a>
+                      </li>
+                      <li
+                        onMouseEnter={() => {
+                          return (
+                            setShowItTrainingMenu(false),
+                            setShowBtTrainingMenu(false),
+                            setShowContactMenu(false),
+                            setAboutMenu(false),
+                            setShowProfileMenu(false),
+                            setAddBackGroundBackdrop("none")
+                          );
+                        }}
+                        className="hasMegamenu"
+                      >
+                        <a href="/register">Register</a>
+                      </li>
+                    </>
                   )}
                 </ul>
               </nav>

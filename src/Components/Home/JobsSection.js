@@ -43,7 +43,7 @@ const JobsSection = () => {
           data-aos="fade-up"
         >
           <Carousel breakPoints={breakPoints}>
-            {allJobs?.slice(0, 8).map((job) => (
+            {allJobs?.slice(0, 8)?.map((job) => (
               <div key={job.job_post_dtls_id}>
                 <li className="ps_item auto">
                   <div>

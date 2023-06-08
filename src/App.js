@@ -57,6 +57,10 @@ import QueryPage from "./Pages/QueryPage";
 import RpaIndCoursePage from "./Pages/CoursePages/RpaIndCoursePage";
 import BAIndCoursePage from "./Pages/CoursePages/BAIndCoursePage";
 import JobseekerProfilePages from "./Pages/JobSeekerPages/JobseekerProfilePages";
+import MentorSuccessPage from "./Pages/MentorClubPages/MentorSuccesPage";
+import MentorAddDetailsPage from "./Pages/MentorClubPages/MentorAddDetailsPage";
+import AddressMapPage from "./Pages/AddressMapPage";
+import MentorLandingPage from "./Pages/MentorClubPages/MentorLandingPage";
 // ..
 AOS.init();
 const App = () => {
@@ -84,6 +88,10 @@ const App = () => {
             <Route path="/methodology" element={<MethodologyPage />} />
             <Route path="/refund-policies" element={<RefundPoliciesPage />} />
             <Route path="/course/:id" element={<IndCoursePage />} />
+            <Route
+              path="/mentor-club/become-a-success"
+              element={<MentorLandingPage />}
+            />
             <Route
               path="/course/jumpstart-to-rpa-live-bot-development"
               element={<RpaIndCoursePage />}
@@ -129,6 +137,7 @@ const App = () => {
             <Route path="/jobs" element={<JobHomePage />} />
             <Route path="/all-jobs" element={<AllJobsPage />} />
             <Route path="/query" element={<QueryPage />} />
+            <Route path="/address-location" element={<AddressMapPage />} />
             <Route path="/courses" element={<AllCoursePage />} />
             <Route
               path="/courses/individual-course/:id"
@@ -198,6 +207,22 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <TraineeCourseProgressPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/mentor/registration-success"
+              element={
+                <PublicRoute>
+                  <MentorSuccessPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path={`/mentor/additional-details`}
+              element={
+                <ProtectedRoute>
+                  <MentorAddDetailsPage />
                 </ProtectedRoute>
               }
             />

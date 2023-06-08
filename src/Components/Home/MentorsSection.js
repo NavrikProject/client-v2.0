@@ -53,7 +53,7 @@ const MentorsSection = () => {
           data-aos="fade-up"
         >
           <Carousel breakPoints={breakPoints}>
-            {mentorDetails?.slice(0, 6).map((mentorDetail) => (
+            {mentorDetails?.slice(0, 6)?.map((mentorDetail) => (
               <div key={mentorDetail.mentor_dtls_id}>
                 <li className="ps_item auto">
                   <aside>

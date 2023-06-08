@@ -9,14 +9,17 @@ export const MentorRegisterSection = styled.section`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; */
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     90deg,
     rgba(255, 244, 228, 1) 7.1%,
     rgba(240, 246, 238, 1) 67.4%
-  );
+  ); */
+  @media screen and (max-width: 768px) {
+    height: auto;
+  }
 `;
 export const MentorRegisterDiv = styled.div`
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
 `;
 
@@ -26,6 +29,9 @@ export const MentorRegisterFlex = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
 `;
 export const MentorRegisterLeftDiv = styled.div`
   width: 100%;
@@ -33,21 +39,48 @@ export const MentorRegisterLeftDiv = styled.div`
 `;
 export const ErrorMessage = styled.p`
   color: red;
-  margin: 10px 0 0 10px;
+  margin: 3px 0 0 10px;
 `;
 export const FormDiv = styled.div`
   padding-top: 40px;
 `;
 export const FormHeading = styled.h1`
-  text-align: start;
-  padding-bottom: 10px;
-  text-transform: capitalize;
-  font-size: 35px;
+  font-size: 24px;
   color: #111;
-  opacity: 0.8;
+  position: relative;
+  font-weight: 600;
+  margin-bottom: 20px;
+  &::after {
+    background-color: #ee6c29;
+    content: "";
+    display: inline-block;
+    height: 2px;
+    position: absolute;
+    vertical-align: middle;
+    width: 50%;
+    /* top: 0; */
+    bottom: -5px;
+    left: 0;
+    margin-top: 7px;
+  }
 `;
 export const FormDivFlex = styled.div``;
 export const Form = styled.form``;
+export const ShowFillingDiv = styled.div`
+  height: 16px;
+  width: 80%;
+  background-color: #f2f2f2;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+`;
+export const ShowFillDiv = styled.div`
+  background-color: #2196f3 !important;
+  height: 16px;
+  border-radius: 10px;
+`;
 export const MentorRegisterRightDiv = styled.div`
   width: 100%;
   height: 100%;
@@ -56,11 +89,19 @@ export const MentorRegisterRightDiv = styled.div`
     width: 100%;
     height: 100%;
   }
+  @media screen and (max-width: 768px) {
+    img {
+      margin: 0;
+    }
+  }
 `;
 
 export const Field = styled.div`
   width: 80%;
   margin-bottom: 15px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 export const Input = styled.input`
   outline: none;

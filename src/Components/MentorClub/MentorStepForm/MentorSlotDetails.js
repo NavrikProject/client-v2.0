@@ -155,7 +155,6 @@ const MentorSlotDetails = ({
         <TimePicker
           onFocus={() => setErrorData({ ...errorData, startTime: "" })}
           showSecond={showSecond}
-          className="xxx"
           onChange={onChangeValue}
           disabledMinutes={disabledMinutes}
           disabledSeconds={disabledSeconds}

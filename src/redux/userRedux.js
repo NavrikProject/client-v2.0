@@ -23,7 +23,7 @@ const userSlice = createSlice({
       state.isAuthenticated = true;
       localStorage.setItem("user", JSON.stringify(action.payload));
       state.error = null;
-      toast.success("You are successfully logging in you", {
+      toast.success("You have successfully logged in.....", {
         position: "top-center",
       });
     },
@@ -42,7 +42,7 @@ const userSlice = createSlice({
       state.error = null;
       state.isAuthenticated = false;
       localStorage.removeItem("user");
-      toast.warning("You are successfully logged out", {
+      toast.warning("You have successfully logged out from your account...", {
         position: "top-center",
       });
     },

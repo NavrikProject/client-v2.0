@@ -36,7 +36,7 @@ const CourseSection = () => {
         <h2>Browse Our Online Courses</h2>
         <ul className="social_slide">
           <Carousel breakPoints={breakPoints}>
-            {allCourses?.splice(0, 8).map((course) => (
+            {allCourses?.splice(0, 8)?.map((course) => (
               <div key={course.course_id}>
                 <li className="social_item zoom" key={course.course_id}>
                   <a

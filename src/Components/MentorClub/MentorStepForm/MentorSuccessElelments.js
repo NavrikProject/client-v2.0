@@ -1,7 +1,11 @@
 import styled from "styled-components";
 export const MentorSuccessSection = styled.section`
-  width: 100%;
-  height: 100vh;
+  height: 80vh;
+  display: flex;
+  font-size: 14px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 `;
 export const MentorSuccessDiv = styled.div`
   width: 80%;

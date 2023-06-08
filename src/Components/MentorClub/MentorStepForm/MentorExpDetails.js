@@ -7,6 +7,7 @@ import {
   FormSelect,
   Input,
 } from "./MentorRegisterStepELements";
+
 const MentorExpDetails = ({
   formData,
   setFormData,
@@ -14,6 +15,7 @@ const MentorExpDetails = ({
   setErrorData,
 }) => {
   const [skills, setSkills] = useState([]);
+
   const [showOthersInput, setShowOthersInput] = useState(false);
   useEffect(() => {
     const getSkillsData = async () => {
@@ -23,7 +25,7 @@ const MentorExpDetails = ({
       setSkills(res.data);
     };
     getSkillsData();
-  }, [formData.specialty]);
+  }, [formData?.specialty]);
 
   const formSkillHandler = (event) => {
     if (event.target.value === "Others") {
@@ -38,8 +40,8 @@ const MentorExpDetails = ({
     <>
       <Field>
         <FormSelect
-          onFocus={() => setErrorData({ ...errorData, experience: "" })}
           required
+          onFocus={() => setErrorData({ ...errorData, experience: "" })}
           value={formData.experience}
           name="experience"
           onChange={(event) =>
@@ -92,6 +94,7 @@ const MentorExpDetails = ({
         </FormSelect>
         <ErrorMessage>{errorData.skills}</ErrorMessage>
       </Field>
+
       {showOthersInput && (
         <Field>
           <Input

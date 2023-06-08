@@ -1,0 +1,68 @@
+#contentDiv {
+  margin: 0 auto;
+  display: flex;
+}
+.testimonialDiv {
+  width: 33% !important;
+  margin: 0 auto;
+}
+.testimonialDiv blockquote {
+  margin: 10px 10px 0;
+  background: #efefef;
+  padding: 20px 60px;
+  position: relative;
+  border: none;
+  border-radius: 8px;
+  font-style: italic;
+}
+
+.testimonialDiv blockquote:before,
+.testimonialDiv blockquote:after {
+  content: "\201C";
+  position: absolute;
+  font-size: 80px;
+  line-height: 1;
+  color: #757f9a;
+  font-style: normal;
+}
+
+.testimonialDiv blockquote:before {
+  top: 0;
+  left: 10px;
+}
+
+.testimonialDiv blockquote:after {
+  content: "\201D";
+  right: 10px;
+  bottom: -0.5em;
+}
+
+.testimonialDiv div {
+  width: 0;
+  height: 0;
+  border-left: 0 solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid #efefef;
+  margin: 0 0 0 60px;
+}
+
+.testimonialDiv p {
+  margin: 8px 0 0 20px;
+  text-align: left;
+  color: #fff;
+}
+.fa-chevron-right {
+  font-size: 16px;
+  margin-right: 5px;
+  color: #ffb727;
+  line-height: 0;
+}
+.border {
+  box-shadow: 0px 0px 8px 0px rgb(0 0 0 / 30%);
+}
+.fa-quote-left {
+  margin-right: 5px;
+}
+.fa-quote-right {
+  margin-left: 10px;
+}

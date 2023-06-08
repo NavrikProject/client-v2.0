@@ -14,12 +14,13 @@ import {
   PrevButton,
   JoinButton,
   NextButton,
+  ShowFillingDiv,
+  ShowFillDiv,
 } from "./MentorRegisterStepELements";
 import MentorSlotDetails from "./MentorSlotDetails";
-import MentorPersonalInfo from "./MentorPersonalInfo";
 import MentorExpDetails from "./MentorExpDetails";
 import MentorAddDetails from "./MentorAddDetails";
-import signupImg from "../../../images/default-removebg-preview.png";
+import signupImg from "../../../images/oldImages/default-removebg-preview.png";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import GoToTop from "../../GoToTop";
@@ -27,14 +28,12 @@ import { toast } from "react-toastify";
 import Loading from "../../utils/LoadingSpinner";
 const MentorRegisterStepForm = () => {
   const user = useSelector((state) => state.user.currentUser);
+  const firstName = user?.firstname;
+  const lastName = user?.lastname;
   const [page, setPage] = useState(0);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [buttonEnable, setButtonEnable] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
     bio: "",
     experience: "",
     skills: "",
@@ -48,6 +47,8 @@ const MentorRegisterStepForm = () => {
     startTime: "",
     website: "",
     linkedInProfile: "",
+    countryCode: "",
+    validPhoneNumber: false,
   });
   const [image, setImage] = useState();
   const [endTime, setEndTime] = useState("");
@@ -72,10 +73,11 @@ const MentorRegisterStepForm = () => {
     website: "",
     linkedInProfile: "",
     image: "",
+    countryCode: " ",
   });
+
   const [phoneNumber, setPhoneNumber] = useState("");
   const FormTitles = [
-    "Personal Info",
     "Experience Details",
     "Availability Details",
     "Additional Information",
@@ -84,15 +86,6 @@ const MentorRegisterStepForm = () => {
   const PageDisplay = () => {
     if (page === 0) {
       return (
-        <MentorPersonalInfo
-          errorData={errorData}
-          formData={formData}
-          setFormData={setFormData}
-          setErrorData={setErrorData}
-        />
-      );
-    } else if (page === 1) {
-      return (
         <MentorExpDetails
           errorData={errorData}
           formData={formData}
@@ -100,7 +93,7 @@ const MentorRegisterStepForm = () => {
           setErrorData={setErrorData}
         />
       );
-    } else if (page === 2) {
+    } else if (page === 1) {
       return (
         <MentorSlotDetails
           errorData={errorData}
@@ -125,20 +118,34 @@ const MentorRegisterStepForm = () => {
       );
     }
   };
-  const profileSubmitHandler = async (event) => {
+  const mentorAdditionalHandler = async (event) => {
     event.preventDefault();
-    if (!formData.website && !formData.linkedInProfile && !image && !endTime) {
-      return setError("Please fill all details");
-    }
     if (
-      !phoneNumber ||
-      phoneNumber === "" ||
-      phoneNumber === null ||
-      phoneNumber === undefined
+      !formData.website &&
+      !formData.linkedInProfile &&
+      !image &&
+      !endTime &&
+      !formData.bio
     ) {
+      return toast.error("Please fill all the required details", {
+        position: "top-center",
+      });
+    }
+    if (bioLength(formData.bio) === true) {
       return setErrorData({
         ...errorData,
-        phoneNumber: "please enter your  mobile number",
+        bio: "please enter your at lease 50 characters long",
+      });
+    }
+    if (!formData.countryCode) {
+      return setErrorData({
+        ...errorData,
+        countryCode: "Please select the country code",
+      });
+    }
+    if (!formData.validPhoneNumber) {
+      return toast.error("Mobile number must be valid", {
+        position: "top-center",
       });
     }
     if (!formData.website) {
@@ -153,14 +160,15 @@ const MentorRegisterStepForm = () => {
         linkedInProfile: "please paste your linked in profile",
       });
     }
+
     if (!image) {
-      return setError("Please choose the profile picture");
+      return toast.error("Please select the picture", {
+        position: "top-center",
+      });
     }
     let data = new FormData();
     data.append("image", image);
     data.append("email", user?.email);
-    data.append("firstname", formData.firstName);
-    data.append("lastname", formData.lastName);
     data.append("bio", formData.bio);
     data.append("experience", formData.experience);
     data.append("skills", formData.skills);
@@ -176,16 +184,19 @@ const MentorRegisterStepForm = () => {
     data.append("website", formData.website);
     data.append("linkedInProfile", formData.linkedInProfile);
     data.append("phoneNumber", phoneNumber);
+    data.append("firstname", firstName);
+    data.append("lastname", lastName);
     try {
       setLoading(true);
-      setError("");
       const res = await axios.post(
-        `https://practiwiz-backend.azurewebsites.net/api/mentor/register/additional-details`,
+        `https://practiwiz-backend.azurewebsites.net/api/mentor/register/fill/additional-details`,
         data
       );
       if (res.data.success) {
-        setSuccess(res.data.success);
-        toast.success(res.data.success, { position: "top-center" });
+        toast.success(
+          "Successfully submitted the mentor application, We will get back back to once we review your application......",
+          { position: "top-center" }
+        );
         setLoading(false);
         setErrorData({
           email: " ",
@@ -210,7 +221,6 @@ const MentorRegisterStepForm = () => {
         });
       }
       if (res.data.error) {
-        setError(res.data.error);
         toast.error(res.data.error, { position: "top-center" });
         setLoading(false);
       }
@@ -229,38 +239,6 @@ const MentorRegisterStepForm = () => {
   const setPageCount = (event) => {
     event.preventDefault();
     if (page === 0) {
-      if (!formData.firstName && !formData.lastName && !formData.bio) {
-        return setError("Please fill all the required details");
-      } else {
-        if (!formData.firstName) {
-          return setErrorData({
-            ...errorData,
-            firstName: "please enter your first name",
-          });
-        }
-        if (!formData.lastName) {
-          return setErrorData({
-            ...errorData,
-            lastName: "please enter your last name",
-          });
-        }
-        if (!formData.bio) {
-          return setErrorData({
-            ...errorData,
-            bio: "please enter your bio",
-          });
-        }
-        if (bioLength(formData.bio) === true) {
-          return setErrorData({
-            ...errorData,
-            bio: "please enter your at lease 50 characters long",
-          });
-        } else {
-          setPage((currPage) => currPage + 1);
-          setError("");
-        }
-      }
-    } else if (page === 1) {
       if (
         !formData.experience &&
         !formData.skills &&
@@ -269,18 +247,14 @@ const MentorRegisterStepForm = () => {
         !formData.firm &&
         !formData.specialty
       ) {
-        return setError("Please fill all the required details");
+        return toast.error("Please fill all the required details", {
+          position: "top-center",
+        });
       }
       if (!formData.experience || formData.experience === "") {
         return setErrorData({
           ...errorData,
           experience: "please select your skills",
-        });
-      }
-      if (!formData.skills || formData.skills === "") {
-        return setErrorData({
-          ...errorData,
-          skills: "please select your skills",
         });
       }
       if (!formData.specialty || formData.specialty === "") {
@@ -289,6 +263,13 @@ const MentorRegisterStepForm = () => {
           specialty: "please select your specialty",
         });
       }
+      if (!formData.skills || formData.skills === "") {
+        return setErrorData({
+          ...errorData,
+          skills: "please select your skills",
+        });
+      }
+
       if (!formData.firm) {
         return setErrorData({
           ...errorData,
@@ -308,11 +289,12 @@ const MentorRegisterStepForm = () => {
         });
       } else {
         setPage((currPage) => currPage + 1);
-        setError("");
       }
-    } else if (page === 2) {
+    } else if (page === 1) {
       if (!formData.mentorshipArea && !formData.mentorAvailability) {
-        return setError("Please fill all details");
+        return toast.error("Please fill all the required details", {
+          position: "top-center",
+        });
       }
       if (!formData.mentorshipArea || formData.mentorshipArea === "") {
         return setErrorData({
@@ -332,8 +314,19 @@ const MentorRegisterStepForm = () => {
           startTime: "please select the slot time",
         });
       } else {
-        setPage((currPage) => currPage + 1);
-        setError("");
+        if (
+          formData.startTime.toString().split(":")[1] === "00" ||
+          formData.startTime.toString().split(":")[1] === "15" ||
+          formData.startTime.toString().split(":")[1] === "30" ||
+          formData.startTime.toString().split(":")[1] === "45"
+        ) {
+          setPage((currPage) => currPage + 1);
+        } else {
+          return setErrorData({
+            ...errorData,
+            startTime: "please select the proper timing,",
+          });
+        }
       }
     } else {
       setButtonEnable(true);
@@ -341,82 +334,73 @@ const MentorRegisterStepForm = () => {
   };
 
   return (
-    <MentorRegisterSection>
+    <div>
       {loading ? (
         <Loading />
       ) : (
-        <MentorRegisterDiv>
-          <MentorRegisterDiv1>
-            <MentorRegisterFlex>
-              <MentorRegisterLeftDiv>
-                <FormDiv>
-                  <FormDivFlex>
-                    <Form action="">
-                      {error && (
-                        <p
-                          style={{
-                            color: "red",
-                            textAlign: "center",
-                            fontSize: "20px",
-                          }}
-                        >
-                          {error}
-                        </p>
-                      )}
-                      {success && (
-                        <p
-                          style={{
-                            color: "green",
-                            textAlign: "center",
-                            fontSize: "20px",
-                          }}
-                        >
-                          {success}
-                        </p>
-                      )}
-                      <FormHeading>{FormTitles[page]}</FormHeading>
-                      {PageDisplay()}
-                      <ButtonDiv>
-                        {page === 0 ? (
-                          ""
-                        ) : (
-                          <PrevButton
-                            type="button"
-                            disabled={page === 0}
-                            onClick={() => {
-                              setPage((currPage) => currPage - 1);
+        <MentorRegisterSection>
+          <MentorRegisterDiv>
+            <MentorRegisterDiv1>
+              <MentorRegisterFlex>
+                <MentorRegisterLeftDiv>
+                  <FormDiv>
+                    <FormDivFlex>
+                      <Form action="">
+                        <ShowFillingDiv>
+                          <ShowFillDiv
+                            style={{
+                              width:
+                                page === 0 ? "0%" : page === 1 ? "33%" : "66%",
                             }}
-                          >
-                            Prev
-                          </PrevButton>
-                        )}
+                          />
+                        </ShowFillingDiv>
+                        <div>
+                          <FormHeading>{FormTitles[page]}</FormHeading>
+                        </div>
 
-                        {page === FormTitles.length - 1 ? (
-                          <JoinButton
-                            type="submit"
-                            onClick={profileSubmitHandler}
-                          >
-                            Join As a Mentor
-                          </JoinButton>
-                        ) : (
-                          <NextButton type="button" onClick={setPageCount}>
-                            Next
-                          </NextButton>
-                        )}
-                      </ButtonDiv>
-                    </Form>
-                  </FormDivFlex>
-                </FormDiv>
-              </MentorRegisterLeftDiv>
-              <MentorRegisterRightDiv>
-                <img src={signupImg} alt="" />
-              </MentorRegisterRightDiv>
-            </MentorRegisterFlex>
-          </MentorRegisterDiv1>
-        </MentorRegisterDiv>
+                        {PageDisplay()}
+                        <ButtonDiv>
+                          {page === 0 ? (
+                            ""
+                          ) : (
+                            <PrevButton
+                              type="button"
+                              disabled={page === 0}
+                              onClick={() => {
+                                setPage((currPage) => currPage - 1);
+                              }}
+                            >
+                              Prev
+                            </PrevButton>
+                          )}
+
+                          {page === FormTitles.length - 1 ? (
+                            <JoinButton
+                              type="submit"
+                              onClick={mentorAdditionalHandler}
+                            >
+                              Join As a Mentor
+                            </JoinButton>
+                          ) : (
+                            <NextButton type="button" onClick={setPageCount}>
+                              Next
+                            </NextButton>
+                          )}
+                        </ButtonDiv>
+                      </Form>
+                    </FormDivFlex>
+                  </FormDiv>
+                </MentorRegisterLeftDiv>
+                <MentorRegisterRightDiv>
+                  <img src={signupImg} alt="" />
+                </MentorRegisterRightDiv>
+              </MentorRegisterFlex>
+            </MentorRegisterDiv1>
+          </MentorRegisterDiv>
+          <GoToTop />
+        </MentorRegisterSection>
       )}
-      <GoToTop />
-    </MentorRegisterSection>
+    </div>
   );
 };
 
