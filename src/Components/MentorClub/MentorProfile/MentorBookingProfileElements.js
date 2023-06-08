@@ -5,10 +5,57 @@ export const ImgBox = styled.div`
   align-items: center;
   justify-content: space-evenly;
 `;
-export const NotFoundTitle = styled.h1`
-  color: black;
-  opacity: 0.8;
-  font-size: 27px;
+export const ApprovedDiv = styled.div`
+  width: 90%;
+  margin: 0 auto 20px auto;
+  padding: 10px 20px;
+  background-color: #5cb85c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  i {
+    font-size: 45px;
+    margin-right: 20px;
+  }
+  p {
+    font-size: 16px;
+  }
+`;
+export const NotFoundDiv = styled.div`
+  width: 100%;
+  margin: 0 auto 20px auto;
+  padding: 20px 20px;
+  background-color: #ffdddd !important;
+  color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  i {
+    font-size: 45px;
+    margin-right: 20px;
+  }
+  p {
+    font-size: 18px;
+  }
+`;
+
+export const FillDiv = styled.div`
+  margin-top: 20px;
+  width: 100%;
+  background-color: #f2f2f2;
+  height: 25px;
+`;
+export const FillDivProgress = styled.div`
+  background-color: #54b435;
+  height: 25px;
+  width: 20%;
+  text-align: center;
+  line-height: 25px;
+  color: #fff;
+  font-weight: 500;
 `;
 export const MentorRegButton = styled.button`
   padding: 10px 20px;
@@ -26,6 +73,9 @@ export const MentorRegButton = styled.button`
   margin: 0 auto;
   background: -webkit-linear-gradient(left, #3e5ce4, #4282fa);
   margin-top: 20px !important;
+  @media only screen and (max-width: 868px) {
+    font-size: 16px;
+  }
 `;
 export const ImgForm = styled.form``;
 
@@ -34,7 +84,7 @@ export const Img = styled.img`
   height: 200px;
   border-radius: 50%;
   object-fit: cover;
-  border: 5px solid green;
+  border: 5px solid gray;
   @media only screen and (max-width: 868px) {
     width: 130px;
     height: 130px;
@@ -163,9 +213,19 @@ export const Wrapper = styled.div`
   @media screen and (max-width: 780px) {
     padding: 10px;
   }
+
   h1 {
-    margin-left: 10px;
+    @media only screen and (max-width: 868px) {
+      font-size: 24px;
+    }
   }
+`;
+export const Wrapper1 = styled.div`
+  padding: 0 30px;
+  @media screen and (max-width: 780px) {
+    padding: 10px;
+  }
+
   h1 {
     @media only screen and (max-width: 868px) {
       font-size: 24px;

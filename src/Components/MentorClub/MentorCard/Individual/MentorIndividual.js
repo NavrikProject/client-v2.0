@@ -18,6 +18,8 @@ import {
   MentorLanguages,
   MentorLanguagesDiv,
   MentorMsgButton,
+  MentorMsgDiv,
+  MentorMsgShareDiv,
   MentorName,
   MentorProfileAvailDiv,
   MentorProfileDateDiv,
@@ -31,6 +33,7 @@ import {
   MentorRatingTitles,
   MentorRatingWrapper,
   MentorSectionDiv,
+  MentorShareFlexDiv,
   MentorTimeSlotDiv,
   RatingContent,
   RatingContentDiv,
@@ -46,12 +49,24 @@ import DatePicker from "react-datepicker";
 import ConfirmModel from "./ConfirmModel";
 import GoToTop from "../../../GoToTop";
 import { useSelector } from "react-redux";
-
+import {
+  FacebookShareButton,
+  EmailShareButton,
+  LinkedinShareButton,
+  TelegramShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  EmailIcon,
+  WhatsappIcon,
+  LinkedinIcon,
+  TelegramIcon,
+  TwitterIcon,
+} from "react-share";
 // import LoginModel from "../../Forms/LoginModel";
 import Carousel from "react-elastic-carousel";
 import { ModelFixedHeight } from "../../../utils/Model";
 import LoginModel from "../../../Forms/AccountForms/LoginModel";
-
 const MentorIndividual = () => {
   const location = useLocation();
   let path = location.pathname.split("/")[3];
@@ -63,6 +78,7 @@ const MentorIndividual = () => {
   const [sendMentor, setSendMentor] = useState();
   const [mentorFeedback, setMentorFeedback] = useState([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [shareProfile, setShareProfile] = useState(false);
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
@@ -151,6 +167,7 @@ const MentorIndividual = () => {
     }
   };
   const showModalHandler = (mentor) => {
+    console.log(mentor, date);
     if (
       new Date().toLocaleDateString() === new Date(date).toLocaleDateString()
     ) {
@@ -169,6 +186,9 @@ const MentorIndividual = () => {
   const user = useSelector((state) => state.user.currentUser);
   const showLoginModelHandler = () => {
     setShowLoginModal(!showLoginModal);
+  };
+  const shareProfileHandler = () => {
+    setShareProfile(!shareProfile);
   };
   return (
     <MentorIndSection>
@@ -206,12 +226,61 @@ const MentorIndividual = () => {
                   {" " + mentor.mentor_firm}
                 </MentorDesignation> */}
                   <br />
-                  <MentorMsgButton>
-                    Message <i className="fa-solid fa-message"></i>
-                  </MentorMsgButton>
-                  <MentorMsgButton>
-                    Share Profile <i className="fa-solid fa-share-nodes"></i>
-                  </MentorMsgButton>
+                  <MentorMsgDiv>
+                    <MentorMsgButton>
+                      Message <i className="fa-solid fa-message"></i>
+                    </MentorMsgButton>
+                    <MentorMsgButton onClick={shareProfileHandler}>
+                      Share Profile <i className="fa-solid fa-share-nodes"></i>
+                    </MentorMsgButton>
+                    {shareProfile && (
+                      <MentorMsgShareDiv>
+                        <div>
+                          <div>
+                            <MentorShareFlexDiv>
+                              <FacebookShareButton
+                                style={{ marginRight: "10px" }}
+                                url={location.pathname}
+                              >
+                                Share on Facebook
+                              </FacebookShareButton>
+                              <FacebookIcon size={24} round={true} />
+                            </MentorShareFlexDiv>
+                            <MentorShareFlexDiv>
+                              <EmailShareButton url={location.pathname}>
+                                Share on Email
+                              </EmailShareButton>
+                              <EmailIcon size={24} round={true} />
+                            </MentorShareFlexDiv>
+                            <MentorShareFlexDiv>
+                              <WhatsappShareButton url={location.pathname}>
+                                Share on whatsapp
+                              </WhatsappShareButton>
+                              <WhatsappIcon size={24} round={true} />
+                            </MentorShareFlexDiv>
+                            <MentorShareFlexDiv>
+                              <LinkedinShareButton url={location.pathname}>
+                                Share on Linkedin
+                              </LinkedinShareButton>{" "}
+                              <LinkedinIcon size={24} round={true} />
+                            </MentorShareFlexDiv>
+                            <MentorShareFlexDiv>
+                              <TelegramShareButton url={location.pathname}>
+                                Share on Telegram
+                              </TelegramShareButton>
+                              <TelegramIcon size={24} round={true} />
+                            </MentorShareFlexDiv>
+                            <MentorShareFlexDiv>
+                              <TwitterShareButton url={location.pathname}>
+                                Share on Twitter
+                              </TwitterShareButton>
+                              <TwitterIcon size={24} round={true} />
+                            </MentorShareFlexDiv>
+                          </div>
+                        </div>
+                      </MentorMsgShareDiv>
+                    )}
+                  </MentorMsgDiv>
                 </MentorDetailsName>
                 <MentorDetailsImgDiv>
                   <MentorProfileImg

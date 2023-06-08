@@ -138,7 +138,7 @@ input[type="submit"],
 }
 /*  -webkit-transform: scaleX(1); transform: scaleX(1); -webkit-transition-delay:0.5s;  transition-delay:0.5s; */
 /*------------------------------------------------------------------*/
-#talkbubble {
+/* #talkbubble {
   width: 120px;
   height: 80px;
   background: red;
@@ -157,7 +157,7 @@ input[type="submit"],
   border-top: 13px solid transparent;
   border-right: 26px solid red;
   border-bottom: 13px solid transparent;
-}
+} */
 .top_panel {
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 20;

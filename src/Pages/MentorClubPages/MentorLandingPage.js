@@ -4,19 +4,19 @@ import GoToTop from "../../Components/GoToTop";
 import LoadingSpinner from "../../Components/utils/LoadingSpinner";
 const Navbar = React.lazy(() => import("../../Components/Home/Navbar"));
 const Footer = React.lazy(() => import("../../Components/Home/Footer.js"));
-const MentorRegistration = React.lazy(() =>
-  import(
-    "../../Components/MentorClub/MentorRegistration/MentorRegistration1.js"
-  )
+const MentorLanding = React.lazy(() =>
+  import("../../Components/MentorClub/MentorLanding/SrinivasLanding.js")
 );
 
-const MentorRegistrationPage = () => {
+const MentorLandingPage = () => {
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <MentorRegistration />
+      <Navbar />
+      <MentorLanding />
+      <Footer />
       <GoToTop />
     </Suspense>
   );
 };
 
-export default MentorRegistrationPage;
+export default MentorLandingPage;

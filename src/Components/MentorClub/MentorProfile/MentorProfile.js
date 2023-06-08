@@ -8,16 +8,20 @@ import Form4 from "../../Forms/ProfileForm/Form4.js";
 import ImageForm from "../../Forms/ProfileForm/ImageForm.js";
 import GoToTop from "../../GoToTop.js";
 import {
+  ApprovedDiv,
   DetailsFlex,
   DetailsFlex1,
   DetailsFromDb,
   DetailsTitles,
   DetailsWrapper,
   Div,
+  FillDiv,
+  FillDivProgress,
   Img,
   ImgBox,
   LeftDiv,
   MentorRegButton,
+  NotFoundDiv,
   NotFoundTitle,
   QuickMenuTitle,
   RightDiv,
@@ -28,6 +32,7 @@ import {
   TraineeRole,
   TraineeTitle,
   Wrapper,
+  Wrapper1,
 } from "./MentorBookingProfileElements.js";
 import { Link } from "react-router-dom";
 import MentorBankDetails from "./MentorBankAccountDetails";
@@ -130,7 +135,7 @@ const TraineeProfile = () => {
                       My Sessions
                     </Link>
                   </QuickMenuTitle>
-                </SidebarListItem>{" "}
+                </SidebarListItem>
                 <SidebarListItem>
                   <QuickMenuTitle>
                     <Link
@@ -182,7 +187,7 @@ const TraineeProfile = () => {
                 <SidebarListItem onClick={showBankAccountFormHandler}>
                   <QuickMenuTitle>
                     <span>
-                      <i class="fa-solid fa-money-check-dollar"></i>
+                      <i className="fa-solid fa-money-check-dollar"></i>
                     </span>
                     Add Bank account
                   </QuickMenuTitle>
@@ -242,18 +247,25 @@ const TraineeProfile = () => {
             ""
           )}
           <LeftDiv>
-            <Wrapper>
+            <Wrapper1>
               <DetailsWrapper>
                 {mentorDetails?.length === 0 && (
                   <>
-                    <NotFoundTitle>
-                      You have not applied for the mentor.Please fill the mentor
-                      application
-                    </NotFoundTitle>
+                    <NotFoundDiv>
+                      <i className="fa-solid fa-circle-info"></i>
+                      <p>
+                        You have not completed your mentor application. It’s
+                        important that you fill out the application in its
+                        entirety to be considered for a mentor position.
+                      </p>
+                    </NotFoundDiv>
+                    <FillDiv>
+                      <FillDivProgress>20%</FillDivProgress>
+                    </FillDiv>
                     <MentorRegButton>
                       <Link
                         style={{ textDecoration: "none", color: "#fff" }}
-                        to={"/mentor/registration-success"}
+                        to={"/mentor/additional-details"}
                       >
                         Apply now
                       </Link>
@@ -262,6 +274,22 @@ const TraineeProfile = () => {
                 )}
                 {mentorDetails?.map((mentor) => (
                   <div key={mentor.trainee_id}>
+                    {mentor.mentor_approved === "Yes" ? (
+                      " "
+                    ) : (
+                      <ApprovedDiv success>
+                        <i className="fa-solid fa-circle-info"></i>
+                        <p>
+                          Thank you for applying to become a mentor at our
+                          organization. We are taking the time to carefully
+                          review your application and consider your
+                          qualifications and experience.we will look at how
+                          invested you are in helping others reach their goals.
+                          We look forward to learning more about you and what
+                          makes you a great choice for this position!
+                        </p>
+                      </ApprovedDiv>
+                    )}
                     <ImgBox>
                       <div>
                         <TraineeTitle>
@@ -359,7 +387,7 @@ const TraineeProfile = () => {
                   </div>
                 ))}
               </DetailsWrapper>
-            </Wrapper>
+            </Wrapper1>
           </LeftDiv>
         </Div>
         <GoToTop />

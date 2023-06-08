@@ -52,6 +52,30 @@ export const MentorDesignation = styled.h4`
   opacity: 0.6;
   display: inline-block;
 `;
+export const MentorMsgDiv = styled.div`
+  position: relative;
+`;
+export const MentorMsgShareDiv = styled.div`
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 10px 20px;
+  top: -70px;
+  right: -220px;
+  background: #f2f2f2;
+  border-radius: 5px;
+  box-shadow: rgb(142 151 158 / 15%) 0px 4px 19px;
+  @media screen and (max-width: 568px) {
+    right: 0;
+    top: 70px;
+  }
+`;
+export const MentorShareFlexDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+`;
 export const MentorMsgButton = styled.button`
   padding: 10px 20px;
   border: none;
@@ -63,7 +87,7 @@ export const MentorMsgButton = styled.button`
   font-size: 16px;
   transition: all 0.5s ease-in-out;
   &:hover {
-    border: 1px solid #111;
+    background-color: #1c82ad;
   }
 `;
 export const MentorDetailsImgDiv = styled.div`
@@ -232,6 +256,10 @@ export const RatingContentDiv = styled.div`
   padding: 30px 50px;
   margin: 0 20px;
   border-bottom: 2px solid #ee6c29;
+  @media screen and (max-width: 568px) {
+    padding: 16px;
+    margin: 0;
+  }
 `;
 export const RatingContent = styled.div`
   i {
